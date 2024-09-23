@@ -226,13 +226,18 @@ Send a SMS or RCS message to a phone number
 <dd>
 
 ```python
-from pinnacle import Pinnacle, SmsMessage
+from pinnacle import MediaRcsMessage, Pinnacle, SendRequest_Media
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.send(
-    message=SmsMessage(),
+    request=SendRequest_Media(
+        message=MediaRcsMessage(
+            media_type="text",
+            media_url="mediaUrl",
+        ),
+    ),
 )
 
 ```
@@ -249,15 +254,7 @@ client.send(
 <dl>
 <dd>
 
-**message:** `SmsMessage` — The content of the message
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**phone_number:** `typing.Optional[PhoneNumber]` — Phone number to send the SMS message to
+**request:** `SendRequest` 
     
 </dd>
 </dl>

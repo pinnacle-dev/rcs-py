@@ -4,23 +4,20 @@ from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 from .phone_number import PhoneNumber
 import pydantic
-from .basic_rcs_message import BasicRcsMessage
-from .action import Action
+from .sms_message import SmsMessage
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class BasicRcs(UniversalBaseModel):
+class Sms(UniversalBaseModel):
     phone_number: typing.Optional[PhoneNumber] = pydantic.Field(default=None)
     """
     Phone number to send the SMS message to
     """
 
-    message: BasicRcsMessage = pydantic.Field()
+    message: SmsMessage = pydantic.Field()
     """
     The content of the message
     """
-
-    quick_replies: typing.Optional[typing.List[Action]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

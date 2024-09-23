@@ -9,9 +9,14 @@ from .check_rcs_capability_response import CheckRcsCapabilityResponse
 from .event import Event
 from .get_account_number_response import GetAccountNumberResponse
 from .internal_server_error_body import InternalServerErrorBody
+from .media_rcs import MediaRcs
+from .media_rcs_message import MediaRcsMessage
+from .media_rcs_message_media_type import MediaRcsMessageMediaType
 from .phone_number import PhoneNumber
 from .postback import Postback
+from .send_request import SendRequest, SendRequest_BasicRcs, SendRequest_Media, SendRequest_Sms
 from .share_location import ShareLocation
+from .sms import Sms
 from .sms_message import SmsMessage
 from .unauthorized_error_body import UnauthorizedErrorBody
 from .update_settings_response import UpdateSettingsResponse
@@ -34,9 +39,17 @@ __all__ = [
     "Event",
     "GetAccountNumberResponse",
     "InternalServerErrorBody",
+    "MediaRcs",
+    "MediaRcsMessage",
+    "MediaRcsMessageMediaType",
     "PhoneNumber",
     "Postback",
+    "SendRequest",
+    "SendRequest_BasicRcs",
+    "SendRequest_Media",
+    "SendRequest_Sms",
     "ShareLocation",
+    "Sms",
     "SmsMessage",
     "UnauthorizedErrorBody",
     "UpdateSettingsResponse",

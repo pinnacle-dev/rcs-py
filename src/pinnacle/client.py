@@ -18,7 +18,7 @@ from json.decoder import JSONDecodeError
 from .core.api_error import ApiError
 from .types.update_settings_response import UpdateSettingsResponse
 from .types.get_account_number_response import GetAccountNumberResponse
-from .types.sms_message import SmsMessage
+from .types.send_request import SendRequest
 from .core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -314,22 +314,14 @@ class Pinnacle:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def send(
-        self,
-        *,
-        message: SmsMessage,
-        phone_number: typing.Optional[PhoneNumber] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, request: SendRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[typing.Any]:
         """
         Send a SMS or RCS message to a phone number
 
         Parameters
         ----------
-        message : SmsMessage
-            The content of the message
-
-        phone_number : typing.Optional[PhoneNumber]
-            Phone number to send the SMS message to
+        request : SendRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -341,23 +333,24 @@ class Pinnacle:
 
         Examples
         --------
-        from pinnacle import Pinnacle, SmsMessage
+        from pinnacle import MediaRcsMessage, Pinnacle, SendRequest_Media
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.send(
-            message=SmsMessage(),
+            request=SendRequest_Media(
+                message=MediaRcsMessage(
+                    media_type="text",
+                    media_url="mediaUrl",
+                ),
+            ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "send",
             method="POST",
-            json={
-                "phone_number": phone_number,
-                "message": message,
-                "message_type": "sms",
-            },
+            json=request,
             request_options=request_options,
             omit=OMIT,
         )
@@ -719,22 +712,14 @@ class AsyncPinnacle:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def send(
-        self,
-        *,
-        message: SmsMessage,
-        phone_number: typing.Optional[PhoneNumber] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, request: SendRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[typing.Any]:
         """
         Send a SMS or RCS message to a phone number
 
         Parameters
         ----------
-        message : SmsMessage
-            The content of the message
-
-        phone_number : typing.Optional[PhoneNumber]
-            Phone number to send the SMS message to
+        request : SendRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -748,7 +733,7 @@ class AsyncPinnacle:
         --------
         import asyncio
 
-        from pinnacle import AsyncPinnacle, SmsMessage
+        from pinnacle import AsyncPinnacle, MediaRcsMessage, SendRequest_Media
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -757,7 +742,12 @@ class AsyncPinnacle:
 
         async def main() -> None:
             await client.send(
-                message=SmsMessage(),
+                request=SendRequest_Media(
+                    message=MediaRcsMessage(
+                        media_type="text",
+                        media_url="mediaUrl",
+                    ),
+                ),
             )
 
 
@@ -766,11 +756,7 @@ class AsyncPinnacle:
         _response = await self._client_wrapper.httpx_client.request(
             "send",
             method="POST",
-            json={
-                "phone_number": phone_number,
-                "message": message,
-                "message_type": "sms",
-            },
+            json=request,
             request_options=request_options,
             omit=OMIT,
         )
