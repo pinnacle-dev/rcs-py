@@ -29,7 +29,7 @@ Checks if a phone number is able to receive RCS
 from pinnacle import Pinnacle
 
 client = Pinnacle(
-    pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+    api_key="YOUR_API_KEY",
 )
 client.check_rcs_capability(
     phone_number="phone_number",
@@ -49,7 +49,7 @@ client.check_rcs_capability(
 <dl>
 <dd>
 
-**phone_number:** `str` — The phone number to check for RCS capability
+**phone_number:** `PhoneNumber` — Phone number (E.164 format: [+][country code][subscriber number including area code]) to check for RCS capability. Example: +1234567890
     
 </dd>
 </dl>
@@ -69,9 +69,23 @@ client.check_rcs_capability(
 </dl>
 </details>
 
-<details><summary><code>client.<a href="src/pinnacle/client.py">receive_rcs_messages</a>(...)</code></summary>
+<details><summary><code>client.<a href="src/pinnacle/client.py">update_settings</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initializes settings related to RCS messaging, including webhook registration.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -85,9 +99,11 @@ client.check_rcs_capability(
 from pinnacle import Pinnacle
 
 client = Pinnacle(
-    pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+    api_key="YOUR_API_KEY",
 )
-client.receive_rcs_messages()
+client.update_settings(
+    webhook_url="webhook_url",
+)
 
 ```
 </dd>
@@ -103,7 +119,7 @@ client.receive_rcs_messages()
 <dl>
 <dd>
 
-**webhook_url:** `typing.Optional[str]` — Webhook URL to receive RCS messages
+**webhook_url:** `str` — Webhook URL to receive inbound messages
     
 </dd>
 </dl>
@@ -123,9 +139,23 @@ client.receive_rcs_messages()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="src/pinnacle/client.py">send_an_rcs_message</a>(...)</code></summary>
+<details><summary><code>client.<a href="src/pinnacle/client.py">get_account_number</a>()</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the phone number associated with the account.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -136,13 +166,73 @@ client.receive_rcs_messages()
 <dd>
 
 ```python
-from pinnacle import Pinnacle, RcsMessage
+from pinnacle import Pinnacle
 
 client = Pinnacle(
-    pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+    api_key="YOUR_API_KEY",
 )
-client.send_an_rcs_message(
-    request=RcsMessage(),
+client.get_account_number()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="src/pinnacle/client.py">send_message</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a SMS or RCS message to a phone number
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from pinnacle import Pinnacle, SmsMessage
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.send_message(
+    message=SmsMessage(),
 )
 
 ```
@@ -159,7 +249,15 @@ client.send_an_rcs_message(
 <dl>
 <dd>
 
-**request:** `SendAnRcsMessageRequestBody` 
+**message:** `SmsMessage` — The content of the message
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**phone_number:** `typing.Optional[PhoneNumber]` — Phone number to send the SMS message to
     
 </dd>
 </dl>

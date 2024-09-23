@@ -3,23 +3,14 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
-from .rcs_message_message_type import RcsMessageMessageType
-from .message_payload import MessagePayload
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class RcsMessage(UniversalBaseModel):
-    phone_number: typing.Optional[str] = pydantic.Field(default=None)
+class GetAccountNumberResponse(UniversalBaseModel):
+    account_number: typing.Optional[str] = pydantic.Field(alias="accountNumber", default=None)
     """
-    The recipient's phone number
+    The phone number associated with the account in E.164 format
     """
-
-    message_type: typing.Optional[RcsMessageMessageType] = pydantic.Field(default=None)
-    """
-    The type of message being sent
-    """
-
-    message: typing.Optional[MessagePayload] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

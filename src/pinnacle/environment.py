@@ -4,4 +4,4 @@ import enum
 
 
 class PinnacleEnvironment(enum.Enum):
-    DEFAULT = "http://trypinnacle.dev/api/check_rcs"
+    DEFAULT = "https://trypinnacle.dev/api"

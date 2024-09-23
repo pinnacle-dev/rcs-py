@@ -1,13 +1,14 @@
 # Pinnacle Python Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
+[![pypi](https://img.shields.io/pypi/v/rcs)](https://pypi.python.org/pypi/rcs)
 
 The Pinnacle Python library provides convenient access to the Pinnacle API from Python.
 
 ## Installation
 
 ```sh
-pip install pinnacle-sdk
+pip install rcs
 ```
 
 ## Usage
@@ -18,9 +19,11 @@ Instantiate and use the client with the following:
 from pinnacle import Pinnacle
 
 client = Pinnacle(
-    pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+    api_key="YOUR_API_KEY",
 )
-client.receive_rcs_messages()
+client.update_settings(
+    webhook_url="webhook_url",
+)
 ```
 
 ## Async Client
@@ -33,12 +36,14 @@ import asyncio
 from pinnacle import AsyncPinnacle
 
 client = AsyncPinnacle(
-    pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+    api_key="YOUR_API_KEY",
 )
 
 
 async def main() -> None:
-    await client.receive_rcs_messages()
+    await client.update_settings(
+        webhook_url="webhook_url",
+    )
 
 
 asyncio.run(main())
@@ -53,7 +58,7 @@ will be thrown.
 from pinnacle.core.api_error import ApiError
 
 try:
-    client.receive_rcs_messages(...)
+    client.update_settings(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -76,7 +81,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.receive_rcs_messages(..., {
+client.update_settings(..., {
     "max_retries": 1
 })
 ```
@@ -96,7 +101,7 @@ client = Pinnacle(
 
 
 # Override timeout for a specific method
-client.receive_rcs_messages(..., {
+client.update_settings(..., {
     "timeout_in_seconds": 1
 })
 ```

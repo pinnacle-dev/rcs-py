@@ -4,16 +4,21 @@ import typing
 from .environment import PinnacleEnvironment
 import httpx
 from .core.client_wrapper import SyncClientWrapper
+from .types.phone_number import PhoneNumber
 from .core.request_options import RequestOptions
 from .types.check_rcs_capability_response import CheckRcsCapabilityResponse
 from .core.pydantic_utilities import parse_obj_as
 from .errors.bad_request_error import BadRequestError
+from .types.bad_request_error_body import BadRequestErrorBody
 from .errors.unauthorized_error import UnauthorizedError
+from .types.unauthorized_error_body import UnauthorizedErrorBody
+from .errors.internal_server_error import InternalServerError
+from .types.internal_server_error_body import InternalServerErrorBody
 from json.decoder import JSONDecodeError
 from .core.api_error import ApiError
-from .types.receive_rcs_messages_response import ReceiveRcsMessagesResponse
-from .types.send_an_rcs_message_request_body import SendAnRcsMessageRequestBody
-from .types.send_an_rcs_message_response import SendAnRcsMessageResponse
+from .types.update_settings_response import UpdateSettingsResponse
+from .types.get_account_number_response import GetAccountNumberResponse
+from .types.sms_message import SmsMessage
 from .core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -38,7 +43,7 @@ class Pinnacle:
 
 
 
-    pinnacle_api_key : str
+    api_key : str
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
 
@@ -53,7 +58,7 @@ class Pinnacle:
     from pinnacle import Pinnacle
 
     client = Pinnacle(
-        pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+        api_key="YOUR_API_KEY",
     )
     """
 
@@ -62,7 +67,7 @@ class Pinnacle:
         *,
         base_url: typing.Optional[str] = None,
         environment: PinnacleEnvironment = PinnacleEnvironment.DEFAULT,
-        pinnacle_api_key: str,
+        api_key: str,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
@@ -70,7 +75,7 @@ class Pinnacle:
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
-            pinnacle_api_key=pinnacle_api_key,
+            api_key=api_key,
             httpx_client=httpx_client
             if httpx_client is not None
             else httpx.Client(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
@@ -80,15 +85,15 @@ class Pinnacle:
         )
 
     def check_rcs_capability(
-        self, *, phone_number: str, request_options: typing.Optional[RequestOptions] = None
+        self, *, phone_number: PhoneNumber, request_options: typing.Optional[RequestOptions] = None
     ) -> CheckRcsCapabilityResponse:
         """
         Checks if a phone number is able to receive RCS
 
         Parameters
         ----------
-        phone_number : str
-            The phone number to check for RCS capability
+        phone_number : PhoneNumber
+            Phone number (E.164 format: [+][country code][subscriber number including area code]) to check for RCS capability. Example: +1234567890
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -103,7 +108,7 @@ class Pinnacle:
         from pinnacle import Pinnacle
 
         client = Pinnacle(
-            pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+            api_key="YOUR_API_KEY",
         )
         client.check_rcs_capability(
             phone_number="phone_number",
@@ -129,9 +134,9 @@ class Pinnacle:
             if _response.status_code == 400:
                 raise BadRequestError(
                     typing.cast(
-                        str,
+                        BadRequestErrorBody,
                         parse_obj_as(
-                            type_=str,  # type: ignore
+                            type_=BadRequestErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -139,9 +144,19 @@ class Pinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        str,
+                        UnauthorizedErrorBody,
                         parse_obj_as(
-                            type_=str,  # type: ignore
+                            type_=UnauthorizedErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorBody,
+                        parse_obj_as(
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -151,34 +166,38 @@ class Pinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def receive_rcs_messages(
-        self, *, webhook_url: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
-    ) -> ReceiveRcsMessagesResponse:
+    def update_settings(
+        self, *, webhook_url: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> UpdateSettingsResponse:
         """
+        Initializes settings related to RCS messaging, including webhook registration.
+
         Parameters
         ----------
-        webhook_url : typing.Optional[str]
-            Webhook URL to receive RCS messages
+        webhook_url : str
+            Webhook URL to receive inbound messages
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        ReceiveRcsMessagesResponse
-            Webhook registration successful
+        UpdateSettingsResponse
+            Settings updated successfully
 
         Examples
         --------
         from pinnacle import Pinnacle
 
         client = Pinnacle(
-            pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+            api_key="YOUR_API_KEY",
         )
-        client.receive_rcs_messages()
+        client.update_settings(
+            webhook_url="webhook_url",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "init",
+            "update_settings",
             method="POST",
             json={
                 "webhook_url": webhook_url,
@@ -189,18 +208,18 @@ class Pinnacle:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ReceiveRcsMessagesResponse,
+                    UpdateSettingsResponse,
                     parse_obj_as(
-                        type_=ReceiveRcsMessagesResponse,  # type: ignore
+                        type_=UpdateSettingsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
             if _response.status_code == 400:
                 raise BadRequestError(
                     typing.cast(
-                        str,
+                        BadRequestErrorBody,
                         parse_obj_as(
-                            type_=str,  # type: ignore
+                            type_=BadRequestErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -208,9 +227,19 @@ class Pinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        str,
+                        UnauthorizedErrorBody,
                         parse_obj_as(
-                            type_=str,  # type: ignore
+                            type_=UnauthorizedErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorBody,
+                        parse_obj_as(
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -220,55 +249,133 @@ class Pinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def send_an_rcs_message(
-        self, *, request: SendAnRcsMessageRequestBody, request_options: typing.Optional[RequestOptions] = None
-    ) -> SendAnRcsMessageResponse:
+    def get_account_number(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetAccountNumberResponse:
         """
+        Retrieve the phone number associated with the account.
+
         Parameters
         ----------
-        request : SendAnRcsMessageRequestBody
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAccountNumberResponse
+            Successfully retrieved supported numbers
+
+        Examples
+        --------
+        from pinnacle import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_account_number()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "get_account_number",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GetAccountNumberResponse,
+                    parse_obj_as(
+                        type_=GetAccountNumberResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        UnauthorizedErrorBody,
+                        parse_obj_as(
+                            type_=UnauthorizedErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorBody,
+                        parse_obj_as(
+                            type_=InternalServerErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def send_message(
+        self,
+        *,
+        message: SmsMessage,
+        phone_number: typing.Optional[PhoneNumber] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Optional[typing.Any]:
+        """
+        Send a SMS or RCS message to a phone number
+
+        Parameters
+        ----------
+        message : SmsMessage
+            The content of the message
+
+        phone_number : typing.Optional[PhoneNumber]
+            Phone number to send the SMS message to
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SendAnRcsMessageResponse
+        typing.Optional[typing.Any]
             Message sent successfully
 
         Examples
         --------
-        from pinnacle import Pinnacle, RcsMessage
+        from pinnacle import Pinnacle, SmsMessage
 
         client = Pinnacle(
-            pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+            api_key="YOUR_API_KEY",
         )
-        client.send_an_rcs_message(
-            request=RcsMessage(),
+        client.send_message(
+            message=SmsMessage(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "send",
             method="POST",
-            json=request,
+            json={
+                "phone_number": phone_number,
+                "message": message,
+                "message_type": "sms",
+            },
             request_options=request_options,
             omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    SendAnRcsMessageResponse,
+                    typing.Optional[typing.Any],
                     parse_obj_as(
-                        type_=SendAnRcsMessageResponse,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
             if _response.status_code == 400:
                 raise BadRequestError(
                     typing.cast(
-                        str,
+                        BadRequestErrorBody,
                         parse_obj_as(
-                            type_=str,  # type: ignore
+                            type_=BadRequestErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -276,9 +383,19 @@ class Pinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        str,
+                        UnauthorizedErrorBody,
                         parse_obj_as(
-                            type_=str,  # type: ignore
+                            type_=UnauthorizedErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorBody,
+                        parse_obj_as(
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -307,7 +424,7 @@ class AsyncPinnacle:
 
 
 
-    pinnacle_api_key : str
+    api_key : str
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
 
@@ -322,7 +439,7 @@ class AsyncPinnacle:
     from pinnacle import AsyncPinnacle
 
     client = AsyncPinnacle(
-        pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+        api_key="YOUR_API_KEY",
     )
     """
 
@@ -331,7 +448,7 @@ class AsyncPinnacle:
         *,
         base_url: typing.Optional[str] = None,
         environment: PinnacleEnvironment = PinnacleEnvironment.DEFAULT,
-        pinnacle_api_key: str,
+        api_key: str,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
@@ -339,7 +456,7 @@ class AsyncPinnacle:
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
-            pinnacle_api_key=pinnacle_api_key,
+            api_key=api_key,
             httpx_client=httpx_client
             if httpx_client is not None
             else httpx.AsyncClient(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
@@ -349,15 +466,15 @@ class AsyncPinnacle:
         )
 
     async def check_rcs_capability(
-        self, *, phone_number: str, request_options: typing.Optional[RequestOptions] = None
+        self, *, phone_number: PhoneNumber, request_options: typing.Optional[RequestOptions] = None
     ) -> CheckRcsCapabilityResponse:
         """
         Checks if a phone number is able to receive RCS
 
         Parameters
         ----------
-        phone_number : str
-            The phone number to check for RCS capability
+        phone_number : PhoneNumber
+            Phone number (E.164 format: [+][country code][subscriber number including area code]) to check for RCS capability. Example: +1234567890
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -374,7 +491,7 @@ class AsyncPinnacle:
         from pinnacle import AsyncPinnacle
 
         client = AsyncPinnacle(
-            pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+            api_key="YOUR_API_KEY",
         )
 
 
@@ -406,9 +523,9 @@ class AsyncPinnacle:
             if _response.status_code == 400:
                 raise BadRequestError(
                     typing.cast(
-                        str,
+                        BadRequestErrorBody,
                         parse_obj_as(
-                            type_=str,  # type: ignore
+                            type_=BadRequestErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -416,9 +533,19 @@ class AsyncPinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        str,
+                        UnauthorizedErrorBody,
                         parse_obj_as(
-                            type_=str,  # type: ignore
+                            type_=UnauthorizedErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorBody,
+                        parse_obj_as(
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -428,22 +555,24 @@ class AsyncPinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def receive_rcs_messages(
-        self, *, webhook_url: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
-    ) -> ReceiveRcsMessagesResponse:
+    async def update_settings(
+        self, *, webhook_url: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> UpdateSettingsResponse:
         """
+        Initializes settings related to RCS messaging, including webhook registration.
+
         Parameters
         ----------
-        webhook_url : typing.Optional[str]
-            Webhook URL to receive RCS messages
+        webhook_url : str
+            Webhook URL to receive inbound messages
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        ReceiveRcsMessagesResponse
-            Webhook registration successful
+        UpdateSettingsResponse
+            Settings updated successfully
 
         Examples
         --------
@@ -452,18 +581,20 @@ class AsyncPinnacle:
         from pinnacle import AsyncPinnacle
 
         client = AsyncPinnacle(
-            pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+            api_key="YOUR_API_KEY",
         )
 
 
         async def main() -> None:
-            await client.receive_rcs_messages()
+            await client.update_settings(
+                webhook_url="webhook_url",
+            )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "init",
+            "update_settings",
             method="POST",
             json={
                 "webhook_url": webhook_url,
@@ -474,18 +605,18 @@ class AsyncPinnacle:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ReceiveRcsMessagesResponse,
+                    UpdateSettingsResponse,
                     parse_obj_as(
-                        type_=ReceiveRcsMessagesResponse,  # type: ignore
+                        type_=UpdateSettingsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
             if _response.status_code == 400:
                 raise BadRequestError(
                     typing.cast(
-                        str,
+                        BadRequestErrorBody,
                         parse_obj_as(
-                            type_=str,  # type: ignore
+                            type_=BadRequestErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -493,9 +624,19 @@ class AsyncPinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        str,
+                        UnauthorizedErrorBody,
                         parse_obj_as(
-                            type_=str,  # type: ignore
+                            type_=UnauthorizedErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorBody,
+                        parse_obj_as(
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -505,36 +646,118 @@ class AsyncPinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def send_an_rcs_message(
-        self, *, request: SendAnRcsMessageRequestBody, request_options: typing.Optional[RequestOptions] = None
-    ) -> SendAnRcsMessageResponse:
+    async def get_account_number(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetAccountNumberResponse:
         """
+        Retrieve the phone number associated with the account.
+
         Parameters
         ----------
-        request : SendAnRcsMessageRequestBody
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetAccountNumberResponse
+            Successfully retrieved supported numbers
+
+        Examples
+        --------
+        import asyncio
+
+        from pinnacle import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_account_number()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "get_account_number",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GetAccountNumberResponse,
+                    parse_obj_as(
+                        type_=GetAccountNumberResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        UnauthorizedErrorBody,
+                        parse_obj_as(
+                            type_=UnauthorizedErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorBody,
+                        parse_obj_as(
+                            type_=InternalServerErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def send_message(
+        self,
+        *,
+        message: SmsMessage,
+        phone_number: typing.Optional[PhoneNumber] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Optional[typing.Any]:
+        """
+        Send a SMS or RCS message to a phone number
+
+        Parameters
+        ----------
+        message : SmsMessage
+            The content of the message
+
+        phone_number : typing.Optional[PhoneNumber]
+            Phone number to send the SMS message to
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SendAnRcsMessageResponse
+        typing.Optional[typing.Any]
             Message sent successfully
 
         Examples
         --------
         import asyncio
 
-        from pinnacle import AsyncPinnacle, RcsMessage
+        from pinnacle import AsyncPinnacle, SmsMessage
 
         client = AsyncPinnacle(
-            pinnacle_api_key="YOUR_PINNACLE_API_KEY",
+            api_key="YOUR_API_KEY",
         )
 
 
         async def main() -> None:
-            await client.send_an_rcs_message(
-                request=RcsMessage(),
+            await client.send_message(
+                message=SmsMessage(),
             )
 
 
@@ -543,25 +766,29 @@ class AsyncPinnacle:
         _response = await self._client_wrapper.httpx_client.request(
             "send",
             method="POST",
-            json=request,
+            json={
+                "phone_number": phone_number,
+                "message": message,
+                "message_type": "sms",
+            },
             request_options=request_options,
             omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    SendAnRcsMessageResponse,
+                    typing.Optional[typing.Any],
                     parse_obj_as(
-                        type_=SendAnRcsMessageResponse,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
             if _response.status_code == 400:
                 raise BadRequestError(
                     typing.cast(
-                        str,
+                        BadRequestErrorBody,
                         parse_obj_as(
-                            type_=str,  # type: ignore
+                            type_=BadRequestErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -569,9 +796,19 @@ class AsyncPinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        str,
+                        UnauthorizedErrorBody,
                         parse_obj_as(
-                            type_=str,  # type: ignore
+                            type_=UnauthorizedErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorBody,
+                        parse_obj_as(
+                            type_=InternalServerErrorBody,  # type: ignore
                             object_=_response.json(),
                         ),
                     )

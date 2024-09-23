@@ -3,22 +3,34 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
+import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class SmsMessage(UniversalBaseModel):
+class Event(UniversalBaseModel):
+    action_type: typing.Literal["calendar"] = pydantic.Field(default="calendar")
     """
-    The content of the message
-    """
-
-    body: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The body of the SMS message
+    The type of message being sent
     """
 
-    media_url: typing.Optional[str] = pydantic.Field(alias="mediaUrl", default=None)
+    start_time: dt.datetime = pydantic.Field()
     """
-    Optional media URL for the SMS message
+    The start time for the event.
+    """
+
+    end_time: dt.datetime = pydantic.Field()
+    """
+    The end time for the event.
+    """
+
+    event_title: str = pydantic.Field()
+    """
+    The title of the event.
+    """
+
+    event_description: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The description of the event
     """
 
     if IS_PYDANTIC_V2:

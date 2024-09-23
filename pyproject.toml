@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "pinnacle-sdk"
-version = "0.0.3"
+name = "rcs"
+version = "0.6.6"
 description = ""
 readme = "README.md"
 authors = []
@@ -28,7 +28,7 @@ packages = [
 ]
 
 [project.urls]
-Repository = 'https://github.com/fern-demo/pinnacle-python-sdk'
+Repository = 'https://github.com/pinnacle-dev/rcs-py'
 
 [tool.poetry.dependencies]
 python = "^3.8"

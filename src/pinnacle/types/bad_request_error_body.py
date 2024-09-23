@@ -2,19 +2,12 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-from .message_payload_media_type import MessagePayloadMediaType
-from .action import Action
-from .card_payload import CardPayload
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class MessagePayload(UniversalBaseModel):
-    text: typing.Optional[str] = None
-    media_url: typing.Optional[str] = None
-    media_type: typing.Optional[MessagePayloadMediaType] = None
-    quick_replies: typing.Optional[typing.List[Action]] = None
-    cards: typing.Optional[typing.List[CardPayload]] = None
+class BadRequestErrorBody(UniversalBaseModel):
+    error: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

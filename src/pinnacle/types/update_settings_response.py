@@ -2,17 +2,12 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
+import pydantic
 
 
-class SmsMessageMessage(UniversalBaseModel):
-    """
-    The content of the message
-    """
-
-    body: str
-    media_url: typing.Optional[str] = pydantic.Field(alias="mediaUrl", default=None)
+class UpdateSettingsResponse(UniversalBaseModel):
+    message: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

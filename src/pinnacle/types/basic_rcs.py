@@ -2,13 +2,27 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
+from .phone_number import PhoneNumber
 import pydantic
+from .basic_rcs_message import BasicRcsMessage
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class CheckRcsCapabilityResponse(UniversalBaseModel):
-    success: typing.Optional[bool] = None
-    rcs_enabled: typing.Optional[bool] = pydantic.Field(alias="rcsEnabled", default=None)
+class BasicRcs(UniversalBaseModel):
+    phone_number: typing.Optional[PhoneNumber] = pydantic.Field(default=None)
+    """
+    Phone number to send the SMS message to
+    """
+
+    message_type: typing.Literal["basic-rcs"] = pydantic.Field(default="basic-rcs")
+    """
+    The type of message being sent
+    """
+
+    message: BasicRcsMessage = pydantic.Field()
+    """
+    The content of the message
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
