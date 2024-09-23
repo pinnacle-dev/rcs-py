@@ -4,4 +4,4 @@ import typing
 from .rcs_message import RcsMessage
 from .sms_message import SmsMessage
 
-PostSendRequestBody = typing.Union[RcsMessage, SmsMessage]
+SendAnRcsMessageRequestBody = typing.Union[RcsMessage, SmsMessage]

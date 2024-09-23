@@ -2,13 +2,11 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
+import pydantic
 
 
-class GetCheckRcsResponse(UniversalBaseModel):
-    success: typing.Optional[bool] = None
-    rcs_enabled: typing.Optional[bool] = pydantic.Field(alias="rcsEnabled", default=None)
+class ReceiveRcsMessagesResponse(UniversalBaseModel):
     message: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

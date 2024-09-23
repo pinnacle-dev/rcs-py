@@ -4,4 +4,4 @@ import typing
 from .rcs_message_sent import RcsMessageSent
 from .sms_message_sent import SmsMessageSent
 
-PostSendResponse = typing.Union[RcsMessageSent, SmsMessageSent]
+SendAnRcsMessageResponse = typing.Union[RcsMessageSent, SmsMessageSent]

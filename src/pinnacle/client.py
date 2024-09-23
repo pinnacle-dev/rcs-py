@@ -5,15 +5,15 @@ from .environment import PinnacleEnvironment
 import httpx
 from .core.client_wrapper import SyncClientWrapper
 from .core.request_options import RequestOptions
-from .types.get_check_rcs_response import GetCheckRcsResponse
+from .types.check_rcs_capability_response import CheckRcsCapabilityResponse
 from .core.pydantic_utilities import parse_obj_as
 from .errors.bad_request_error import BadRequestError
 from .errors.unauthorized_error import UnauthorizedError
 from json.decoder import JSONDecodeError
 from .core.api_error import ApiError
-from .types.post_init_response import PostInitResponse
-from .types.post_send_request_body import PostSendRequestBody
-from .types.post_send_response import PostSendResponse
+from .types.receive_rcs_messages_response import ReceiveRcsMessagesResponse
+from .types.send_an_rcs_message_request_body import SendAnRcsMessageRequestBody
+from .types.send_an_rcs_message_response import SendAnRcsMessageResponse
 from .core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -81,7 +81,7 @@ class Pinnacle:
 
     def check_rcs_capability(
         self, *, phone_number: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> GetCheckRcsResponse:
+    ) -> CheckRcsCapabilityResponse:
         """
         Checks if a phone number is able to receive RCS
 
@@ -95,7 +95,7 @@ class Pinnacle:
 
         Returns
         -------
-        GetCheckRcsResponse
+        CheckRcsCapabilityResponse
             RCS capability check successful
 
         Examples
@@ -120,9 +120,9 @@ class Pinnacle:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    GetCheckRcsResponse,
+                    CheckRcsCapabilityResponse,
                     parse_obj_as(
-                        type_=GetCheckRcsResponse,  # type: ignore
+                        type_=CheckRcsCapabilityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -151,9 +151,9 @@ class Pinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def enables_the_user_to_receive_rcs_messages_with_the_provided_webhook(
+    def receive_rcs_messages(
         self, *, webhook_url: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
-    ) -> PostInitResponse:
+    ) -> ReceiveRcsMessagesResponse:
         """
         Parameters
         ----------
@@ -165,7 +165,7 @@ class Pinnacle:
 
         Returns
         -------
-        PostInitResponse
+        ReceiveRcsMessagesResponse
             Webhook registration successful
 
         Examples
@@ -175,7 +175,7 @@ class Pinnacle:
         client = Pinnacle(
             pinnacle_api_key="YOUR_PINNACLE_API_KEY",
         )
-        client.enables_the_user_to_receive_rcs_messages_with_the_provided_webhook()
+        client.receive_rcs_messages()
         """
         _response = self._client_wrapper.httpx_client.request(
             "init",
@@ -189,9 +189,9 @@ class Pinnacle:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    PostInitResponse,
+                    ReceiveRcsMessagesResponse,
                     parse_obj_as(
-                        type_=PostInitResponse,  # type: ignore
+                        type_=ReceiveRcsMessagesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -220,20 +220,20 @@ class Pinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def send_an_rcs_message_to_a_specified_phone_number_and_with_a_specified_message(
-        self, *, request: PostSendRequestBody, request_options: typing.Optional[RequestOptions] = None
-    ) -> PostSendResponse:
+    def send_an_rcs_message(
+        self, *, request: SendAnRcsMessageRequestBody, request_options: typing.Optional[RequestOptions] = None
+    ) -> SendAnRcsMessageResponse:
         """
         Parameters
         ----------
-        request : PostSendRequestBody
+        request : SendAnRcsMessageRequestBody
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PostSendResponse
+        SendAnRcsMessageResponse
             Message sent successfully
 
         Examples
@@ -243,7 +243,7 @@ class Pinnacle:
         client = Pinnacle(
             pinnacle_api_key="YOUR_PINNACLE_API_KEY",
         )
-        client.send_an_rcs_message_to_a_specified_phone_number_and_with_a_specified_message(
+        client.send_an_rcs_message(
             request=RcsMessage(),
         )
         """
@@ -257,9 +257,9 @@ class Pinnacle:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    PostSendResponse,
+                    SendAnRcsMessageResponse,
                     parse_obj_as(
-                        type_=PostSendResponse,  # type: ignore
+                        type_=SendAnRcsMessageResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -350,7 +350,7 @@ class AsyncPinnacle:
 
     async def check_rcs_capability(
         self, *, phone_number: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> GetCheckRcsResponse:
+    ) -> CheckRcsCapabilityResponse:
         """
         Checks if a phone number is able to receive RCS
 
@@ -364,7 +364,7 @@ class AsyncPinnacle:
 
         Returns
         -------
-        GetCheckRcsResponse
+        CheckRcsCapabilityResponse
             RCS capability check successful
 
         Examples
@@ -397,9 +397,9 @@ class AsyncPinnacle:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    GetCheckRcsResponse,
+                    CheckRcsCapabilityResponse,
                     parse_obj_as(
-                        type_=GetCheckRcsResponse,  # type: ignore
+                        type_=CheckRcsCapabilityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -428,9 +428,9 @@ class AsyncPinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def enables_the_user_to_receive_rcs_messages_with_the_provided_webhook(
+    async def receive_rcs_messages(
         self, *, webhook_url: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
-    ) -> PostInitResponse:
+    ) -> ReceiveRcsMessagesResponse:
         """
         Parameters
         ----------
@@ -442,7 +442,7 @@ class AsyncPinnacle:
 
         Returns
         -------
-        PostInitResponse
+        ReceiveRcsMessagesResponse
             Webhook registration successful
 
         Examples
@@ -457,7 +457,7 @@ class AsyncPinnacle:
 
 
         async def main() -> None:
-            await client.enables_the_user_to_receive_rcs_messages_with_the_provided_webhook()
+            await client.receive_rcs_messages()
 
 
         asyncio.run(main())
@@ -474,9 +474,9 @@ class AsyncPinnacle:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    PostInitResponse,
+                    ReceiveRcsMessagesResponse,
                     parse_obj_as(
-                        type_=PostInitResponse,  # type: ignore
+                        type_=ReceiveRcsMessagesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -505,20 +505,20 @@ class AsyncPinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def send_an_rcs_message_to_a_specified_phone_number_and_with_a_specified_message(
-        self, *, request: PostSendRequestBody, request_options: typing.Optional[RequestOptions] = None
-    ) -> PostSendResponse:
+    async def send_an_rcs_message(
+        self, *, request: SendAnRcsMessageRequestBody, request_options: typing.Optional[RequestOptions] = None
+    ) -> SendAnRcsMessageResponse:
         """
         Parameters
         ----------
-        request : PostSendRequestBody
+        request : SendAnRcsMessageRequestBody
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PostSendResponse
+        SendAnRcsMessageResponse
             Message sent successfully
 
         Examples
@@ -533,7 +533,7 @@ class AsyncPinnacle:
 
 
         async def main() -> None:
-            await client.send_an_rcs_message_to_a_specified_phone_number_and_with_a_specified_message(
+            await client.send_an_rcs_message(
                 request=RcsMessage(),
             )
 
@@ -550,9 +550,9 @@ class AsyncPinnacle:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    PostSendResponse,
+                    SendAnRcsMessageResponse,
                     parse_obj_as(
-                        type_=PostSendResponse,  # type: ignore
+                        type_=SendAnRcsMessageResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

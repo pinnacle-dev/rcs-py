@@ -69,7 +69,7 @@ client.check_rcs_capability(
 </dl>
 </details>
 
-<details><summary><code>client.<a href="src/pinnacle/client.py">enables_the_user_to_receive_rcs_messages_with_the_provided_webhook</a>(...)</code></summary>
+<details><summary><code>client.<a href="src/pinnacle/client.py">receive_rcs_messages</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -87,7 +87,7 @@ from pinnacle import Pinnacle
 client = Pinnacle(
     pinnacle_api_key="YOUR_PINNACLE_API_KEY",
 )
-client.enables_the_user_to_receive_rcs_messages_with_the_provided_webhook()
+client.receive_rcs_messages()
 
 ```
 </dd>
@@ -123,7 +123,7 @@ client.enables_the_user_to_receive_rcs_messages_with_the_provided_webhook()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="src/pinnacle/client.py">send_an_rcs_message_to_a_specified_phone_number_and_with_a_specified_message</a>(...)</code></summary>
+<details><summary><code>client.<a href="src/pinnacle/client.py">send_an_rcs_message</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -141,7 +141,7 @@ from pinnacle import Pinnacle, RcsMessage
 client = Pinnacle(
     pinnacle_api_key="YOUR_PINNACLE_API_KEY",
 )
-client.send_an_rcs_message_to_a_specified_phone_number_and_with_a_specified_message(
+client.send_an_rcs_message(
     request=RcsMessage(),
 )
 
@@ -159,7 +159,7 @@ client.send_an_rcs_message_to_a_specified_phone_number_and_with_a_specified_mess
 <dl>
 <dd>
 
-**request:** `PostSendRequestBody` 
+**request:** `SendAnRcsMessageRequestBody` 
     
 </dd>
 </dl>

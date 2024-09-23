@@ -21,7 +21,7 @@ from pinnacle import Pinnacle
 client = Pinnacle(
     pinnacle_api_key="YOUR_PINNACLE_API_KEY",
 )
-client.enables_the_user_to_receive_rcs_messages_with_the_provided_webhook()
+client.receive_rcs_messages()
 ```
 
 ## Async Client
@@ -39,7 +39,7 @@ client = AsyncPinnacle(
 
 
 async def main() -> None:
-    await client.enables_the_user_to_receive_rcs_messages_with_the_provided_webhook()
+    await client.receive_rcs_messages()
 
 
 asyncio.run(main())
@@ -54,9 +54,7 @@ will be thrown.
 from pinnacle.core.api_error import ApiError
 
 try:
-    client.enables_the_user_to_receive_rcs_messages_with_the_provided_webhook(
-        ...
-    )
+    client.receive_rcs_messages(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -79,7 +77,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.enables_the_user_to_receive_rcs_messages_with_the_provided_webhook(..., {
+client.receive_rcs_messages(..., {
     "max_retries": 1
 })
 ```
@@ -99,7 +97,7 @@ client = Pinnacle(
 
 
 # Override timeout for a specific method
-client.enables_the_user_to_receive_rcs_messages_with_the_provided_webhook(..., {
+client.receive_rcs_messages(..., {
     "timeout_in_seconds": 1
 })
 ```

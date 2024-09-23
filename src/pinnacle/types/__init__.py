@@ -8,15 +8,15 @@ from .card_style_payload_image_alignment import CardStylePayloadImageAlignment
 from .card_style_payload_media_height import CardStylePayloadMediaHeight
 from .card_style_payload_orientation import CardStylePayloadOrientation
 from .card_style_payload_width import CardStylePayloadWidth
-from .get_check_rcs_response import GetCheckRcsResponse
+from .check_rcs_capability_response import CheckRcsCapabilityResponse
 from .message_payload import MessagePayload
 from .message_payload_media_type import MessagePayloadMediaType
-from .post_init_response import PostInitResponse
-from .post_send_request_body import PostSendRequestBody
-from .post_send_response import PostSendResponse
 from .rcs_message import RcsMessage
 from .rcs_message_message_type import RcsMessageMessageType
 from .rcs_message_sent import RcsMessageSent
+from .receive_rcs_messages_response import ReceiveRcsMessagesResponse
+from .send_an_rcs_message_request_body import SendAnRcsMessageRequestBody
+from .send_an_rcs_message_response import SendAnRcsMessageResponse
 from .sms_message import SmsMessage
 from .sms_message_message import SmsMessageMessage
 from .sms_message_sent import SmsMessageSent
@@ -31,15 +31,15 @@ __all__ = [
     "CardStylePayloadMediaHeight",
     "CardStylePayloadOrientation",
     "CardStylePayloadWidth",
-    "GetCheckRcsResponse",
+    "CheckRcsCapabilityResponse",
     "MessagePayload",
     "MessagePayloadMediaType",
-    "PostInitResponse",
-    "PostSendRequestBody",
-    "PostSendResponse",
     "RcsMessage",
     "RcsMessageMessageType",
     "RcsMessageSent",
+    "ReceiveRcsMessagesResponse",
+    "SendAnRcsMessageRequestBody",
+    "SendAnRcsMessageResponse",
     "SmsMessage",
     "SmsMessageMessage",
     "SmsMessageSent",
