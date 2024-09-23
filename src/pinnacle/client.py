@@ -313,7 +313,7 @@ class Pinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def send_message(
+    def send(
         self,
         *,
         message: SmsMessage,
@@ -346,7 +346,7 @@ class Pinnacle:
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
-        client.send_message(
+        client.send(
             message=SmsMessage(),
         )
         """
@@ -718,7 +718,7 @@ class AsyncPinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def send_message(
+    async def send(
         self,
         *,
         message: SmsMessage,
@@ -756,7 +756,7 @@ class AsyncPinnacle:
 
 
         async def main() -> None:
-            await client.send_message(
+            await client.send(
                 message=SmsMessage(),
             )
 

@@ -199,7 +199,7 @@ client.get_account_number()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="src/pinnacle/client.py">send_message</a>(...)</code></summary>
+<details><summary><code>client.<a href="src/pinnacle/client.py">send</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -231,7 +231,7 @@ from pinnacle import Pinnacle, SmsMessage
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.send_message(
+client.send(
     message=SmsMessage(),
 )
 
