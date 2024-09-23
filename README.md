@@ -1,7 +1,6 @@
 # Pinnacle Python Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
-[![pypi](https://img.shields.io/pypi/v/pinnacle-sdk)](https://pypi.python.org/pypi/pinnacle-sdk)
 
 The Pinnacle Python library provides convenient access to the Pinnacle API from Python.
 
