@@ -16,7 +16,7 @@ class BaseClientWrapper:
         headers: typing.Dict[str, str] = {
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "rcs",
-            "X-Fern-SDK-Version": "0.6.6",
+            "X-Fern-SDK-Version": "1.0.0",
         }
         headers["PINNACLE-API-Key"] = self.api_key
         return headers
