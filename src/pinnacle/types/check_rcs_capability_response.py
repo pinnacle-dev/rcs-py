@@ -2,13 +2,15 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-import pydantic
+import typing_extensions
+from ..core.serialization import FieldMetadata
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
+import pydantic
 
 
 class CheckRcsCapabilityResponse(UniversalBaseModel):
     success: typing.Optional[bool] = None
-    rcs_enabled: typing.Optional[bool] = pydantic.Field(alias="rcsEnabled", default=None)
+    rcs_enabled: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="rcsEnabled")] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

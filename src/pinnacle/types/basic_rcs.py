@@ -15,6 +15,11 @@ class BasicRcs(UniversalBaseModel):
     Phone number to send the SMS message to
     """
 
+    message_type: typing.Literal["basic-rcs"] = pydantic.Field(default="basic-rcs")
+    """
+    The type of message being sent
+    """
+
     message: BasicRcsMessage = pydantic.Field()
     """
     The content of the message

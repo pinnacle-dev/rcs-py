@@ -14,6 +14,11 @@ class Sms(UniversalBaseModel):
     Phone number to send the SMS message to
     """
 
+    message_type: typing.Literal["sms"] = pydantic.Field(default="sms")
+    """
+    The type of message being sent
+    """
+
     message: SmsMessage = pydantic.Field()
     """
     The content of the message

@@ -19,6 +19,8 @@ from .core.api_error import ApiError
 from .types.update_settings_response import UpdateSettingsResponse
 from .types.get_account_number_response import GetAccountNumberResponse
 from .types.send_request import SendRequest
+from .types.send_response import SendResponse
+from .core.serialization import convert_and_respect_annotation_metadata
 from .core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -313,9 +315,7 @@ class Pinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def send(
-        self, *, request: SendRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    def send(self, *, request: SendRequest, request_options: typing.Optional[RequestOptions] = None) -> SendResponse:
         """
         Send a SMS or RCS message to a phone number
 
@@ -328,21 +328,20 @@ class Pinnacle:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        SendResponse
             Message sent successfully
 
         Examples
         --------
-        from pinnacle import MediaRcsMessage, Pinnacle, SendRequest_Media
+        from pinnacle import Pinnacle, Sms, SmsMessage
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.send(
-            request=SendRequest_Media(
-                message=MediaRcsMessage(
-                    media_type="text",
-                    media_url="mediaUrl",
+            request=Sms(
+                message=SmsMessage(
+                    body="body",
                 ),
             ),
         )
@@ -350,16 +349,16 @@ class Pinnacle:
         _response = self._client_wrapper.httpx_client.request(
             "send",
             method="POST",
-            json=request,
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=SendRequest, direction="write"),
             request_options=request_options,
             omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.Optional[typing.Any],
+                    SendResponse,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=SendResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -713,7 +712,7 @@ class AsyncPinnacle:
 
     async def send(
         self, *, request: SendRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    ) -> SendResponse:
         """
         Send a SMS or RCS message to a phone number
 
@@ -726,14 +725,14 @@ class AsyncPinnacle:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        SendResponse
             Message sent successfully
 
         Examples
         --------
         import asyncio
 
-        from pinnacle import AsyncPinnacle, MediaRcsMessage, SendRequest_Media
+        from pinnacle import AsyncPinnacle, Sms, SmsMessage
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -742,10 +741,9 @@ class AsyncPinnacle:
 
         async def main() -> None:
             await client.send(
-                request=SendRequest_Media(
-                    message=MediaRcsMessage(
-                        media_type="text",
-                        media_url="mediaUrl",
+                request=Sms(
+                    message=SmsMessage(
+                        body="body",
                     ),
                 ),
             )
@@ -756,16 +754,16 @@ class AsyncPinnacle:
         _response = await self._client_wrapper.httpx_client.request(
             "send",
             method="POST",
-            json=request,
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=SendRequest, direction="write"),
             request_options=request_options,
             omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.Optional[typing.Any],
+                    SendResponse,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=SendResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
