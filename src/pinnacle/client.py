@@ -74,20 +74,31 @@ class Pinnacle:
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
     ):
-        _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
+        _defaulted_timeout = (
+            timeout if timeout is not None else 60 if httpx_client is None else None
+        )
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             api_key=api_key,
-            httpx_client=httpx_client
-            if httpx_client is not None
-            else httpx.Client(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
-            if follow_redirects is not None
-            else httpx.Client(timeout=_defaulted_timeout),
+            httpx_client=(
+                httpx_client
+                if httpx_client is not None
+                else (
+                    httpx.Client(
+                        timeout=_defaulted_timeout, follow_redirects=follow_redirects
+                    )
+                    if follow_redirects is not None
+                    else httpx.Client(timeout=_defaulted_timeout)
+                )
+            ),
             timeout=_defaulted_timeout,
         )
 
     def check_rcs_capability(
-        self, *, phone_number: PhoneNumber, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        phone_number: PhoneNumber,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> CheckRcsCapabilityResponse:
         """
         Checks if a phone number is able to receive RCS
@@ -169,7 +180,10 @@ class Pinnacle:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def update_settings(
-        self, *, webhook_url: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        webhook_url: str,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateSettingsResponse:
         """
         Initializes settings related to RCS messaging, including webhook registration.
@@ -315,7 +329,12 @@ class Pinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def send(self, *, request: SendRequest, request_options: typing.Optional[RequestOptions] = None) -> SendResponse:
+    def send(
+        self,
+        *,
+        request: SendRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SendResponse:
         """
         Send a SMS or RCS message to a phone number
 
@@ -333,15 +352,20 @@ class Pinnacle:
 
         Examples
         --------
-        from pinnacle import Pinnacle, Sms, SmsMessage
+        from pinnacle import Card, CardRcs, CardRcsMessage, Pinnacle
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.send(
-            request=Sms(
-                message=SmsMessage(
-                    body="body",
+            request=CardRcs(
+                message=CardRcsMessage(
+                    cards=[
+                        Card(
+                            title="title",
+                            image_url="image_url",
+                        )
+                    ],
                 ),
             ),
         )
@@ -349,7 +373,9 @@ class Pinnacle:
         _response = self._client_wrapper.httpx_client.request(
             "send",
             method="POST",
-            json=convert_and_respect_annotation_metadata(object_=request, annotation=SendRequest, direction="write"),
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=SendRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
@@ -445,20 +471,31 @@ class AsyncPinnacle:
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
     ):
-        _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
+        _defaulted_timeout = (
+            timeout if timeout is not None else 60 if httpx_client is None else None
+        )
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             api_key=api_key,
-            httpx_client=httpx_client
-            if httpx_client is not None
-            else httpx.AsyncClient(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
-            if follow_redirects is not None
-            else httpx.AsyncClient(timeout=_defaulted_timeout),
+            httpx_client=(
+                httpx_client
+                if httpx_client is not None
+                else (
+                    httpx.AsyncClient(
+                        timeout=_defaulted_timeout, follow_redirects=follow_redirects
+                    )
+                    if follow_redirects is not None
+                    else httpx.AsyncClient(timeout=_defaulted_timeout)
+                )
+            ),
             timeout=_defaulted_timeout,
         )
 
     async def check_rcs_capability(
-        self, *, phone_number: PhoneNumber, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        phone_number: PhoneNumber,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> CheckRcsCapabilityResponse:
         """
         Checks if a phone number is able to receive RCS
@@ -548,7 +585,10 @@ class AsyncPinnacle:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def update_settings(
-        self, *, webhook_url: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        webhook_url: str,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateSettingsResponse:
         """
         Initializes settings related to RCS messaging, including webhook registration.
@@ -711,7 +751,10 @@ class AsyncPinnacle:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def send(
-        self, *, request: SendRequest, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        request: SendRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> SendResponse:
         """
         Send a SMS or RCS message to a phone number
@@ -732,7 +775,7 @@ class AsyncPinnacle:
         --------
         import asyncio
 
-        from pinnacle import AsyncPinnacle, Sms, SmsMessage
+        from pinnacle import AsyncPinnacle, Card, CardRcs, CardRcsMessage
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -741,9 +784,14 @@ class AsyncPinnacle:
 
         async def main() -> None:
             await client.send(
-                request=Sms(
-                    message=SmsMessage(
-                        body="body",
+                request=CardRcs(
+                    message=CardRcsMessage(
+                        cards=[
+                            Card(
+                                title="title",
+                                image_url="image_url",
+                            )
+                        ],
                     ),
                 ),
             )
@@ -754,7 +802,9 @@ class AsyncPinnacle:
         _response = await self._client_wrapper.httpx_client.request(
             "send",
             method="POST",
-            json=convert_and_respect_annotation_metadata(object_=request, annotation=SendRequest, direction="write"),
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=SendRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
@@ -803,10 +853,14 @@ class AsyncPinnacle:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
-def _get_base_url(*, base_url: typing.Optional[str] = None, environment: PinnacleEnvironment) -> str:
+def _get_base_url(
+    *, base_url: typing.Optional[str] = None, environment: PinnacleEnvironment
+) -> str:
     if base_url is not None:
         return base_url
     elif environment is not None:
         return environment.value
     else:
-        raise Exception("Please pass in either base_url or environment to construct the client")
+        raise Exception(
+            "Please pass in either base_url or environment to construct the client"
+        )
