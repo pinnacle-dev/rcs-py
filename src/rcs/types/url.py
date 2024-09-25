@@ -12,6 +12,11 @@ class Url(UniversalBaseModel):
     The type of action being sent
     """
 
+    title: str = pydantic.Field()
+    """
+    The title for the URL action. Maximum length is 25 characters.
+    """
+
     payload: str = pydantic.Field()
     """
     The url to open. Maximum length is 1000 characters.

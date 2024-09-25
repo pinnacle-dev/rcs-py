@@ -8,13 +8,18 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class ViewLocation(UniversalBaseModel):
+    title: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The title for the view location action. Maximum length is 25 characters.
+    """
+
     action_type: typing.Literal["view_location"] = pydantic.Field(default="view_location")
     """
     The type of action being sent
     """
 
     lat_lng: LatLng
-    label: typing.Optional[str] = pydantic.Field(default=None)
+    label: str = pydantic.Field()
     """
     The name of the location
     """

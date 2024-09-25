@@ -12,6 +12,11 @@ class Call(UniversalBaseModel):
     The type of action being sent
     """
 
+    title: str = pydantic.Field()
+    """
+    The title for the call action. Maximum length is 25 characters.
+    """
+
     payload: str = pydantic.Field()
     """
     The number to call in E. 164 format. Maximum length is 1000 characters.

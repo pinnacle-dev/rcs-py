@@ -12,6 +12,11 @@ class Postback(UniversalBaseModel):
     The type of action being sent
     """
 
+    title: str = pydantic.Field()
+    """
+    The title for the postback acti9on. Maximum length is 25 characters.
+    """
+
     payload: str = pydantic.Field()
     """
     The postback payload. Maximum length is 1000 characters.
@@ -19,7 +24,7 @@ class Postback(UniversalBaseModel):
 
     execute: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The action to execute. Optional additional data sent when the button is tapped.
+    The action to execute. Optional additional data sent when the action is tapped.
     """
 
     if IS_PYDANTIC_V2:
