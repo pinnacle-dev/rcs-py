@@ -226,15 +226,20 @@ Send a SMS or RCS message to a phone number
 <dd>
 
 ```python
-from pinnacle import Pinnacle, Sms, SmsMessage
+from pinnacle import Card, CardRcs, CardRcsMessage, Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.send(
-    request=Sms(
-        message=SmsMessage(
-            body="body",
+    request=CardRcs(
+        message=CardRcsMessage(
+            cards=[
+                Card(
+                    title="title",
+                    image_url="image_url",
+                )
+            ],
         ),
     ),
 )
