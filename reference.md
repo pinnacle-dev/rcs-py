@@ -1,5 +1,5 @@
 # Reference
-<details><summary><code>client.<a href="src/pinnacle/client.py">check_rcs_capability</a>(...)</code></summary>
+<details><summary><code>client.<a href="src/rcs/client.py">check_rcs_capability</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -26,7 +26,7 @@ Checks if a phone number is able to receive RCS
 <dd>
 
 ```python
-from pinnacle import Pinnacle
+from rcs import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -69,7 +69,7 @@ client.check_rcs_capability(
 </dl>
 </details>
 
-<details><summary><code>client.<a href="src/pinnacle/client.py">update_settings</a>(...)</code></summary>
+<details><summary><code>client.<a href="src/rcs/client.py">update_settings</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -96,7 +96,7 @@ Initializes settings related to RCS messaging, including webhook registration.
 <dd>
 
 ```python
-from pinnacle import Pinnacle
+from rcs import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -139,7 +139,7 @@ client.update_settings(
 </dl>
 </details>
 
-<details><summary><code>client.<a href="src/pinnacle/client.py">get_account_number</a>()</code></summary>
+<details><summary><code>client.<a href="src/rcs/client.py">get_account_number</a>()</code></summary>
 <dl>
 <dd>
 
@@ -166,7 +166,7 @@ Retrieve the phone number associated with the account.
 <dd>
 
 ```python
-from pinnacle import Pinnacle
+from rcs import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -199,7 +199,7 @@ client.get_account_number()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="src/pinnacle/client.py">send</a>(...)</code></summary>
+<details><summary><code>client.<a href="src/rcs/client.py">send</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -226,7 +226,7 @@ Send a SMS or RCS message to a phone number
 <dd>
 
 ```python
-from pinnacle import Card, CardRcs, CardRcsMessage, Pinnacle
+from rcs import Card, CardRcs, CardRcsMessage, Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",

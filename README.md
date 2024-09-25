@@ -16,7 +16,7 @@ pip install rcs
 Instantiate and use the client with the following:
 
 ```python
-from pinnacle import Pinnacle
+from rcs import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -33,7 +33,7 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 ```python
 import asyncio
 
-from pinnacle import AsyncPinnacle
+from rcs import AsyncPinnacle
 
 client = AsyncPinnacle(
     api_key="YOUR_API_KEY",
@@ -55,7 +55,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```python
-from pinnacle.core.api_error import ApiError
+from rcs.core.api_error import ApiError
 
 try:
     client.update_settings(...)
@@ -92,7 +92,7 @@ The SDK defaults to a 60 second timeout. You can configure this with a timeout o
 
 ```python
 
-from pinnacle import Pinnacle
+from rcs import Pinnacle
 
 client = Pinnacle(
     ...,
@@ -112,7 +112,7 @@ You can override the `httpx` client to customize it for your use-case. Some comm
 and transports.
 ```python
 import httpx
-from pinnacle import Pinnacle
+from rcs import Pinnacle
 
 client = Pinnacle(
     ...,

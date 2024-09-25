@@ -57,7 +57,7 @@ class Pinnacle:
 
     Examples
     --------
-    from pinnacle import Pinnacle
+    from rcs import Pinnacle
 
     client = Pinnacle(
         api_key="YOUR_API_KEY",
@@ -107,7 +107,7 @@ class Pinnacle:
 
         Examples
         --------
-        from pinnacle import Pinnacle
+        from rcs import Pinnacle
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
@@ -189,7 +189,7 @@ class Pinnacle:
 
         Examples
         --------
-        from pinnacle import Pinnacle
+        from rcs import Pinnacle
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
@@ -269,7 +269,7 @@ class Pinnacle:
 
         Examples
         --------
-        from pinnacle import Pinnacle
+        from rcs import Pinnacle
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
@@ -333,7 +333,7 @@ class Pinnacle:
 
         Examples
         --------
-        from pinnacle import Card, CardRcs, CardRcsMessage, Pinnacle
+        from rcs import Card, CardRcs, CardRcsMessage, Pinnacle
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
@@ -433,7 +433,7 @@ class AsyncPinnacle:
 
     Examples
     --------
-    from pinnacle import AsyncPinnacle
+    from rcs import AsyncPinnacle
 
     client = AsyncPinnacle(
         api_key="YOUR_API_KEY",
@@ -485,7 +485,7 @@ class AsyncPinnacle:
         --------
         import asyncio
 
-        from pinnacle import AsyncPinnacle
+        from rcs import AsyncPinnacle
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -575,7 +575,7 @@ class AsyncPinnacle:
         --------
         import asyncio
 
-        from pinnacle import AsyncPinnacle
+        from rcs import AsyncPinnacle
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -663,7 +663,7 @@ class AsyncPinnacle:
         --------
         import asyncio
 
-        from pinnacle import AsyncPinnacle
+        from rcs import AsyncPinnacle
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -737,7 +737,7 @@ class AsyncPinnacle:
         --------
         import asyncio
 
-        from pinnacle import AsyncPinnacle, Card, CardRcs, CardRcsMessage
+        from rcs import AsyncPinnacle, Card, CardRcs, CardRcsMessage
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",

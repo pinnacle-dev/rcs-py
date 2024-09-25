@@ -4,7 +4,7 @@
 
 import typing_extensions
 import typing_extensions
-from pinnacle.core.serialization import FieldMetadata
+from rcs.core.serialization import FieldMetadata
 
 
 class CircleParams(typing_extensions.TypedDict):
