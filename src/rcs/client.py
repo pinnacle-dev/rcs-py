@@ -340,11 +340,11 @@ class Pinnacle:
         )
         client.send(
             request=CardRcs(
+                phone_number="phone_number",
                 message=CardRcsMessage(
                     cards=[
                         Card(
                             title="title",
-                            image_url="image_url",
                         )
                     ],
                 ),
@@ -747,11 +747,11 @@ class AsyncPinnacle:
         async def main() -> None:
             await client.send(
                 request=CardRcs(
+                    phone_number="phone_number",
                     message=CardRcsMessage(
                         cards=[
                             Card(
                                 title="title",
-                                image_url="image_url",
                             )
                         ],
                     ),

@@ -233,11 +233,11 @@ client = Pinnacle(
 )
 client.send(
     request=CardRcs(
+        phone_number="phone_number",
         message=CardRcsMessage(
             cards=[
                 Card(
                     title="title",
-                    image_url="image_url",
                 )
             ],
         ),

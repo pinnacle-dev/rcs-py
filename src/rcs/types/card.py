@@ -19,7 +19,7 @@ class Card(UniversalBaseModel):
     The subtitle of the card
     """
 
-    image_url: str = pydantic.Field()
+    image_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The URL of the image to be displayed on the card
     """
