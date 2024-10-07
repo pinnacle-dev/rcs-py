@@ -7,4 +7,4 @@ from .basic_rcs import BasicRcs
 from .media_rcs import MediaRcs
 from .carousel_rcs import CarouselRcs
 
-SendRequest = typing.Union[CardRcs, Sms, BasicRcs, MediaRcs, CarouselRcs]
+SendMessageRequest = typing.Union[CardRcs, Sms, BasicRcs, MediaRcs, CarouselRcs]

@@ -199,7 +199,7 @@ client.get_account_number()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="src/rcs/client.py">send</a>(...)</code></summary>
+<details><summary><code>client.<a href="src/rcs/client.py">send_message</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -231,7 +231,7 @@ from rcs import Card, CardRcs, CardRcsMessage, Pinnacle
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.send(
+client.send_message(
     request=CardRcs(
         phone_number="phone_number",
         message=CardRcsMessage(
@@ -258,7 +258,302 @@ client.send(
 <dl>
 <dd>
 
-**request:** `SendRequest` 
+**request:** `SendMessageRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="src/rcs/client.py">get_company</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the company's information (i.e. approval status, company name, etc.). Search by company ID or company name.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.get_company()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[int]` — The unique identifier for the company
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**company_name:** `typing.Optional[str]` — The name of the company
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="src/rcs/client.py">register_company</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Register a company for RCS with the Pinnacle platform
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import CompanyContact, CompanyDetails, Pinnacle, PointOfContact
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.register_company(
+    company=CompanyDetails(
+        name="name",
+        address="address",
+        ein="ein",
+        description="description",
+        brand_color="brandColor",
+        logo_url="logoUrl",
+        hero_url="heroUrl",
+    ),
+    company_contact=CompanyContact(
+        primary_website_url="primaryWebsiteUrl",
+        primary_website_label="primaryWebsiteLabel",
+        primary_phone="primaryPhone",
+        primary_phone_label="primaryPhoneLabel",
+        primary_email="primaryEmail",
+        primary_email_label="primaryEmailLabel",
+        privacy_policy_url="privacyPolicyUrl",
+        tos_url="tosUrl",
+    ),
+    point_of_contact=PointOfContact(
+        poc_name="pocName",
+        poc_title="pocTitle",
+        poc_email="pocEmail",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company:** `CompanyDetails` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**company_contact:** `CompanyContact` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**point_of_contact:** `PointOfContact` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**optionals:** `typing.Optional[Optionals]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="src/rcs/client.py">update_company</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a company on the Pinnacle platform
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.update_company(
+    company_id="companyId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**company:** `typing.Optional[Company]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**company_contact:** `typing.Optional[CompanyContact]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**point_of_contact:** `typing.Optional[PointOfContact]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**optionals:** `typing.Optional[Optionals]` 
     
 </dd>
 </dl>

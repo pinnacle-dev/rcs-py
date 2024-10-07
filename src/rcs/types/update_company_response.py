@@ -2,14 +2,14 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-from .bad_request_error_body_error import BadRequestErrorBodyError
+from .update_company_response_brand import UpdateCompanyResponseBrand
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class BadRequestErrorBody(UniversalBaseModel):
-    error: typing.Optional[BadRequestErrorBodyError] = None
+class UpdateCompanyResponse(UniversalBaseModel):
     success: typing.Optional[bool] = None
+    brand: typing.Optional[UpdateCompanyResponseBrand] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

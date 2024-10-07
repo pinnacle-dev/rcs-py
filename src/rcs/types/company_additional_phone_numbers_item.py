@@ -2,14 +2,20 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-from .bad_request_error_body_error import BadRequestErrorBodyError
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class BadRequestErrorBody(UniversalBaseModel):
-    error: typing.Optional[BadRequestErrorBodyError] = None
-    success: typing.Optional[bool] = None
+class CompanyAdditionalPhoneNumbersItem(UniversalBaseModel):
+    label: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The label for the additional phone number
+    """
+
+    phone: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The additional phone number
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

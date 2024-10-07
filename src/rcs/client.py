@@ -9,18 +9,24 @@ from .core.request_options import RequestOptions
 from .types.check_rcs_capability_response import CheckRcsCapabilityResponse
 from .core.pydantic_utilities import parse_obj_as
 from .errors.bad_request_error import BadRequestError
-from .types.bad_request_error_body import BadRequestErrorBody
 from .errors.unauthorized_error import UnauthorizedError
-from .types.unauthorized_error_body import UnauthorizedErrorBody
 from .errors.internal_server_error import InternalServerError
-from .types.internal_server_error_body import InternalServerErrorBody
 from json.decoder import JSONDecodeError
 from .core.api_error import ApiError
 from .types.update_settings_response import UpdateSettingsResponse
 from .types.get_account_number_response import GetAccountNumberResponse
-from .types.send_request import SendRequest
-from .types.send_response import SendResponse
+from .types.send_message_request import SendMessageRequest
+from .types.send_message_response import SendMessageResponse
 from .core.serialization import convert_and_respect_annotation_metadata
+from .types.company import Company
+from .errors.not_found_error import NotFoundError
+from .types.not_found_error_body import NotFoundErrorBody
+from .types.company_details import CompanyDetails
+from .types.company_contact import CompanyContact
+from .types.point_of_contact import PointOfContact
+from .types.optionals import Optionals
+from .types.register_company_response import RegisterCompanyResponse
+from .types.update_company_response import UpdateCompanyResponse
 from .core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -136,9 +142,9 @@ class Pinnacle:
             if _response.status_code == 400:
                 raise BadRequestError(
                     typing.cast(
-                        BadRequestErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=BadRequestErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -146,9 +152,9 @@ class Pinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        UnauthorizedErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=UnauthorizedErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -156,9 +162,9 @@ class Pinnacle:
             if _response.status_code == 500:
                 raise InternalServerError(
                     typing.cast(
-                        InternalServerErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=InternalServerErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -219,9 +225,9 @@ class Pinnacle:
             if _response.status_code == 400:
                 raise BadRequestError(
                     typing.cast(
-                        BadRequestErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=BadRequestErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -229,9 +235,9 @@ class Pinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        UnauthorizedErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=UnauthorizedErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -239,9 +245,9 @@ class Pinnacle:
             if _response.status_code == 500:
                 raise InternalServerError(
                     typing.cast(
-                        InternalServerErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=InternalServerErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -293,9 +299,9 @@ class Pinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        UnauthorizedErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=UnauthorizedErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -303,9 +309,9 @@ class Pinnacle:
             if _response.status_code == 500:
                 raise InternalServerError(
                     typing.cast(
-                        InternalServerErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=InternalServerErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -315,20 +321,22 @@ class Pinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def send(self, *, request: SendRequest, request_options: typing.Optional[RequestOptions] = None) -> SendResponse:
+    def send_message(
+        self, *, request: SendMessageRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> SendMessageResponse:
         """
         Send a SMS or RCS message to a phone number
 
         Parameters
         ----------
-        request : SendRequest
+        request : SendMessageRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SendResponse
+        SendMessageResponse
             Message sent successfully
 
         Examples
@@ -338,7 +346,7 @@ class Pinnacle:
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
-        client.send(
+        client.send_message(
             request=CardRcs(
                 phone_number="phone_number",
                 message=CardRcsMessage(
@@ -354,25 +362,27 @@ class Pinnacle:
         _response = self._client_wrapper.httpx_client.request(
             "send",
             method="POST",
-            json=convert_and_respect_annotation_metadata(object_=request, annotation=SendRequest, direction="write"),
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=SendMessageRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    SendResponse,
+                    SendMessageResponse,
                     parse_obj_as(
-                        type_=SendResponse,  # type: ignore
+                        type_=SendMessageResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
             if _response.status_code == 400:
                 raise BadRequestError(
                     typing.cast(
-                        BadRequestErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=BadRequestErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -380,9 +390,9 @@ class Pinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        UnauthorizedErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=UnauthorizedErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -390,9 +400,344 @@ class Pinnacle:
             if _response.status_code == 500:
                 raise InternalServerError(
                     typing.cast(
-                        InternalServerErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=InternalServerErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_company(
+        self,
+        *,
+        company_id: typing.Optional[int] = None,
+        company_name: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Company]:
+        """
+        Retrieve the company's information (i.e. approval status, company name, etc.). Search by company ID or company name.
+
+        Parameters
+        ----------
+        company_id : typing.Optional[int]
+            The unique identifier for the company
+
+        company_name : typing.Optional[str]
+            The name of the company
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[Company]
+            Successfully retrieved company information
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_company()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "company",
+            method="GET",
+            params={
+                "companyId": company_id,
+                "companyName": company_name,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[Company],
+                    parse_obj_as(
+                        type_=typing.List[Company],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        NotFoundErrorBody,
+                        parse_obj_as(
+                            type_=NotFoundErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def register_company(
+        self,
+        *,
+        company: CompanyDetails,
+        company_contact: CompanyContact,
+        point_of_contact: PointOfContact,
+        optionals: typing.Optional[Optionals] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> RegisterCompanyResponse:
+        """
+        Register a company for RCS with the Pinnacle platform
+
+        Parameters
+        ----------
+        company : CompanyDetails
+
+        company_contact : CompanyContact
+
+        point_of_contact : PointOfContact
+
+        optionals : typing.Optional[Optionals]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RegisterCompanyResponse
+            Successfully registered company
+
+        Examples
+        --------
+        from rcs import CompanyContact, CompanyDetails, Pinnacle, PointOfContact
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.register_company(
+            company=CompanyDetails(
+                name="name",
+                address="address",
+                ein="ein",
+                description="description",
+                brand_color="brandColor",
+                logo_url="logoUrl",
+                hero_url="heroUrl",
+            ),
+            company_contact=CompanyContact(
+                primary_website_url="primaryWebsiteUrl",
+                primary_website_label="primaryWebsiteLabel",
+                primary_phone="primaryPhone",
+                primary_phone_label="primaryPhoneLabel",
+                primary_email="primaryEmail",
+                primary_email_label="primaryEmailLabel",
+                privacy_policy_url="privacyPolicyUrl",
+                tos_url="tosUrl",
+            ),
+            point_of_contact=PointOfContact(
+                poc_name="pocName",
+                poc_title="pocTitle",
+                poc_email="pocEmail",
+            ),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "company/register",
+            method="POST",
+            json={
+                "company": convert_and_respect_annotation_metadata(
+                    object_=company, annotation=CompanyDetails, direction="write"
+                ),
+                "companyContact": convert_and_respect_annotation_metadata(
+                    object_=company_contact, annotation=CompanyContact, direction="write"
+                ),
+                "pointOfContact": convert_and_respect_annotation_metadata(
+                    object_=point_of_contact, annotation=PointOfContact, direction="write"
+                ),
+                "optionals": convert_and_respect_annotation_metadata(
+                    object_=optionals, annotation=Optionals, direction="write"
+                ),
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    RegisterCompanyResponse,
+                    parse_obj_as(
+                        type_=RegisterCompanyResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def update_company(
+        self,
+        *,
+        company_id: str,
+        company: typing.Optional[Company] = OMIT,
+        company_contact: typing.Optional[CompanyContact] = OMIT,
+        point_of_contact: typing.Optional[PointOfContact] = OMIT,
+        optionals: typing.Optional[Optionals] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateCompanyResponse:
+        """
+        Update a company on the Pinnacle platform
+
+        Parameters
+        ----------
+        company_id : str
+
+        company : typing.Optional[Company]
+
+        company_contact : typing.Optional[CompanyContact]
+
+        point_of_contact : typing.Optional[PointOfContact]
+
+        optionals : typing.Optional[Optionals]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateCompanyResponse
+            Successfully updated company
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.update_company(
+            company_id="companyId",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "company/update",
+            method="POST",
+            json={
+                "companyId": company_id,
+                "company": convert_and_respect_annotation_metadata(
+                    object_=company, annotation=Company, direction="write"
+                ),
+                "companyContact": convert_and_respect_annotation_metadata(
+                    object_=company_contact, annotation=CompanyContact, direction="write"
+                ),
+                "pointOfContact": convert_and_respect_annotation_metadata(
+                    object_=point_of_contact, annotation=PointOfContact, direction="write"
+                ),
+                "optionals": convert_and_respect_annotation_metadata(
+                    object_=optionals, annotation=Optionals, direction="write"
+                ),
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    UpdateCompanyResponse,
+                    parse_obj_as(
+                        type_=UpdateCompanyResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -520,9 +865,9 @@ class AsyncPinnacle:
             if _response.status_code == 400:
                 raise BadRequestError(
                     typing.cast(
-                        BadRequestErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=BadRequestErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -530,9 +875,9 @@ class AsyncPinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        UnauthorizedErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=UnauthorizedErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -540,9 +885,9 @@ class AsyncPinnacle:
             if _response.status_code == 500:
                 raise InternalServerError(
                     typing.cast(
-                        InternalServerErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=InternalServerErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -611,9 +956,9 @@ class AsyncPinnacle:
             if _response.status_code == 400:
                 raise BadRequestError(
                     typing.cast(
-                        BadRequestErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=BadRequestErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -621,9 +966,9 @@ class AsyncPinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        UnauthorizedErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=UnauthorizedErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -631,9 +976,9 @@ class AsyncPinnacle:
             if _response.status_code == 500:
                 raise InternalServerError(
                     typing.cast(
-                        InternalServerErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=InternalServerErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -693,9 +1038,9 @@ class AsyncPinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        UnauthorizedErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=UnauthorizedErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -703,9 +1048,9 @@ class AsyncPinnacle:
             if _response.status_code == 500:
                 raise InternalServerError(
                     typing.cast(
-                        InternalServerErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=InternalServerErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -715,22 +1060,22 @@ class AsyncPinnacle:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def send(
-        self, *, request: SendRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> SendResponse:
+    async def send_message(
+        self, *, request: SendMessageRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> SendMessageResponse:
         """
         Send a SMS or RCS message to a phone number
 
         Parameters
         ----------
-        request : SendRequest
+        request : SendMessageRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SendResponse
+        SendMessageResponse
             Message sent successfully
 
         Examples
@@ -745,7 +1090,7 @@ class AsyncPinnacle:
 
 
         async def main() -> None:
-            await client.send(
+            await client.send_message(
                 request=CardRcs(
                     phone_number="phone_number",
                     message=CardRcsMessage(
@@ -764,25 +1109,27 @@ class AsyncPinnacle:
         _response = await self._client_wrapper.httpx_client.request(
             "send",
             method="POST",
-            json=convert_and_respect_annotation_metadata(object_=request, annotation=SendRequest, direction="write"),
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=SendMessageRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    SendResponse,
+                    SendMessageResponse,
                     parse_obj_as(
-                        type_=SendResponse,  # type: ignore
+                        type_=SendMessageResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
             if _response.status_code == 400:
                 raise BadRequestError(
                     typing.cast(
-                        BadRequestErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=BadRequestErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -790,9 +1137,9 @@ class AsyncPinnacle:
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     typing.cast(
-                        UnauthorizedErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=UnauthorizedErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -800,9 +1147,368 @@ class AsyncPinnacle:
             if _response.status_code == 500:
                 raise InternalServerError(
                     typing.cast(
-                        InternalServerErrorBody,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=InternalServerErrorBody,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_company(
+        self,
+        *,
+        company_id: typing.Optional[int] = None,
+        company_name: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Company]:
+        """
+        Retrieve the company's information (i.e. approval status, company name, etc.). Search by company ID or company name.
+
+        Parameters
+        ----------
+        company_id : typing.Optional[int]
+            The unique identifier for the company
+
+        company_name : typing.Optional[str]
+            The name of the company
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[Company]
+            Successfully retrieved company information
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.get_company()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "company",
+            method="GET",
+            params={
+                "companyId": company_id,
+                "companyName": company_name,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[Company],
+                    parse_obj_as(
+                        type_=typing.List[Company],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        NotFoundErrorBody,
+                        parse_obj_as(
+                            type_=NotFoundErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def register_company(
+        self,
+        *,
+        company: CompanyDetails,
+        company_contact: CompanyContact,
+        point_of_contact: PointOfContact,
+        optionals: typing.Optional[Optionals] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> RegisterCompanyResponse:
+        """
+        Register a company for RCS with the Pinnacle platform
+
+        Parameters
+        ----------
+        company : CompanyDetails
+
+        company_contact : CompanyContact
+
+        point_of_contact : PointOfContact
+
+        optionals : typing.Optional[Optionals]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RegisterCompanyResponse
+            Successfully registered company
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle, CompanyContact, CompanyDetails, PointOfContact
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.register_company(
+                company=CompanyDetails(
+                    name="name",
+                    address="address",
+                    ein="ein",
+                    description="description",
+                    brand_color="brandColor",
+                    logo_url="logoUrl",
+                    hero_url="heroUrl",
+                ),
+                company_contact=CompanyContact(
+                    primary_website_url="primaryWebsiteUrl",
+                    primary_website_label="primaryWebsiteLabel",
+                    primary_phone="primaryPhone",
+                    primary_phone_label="primaryPhoneLabel",
+                    primary_email="primaryEmail",
+                    primary_email_label="primaryEmailLabel",
+                    privacy_policy_url="privacyPolicyUrl",
+                    tos_url="tosUrl",
+                ),
+                point_of_contact=PointOfContact(
+                    poc_name="pocName",
+                    poc_title="pocTitle",
+                    poc_email="pocEmail",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "company/register",
+            method="POST",
+            json={
+                "company": convert_and_respect_annotation_metadata(
+                    object_=company, annotation=CompanyDetails, direction="write"
+                ),
+                "companyContact": convert_and_respect_annotation_metadata(
+                    object_=company_contact, annotation=CompanyContact, direction="write"
+                ),
+                "pointOfContact": convert_and_respect_annotation_metadata(
+                    object_=point_of_contact, annotation=PointOfContact, direction="write"
+                ),
+                "optionals": convert_and_respect_annotation_metadata(
+                    object_=optionals, annotation=Optionals, direction="write"
+                ),
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    RegisterCompanyResponse,
+                    parse_obj_as(
+                        type_=RegisterCompanyResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def update_company(
+        self,
+        *,
+        company_id: str,
+        company: typing.Optional[Company] = OMIT,
+        company_contact: typing.Optional[CompanyContact] = OMIT,
+        point_of_contact: typing.Optional[PointOfContact] = OMIT,
+        optionals: typing.Optional[Optionals] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateCompanyResponse:
+        """
+        Update a company on the Pinnacle platform
+
+        Parameters
+        ----------
+        company_id : str
+
+        company : typing.Optional[Company]
+
+        company_contact : typing.Optional[CompanyContact]
+
+        point_of_contact : typing.Optional[PointOfContact]
+
+        optionals : typing.Optional[Optionals]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateCompanyResponse
+            Successfully updated company
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.update_company(
+                company_id="companyId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "company/update",
+            method="POST",
+            json={
+                "companyId": company_id,
+                "company": convert_and_respect_annotation_metadata(
+                    object_=company, annotation=Company, direction="write"
+                ),
+                "companyContact": convert_and_respect_annotation_metadata(
+                    object_=company_contact, annotation=CompanyContact, direction="write"
+                ),
+                "pointOfContact": convert_and_respect_annotation_metadata(
+                    object_=point_of_contact, annotation=PointOfContact, direction="write"
+                ),
+                "optionals": convert_and_respect_annotation_metadata(
+                    object_=optionals, annotation=Optionals, direction="write"
+                ),
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    UpdateCompanyResponse,
+                    parse_obj_as(
+                        type_=UpdateCompanyResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     )
