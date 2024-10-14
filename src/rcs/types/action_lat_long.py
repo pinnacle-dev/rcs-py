@@ -2,12 +2,24 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class UpdateSettingsResponse(UniversalBaseModel):
-    message: typing.Optional[str] = None
+class ActionLatLong(UniversalBaseModel):
+    """
+    Latitude and longitude coordinates. Required for 'sendLocation'.
+    """
+
+    lat: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Latitude value.
+    """
+
+    lng: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Longitude value.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -4,30 +4,25 @@ import typing
 from .environment import PinnacleEnvironment
 import httpx
 from .core.client_wrapper import SyncClientWrapper
-from .types.phone_number import PhoneNumber
+from .send.client import SendClient
 from .core.request_options import RequestOptions
-from .types.check_rcs_capability_response import CheckRcsCapabilityResponse
+from .types.rcs_functionalities import RcsFunctionalities
 from .core.pydantic_utilities import parse_obj_as
 from .errors.bad_request_error import BadRequestError
 from .errors.unauthorized_error import UnauthorizedError
 from .errors.internal_server_error import InternalServerError
 from json.decoder import JSONDecodeError
 from .core.api_error import ApiError
-from .types.update_settings_response import UpdateSettingsResponse
-from .types.get_account_number_response import GetAccountNumberResponse
-from .types.send_message_request import SendMessageRequest
-from .types.send_message_response import SendMessageResponse
-from .core.serialization import convert_and_respect_annotation_metadata
 from .types.company import Company
-from .errors.not_found_error import NotFoundError
-from .types.not_found_error_body import NotFoundErrorBody
 from .types.company_details import CompanyDetails
 from .types.company_contact import CompanyContact
 from .types.point_of_contact import PointOfContact
 from .types.optionals import Optionals
 from .types.register_company_response import RegisterCompanyResponse
+from .core.serialization import convert_and_respect_annotation_metadata
 from .types.update_company_response import UpdateCompanyResponse
 from .core.client_wrapper import AsyncClientWrapper
+from .send.client import AsyncSendClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -91,25 +86,26 @@ class Pinnacle:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
+        self.send = SendClient(client_wrapper=self._client_wrapper)
 
-    def check_rcs_capability(
-        self, *, phone_number: PhoneNumber, request_options: typing.Optional[RequestOptions] = None
-    ) -> CheckRcsCapabilityResponse:
+    def get_rcs_functionality(
+        self, *, phone_number: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> RcsFunctionalities:
         """
-        Checks if a phone number is able to receive RCS
+        Retrieve the RCS functionality of a phone number. For example checks if a phone number can receive RCS message and if it can receive RCS carousels.
 
         Parameters
         ----------
-        phone_number : PhoneNumber
-            Phone number (E.164 format: [+][country code][subscriber number including area code]) to check for RCS capability. Example: +1234567890
+        phone_number : typing.Optional[str]
+            The phone number to check for RCS functionality. Should be in E.164 format (i.e. +12345678901).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        CheckRcsCapabilityResponse
-            RCS capability check successful
+        RcsFunctionalities
+            Successfully retrieved RCS functionality
 
         Examples
         --------
@@ -118,262 +114,22 @@ class Pinnacle:
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
-        client.check_rcs_capability(
-            phone_number="phone_number",
-        )
+        client.get_rcs_functionality()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "check_rcs",
+            "rcs_functionality",
             method="GET",
             params={
-                "phone_number": phone_number,
+                "phoneNumber": phone_number,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    CheckRcsCapabilityResponse,
+                    RcsFunctionalities,
                     parse_obj_as(
-                        type_=CheckRcsCapabilityResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def update_settings(
-        self, *, webhook_url: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> UpdateSettingsResponse:
-        """
-        Initializes settings related to RCS messaging, including webhook registration.
-
-        Parameters
-        ----------
-        webhook_url : str
-            Webhook URL to receive inbound messages
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        UpdateSettingsResponse
-            Settings updated successfully
-
-        Examples
-        --------
-        from rcs import Pinnacle
-
-        client = Pinnacle(
-            api_key="YOUR_API_KEY",
-        )
-        client.update_settings(
-            webhook_url="webhook_url",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "update_settings",
-            method="POST",
-            json={
-                "webhook_url": webhook_url,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    UpdateSettingsResponse,
-                    parse_obj_as(
-                        type_=UpdateSettingsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def get_account_number(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> GetAccountNumberResponse:
-        """
-        Retrieve the phone number associated with the account.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetAccountNumberResponse
-            Successfully retrieved supported numbers
-
-        Examples
-        --------
-        from rcs import Pinnacle
-
-        client = Pinnacle(
-            api_key="YOUR_API_KEY",
-        )
-        client.get_account_number()
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "get_account_number",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    GetAccountNumberResponse,
-                    parse_obj_as(
-                        type_=GetAccountNumberResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def send_message(
-        self, *, request: SendMessageRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> SendMessageResponse:
-        """
-        Send a SMS or RCS message to a phone number
-
-        Parameters
-        ----------
-        request : SendMessageRequest
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SendMessageResponse
-            Message sent successfully
-
-        Examples
-        --------
-        from rcs import Card, CardRcs, CardRcsMessage, Pinnacle
-
-        client = Pinnacle(
-            api_key="YOUR_API_KEY",
-        )
-        client.send_message(
-            request=CardRcs(
-                phone_number="phone_number",
-                message=CardRcsMessage(
-                    cards=[
-                        Card(
-                            title="title",
-                        )
-                    ],
-                ),
-            ),
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "send",
-            method="POST",
-            json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=SendMessageRequest, direction="write"
-            ),
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    SendMessageResponse,
-                    parse_obj_as(
-                        type_=SendMessageResponse,  # type: ignore
+                        type_=RcsFunctionalities,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -485,16 +241,6 @@ class Pinnacle:
                         ),
                     )
                 )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        NotFoundErrorBody,
-                        parse_obj_as(
-                            type_=NotFoundErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
             if _response.status_code == 500:
                 raise InternalServerError(
                     typing.cast(
@@ -538,7 +284,7 @@ class Pinnacle:
         Returns
         -------
         RegisterCompanyResponse
-            Successfully registered company
+            Successfully registered/updated brand
 
         Examples
         --------
@@ -669,7 +415,7 @@ class Pinnacle:
         Returns
         -------
         UpdateCompanyResponse
-            Successfully updated company
+            Successfully registered/updated brand
 
         Examples
         --------
@@ -806,25 +552,26 @@ class AsyncPinnacle:
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
+        self.send = AsyncSendClient(client_wrapper=self._client_wrapper)
 
-    async def check_rcs_capability(
-        self, *, phone_number: PhoneNumber, request_options: typing.Optional[RequestOptions] = None
-    ) -> CheckRcsCapabilityResponse:
+    async def get_rcs_functionality(
+        self, *, phone_number: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> RcsFunctionalities:
         """
-        Checks if a phone number is able to receive RCS
+        Retrieve the RCS functionality of a phone number. For example checks if a phone number can receive RCS message and if it can receive RCS carousels.
 
         Parameters
         ----------
-        phone_number : PhoneNumber
-            Phone number (E.164 format: [+][country code][subscriber number including area code]) to check for RCS capability. Example: +1234567890
+        phone_number : typing.Optional[str]
+            The phone number to check for RCS functionality. Should be in E.164 format (i.e. +12345678901).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        CheckRcsCapabilityResponse
-            RCS capability check successful
+        RcsFunctionalities
+            Successfully retrieved RCS functionality
 
         Examples
         --------
@@ -838,289 +585,25 @@ class AsyncPinnacle:
 
 
         async def main() -> None:
-            await client.check_rcs_capability(
-                phone_number="phone_number",
-            )
+            await client.get_rcs_functionality()
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "check_rcs",
+            "rcs_functionality",
             method="GET",
             params={
-                "phone_number": phone_number,
+                "phoneNumber": phone_number,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    CheckRcsCapabilityResponse,
+                    RcsFunctionalities,
                     parse_obj_as(
-                        type_=CheckRcsCapabilityResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def update_settings(
-        self, *, webhook_url: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> UpdateSettingsResponse:
-        """
-        Initializes settings related to RCS messaging, including webhook registration.
-
-        Parameters
-        ----------
-        webhook_url : str
-            Webhook URL to receive inbound messages
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        UpdateSettingsResponse
-            Settings updated successfully
-
-        Examples
-        --------
-        import asyncio
-
-        from rcs import AsyncPinnacle
-
-        client = AsyncPinnacle(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.update_settings(
-                webhook_url="webhook_url",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "update_settings",
-            method="POST",
-            json={
-                "webhook_url": webhook_url,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    UpdateSettingsResponse,
-                    parse_obj_as(
-                        type_=UpdateSettingsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def get_account_number(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> GetAccountNumberResponse:
-        """
-        Retrieve the phone number associated with the account.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetAccountNumberResponse
-            Successfully retrieved supported numbers
-
-        Examples
-        --------
-        import asyncio
-
-        from rcs import AsyncPinnacle
-
-        client = AsyncPinnacle(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.get_account_number()
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "get_account_number",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    GetAccountNumberResponse,
-                    parse_obj_as(
-                        type_=GetAccountNumberResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def send_message(
-        self, *, request: SendMessageRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> SendMessageResponse:
-        """
-        Send a SMS or RCS message to a phone number
-
-        Parameters
-        ----------
-        request : SendMessageRequest
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SendMessageResponse
-            Message sent successfully
-
-        Examples
-        --------
-        import asyncio
-
-        from rcs import AsyncPinnacle, Card, CardRcs, CardRcsMessage
-
-        client = AsyncPinnacle(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.send_message(
-                request=CardRcs(
-                    phone_number="phone_number",
-                    message=CardRcsMessage(
-                        cards=[
-                            Card(
-                                title="title",
-                            )
-                        ],
-                    ),
-                ),
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "send",
-            method="POST",
-            json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=SendMessageRequest, direction="write"
-            ),
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    SendMessageResponse,
-                    parse_obj_as(
-                        type_=SendMessageResponse,  # type: ignore
+                        type_=RcsFunctionalities,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1240,16 +723,6 @@ class AsyncPinnacle:
                         ),
                     )
                 )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        NotFoundErrorBody,
-                        parse_obj_as(
-                            type_=NotFoundErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
             if _response.status_code == 500:
                 raise InternalServerError(
                     typing.cast(
@@ -1293,7 +766,7 @@ class AsyncPinnacle:
         Returns
         -------
         RegisterCompanyResponse
-            Successfully registered company
+            Successfully registered/updated brand
 
         Examples
         --------
@@ -1432,7 +905,7 @@ class AsyncPinnacle:
         Returns
         -------
         UpdateCompanyResponse
-            Successfully updated company
+            Successfully registered/updated brand
 
         Examples
         --------

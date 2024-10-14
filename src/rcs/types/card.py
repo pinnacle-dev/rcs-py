@@ -3,35 +3,33 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
 import typing
+import typing_extensions
+from ..core.serialization import FieldMetadata
 from .action import Action
-from .card_style import CardStyle
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class Card(UniversalBaseModel):
     title: str = pydantic.Field()
     """
-    The title of the card
+    The title of the card.
     """
 
     subtitle: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The subtitle of the card
+    Optional subtitle for the card.
     """
 
-    image_url: typing.Optional[str] = pydantic.Field(default=None)
+    media_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="mediaUrl")] = pydantic.Field(
+        default=None
+    )
     """
-    The URL of the image to be displayed on the card
+    Optional media URL displayed with the card.
     """
 
     buttons: typing.Optional[typing.List[Action]] = pydantic.Field(default=None)
     """
-    Array of buttons attached to the card. Maximum of 4 buttons.
-    """
-
-    card_style: typing.Optional[CardStyle] = pydantic.Field(default=None)
-    """
-    The style of the card
+    Optional list of buttons on the card (max 4).
     """
 
     if IS_PYDANTIC_V2:

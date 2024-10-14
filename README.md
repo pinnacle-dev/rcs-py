@@ -16,13 +16,36 @@ pip install rcs
 Instantiate and use the client with the following:
 
 ```python
-from rcs import Pinnacle
+from rcs import CompanyContact, CompanyDetails, Pinnacle, PointOfContact
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.update_settings(
-    webhook_url="webhook_url",
+client.register_company(
+    company=CompanyDetails(
+        name="name",
+        address="address",
+        ein="ein",
+        description="description",
+        brand_color="brandColor",
+        logo_url="logoUrl",
+        hero_url="heroUrl",
+    ),
+    company_contact=CompanyContact(
+        primary_website_url="primaryWebsiteUrl",
+        primary_website_label="primaryWebsiteLabel",
+        primary_phone="primaryPhone",
+        primary_phone_label="primaryPhoneLabel",
+        primary_email="primaryEmail",
+        primary_email_label="primaryEmailLabel",
+        privacy_policy_url="privacyPolicyUrl",
+        tos_url="tosUrl",
+    ),
+    point_of_contact=PointOfContact(
+        poc_name="pocName",
+        poc_title="pocTitle",
+        poc_email="pocEmail",
+    ),
 )
 ```
 
@@ -33,7 +56,7 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 ```python
 import asyncio
 
-from rcs import AsyncPinnacle
+from rcs import AsyncPinnacle, CompanyContact, CompanyDetails, PointOfContact
 
 client = AsyncPinnacle(
     api_key="YOUR_API_KEY",
@@ -41,8 +64,31 @@ client = AsyncPinnacle(
 
 
 async def main() -> None:
-    await client.update_settings(
-        webhook_url="webhook_url",
+    await client.register_company(
+        company=CompanyDetails(
+            name="name",
+            address="address",
+            ein="ein",
+            description="description",
+            brand_color="brandColor",
+            logo_url="logoUrl",
+            hero_url="heroUrl",
+        ),
+        company_contact=CompanyContact(
+            primary_website_url="primaryWebsiteUrl",
+            primary_website_label="primaryWebsiteLabel",
+            primary_phone="primaryPhone",
+            primary_phone_label="primaryPhoneLabel",
+            primary_email="primaryEmail",
+            primary_email_label="primaryEmailLabel",
+            privacy_policy_url="privacyPolicyUrl",
+            tos_url="tosUrl",
+        ),
+        point_of_contact=PointOfContact(
+            poc_name="pocName",
+            poc_title="pocTitle",
+            poc_email="pocEmail",
+        ),
     )
 
 
@@ -58,7 +104,7 @@ will be thrown.
 from rcs.core.api_error import ApiError
 
 try:
-    client.update_settings(...)
+    client.register_company(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -81,7 +127,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.update_settings(..., {
+client.register_company(..., {
     "max_retries": 1
 })
 ```
@@ -101,7 +147,7 @@ client = Pinnacle(
 
 
 # Override timeout for a specific method
-client.update_settings(..., {
+client.register_company(..., {
     "timeout_in_seconds": 1
 })
 ```
