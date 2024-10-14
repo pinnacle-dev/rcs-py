@@ -19,11 +19,7 @@ from .internal_server_error_body import InternalServerErrorBody
 from .optionals import Optionals
 from .point_of_contact import PointOfContact
 from .rcs_functionalities import RcsFunctionalities
-from .register_company_response import RegisterCompanyResponse
-from .register_company_response_brand import RegisterCompanyResponseBrand
 from .unauthorized_error_body import UnauthorizedErrorBody
-from .update_company_response import UpdateCompanyResponse
-from .update_company_response_brand import UpdateCompanyResponseBrand
 
 __all__ = [
     "Action",
@@ -45,9 +41,5 @@ __all__ = [
     "Optionals",
     "PointOfContact",
     "RcsFunctionalities",
-    "RegisterCompanyResponse",
-    "RegisterCompanyResponseBrand",
     "UnauthorizedErrorBody",
-    "UpdateCompanyResponse",
-    "UpdateCompanyResponseBrand",
 ]

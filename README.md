@@ -21,7 +21,7 @@ from rcs import CompanyContact, CompanyDetails, Pinnacle, PointOfContact
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.register_company(
+client.company.register(
     company=CompanyDetails(
         name="name",
         address="address",
@@ -64,7 +64,7 @@ client = AsyncPinnacle(
 
 
 async def main() -> None:
-    await client.register_company(
+    await client.company.register(
         company=CompanyDetails(
             name="name",
             address="address",
@@ -104,7 +104,7 @@ will be thrown.
 from rcs.core.api_error import ApiError
 
 try:
-    client.register_company(...)
+    client.company.register(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -127,7 +127,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.register_company(..., {
+client.company.register(..., {
     "max_retries": 1
 })
 ```
@@ -147,7 +147,7 @@ client = Pinnacle(
 
 
 # Override timeout for a specific method
-client.register_company(..., {
+client.company.register(..., {
     "timeout_in_seconds": 1
 })
 ```

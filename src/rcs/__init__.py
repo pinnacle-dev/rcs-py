@@ -20,15 +20,17 @@ from .types import (
     Optionals,
     PointOfContact,
     RcsFunctionalities,
-    RegisterCompanyResponse,
-    RegisterCompanyResponseBrand,
     UnauthorizedErrorBody,
-    UpdateCompanyResponse,
-    UpdateCompanyResponseBrand,
 )
 from .errors import BadRequestError, ForbiddenError, InternalServerError, UnauthorizedError
-from . import send
+from . import company, send
 from .client import AsyncPinnacle, Pinnacle
+from .company import (
+    CompanyRegisterResponse,
+    CompanyRegisterResponseBrand,
+    CompanyUpdateResponse,
+    CompanyUpdateResponseBrand,
+)
 from .environment import PinnacleEnvironment
 from .send import SendMmsResponse, SendRcsResponse, SendSmsResponse
 from .version import __version__
@@ -50,6 +52,10 @@ __all__ = [
     "CompanyAdditionalWebsitesItem",
     "CompanyContact",
     "CompanyDetails",
+    "CompanyRegisterResponse",
+    "CompanyRegisterResponseBrand",
+    "CompanyUpdateResponse",
+    "CompanyUpdateResponseBrand",
     "ForbiddenError",
     "ForbiddenErrorBody",
     "InternalServerError",
@@ -59,15 +65,12 @@ __all__ = [
     "PinnacleEnvironment",
     "PointOfContact",
     "RcsFunctionalities",
-    "RegisterCompanyResponse",
-    "RegisterCompanyResponseBrand",
     "SendMmsResponse",
     "SendRcsResponse",
     "SendSmsResponse",
     "UnauthorizedError",
     "UnauthorizedErrorBody",
-    "UpdateCompanyResponse",
-    "UpdateCompanyResponseBrand",
     "__version__",
+    "company",
     "send",
 ]

@@ -67,7 +67,8 @@ client.get_rcs_functionality()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="src/rcs/client.py">get_company</a>(...)</code></summary>
+## Company
+<details><summary><code>client.company.<a href="src/rcs/company/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -99,7 +100,7 @@ from rcs import Pinnacle
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.get_company()
+client.company.get()
 
 ```
 </dd>
@@ -143,7 +144,7 @@ client.get_company()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="src/rcs/client.py">register_company</a>(...)</code></summary>
+<details><summary><code>client.company.<a href="src/rcs/company/client.py">register</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -175,7 +176,7 @@ from rcs import CompanyContact, CompanyDetails, Pinnacle, PointOfContact
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.register_company(
+client.company.register(
     company=CompanyDetails(
         name="name",
         address="address",
@@ -260,7 +261,7 @@ client.register_company(
 </dl>
 </details>
 
-<details><summary><code>client.<a href="src/rcs/client.py">update_company</a>(...)</code></summary>
+<details><summary><code>client.company.<a href="src/rcs/company/client.py">update</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -292,7 +293,7 @@ from rcs import Pinnacle
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.update_company(
+client.company.update(
     company_id="companyId",
 )
 
