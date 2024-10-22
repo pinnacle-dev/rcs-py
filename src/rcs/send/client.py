@@ -272,8 +272,8 @@ class SendClient:
         *,
         to: str,
         from_: str,
-        text: str,
         media_urls: typing.Sequence[str],
+        text: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SendMmsResponse:
         """
@@ -287,11 +287,11 @@ class SendClient:
         from_ : str
             The sender's phone number in E.164 format. Must be owned by the user.
 
-        text : str
-            The MMS message content (max 1600 characters).
-
         media_urls : typing.Sequence[str]
             The URLs of media to include. `jpeg`, `jpg`, `gif`, and `png` file types are fully supported and have a size limit of 5 MB. 500 KB limit for other types. Up to 10 media URLs can be included.
+
+        text : typing.Optional[str]
+            The MMS message content (max 1600 characters).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -311,7 +311,6 @@ class SendClient:
         client.send.mms(
             to="to",
             from_="from",
-            text="text",
             media_urls=[
                 "https://example.com/image1.jpg",
                 "https://example.com/video.mp4",
@@ -651,8 +650,8 @@ class AsyncSendClient:
         *,
         to: str,
         from_: str,
-        text: str,
         media_urls: typing.Sequence[str],
+        text: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SendMmsResponse:
         """
@@ -666,11 +665,11 @@ class AsyncSendClient:
         from_ : str
             The sender's phone number in E.164 format. Must be owned by the user.
 
-        text : str
-            The MMS message content (max 1600 characters).
-
         media_urls : typing.Sequence[str]
             The URLs of media to include. `jpeg`, `jpg`, `gif`, and `png` file types are fully supported and have a size limit of 5 MB. 500 KB limit for other types. Up to 10 media URLs can be included.
+
+        text : typing.Optional[str]
+            The MMS message content (max 1600 characters).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -695,7 +694,6 @@ class AsyncSendClient:
             await client.send.mms(
                 to="to",
                 from_="from",
-                text="text",
                 media_urls=[
                     "https://example.com/image1.jpg",
                     "https://example.com/video.mp4",

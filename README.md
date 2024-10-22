@@ -11,6 +11,10 @@ The Pinnacle Python library provides convenient access to the Pinnacle API from 
 pip install rcs
 ```
 
+## Reference
+
+A full reference for this library is available [here](./reference.md).
+
 ## Usage
 
 Instantiate and use the client with the following:
@@ -127,7 +131,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.company.register(..., {
+client.company.register(..., request_options={
     "max_retries": 1
 })
 ```
@@ -147,7 +151,7 @@ client = Pinnacle(
 
 
 # Override timeout for a specific method
-client.company.register(..., {
+client.company.register(..., request_options={
     "timeout_in_seconds": 1
 })
 ```

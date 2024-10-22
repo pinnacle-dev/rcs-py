@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "rcs"
-version = "1.0.12"
-description = "The Rich Communication Services API for Developers"
+version = "1.0.13"
+description = ""
 readme = "README.md"
 authors = []
 keywords = []

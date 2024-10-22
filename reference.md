@@ -618,7 +618,6 @@ client = Pinnacle(
 client.send.mms(
     to="to",
     from_="from",
-    text="text",
     media_urls=[
         "https://example.com/image1.jpg",
         "https://example.com/video.mp4",
@@ -655,7 +654,7 @@ client.send.mms(
 <dl>
 <dd>
 
-**text:** `str` — The MMS message content (max 1600 characters).
+**media_urls:** `typing.Sequence[str]` — The URLs of media to include. `jpeg`, `jpg`, `gif`, and `png` file types are fully supported and have a size limit of 5 MB. 500 KB limit for other types. Up to 10 media URLs can be included.
     
 </dd>
 </dl>
@@ -663,7 +662,7 @@ client.send.mms(
 <dl>
 <dd>
 
-**media_urls:** `typing.Sequence[str]` — The URLs of media to include. `jpeg`, `jpg`, `gif`, and `png` file types are fully supported and have a size limit of 5 MB. 500 KB limit for other types. Up to 10 media URLs can be included.
+**text:** `typing.Optional[str]` — The MMS message content (max 1600 characters).
     
 </dd>
 </dl>
