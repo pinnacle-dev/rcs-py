@@ -483,6 +483,22 @@ Make sure you have either 'text', 'mediaUrl', or 'cards'. An error will be throw
 <dl>
 <dd>
 
+**fallback:** `typing.Optional[RcsFallback]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status_callback:** `typing.Optional[str]` — Optional URL to receive a POST request when the message status changes. Read more about status callbacks [here](/api-reference/receive-msg-statuses).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -564,6 +580,14 @@ client.send.sms(
 <dd>
 
 **text:** `str` — The SMS message content (max 1600 characters).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status_callback:** `typing.Optional[str]` — Optional URL to receive a POST request when the message status changes. Read more about status callbacks [here](/api-reference/receive-msg-statuses).
     
 </dd>
 </dl>
@@ -663,6 +687,14 @@ client.send.mms(
 <dd>
 
 **text:** `typing.Optional[str]` — The MMS message content (max 1600 characters).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status_callback:** `typing.Optional[str]` — Optional URL to receive a POST request when the message status changes. Read more about status callbacks [here](/api-reference/receive-msg-statuses).
     
 </dd>
 </dl>

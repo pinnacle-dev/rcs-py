@@ -32,7 +32,7 @@ from .company import (
     CompanyUpdateResponseBrand,
 )
 from .environment import PinnacleEnvironment
-from .send import SendMmsResponse, SendRcsResponse, SendSmsResponse
+from .send import RcsFallback, SendMmsResponse, SendRcsResponse, SendSmsResponse
 from .version import __version__
 
 __all__ = [
@@ -64,6 +64,7 @@ __all__ = [
     "Pinnacle",
     "PinnacleEnvironment",
     "PointOfContact",
+    "RcsFallback",
     "RcsFunctionalities",
     "SendMmsResponse",
     "SendRcsResponse",

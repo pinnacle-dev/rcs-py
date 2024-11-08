@@ -28,21 +28,21 @@ class Action(UniversalBaseModel):
 
     metadata: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Optional metadata. This is sent alongside the payload to the webhook.
+    Optional metadata. Only used for type 'trigger' ignored for other action types. When the user presses the action, the metadata is sent to the webhook alongside the payload.
     """
 
     event_start_time: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="eventStartTime")] = (
         pydantic.Field(default=None)
     )
     """
-    Start time for events. Required for 'scheduleEvent'.
+    Start time for events in ISO 8601 format. For example, '2022-01-01T12:00:00Z'. Required for 'scheduleEvent'.
     """
 
     event_end_time: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="eventEndTime")] = (
         pydantic.Field(default=None)
     )
     """
-    End time for events. Required for 'scheduleEvent'.
+    End time for events in ISO 8601 format. For example, '2022-01-01T12:00:00Z'. Required for 'scheduleEvent'.
     """
 
     event_title: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="eventTitle")] = pydantic.Field(

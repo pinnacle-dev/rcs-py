@@ -4,6 +4,7 @@ import typing
 from ..core.client_wrapper import SyncClientWrapper
 from ..types.card import Card
 from ..types.action import Action
+from .types.rcs_fallback import RcsFallback
 from ..core.request_options import RequestOptions
 from .types.send_rcs_response import SendRcsResponse
 from ..core.serialization import convert_and_respect_annotation_metadata
@@ -35,6 +36,8 @@ class SendClient:
         media_url: typing.Optional[str] = OMIT,
         cards: typing.Optional[typing.Sequence[Card]] = OMIT,
         quick_replies: typing.Optional[typing.Sequence[Action]] = OMIT,
+        fallback: typing.Optional[RcsFallback] = OMIT,
+        status_callback: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SendRcsResponse:
         """
@@ -72,13 +75,18 @@ class SendClient:
         quick_replies : typing.Optional[typing.Sequence[Action]]
             Optional list of quick reply actions (max 10).
 
+        fallback : typing.Optional[RcsFallback]
+
+        status_callback : typing.Optional[str]
+            Optional URL to receive a POST request when the message status changes. Read more about status callbacks [here](/api-reference/receive-msg-statuses).
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
         SendRcsResponse
-            RCS message sent successfully
+            RCS/Fallback message sent successfully
 
         Examples
         --------
@@ -106,6 +114,10 @@ class SendClient:
                 "quickReplies": convert_and_respect_annotation_metadata(
                     object_=quick_replies, annotation=typing.Sequence[Action], direction="write"
                 ),
+                "fallback": convert_and_respect_annotation_metadata(
+                    object_=fallback, annotation=RcsFallback, direction="write"
+                ),
+                "statusCallback": status_callback,
             },
             request_options=request_options,
             omit=OMIT,
@@ -165,7 +177,13 @@ class SendClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def sms(
-        self, *, to: str, from_: str, text: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        to: str,
+        from_: str,
+        text: str,
+        status_callback: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> SendSmsResponse:
         """
         Send an SMS message to a recipient.
@@ -180,6 +198,9 @@ class SendClient:
 
         text : str
             The SMS message content (max 1600 characters).
+
+        status_callback : typing.Optional[str]
+            Optional URL to receive a POST request when the message status changes. Read more about status callbacks [here](/api-reference/receive-msg-statuses).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -209,6 +230,7 @@ class SendClient:
                 "to": to,
                 "from": from_,
                 "text": text,
+                "statusCallback": status_callback,
             },
             request_options=request_options,
             omit=OMIT,
@@ -274,6 +296,7 @@ class SendClient:
         from_: str,
         media_urls: typing.Sequence[str],
         text: typing.Optional[str] = OMIT,
+        status_callback: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SendMmsResponse:
         """
@@ -292,6 +315,9 @@ class SendClient:
 
         text : typing.Optional[str]
             The MMS message content (max 1600 characters).
+
+        status_callback : typing.Optional[str]
+            Optional URL to receive a POST request when the message status changes. Read more about status callbacks [here](/api-reference/receive-msg-statuses).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -325,6 +351,7 @@ class SendClient:
                 "from": from_,
                 "text": text,
                 "mediaUrls": media_urls,
+                "statusCallback": status_callback,
             },
             request_options=request_options,
             omit=OMIT,
@@ -397,6 +424,8 @@ class AsyncSendClient:
         media_url: typing.Optional[str] = OMIT,
         cards: typing.Optional[typing.Sequence[Card]] = OMIT,
         quick_replies: typing.Optional[typing.Sequence[Action]] = OMIT,
+        fallback: typing.Optional[RcsFallback] = OMIT,
+        status_callback: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SendRcsResponse:
         """
@@ -434,13 +463,18 @@ class AsyncSendClient:
         quick_replies : typing.Optional[typing.Sequence[Action]]
             Optional list of quick reply actions (max 10).
 
+        fallback : typing.Optional[RcsFallback]
+
+        status_callback : typing.Optional[str]
+            Optional URL to receive a POST request when the message status changes. Read more about status callbacks [here](/api-reference/receive-msg-statuses).
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
         SendRcsResponse
-            RCS message sent successfully
+            RCS/Fallback message sent successfully
 
         Examples
         --------
@@ -476,6 +510,10 @@ class AsyncSendClient:
                 "quickReplies": convert_and_respect_annotation_metadata(
                     object_=quick_replies, annotation=typing.Sequence[Action], direction="write"
                 ),
+                "fallback": convert_and_respect_annotation_metadata(
+                    object_=fallback, annotation=RcsFallback, direction="write"
+                ),
+                "statusCallback": status_callback,
             },
             request_options=request_options,
             omit=OMIT,
@@ -535,7 +573,13 @@ class AsyncSendClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def sms(
-        self, *, to: str, from_: str, text: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        to: str,
+        from_: str,
+        text: str,
+        status_callback: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> SendSmsResponse:
         """
         Send an SMS message to a recipient.
@@ -550,6 +594,9 @@ class AsyncSendClient:
 
         text : str
             The SMS message content (max 1600 characters).
+
+        status_callback : typing.Optional[str]
+            Optional URL to receive a POST request when the message status changes. Read more about status callbacks [here](/api-reference/receive-msg-statuses).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -587,6 +634,7 @@ class AsyncSendClient:
                 "to": to,
                 "from": from_,
                 "text": text,
+                "statusCallback": status_callback,
             },
             request_options=request_options,
             omit=OMIT,
@@ -652,6 +700,7 @@ class AsyncSendClient:
         from_: str,
         media_urls: typing.Sequence[str],
         text: typing.Optional[str] = OMIT,
+        status_callback: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SendMmsResponse:
         """
@@ -670,6 +719,9 @@ class AsyncSendClient:
 
         text : typing.Optional[str]
             The MMS message content (max 1600 characters).
+
+        status_callback : typing.Optional[str]
+            Optional URL to receive a POST request when the message status changes. Read more about status callbacks [here](/api-reference/receive-msg-statuses).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -711,6 +763,7 @@ class AsyncSendClient:
                 "from": from_,
                 "text": text,
                 "mediaUrls": media_urls,
+                "statusCallback": status_callback,
             },
             request_options=request_options,
             omit=OMIT,
