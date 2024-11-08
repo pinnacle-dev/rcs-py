@@ -18,7 +18,7 @@ class Action(UniversalBaseModel):
 
     type: typing.Optional[ActionType] = pydantic.Field(default=None)
     """
-    Type of action for the button. 'openUrl' opens a URL, 'call' dials a phone number, 'trigger' sends the predefined payload to the webhook when pressed, 'requestLocation' requests the user's location, 'scheduleEvent' creates a calendar event, 'sendLocation' sends a location.
+    Type of action for the button. 'openUrl' opens a URL, 'call' dials a phone number, 'trigger' sends the predefined payload to the webhook when pressed, 'requestUserLocation' requests the user's location, 'scheduleEvent' creates a calendar event, 'sendLocation' sends a location.
     """
 
     payload: typing.Optional[str] = pydantic.Field(default=None)

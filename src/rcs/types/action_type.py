@@ -3,5 +3,5 @@
 import typing
 
 ActionType = typing.Union[
-    typing.Literal["openUrl", "call", "trigger", "requestLocation", "scheduleEvent", "sendLocation"], typing.Any
+    typing.Literal["openUrl", "call", "trigger", "requestUserLocation", "scheduleEvent", "sendLocation"], typing.Any
 ]
