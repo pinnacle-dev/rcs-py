@@ -3,6 +3,7 @@
 from .bad_request_error import BadRequestError
 from .forbidden_error import ForbiddenError
 from .internal_server_error import InternalServerError
+from .payment_required_error import PaymentRequiredError
 from .unauthorized_error import UnauthorizedError
 
-__all__ = ["BadRequestError", "ForbiddenError", "InternalServerError", "UnauthorizedError"]
+__all__ = ["BadRequestError", "ForbiddenError", "InternalServerError", "PaymentRequiredError", "UnauthorizedError"]

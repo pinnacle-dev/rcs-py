@@ -16,6 +16,7 @@ from ..types.point_of_contact import PointOfContact
 from ..types.optionals import Optionals
 from .types.company_register_response import CompanyRegisterResponse
 from ..core.serialization import convert_and_respect_annotation_metadata
+from ..errors.payment_required_error import PaymentRequiredError
 from .types.company_update_response import CompanyUpdateResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -220,6 +221,16 @@ class CompanyClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 402:
+                raise PaymentRequiredError(
                     typing.cast(
                         typing.Optional[typing.Any],
                         parse_obj_as(
@@ -566,6 +577,16 @@ class AsyncCompanyClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 402:
+                raise PaymentRequiredError(
                     typing.cast(
                         typing.Optional[typing.Any],
                         parse_obj_as(

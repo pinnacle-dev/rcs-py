@@ -18,11 +18,12 @@ from .types import (
     ForbiddenErrorBody,
     InternalServerErrorBody,
     Optionals,
+    PaymentRequiredErrorBody,
     PointOfContact,
     RcsFunctionalities,
     UnauthorizedErrorBody,
 )
-from .errors import BadRequestError, ForbiddenError, InternalServerError, UnauthorizedError
+from .errors import BadRequestError, ForbiddenError, InternalServerError, PaymentRequiredError, UnauthorizedError
 from . import company, send
 from .client import AsyncPinnacle, Pinnacle
 from .company import (
@@ -61,6 +62,8 @@ __all__ = [
     "InternalServerError",
     "InternalServerErrorBody",
     "Optionals",
+    "PaymentRequiredError",
+    "PaymentRequiredErrorBody",
     "Pinnacle",
     "PinnacleEnvironment",
     "PointOfContact",

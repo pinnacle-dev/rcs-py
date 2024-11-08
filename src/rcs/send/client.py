@@ -11,6 +11,7 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.pydantic_utilities import parse_obj_as
 from ..errors.bad_request_error import BadRequestError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..errors.payment_required_error import PaymentRequiredError
 from ..errors.forbidden_error import ForbiddenError
 from ..errors.internal_server_error import InternalServerError
 from json.decoder import JSONDecodeError
@@ -151,6 +152,16 @@ class SendClient:
                         ),
                     )
                 )
+            if _response.status_code == 402:
+                raise PaymentRequiredError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             if _response.status_code == 403:
                 raise ForbiddenError(
                     typing.cast(
@@ -256,6 +267,16 @@ class SendClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 402:
+                raise PaymentRequiredError(
                     typing.cast(
                         typing.Optional[typing.Any],
                         parse_obj_as(
@@ -377,6 +398,16 @@ class SendClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 402:
+                raise PaymentRequiredError(
                     typing.cast(
                         typing.Optional[typing.Any],
                         parse_obj_as(
@@ -547,6 +578,16 @@ class AsyncSendClient:
                         ),
                     )
                 )
+            if _response.status_code == 402:
+                raise PaymentRequiredError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             if _response.status_code == 403:
                 raise ForbiddenError(
                     typing.cast(
@@ -660,6 +701,16 @@ class AsyncSendClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 402:
+                raise PaymentRequiredError(
                     typing.cast(
                         typing.Optional[typing.Any],
                         parse_obj_as(
@@ -789,6 +840,16 @@ class AsyncSendClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 402:
+                raise PaymentRequiredError(
                     typing.cast(
                         typing.Optional[typing.Any],
                         parse_obj_as(

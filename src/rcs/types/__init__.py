@@ -17,6 +17,7 @@ from .company_details import CompanyDetails
 from .forbidden_error_body import ForbiddenErrorBody
 from .internal_server_error_body import InternalServerErrorBody
 from .optionals import Optionals
+from .payment_required_error_body import PaymentRequiredErrorBody
 from .point_of_contact import PointOfContact
 from .rcs_functionalities import RcsFunctionalities
 from .unauthorized_error_body import UnauthorizedErrorBody
@@ -39,6 +40,7 @@ __all__ = [
     "ForbiddenErrorBody",
     "InternalServerErrorBody",
     "Optionals",
+    "PaymentRequiredErrorBody",
     "PointOfContact",
     "RcsFunctionalities",
     "UnauthorizedErrorBody",
