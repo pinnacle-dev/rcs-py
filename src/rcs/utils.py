@@ -9,7 +9,7 @@ from .types import (
 )
 
 
-def parse_inbound_message(
+def parse_inbound(
     data: dict,
 ) -> Union[
     InboundActionMessage,
