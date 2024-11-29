@@ -19,7 +19,7 @@ from .company.client import AsyncCompanyClient
 from .send.client import AsyncSendClient
 
 
-class Pinnacle:
+class PinnacleBase:
     """
     Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
 
@@ -161,7 +161,7 @@ class Pinnacle:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
-class AsyncPinnacle:
+class AsyncPinnacleBase:
     """
     Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
 

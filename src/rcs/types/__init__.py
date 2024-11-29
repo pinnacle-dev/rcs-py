@@ -12,14 +12,27 @@ from .company import Company
 from .company_additional_emails_item import CompanyAdditionalEmailsItem
 from .company_additional_phone_numbers_item import CompanyAdditionalPhoneNumbersItem
 from .company_additional_websites_item import CompanyAdditionalWebsitesItem
+from .company_category import CompanyCategory
 from .company_contact import CompanyContact
 from .company_details import CompanyDetails
 from .forbidden_error_body import ForbiddenErrorBody
+from .inbound_action_message import InboundActionMessage
+from .inbound_location_message import InboundLocationMessage
+from .inbound_location_message_coordinates import InboundLocationMessageCoordinates
+from .inbound_media_message import InboundMediaMessage
+from .inbound_message import InboundMessage
+from .inbound_message_message_type import InboundMessageMessageType
+from .inbound_message_metadata import InboundMessageMetadata
+from .inbound_text_message import InboundTextMessage
 from .internal_server_error_body import InternalServerErrorBody
+from .media_payload import MediaPayload
+from .message_metadata import MessageMetadata
+from .messaging import Messaging
 from .optionals import Optionals
 from .payment_required_error_body import PaymentRequiredErrorBody
 from .point_of_contact import PointOfContact
 from .rcs_functionalities import RcsFunctionalities
+from .sender_metadata import SenderMetadata
 from .unauthorized_error_body import UnauthorizedErrorBody
 
 __all__ = [
@@ -35,13 +48,26 @@ __all__ = [
     "CompanyAdditionalEmailsItem",
     "CompanyAdditionalPhoneNumbersItem",
     "CompanyAdditionalWebsitesItem",
+    "CompanyCategory",
     "CompanyContact",
     "CompanyDetails",
     "ForbiddenErrorBody",
+    "InboundActionMessage",
+    "InboundLocationMessage",
+    "InboundLocationMessageCoordinates",
+    "InboundMediaMessage",
+    "InboundMessage",
+    "InboundMessageMessageType",
+    "InboundMessageMetadata",
+    "InboundTextMessage",
     "InternalServerErrorBody",
+    "MediaPayload",
+    "MessageMetadata",
+    "Messaging",
     "Optionals",
     "PaymentRequiredErrorBody",
     "PointOfContact",
     "RcsFunctionalities",
+    "SenderMetadata",
     "UnauthorizedErrorBody",
 ]

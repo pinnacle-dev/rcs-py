@@ -2,6 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
+from .company_category import CompanyCategory
 import typing_extensions
 from ..core.serialization import FieldMetadata
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
@@ -12,6 +13,11 @@ class CompanyDetails(UniversalBaseModel):
     name: str = pydantic.Field()
     """
     The name of the company.
+    """
+
+    category: CompanyCategory = pydantic.Field()
+    """
+    The category of the company.
     """
 
     address: str = pydantic.Field()

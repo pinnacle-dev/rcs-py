@@ -1,5 +1,5 @@
 # Reference
-<details><summary><code>client.<a href="src/rcs/client.py">get_rcs_functionality</a>(...)</code></summary>
+<details><summary><code>client.<a href="src/rcs/base_client.py">get_rcs_functionality</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -171,7 +171,13 @@ Register a company for RCS with the Pinnacle platform
 <dd>
 
 ```python
-from rcs import CompanyContact, CompanyDetails, Pinnacle, PointOfContact
+from rcs import (
+    CompanyContact,
+    CompanyDetails,
+    Messaging,
+    Pinnacle,
+    PointOfContact,
+)
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -179,6 +185,7 @@ client = Pinnacle(
 client.company.register(
     company=CompanyDetails(
         name="name",
+        category="Entertainment",
         address="address",
         ein="ein",
         description="description",
@@ -195,6 +202,13 @@ client.company.register(
         primary_email_label="primaryEmailLabel",
         privacy_policy_url="privacyPolicyUrl",
         tos_url="tosUrl",
+    ),
+    messaging=Messaging(
+        opt_in="By opting in, you agree to receive messages from Pinnacle, including updates and promotions. Reply “STOP” to unsubscribe. Standard message and data rates may apply.",
+        opt_out="Reply with keywords like STOP or UNSUBSCRIBE to opt-out. A confirmation message will be sent, and no further messages will be received unless you re-subscribe.",
+        opt_out_keywords=["STOP", "UNSUBSCRIBE"],
+        agent_use_case="Pinnacle’s agent assists with product updates, promotions, order tracking, and support. It answers FAQs, provides order updates, and helps with opt-in/out processes. Escalates to live support when needed.",
+        expected_agent_responses="General Inquiry: “How can I assist you today?”\nOrder Status: “Provide your order number.”\nOpt-In: “You’re now subscribed!”\nOpt-Out: “You have unsubscribed.”\nEscalation: “Connecting to a live agent.”    \n",
     ),
     point_of_contact=PointOfContact(
         poc_name="pocName",
@@ -226,6 +240,14 @@ client.company.register(
 <dd>
 
 **company_contact:** `CompanyContact` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**messaging:** `Messaging` 
     
 </dd>
 </dl>
@@ -328,6 +350,14 @@ client.company.update(
 <dd>
 
 **company_contact:** `typing.Optional[CompanyContact]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**messaging:** `typing.Optional[Messaging]` 
     
 </dd>
 </dl>

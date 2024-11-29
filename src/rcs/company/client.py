@@ -12,6 +12,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..types.company_details import CompanyDetails
 from ..types.company_contact import CompanyContact
+from ..types.messaging import Messaging
 from ..types.point_of_contact import PointOfContact
 from ..types.optionals import Optionals
 from .types.company_register_response import CompanyRegisterResponse
@@ -121,6 +122,7 @@ class CompanyClient:
         *,
         company: CompanyDetails,
         company_contact: CompanyContact,
+        messaging: Messaging,
         point_of_contact: PointOfContact,
         optionals: typing.Optional[Optionals] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -133,6 +135,8 @@ class CompanyClient:
         company : CompanyDetails
 
         company_contact : CompanyContact
+
+        messaging : Messaging
 
         point_of_contact : PointOfContact
 
@@ -148,7 +152,13 @@ class CompanyClient:
 
         Examples
         --------
-        from rcs import CompanyContact, CompanyDetails, Pinnacle, PointOfContact
+        from rcs import (
+            CompanyContact,
+            CompanyDetails,
+            Messaging,
+            Pinnacle,
+            PointOfContact,
+        )
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
@@ -156,6 +166,7 @@ class CompanyClient:
         client.company.register(
             company=CompanyDetails(
                 name="name",
+                category="Entertainment",
                 address="address",
                 ein="ein",
                 description="description",
@@ -173,6 +184,13 @@ class CompanyClient:
                 privacy_policy_url="privacyPolicyUrl",
                 tos_url="tosUrl",
             ),
+            messaging=Messaging(
+                opt_in="By opting in, you agree to receive messages from Pinnacle, including updates and promotions. Reply “STOP” to unsubscribe. Standard message and data rates may apply.",
+                opt_out="Reply with keywords like STOP or UNSUBSCRIBE to opt-out. A confirmation message will be sent, and no further messages will be received unless you re-subscribe.",
+                opt_out_keywords=["STOP", "UNSUBSCRIBE"],
+                agent_use_case="Pinnacle’s agent assists with product updates, promotions, order tracking, and support. It answers FAQs, provides order updates, and helps with opt-in/out processes. Escalates to live support when needed.",
+                expected_agent_responses="General Inquiry: “How can I assist you today?”\nOrder Status: “Provide your order number.”\nOpt-In: “You’re now subscribed!”\nOpt-Out: “You have unsubscribed.”\nEscalation: “Connecting to a live agent.”    \n",
+            ),
             point_of_contact=PointOfContact(
                 poc_name="pocName",
                 poc_title="pocTitle",
@@ -189,6 +207,9 @@ class CompanyClient:
                 ),
                 "companyContact": convert_and_respect_annotation_metadata(
                     object_=company_contact, annotation=CompanyContact, direction="write"
+                ),
+                "messaging": convert_and_respect_annotation_metadata(
+                    object_=messaging, annotation=Messaging, direction="write"
                 ),
                 "pointOfContact": convert_and_respect_annotation_metadata(
                     object_=point_of_contact, annotation=PointOfContact, direction="write"
@@ -260,6 +281,7 @@ class CompanyClient:
         company_id: str,
         company: typing.Optional[Company] = OMIT,
         company_contact: typing.Optional[CompanyContact] = OMIT,
+        messaging: typing.Optional[Messaging] = OMIT,
         point_of_contact: typing.Optional[PointOfContact] = OMIT,
         optionals: typing.Optional[Optionals] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -274,6 +296,8 @@ class CompanyClient:
         company : typing.Optional[Company]
 
         company_contact : typing.Optional[CompanyContact]
+
+        messaging : typing.Optional[Messaging]
 
         point_of_contact : typing.Optional[PointOfContact]
 
@@ -308,6 +332,9 @@ class CompanyClient:
                 ),
                 "companyContact": convert_and_respect_annotation_metadata(
                     object_=company_contact, annotation=CompanyContact, direction="write"
+                ),
+                "messaging": convert_and_respect_annotation_metadata(
+                    object_=messaging, annotation=Messaging, direction="write"
                 ),
                 "pointOfContact": convert_and_respect_annotation_metadata(
                     object_=point_of_contact, annotation=PointOfContact, direction="write"
@@ -469,6 +496,7 @@ class AsyncCompanyClient:
         *,
         company: CompanyDetails,
         company_contact: CompanyContact,
+        messaging: Messaging,
         point_of_contact: PointOfContact,
         optionals: typing.Optional[Optionals] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -481,6 +509,8 @@ class AsyncCompanyClient:
         company : CompanyDetails
 
         company_contact : CompanyContact
+
+        messaging : Messaging
 
         point_of_contact : PointOfContact
 
@@ -498,7 +528,13 @@ class AsyncCompanyClient:
         --------
         import asyncio
 
-        from rcs import AsyncPinnacle, CompanyContact, CompanyDetails, PointOfContact
+        from rcs import (
+            AsyncPinnacle,
+            CompanyContact,
+            CompanyDetails,
+            Messaging,
+            PointOfContact,
+        )
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -509,6 +545,7 @@ class AsyncCompanyClient:
             await client.company.register(
                 company=CompanyDetails(
                     name="name",
+                    category="Entertainment",
                     address="address",
                     ein="ein",
                     description="description",
@@ -525,6 +562,13 @@ class AsyncCompanyClient:
                     primary_email_label="primaryEmailLabel",
                     privacy_policy_url="privacyPolicyUrl",
                     tos_url="tosUrl",
+                ),
+                messaging=Messaging(
+                    opt_in="By opting in, you agree to receive messages from Pinnacle, including updates and promotions. Reply “STOP” to unsubscribe. Standard message and data rates may apply.",
+                    opt_out="Reply with keywords like STOP or UNSUBSCRIBE to opt-out. A confirmation message will be sent, and no further messages will be received unless you re-subscribe.",
+                    opt_out_keywords=["STOP", "UNSUBSCRIBE"],
+                    agent_use_case="Pinnacle’s agent assists with product updates, promotions, order tracking, and support. It answers FAQs, provides order updates, and helps with opt-in/out processes. Escalates to live support when needed.",
+                    expected_agent_responses="General Inquiry: “How can I assist you today?”\nOrder Status: “Provide your order number.”\nOpt-In: “You’re now subscribed!”\nOpt-Out: “You have unsubscribed.”\nEscalation: “Connecting to a live agent.”    \n",
                 ),
                 point_of_contact=PointOfContact(
                     poc_name="pocName",
@@ -545,6 +589,9 @@ class AsyncCompanyClient:
                 ),
                 "companyContact": convert_and_respect_annotation_metadata(
                     object_=company_contact, annotation=CompanyContact, direction="write"
+                ),
+                "messaging": convert_and_respect_annotation_metadata(
+                    object_=messaging, annotation=Messaging, direction="write"
                 ),
                 "pointOfContact": convert_and_respect_annotation_metadata(
                     object_=point_of_contact, annotation=PointOfContact, direction="write"
@@ -616,6 +663,7 @@ class AsyncCompanyClient:
         company_id: str,
         company: typing.Optional[Company] = OMIT,
         company_contact: typing.Optional[CompanyContact] = OMIT,
+        messaging: typing.Optional[Messaging] = OMIT,
         point_of_contact: typing.Optional[PointOfContact] = OMIT,
         optionals: typing.Optional[Optionals] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -630,6 +678,8 @@ class AsyncCompanyClient:
         company : typing.Optional[Company]
 
         company_contact : typing.Optional[CompanyContact]
+
+        messaging : typing.Optional[Messaging]
 
         point_of_contact : typing.Optional[PointOfContact]
 
@@ -672,6 +722,9 @@ class AsyncCompanyClient:
                 ),
                 "companyContact": convert_and_respect_annotation_metadata(
                     object_=company_contact, annotation=CompanyContact, direction="write"
+                ),
+                "messaging": convert_and_respect_annotation_metadata(
+                    object_=messaging, annotation=Messaging, direction="write"
                 ),
                 "pointOfContact": convert_and_respect_annotation_metadata(
                     object_=point_of_contact, annotation=PointOfContact, direction="write"

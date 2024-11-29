@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 import datetime as dt
 from ..core.serialization import FieldMetadata
+from .company_category import CompanyCategory
 from .company_additional_websites_item import CompanyAdditionalWebsitesItem
 from .company_additional_emails_item import CompanyAdditionalEmailsItem
 from .company_additional_phone_numbers_item import CompanyAdditionalPhoneNumbersItem
@@ -28,6 +29,11 @@ class Company(UniversalBaseModel):
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the company
+    """
+
+    category: typing.Optional[CompanyCategory] = pydantic.Field(default=None)
+    """
+    The category of the company
     """
 
     address: typing.Optional[str] = pydantic.Field(default=None)
@@ -141,6 +147,41 @@ class Company(UniversalBaseModel):
     )
     """
     The email address of the point of contact
+    """
+
+    opt_in: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="optIn")] = pydantic.Field(
+        default=None
+    )
+    """
+    Explain how users will opt in to receive messages.
+    """
+
+    opt_out: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="optOut")] = pydantic.Field(
+        default=None
+    )
+    """
+    Explain how users will opt out of receiving messages.
+    """
+
+    opt_out_keywords: typing_extensions.Annotated[
+        typing.Optional[typing.List[str]], FieldMetadata(alias="optOutKeywords")
+    ] = pydantic.Field(default=None)
+    """
+    Please provide the unique keywords to opt out. Each keyword should not contain spaces.
+    """
+
+    agent_use_case: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="agentUseCase")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Please define what your agent will do.
+    """
+
+    expected_agent_responses: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="expectedAgentResponses")
+    ] = pydantic.Field(default=None)
+    """
+    Please provide some example messages that your agent will send.
     """
 
     test_numbers: typing_extensions.Annotated[typing.Optional[typing.List[str]], FieldMetadata(alias="testNumbers")] = (

@@ -20,7 +20,13 @@ A full reference for this library is available [here](./reference.md).
 Instantiate and use the client with the following:
 
 ```python
-from rcs import CompanyContact, CompanyDetails, Pinnacle, PointOfContact
+from rcs import (
+    CompanyContact,
+    CompanyDetails,
+    Messaging,
+    Pinnacle,
+    PointOfContact,
+)
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -28,6 +34,7 @@ client = Pinnacle(
 client.company.register(
     company=CompanyDetails(
         name="name",
+        category="Entertainment",
         address="address",
         ein="ein",
         description="description",
@@ -45,6 +52,13 @@ client.company.register(
         privacy_policy_url="privacyPolicyUrl",
         tos_url="tosUrl",
     ),
+    messaging=Messaging(
+        opt_in="By opting in, you agree to receive messages from Pinnacle, including updates and promotions. Reply “STOP” to unsubscribe. Standard message and data rates may apply.",
+        opt_out="Reply with keywords like STOP or UNSUBSCRIBE to opt-out. A confirmation message will be sent, and no further messages will be received unless you re-subscribe.",
+        opt_out_keywords=["STOP", "UNSUBSCRIBE"],
+        agent_use_case="Pinnacle’s agent assists with product updates, promotions, order tracking, and support. It answers FAQs, provides order updates, and helps with opt-in/out processes. Escalates to live support when needed.",
+        expected_agent_responses="General Inquiry: “How can I assist you today?”\nOrder Status: “Provide your order number.”\nOpt-In: “You’re now subscribed!”\nOpt-Out: “You have unsubscribed.”\nEscalation: “Connecting to a live agent.”    \n",
+    ),
     point_of_contact=PointOfContact(
         poc_name="pocName",
         poc_title="pocTitle",
@@ -60,7 +74,13 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 ```python
 import asyncio
 
-from rcs import AsyncPinnacle, CompanyContact, CompanyDetails, PointOfContact
+from rcs import (
+    AsyncPinnacle,
+    CompanyContact,
+    CompanyDetails,
+    Messaging,
+    PointOfContact,
+)
 
 client = AsyncPinnacle(
     api_key="YOUR_API_KEY",
@@ -71,6 +91,7 @@ async def main() -> None:
     await client.company.register(
         company=CompanyDetails(
             name="name",
+            category="Entertainment",
             address="address",
             ein="ein",
             description="description",
@@ -87,6 +108,13 @@ async def main() -> None:
             primary_email_label="primaryEmailLabel",
             privacy_policy_url="privacyPolicyUrl",
             tos_url="tosUrl",
+        ),
+        messaging=Messaging(
+            opt_in="By opting in, you agree to receive messages from Pinnacle, including updates and promotions. Reply “STOP” to unsubscribe. Standard message and data rates may apply.",
+            opt_out="Reply with keywords like STOP or UNSUBSCRIBE to opt-out. A confirmation message will be sent, and no further messages will be received unless you re-subscribe.",
+            opt_out_keywords=["STOP", "UNSUBSCRIBE"],
+            agent_use_case="Pinnacle’s agent assists with product updates, promotions, order tracking, and support. It answers FAQs, provides order updates, and helps with opt-in/out processes. Escalates to live support when needed.",
+            expected_agent_responses="General Inquiry: “How can I assist you today?”\nOrder Status: “Provide your order number.”\nOpt-In: “You’re now subscribed!”\nOpt-Out: “You have unsubscribed.”\nEscalation: “Connecting to a live agent.”    \n",
         ),
         point_of_contact=PointOfContact(
             poc_name="pocName",
