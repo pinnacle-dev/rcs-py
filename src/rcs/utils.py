@@ -1,5 +1,6 @@
-from rcs.core import parse_obj_as
-from rcs import (
+from typing import Union
+from .core import parse_obj_as
+from .types import (
     InboundActionMessage,
     InboundLocationMessage,
     InboundMediaMessage,
@@ -10,12 +11,12 @@ from rcs import (
 
 def parse_inbound(
     data: dict,
-) -> (
-    InboundActionMessage
-    | InboundTextMessage
-    | InboundLocationMessage
-    | InboundMediaMessage
-):
+) -> Union[
+    InboundActionMessage,
+    InboundTextMessage,
+    InboundLocationMessage,
+    InboundMediaMessage,
+]:
     inbound_msg = parse_obj_as(InboundMessage, data)
     msg_type = inbound_msg.message_type
     if msg_type == "action":
