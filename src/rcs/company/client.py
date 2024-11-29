@@ -218,6 +218,9 @@ class CompanyClient:
                     object_=optionals, annotation=Optionals, direction="write"
                 ),
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -342,6 +345,9 @@ class CompanyClient:
                 "optionals": convert_and_respect_annotation_metadata(
                     object_=optionals, annotation=Optionals, direction="write"
                 ),
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -600,6 +606,9 @@ class AsyncCompanyClient:
                     object_=optionals, annotation=Optionals, direction="write"
                 ),
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -732,6 +741,9 @@ class AsyncCompanyClient:
                 "optionals": convert_and_respect_annotation_metadata(
                     object_=optionals, annotation=Optionals, direction="write"
                 ),
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

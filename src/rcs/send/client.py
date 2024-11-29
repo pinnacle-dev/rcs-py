@@ -120,6 +120,9 @@ class SendClient:
                 ),
                 "statusCallback": status_callback,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -242,6 +245,9 @@ class SendClient:
                 "from": from_,
                 "text": text,
                 "statusCallback": status_callback,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -373,6 +379,9 @@ class SendClient:
                 "text": text,
                 "mediaUrls": media_urls,
                 "statusCallback": status_callback,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -546,6 +555,9 @@ class AsyncSendClient:
                 ),
                 "statusCallback": status_callback,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -676,6 +688,9 @@ class AsyncSendClient:
                 "from": from_,
                 "text": text,
                 "statusCallback": status_callback,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -815,6 +830,9 @@ class AsyncSendClient:
                 "text": text,
                 "mediaUrls": media_urls,
                 "statusCallback": status_callback,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
