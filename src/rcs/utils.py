@@ -20,7 +20,6 @@ def parse_inbound(
     inbound_msg = parse_obj_as(InboundMessage, data)
     msg_type = inbound_msg.message_type
     if msg_type == "action":
-        print("action")
         return parse_obj_as(InboundActionMessage, data)
     elif msg_type == "location":
         return parse_obj_as(InboundLocationMessage, data)
