@@ -6,6 +6,7 @@ import httpx
 from .core.client_wrapper import SyncClientWrapper
 from .company.client import CompanyClient
 from .send.client import SendClient
+from .tools.client import ToolsClient
 from .core.request_options import RequestOptions
 from .types.rcs_functionalities import RcsFunctionalities
 from .core.pydantic_utilities import parse_obj_as
@@ -17,6 +18,7 @@ from .core.api_error import ApiError
 from .core.client_wrapper import AsyncClientWrapper
 from .company.client import AsyncCompanyClient
 from .send.client import AsyncSendClient
+from .tools.client import AsyncToolsClient
 
 
 class PinnacleBase:
@@ -79,6 +81,7 @@ class PinnacleBase:
         )
         self.company = CompanyClient(client_wrapper=self._client_wrapper)
         self.send = SendClient(client_wrapper=self._client_wrapper)
+        self.tools = ToolsClient(client_wrapper=self._client_wrapper)
 
     def get_rcs_functionality(
         self, *, phone_number: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
@@ -221,6 +224,7 @@ class AsyncPinnacleBase:
         )
         self.company = AsyncCompanyClient(client_wrapper=self._client_wrapper)
         self.send = AsyncSendClient(client_wrapper=self._client_wrapper)
+        self.tools = AsyncToolsClient(client_wrapper=self._client_wrapper)
 
     async def get_rcs_functionality(
         self, *, phone_number: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None

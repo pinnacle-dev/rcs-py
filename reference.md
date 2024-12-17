@@ -744,3 +744,175 @@ client.send.mms(
 </dl>
 </details>
 
+## Tools
+<details><summary><code>client.tools.<a href="src/rcs/tools/client.py">shorten_url</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a shortened URL with an optional expiration date (default and max expiration is 90 days). The shortened URL will redirect to the original URL and will have the following format https://urls.p1n.io/ABCD5678.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.tools.shorten_url(
+    url="https://example.com",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**url:** `str` — The URL to be shortened. Must be a valid URL with either http or https protocol.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expires_at:** `typing.Optional[dt.datetime]` — Optional expiration date for the shortened URL in ISO 8601 format. Default and max expiration is 90 days.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.<a href="src/rcs/tools/client.py">upload_url</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generate signed upload (expires in 2 hours) and download URLs for a file (expires in 1 hour).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.tools.upload_url(
+    content_type="image/png",
+    size=1024,
+    name="example.png",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**content_type:** `str` 
+
+The MIME type of the file. 
+
+Supported types are audio/basic, audio/L24, audio/mp4, audio/mpeg, audio/mpg, audio/mp3, audio/ogg, audio/aac, audio/vndrn-realaudio, audio/vndwave, audio/3gpp, audio/3gpp2, audio/ac3, audio/webm, audio/amrnb, audio/amr, video/mpeg, video/mp4, video/quicktime, video/webm, video/3gpp, video/3gpp2, video/3gpptt, video/H261, video/H263, video/H2631998, video/H2632000, video/H264, video/m4v, video/mpeg4, video/webm, image/jpeg, image/gif, image/png, image/gif, image/bmp, image/tiff, image/webp, text/vcard, text/xvcard, text/csv, text/rtf, text/richtext, text/calendar, text/directory, application/ogg, application/pdf, application/vcard, application/vndapple.pkpass.
+
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**size:** `int` — The size of the file in bytes. Should be less than 100 MB.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `str` — The name of the file.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+

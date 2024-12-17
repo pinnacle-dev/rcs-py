@@ -37,7 +37,7 @@ from .types import (
     UnauthorizedErrorBody,
 )
 from .errors import BadRequestError, ForbiddenError, InternalServerError, PaymentRequiredError, UnauthorizedError
-from . import company, send
+from . import company, send, tools
 from .client import AsyncPinnacle, Pinnacle
 from .company import (
     CompanyRegisterResponse,
@@ -47,6 +47,7 @@ from .company import (
 )
 from .environment import PinnacleEnvironment
 from .send import RcsFallback, SendMmsResponse, SendRcsResponse, SendSmsResponse
+from .tools import ToolsShortenUrlResponse, ToolsUploadUrlResponse
 from .version import __version__
 
 __all__ = [
@@ -98,9 +99,12 @@ __all__ = [
     "SendRcsResponse",
     "SendSmsResponse",
     "SenderMetadata",
+    "ToolsShortenUrlResponse",
+    "ToolsUploadUrlResponse",
     "UnauthorizedError",
     "UnauthorizedErrorBody",
     "__version__",
     "company",
     "send",
+    "tools",
 ]
