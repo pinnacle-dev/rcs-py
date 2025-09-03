@@ -40,6 +40,9 @@ from .errors import BadRequestError, ForbiddenError, InternalServerError, Paymen
 from . import company, send, tools
 from .client import AsyncPinnacle, Pinnacle
 from .company import (
+    CompanyRegisterRequest,
+    CompanyRegisterRequestCompany,
+    CompanyRegisterRequestCompanyId,
     CompanyRegisterResponse,
     CompanyRegisterResponseBrand,
     CompanyUpdateResponse,
@@ -68,6 +71,9 @@ __all__ = [
     "CompanyCategory",
     "CompanyContact",
     "CompanyDetails",
+    "CompanyRegisterRequest",
+    "CompanyRegisterRequestCompany",
+    "CompanyRegisterRequestCompanyId",
     "CompanyRegisterResponse",
     "CompanyRegisterResponseBrand",
     "CompanyUpdateResponse",

@@ -171,49 +171,15 @@ Register a company for RCS with the Pinnacle platform
 <dd>
 
 ```python
-from rcs import (
-    CompanyContact,
-    CompanyDetails,
-    Messaging,
-    Pinnacle,
-    PointOfContact,
-)
+from rcs import Pinnacle
+from rcs.company import CompanyRegisterRequestCompanyId
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.company.register(
-    company=CompanyDetails(
-        name="name",
-        category="Entertainment",
-        address="address",
-        ein="ein",
-        description="description",
-        brand_color="brandColor",
-        logo_url="logoUrl",
-        hero_url="heroUrl",
-    ),
-    company_contact=CompanyContact(
-        primary_website_url="primaryWebsiteUrl",
-        primary_website_label="primaryWebsiteLabel",
-        primary_phone="primaryPhone",
-        primary_phone_label="primaryPhoneLabel",
-        primary_email="primaryEmail",
-        primary_email_label="primaryEmailLabel",
-        privacy_policy_url="privacyPolicyUrl",
-        tos_url="tosUrl",
-    ),
-    messaging=Messaging(
-        opt_in="By opting in, you agree to receive messages from Pinnacle, including updates and promotions. Reply “STOP” to unsubscribe. Standard message and data rates may apply.",
-        opt_out="Reply with keywords like STOP or UNSUBSCRIBE to opt-out. A confirmation message will be sent, and no further messages will be received unless you re-subscribe.",
-        opt_out_keywords=["STOP", "UNSUBSCRIBE"],
-        agent_use_case="Pinnacle’s agent assists with product updates, promotions, order tracking, and support. It answers FAQs, provides order updates, and helps with opt-in/out processes. Escalates to live support when needed.",
-        expected_agent_responses="General Inquiry: “How can I assist you today?”\nOrder Status: “Provide your order number.”\nOpt-In: “You’re now subscribed!”\nOpt-Out: “You have unsubscribed.”\nEscalation: “Connecting to a live agent.”    \n",
-    ),
-    point_of_contact=PointOfContact(
-        poc_name="pocName",
-        poc_title="pocTitle",
-        poc_email="pocEmail",
+    request=CompanyRegisterRequestCompanyId(
+        company_id="companyId",
     ),
 )
 
@@ -231,39 +197,7 @@ client.company.register(
 <dl>
 <dd>
 
-**company:** `CompanyDetails` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**company_contact:** `CompanyContact` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**messaging:** `Messaging` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**point_of_contact:** `PointOfContact` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**optionals:** `typing.Optional[Optionals]` 
+**request:** `CompanyRegisterRequest` 
     
 </dd>
 </dl>
@@ -315,9 +249,7 @@ from rcs import Pinnacle
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.company.update(
-    company_id="companyId",
-)
+client.company.update()
 
 ```
 </dd>
@@ -333,7 +265,7 @@ client.company.update(
 <dl>
 <dd>
 
-**company_id:** `str` 
+**company_id:** `typing.Optional[str]` — Optional company ID. If provided, updates existing company. If not provided, creates a new company.
     
 </dd>
 </dl>
@@ -836,6 +768,8 @@ client.tools.shorten_url(
 <dd>
 
 Generate signed upload (expires in 2 hours) and download URLs for a file (expires in 1 hour).
+
+See the [Upload](/api-reference/upload) page for native Python and Typescript SDKs.
 </dd>
 </dl>
 </dd>
@@ -880,7 +814,6 @@ client.tools.upload_url(
 The MIME type of the file. 
 
 Supported types are audio/basic, audio/L24, audio/mp4, audio/mpeg, audio/mpg, audio/mp3, audio/ogg, audio/aac, audio/vndrn-realaudio, audio/vndwave, audio/3gpp, audio/3gpp2, audio/ac3, audio/webm, audio/amrnb, audio/amr, video/mpeg, video/mp4, video/quicktime, video/webm, video/3gpp, video/3gpp2, video/3gpptt, video/H261, video/H263, video/H2631998, video/H2632000, video/H264, video/m4v, video/mpeg4, video/webm, image/jpeg, image/gif, image/png, image/gif, image/bmp, image/tiff, image/webp, text/vcard, text/xvcard, text/csv, text/rtf, text/richtext, text/calendar, text/directory, application/ogg, application/pdf, application/vcard, application/vndapple.pkpass.
-
     
 </dd>
 </dl>

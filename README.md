@@ -3,7 +3,7 @@
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fpinnacle-dev%2Frcs-py)
 [![pypi](https://img.shields.io/pypi/v/rcs)](https://pypi.python.org/pypi/rcs)
 
-The Pinnacle Python library provides convenient access to the Pinnacle API from Python.
+The Pinnacle Python library provides convenient access to the Pinnacle APIs from Python.
 
 ## Installation
 
@@ -13,56 +13,22 @@ pip install rcs
 
 ## Reference
 
-A full reference for this library is available [here](./reference.md).
+A full reference for this library is available [here](https://github.com/pinnacle-dev/rcs-py/blob/HEAD/./reference.md).
 
 ## Usage
 
 Instantiate and use the client with the following:
 
 ```python
-from rcs import (
-    CompanyContact,
-    CompanyDetails,
-    Messaging,
-    Pinnacle,
-    PointOfContact,
-)
+from rcs import Pinnacle
+from rcs.company import CompanyRegisterRequestCompanyId
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.company.register(
-    company=CompanyDetails(
-        name="name",
-        category="Entertainment",
-        address="address",
-        ein="ein",
-        description="description",
-        brand_color="brandColor",
-        logo_url="logoUrl",
-        hero_url="heroUrl",
-    ),
-    company_contact=CompanyContact(
-        primary_website_url="primaryWebsiteUrl",
-        primary_website_label="primaryWebsiteLabel",
-        primary_phone="primaryPhone",
-        primary_phone_label="primaryPhoneLabel",
-        primary_email="primaryEmail",
-        primary_email_label="primaryEmailLabel",
-        privacy_policy_url="privacyPolicyUrl",
-        tos_url="tosUrl",
-    ),
-    messaging=Messaging(
-        opt_in="By opting in, you agree to receive messages from Pinnacle, including updates and promotions. Reply “STOP” to unsubscribe. Standard message and data rates may apply.",
-        opt_out="Reply with keywords like STOP or UNSUBSCRIBE to opt-out. A confirmation message will be sent, and no further messages will be received unless you re-subscribe.",
-        opt_out_keywords=["STOP", "UNSUBSCRIBE"],
-        agent_use_case="Pinnacle’s agent assists with product updates, promotions, order tracking, and support. It answers FAQs, provides order updates, and helps with opt-in/out processes. Escalates to live support when needed.",
-        expected_agent_responses="General Inquiry: “How can I assist you today?”\nOrder Status: “Provide your order number.”\nOpt-In: “You’re now subscribed!”\nOpt-Out: “You have unsubscribed.”\nEscalation: “Connecting to a live agent.”    \n",
-    ),
-    point_of_contact=PointOfContact(
-        poc_name="pocName",
-        poc_title="pocTitle",
-        poc_email="pocEmail",
+    request=CompanyRegisterRequestCompanyId(
+        company_id="companyId",
     ),
 )
 ```
@@ -74,13 +40,8 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 ```python
 import asyncio
 
-from rcs import (
-    AsyncPinnacle,
-    CompanyContact,
-    CompanyDetails,
-    Messaging,
-    PointOfContact,
-)
+from rcs import AsyncPinnacle
+from rcs.company import CompanyRegisterRequestCompanyId
 
 client = AsyncPinnacle(
     api_key="YOUR_API_KEY",
@@ -89,37 +50,8 @@ client = AsyncPinnacle(
 
 async def main() -> None:
     await client.company.register(
-        company=CompanyDetails(
-            name="name",
-            category="Entertainment",
-            address="address",
-            ein="ein",
-            description="description",
-            brand_color="brandColor",
-            logo_url="logoUrl",
-            hero_url="heroUrl",
-        ),
-        company_contact=CompanyContact(
-            primary_website_url="primaryWebsiteUrl",
-            primary_website_label="primaryWebsiteLabel",
-            primary_phone="primaryPhone",
-            primary_phone_label="primaryPhoneLabel",
-            primary_email="primaryEmail",
-            primary_email_label="primaryEmailLabel",
-            privacy_policy_url="privacyPolicyUrl",
-            tos_url="tosUrl",
-        ),
-        messaging=Messaging(
-            opt_in="By opting in, you agree to receive messages from Pinnacle, including updates and promotions. Reply “STOP” to unsubscribe. Standard message and data rates may apply.",
-            opt_out="Reply with keywords like STOP or UNSUBSCRIBE to opt-out. A confirmation message will be sent, and no further messages will be received unless you re-subscribe.",
-            opt_out_keywords=["STOP", "UNSUBSCRIBE"],
-            agent_use_case="Pinnacle’s agent assists with product updates, promotions, order tracking, and support. It answers FAQs, provides order updates, and helps with opt-in/out processes. Escalates to live support when needed.",
-            expected_agent_responses="General Inquiry: “How can I assist you today?”\nOrder Status: “Provide your order number.”\nOpt-In: “You’re now subscribed!”\nOpt-Out: “You have unsubscribed.”\nEscalation: “Connecting to a live agent.”    \n",
-        ),
-        point_of_contact=PointOfContact(
-            poc_name="pocName",
-            poc_title="pocTitle",
-            poc_email="pocEmail",
+        request=CompanyRegisterRequestCompanyId(
+            company_id="companyId",
         ),
     )
 
@@ -147,10 +79,10 @@ except ApiError as e:
 ### Retries
 
 The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
-as the request is deemed retriable and the number of retry attempts has not grown larger than the configured
+as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
 retry limit (default: 2).
 
-A request is deemed retriable when any of the following HTTP status codes is returned:
+A request is deemed retryable when any of the following HTTP status codes is returned:
 
 - [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
 - [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
@@ -160,9 +92,9 @@ Use the `max_retries` request option to configure this behavior.
 
 ```python
 client.company.register(..., request_options={
-        "max_retries": 1
-    })
-    ```
+    "max_retries": 1
+})
+```
 
 ### Timeouts
 
@@ -170,7 +102,7 @@ The SDK defaults to a 60 second timeout. You can configure this with a timeout o
 
 ```python
 
-    from rcs import Pinnacle
+from rcs import Pinnacle
 
 client = Pinnacle(
     ...,
@@ -178,11 +110,11 @@ client = Pinnacle(
 )
 
 
-    # Override timeout for a specific method
-    client.company.register(..., request_options={
-        "timeout_in_seconds": 1
-    })
-    ```
+# Override timeout for a specific method
+client.company.register(..., request_options={
+    "timeout_in_seconds": 1
+})
+```
 
 ### Custom Client
 

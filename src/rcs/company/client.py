@@ -10,14 +10,14 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.internal_server_error import InternalServerError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
-from ..types.company_details import CompanyDetails
+from .types.company_register_request import CompanyRegisterRequest
+from .types.company_register_response import CompanyRegisterResponse
+from ..core.serialization import convert_and_respect_annotation_metadata
+from ..errors.payment_required_error import PaymentRequiredError
 from ..types.company_contact import CompanyContact
 from ..types.messaging import Messaging
 from ..types.point_of_contact import PointOfContact
 from ..types.optionals import Optionals
-from .types.company_register_response import CompanyRegisterResponse
-from ..core.serialization import convert_and_respect_annotation_metadata
-from ..errors.payment_required_error import PaymentRequiredError
 from .types.company_update_response import CompanyUpdateResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -118,29 +118,14 @@ class CompanyClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def register(
-        self,
-        *,
-        company: CompanyDetails,
-        company_contact: CompanyContact,
-        messaging: Messaging,
-        point_of_contact: PointOfContact,
-        optionals: typing.Optional[Optionals] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, request: CompanyRegisterRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> CompanyRegisterResponse:
         """
         Register a company for RCS with the Pinnacle platform
 
         Parameters
         ----------
-        company : CompanyDetails
-
-        company_contact : CompanyContact
-
-        messaging : Messaging
-
-        point_of_contact : PointOfContact
-
-        optionals : typing.Optional[Optionals]
+        request : CompanyRegisterRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -152,75 +137,24 @@ class CompanyClient:
 
         Examples
         --------
-        from rcs import (
-            CompanyContact,
-            CompanyDetails,
-            Messaging,
-            Pinnacle,
-            PointOfContact,
-        )
+        from rcs import Pinnacle
+        from rcs.company import CompanyRegisterRequestCompanyId
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.company.register(
-            company=CompanyDetails(
-                name="name",
-                category="Entertainment",
-                address="address",
-                ein="ein",
-                description="description",
-                brand_color="brandColor",
-                logo_url="logoUrl",
-                hero_url="heroUrl",
-            ),
-            company_contact=CompanyContact(
-                primary_website_url="primaryWebsiteUrl",
-                primary_website_label="primaryWebsiteLabel",
-                primary_phone="primaryPhone",
-                primary_phone_label="primaryPhoneLabel",
-                primary_email="primaryEmail",
-                primary_email_label="primaryEmailLabel",
-                privacy_policy_url="privacyPolicyUrl",
-                tos_url="tosUrl",
-            ),
-            messaging=Messaging(
-                opt_in="By opting in, you agree to receive messages from Pinnacle, including updates and promotions. Reply “STOP” to unsubscribe. Standard message and data rates may apply.",
-                opt_out="Reply with keywords like STOP or UNSUBSCRIBE to opt-out. A confirmation message will be sent, and no further messages will be received unless you re-subscribe.",
-                opt_out_keywords=["STOP", "UNSUBSCRIBE"],
-                agent_use_case="Pinnacle’s agent assists with product updates, promotions, order tracking, and support. It answers FAQs, provides order updates, and helps with opt-in/out processes. Escalates to live support when needed.",
-                expected_agent_responses="General Inquiry: “How can I assist you today?”\nOrder Status: “Provide your order number.”\nOpt-In: “You’re now subscribed!”\nOpt-Out: “You have unsubscribed.”\nEscalation: “Connecting to a live agent.”    \n",
-            ),
-            point_of_contact=PointOfContact(
-                poc_name="pocName",
-                poc_title="pocTitle",
-                poc_email="pocEmail",
+            request=CompanyRegisterRequestCompanyId(
+                company_id="companyId",
             ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "company/register",
             method="POST",
-            json={
-                "company": convert_and_respect_annotation_metadata(
-                    object_=company, annotation=CompanyDetails, direction="write"
-                ),
-                "companyContact": convert_and_respect_annotation_metadata(
-                    object_=company_contact, annotation=CompanyContact, direction="write"
-                ),
-                "messaging": convert_and_respect_annotation_metadata(
-                    object_=messaging, annotation=Messaging, direction="write"
-                ),
-                "pointOfContact": convert_and_respect_annotation_metadata(
-                    object_=point_of_contact, annotation=PointOfContact, direction="write"
-                ),
-                "optionals": convert_and_respect_annotation_metadata(
-                    object_=optionals, annotation=Optionals, direction="write"
-                ),
-            },
-            headers={
-                "content-type": "application/json",
-            },
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=CompanyRegisterRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
@@ -281,7 +215,7 @@ class CompanyClient:
     def update(
         self,
         *,
-        company_id: str,
+        company_id: typing.Optional[str] = OMIT,
         company: typing.Optional[Company] = OMIT,
         company_contact: typing.Optional[CompanyContact] = OMIT,
         messaging: typing.Optional[Messaging] = OMIT,
@@ -294,7 +228,8 @@ class CompanyClient:
 
         Parameters
         ----------
-        company_id : str
+        company_id : typing.Optional[str]
+            Optional company ID. If provided, updates existing company. If not provided, creates a new company.
 
         company : typing.Optional[Company]
 
@@ -321,9 +256,7 @@ class CompanyClient:
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
-        client.company.update(
-            company_id="companyId",
-        )
+        client.company.update()
         """
         _response = self._client_wrapper.httpx_client.request(
             "company/update",
@@ -498,29 +431,14 @@ class AsyncCompanyClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def register(
-        self,
-        *,
-        company: CompanyDetails,
-        company_contact: CompanyContact,
-        messaging: Messaging,
-        point_of_contact: PointOfContact,
-        optionals: typing.Optional[Optionals] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, request: CompanyRegisterRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> CompanyRegisterResponse:
         """
         Register a company for RCS with the Pinnacle platform
 
         Parameters
         ----------
-        company : CompanyDetails
-
-        company_contact : CompanyContact
-
-        messaging : Messaging
-
-        point_of_contact : PointOfContact
-
-        optionals : typing.Optional[Optionals]
+        request : CompanyRegisterRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -534,13 +452,8 @@ class AsyncCompanyClient:
         --------
         import asyncio
 
-        from rcs import (
-            AsyncPinnacle,
-            CompanyContact,
-            CompanyDetails,
-            Messaging,
-            PointOfContact,
-        )
+        from rcs import AsyncPinnacle
+        from rcs.company import CompanyRegisterRequestCompanyId
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -549,37 +462,8 @@ class AsyncCompanyClient:
 
         async def main() -> None:
             await client.company.register(
-                company=CompanyDetails(
-                    name="name",
-                    category="Entertainment",
-                    address="address",
-                    ein="ein",
-                    description="description",
-                    brand_color="brandColor",
-                    logo_url="logoUrl",
-                    hero_url="heroUrl",
-                ),
-                company_contact=CompanyContact(
-                    primary_website_url="primaryWebsiteUrl",
-                    primary_website_label="primaryWebsiteLabel",
-                    primary_phone="primaryPhone",
-                    primary_phone_label="primaryPhoneLabel",
-                    primary_email="primaryEmail",
-                    primary_email_label="primaryEmailLabel",
-                    privacy_policy_url="privacyPolicyUrl",
-                    tos_url="tosUrl",
-                ),
-                messaging=Messaging(
-                    opt_in="By opting in, you agree to receive messages from Pinnacle, including updates and promotions. Reply “STOP” to unsubscribe. Standard message and data rates may apply.",
-                    opt_out="Reply with keywords like STOP or UNSUBSCRIBE to opt-out. A confirmation message will be sent, and no further messages will be received unless you re-subscribe.",
-                    opt_out_keywords=["STOP", "UNSUBSCRIBE"],
-                    agent_use_case="Pinnacle’s agent assists with product updates, promotions, order tracking, and support. It answers FAQs, provides order updates, and helps with opt-in/out processes. Escalates to live support when needed.",
-                    expected_agent_responses="General Inquiry: “How can I assist you today?”\nOrder Status: “Provide your order number.”\nOpt-In: “You’re now subscribed!”\nOpt-Out: “You have unsubscribed.”\nEscalation: “Connecting to a live agent.”    \n",
-                ),
-                point_of_contact=PointOfContact(
-                    poc_name="pocName",
-                    poc_title="pocTitle",
-                    poc_email="pocEmail",
+                request=CompanyRegisterRequestCompanyId(
+                    company_id="companyId",
                 ),
             )
 
@@ -589,26 +473,9 @@ class AsyncCompanyClient:
         _response = await self._client_wrapper.httpx_client.request(
             "company/register",
             method="POST",
-            json={
-                "company": convert_and_respect_annotation_metadata(
-                    object_=company, annotation=CompanyDetails, direction="write"
-                ),
-                "companyContact": convert_and_respect_annotation_metadata(
-                    object_=company_contact, annotation=CompanyContact, direction="write"
-                ),
-                "messaging": convert_and_respect_annotation_metadata(
-                    object_=messaging, annotation=Messaging, direction="write"
-                ),
-                "pointOfContact": convert_and_respect_annotation_metadata(
-                    object_=point_of_contact, annotation=PointOfContact, direction="write"
-                ),
-                "optionals": convert_and_respect_annotation_metadata(
-                    object_=optionals, annotation=Optionals, direction="write"
-                ),
-            },
-            headers={
-                "content-type": "application/json",
-            },
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=CompanyRegisterRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
@@ -669,7 +536,7 @@ class AsyncCompanyClient:
     async def update(
         self,
         *,
-        company_id: str,
+        company_id: typing.Optional[str] = OMIT,
         company: typing.Optional[Company] = OMIT,
         company_contact: typing.Optional[CompanyContact] = OMIT,
         messaging: typing.Optional[Messaging] = OMIT,
@@ -682,7 +549,8 @@ class AsyncCompanyClient:
 
         Parameters
         ----------
-        company_id : str
+        company_id : typing.Optional[str]
+            Optional company ID. If provided, updates existing company. If not provided, creates a new company.
 
         company : typing.Optional[Company]
 
@@ -714,9 +582,7 @@ class AsyncCompanyClient:
 
 
         async def main() -> None:
-            await client.company.update(
-                company_id="companyId",
-            )
+            await client.company.update()
 
 
         asyncio.run(main())
