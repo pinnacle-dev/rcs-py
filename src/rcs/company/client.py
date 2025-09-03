@@ -224,7 +224,7 @@ class CompanyClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CompanyUpdateResponse:
         """
-        Update a company on the Pinnacle platform
+        Upsert a company on the Pinnacle platform
 
         Parameters
         ----------
@@ -545,7 +545,7 @@ class AsyncCompanyClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CompanyUpdateResponse:
         """
-        Update a company on the Pinnacle platform
+        Upsert a company on the Pinnacle platform
 
         Parameters
         ----------
