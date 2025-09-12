@@ -20,8 +20,8 @@ A full reference for this library is available [here](https://github.com/pinnacl
 Instantiate and use the client with the following:
 
 ```python
-from pinnacle import Pinnacle
-from pinnacle.brands import AutofillBrandSchemaOptions
+from rcs import Pinnacle
+from rcs.brands import AutofillBrandSchemaOptions
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -43,8 +43,8 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 ```python
 import asyncio
 
-from pinnacle import AsyncPinnacle
-from pinnacle.brands import AutofillBrandSchemaOptions
+from rcs import AsyncPinnacle
+from rcs.brands import AutofillBrandSchemaOptions
 
 client = AsyncPinnacle(
     api_key="YOUR_API_KEY",
@@ -71,7 +71,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```python
-from pinnacle.core.api_error import ApiError
+from rcs.core.api_error import ApiError
 
 try:
     client.brands.autofill(...)
@@ -88,7 +88,7 @@ The SDK provides access to raw response data, including headers, through the `.w
 The `.with_raw_response` property returns a "raw" client that can be used to access the `.headers` and `.data` attributes.
 
 ```python
-from pinnacle import Pinnacle
+from rcs import Pinnacle
 
 client = Pinnacle(
     ...,
@@ -124,7 +124,7 @@ The SDK defaults to a 60 second timeout. You can configure this with a timeout o
 
 ```python
 
-from pinnacle import Pinnacle
+from rcs import Pinnacle
 
 client = Pinnacle(
     ...,
@@ -145,7 +145,7 @@ and transports.
 
 ```python
 import httpx
-from pinnacle import Pinnacle
+from rcs import Pinnacle
 
 client = Pinnacle(
     ...,
