@@ -1,6 +1,6 @@
 # Reference
 ## Brands
-<details><summary><code>client.brands.<a href="src/rcs/brands/client.py">autofill</a>(...)</code></summary>
+<details><summary><code>client.brands.<a href="src/pinnacle/brands/client.py">autofill</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -27,8 +27,8 @@ Automatically populate brand information based on partial input data you provide
 <dd>
 
 ```python
-from rcs import Pinnacle
-from rcs.brands import AutofillBrandSchemaOptions
+from pinnacle import Pinnacle
+from pinnacle.brands import AutofillBrandSchemaOptions
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -100,7 +100,7 @@ client.brands.autofill(
 </dl>
 </details>
 
-<details><summary><code>client.brands.<a href="src/rcs/brands/client.py">upsert</a>(...)</code></summary>
+<details><summary><code>client.brands.<a href="src/pinnacle/brands/client.py">upsert</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -127,7 +127,7 @@ Create a new brand or update an existing brand by with the provided information.
 <dd>
 
 ```python
-from rcs import NullableContact, Pinnacle
+from pinnacle import NullableContact, Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -265,7 +265,7 @@ client.brands.upsert(
 </dl>
 </details>
 
-<details><summary><code>client.brands.<a href="src/rcs/brands/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.brands.<a href="src/pinnacle/brands/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -292,7 +292,7 @@ Retrieve detailed information for a specific brand in your account by ID.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -347,7 +347,7 @@ When you set this to true, the EIN value will be replaced with a masked placehol
 </dl>
 </details>
 
-<details><summary><code>client.brands.<a href="src/rcs/brands/client.py">submit</a>(...)</code></summary>
+<details><summary><code>client.brands.<a href="src/pinnacle/brands/client.py">submit</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -374,7 +374,7 @@ Submit your brand for review and approval by the compliance team.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -421,7 +421,7 @@ Must correspond to an existing brand in your account that is ready for submissio
 </dl>
 </details>
 
-<details><summary><code>client.brands.<a href="src/rcs/brands/client.py">validate</a>(...)</code></summary>
+<details><summary><code>client.brands.<a href="src/pinnacle/brands/client.py">validate</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -448,8 +448,8 @@ Validate your brand information for compliance and correctness before submission
 <dd>
 
 ```python
-from rcs import Pinnacle
-from rcs.brands import BrandContact
+from pinnacle import Pinnacle
+from pinnacle.brands import BrandContact
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -578,7 +578,7 @@ client.brands.validate(
 </dl>
 </details>
 
-<details><summary><code>client.brands.<a href="src/rcs/brands/client.py">vet</a>(...)</code></summary>
+<details><summary><code>client.brands.<a href="src/pinnacle/brands/client.py">vet</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -605,7 +605,7 @@ Submit a brand for external vetting verification to enhance your brand's trust s
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -653,7 +653,7 @@ The brand must be already registered before it can be vetted.
 </details>
 
 ## Contacts
-<details><summary><code>client.contacts.<a href="src/rcs/contacts/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.contacts.<a href="src/pinnacle/contacts/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -680,7 +680,7 @@ Retrieve contact information for a given number.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -733,7 +733,7 @@ Either this parameter or `phoneNumber` must be provided, but not both.
 </dl>
 </details>
 
-<details><summary><code>client.contacts.<a href="src/rcs/contacts/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.contacts.<a href="src/pinnacle/contacts/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -760,7 +760,7 @@ Create a new contact for a given phone number.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -835,7 +835,7 @@ client.contacts.create(
 </dl>
 </details>
 
-<details><summary><code>client.contacts.<a href="src/rcs/contacts/client.py">update</a>(...)</code></summary>
+<details><summary><code>client.contacts.<a href="src/pinnacle/contacts/client.py">update</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -862,7 +862,7 @@ Update an existing contact.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -942,7 +942,7 @@ client.contacts.update(
 </details>
 
 ## Conversations
-<details><summary><code>client.conversations.<a href="src/rcs/conversations/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.conversations.<a href="src/pinnacle/conversations/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -969,7 +969,7 @@ Fetch a specific conversation using either its unique identifier or by matching 
 <dd>
 
 ```python
-from rcs import GetConversationRequestId, Pinnacle
+from pinnacle import GetConversationRequestId, Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -1014,7 +1014,7 @@ client.conversations.get(
 </dl>
 </details>
 
-<details><summary><code>client.conversations.<a href="src/rcs/conversations/client.py">list</a>(...)</code></summary>
+<details><summary><code>client.conversations.<a href="src/pinnacle/conversations/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1041,7 +1041,7 @@ Retrieves conversations by page with optional filtering based off provided param
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -1138,7 +1138,7 @@ client.conversations.list(
 </dl>
 </details>
 
-<details><summary><code>client.conversations.<a href="src/rcs/conversations/client.py">update</a>(...)</code></summary>
+<details><summary><code>client.conversations.<a href="src/pinnacle/conversations/client.py">update</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1165,7 +1165,7 @@ Update the notes associated with a specific conversation.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -1218,7 +1218,7 @@ client.conversations.update(
 </details>
 
 ## Messages
-<details><summary><code>client.messages.<a href="src/rcs/messages/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.messages.<a href="src/pinnacle/messages/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1245,7 +1245,7 @@ Retrieve a previously sent message.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -1288,7 +1288,7 @@ client.messages.get(
 </dl>
 </details>
 
-<details><summary><code>client.messages.<a href="src/rcs/messages/client.py">react</a>(...)</code></summary>
+<details><summary><code>client.messages.<a href="src/pinnacle/messages/client.py">react</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1315,8 +1315,8 @@ Add or remove an emoji reaction to a previously sent message.
 <dd>
 
 ```python
-from rcs import Pinnacle
-from rcs.messages import MessageReactionSchemaOptions
+from pinnacle import Pinnacle
+from pinnacle.messages import MessageReactionSchemaOptions
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -1384,7 +1384,7 @@ Use `null` to remove existing reaction.
 </details>
 
 ## PhoneNumbers
-<details><summary><code>client.phone_numbers.<a href="src/rcs/phone_numbers/client.py">search</a>(...)</code></summary>
+<details><summary><code>client.phone_numbers.<a href="src/pinnacle/phone_numbers/client.py">search</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1411,8 +1411,8 @@ Search for available phone numbers that match your exact criteria.
 <dd>
 
 ```python
-from rcs import Pinnacle
-from rcs.phone_numbers import (
+from pinnacle import Pinnacle
+from pinnacle.phone_numbers import (
     SearchSchemaLocation,
     SearchSchemaNumber,
     SearchSchemaOptions,
@@ -1507,7 +1507,7 @@ Toll-free numbers ignore city and state filters.
 </dl>
 </details>
 
-<details><summary><code>client.phone_numbers.<a href="src/rcs/phone_numbers/client.py">buy</a>(...)</code></summary>
+<details><summary><code>client.phone_numbers.<a href="src/pinnacle/phone_numbers/client.py">buy</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1536,7 +1536,7 @@ Billing uses your account credits and the numbers are ready for immediate use.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -1585,7 +1585,7 @@ If any number in the request is unavailable or invalid, no purchases will be mad
 </dl>
 </details>
 
-<details><summary><code>client.phone_numbers.<a href="src/rcs/phone_numbers/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.phone_numbers.<a href="src/pinnacle/phone_numbers/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1612,8 +1612,8 @@ Retrieve information about any phone number.
 <dd>
 
 ```python
-from rcs import Pinnacle
-from rcs.phone_numbers import (
+from pinnacle import Pinnacle
+from pinnacle.phone_numbers import (
     PhoneDetailsSchemaOptions,
     PhoneDetailsSchemaOptionsEnhancedContactInfo,
 )
@@ -1687,7 +1687,7 @@ Choose how much detail you want in your results:
 </details>
 
 ## Webhooks
-<details><summary><code>client.webhooks.<a href="src/rcs/webhooks/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.webhooks.<a href="src/pinnacle/webhooks/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1714,7 +1714,7 @@ Retrieve all webhook that are set up to receive events for specific URLs or phon
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -1763,7 +1763,7 @@ client.webhooks.get(
 </details>
 
 ## Campaigns Dlc
-<details><summary><code>client.campaigns.dlc.<a href="src/rcs/campaigns/dlc/client.py">autofill</a>(...)</code></summary>
+<details><summary><code>client.campaigns.dlc.<a href="src/pinnacle/campaigns/dlc/client.py">autofill</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1790,7 +1790,7 @@ Generate campaign details based off existing campaign and the brand it's connect
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -1842,7 +1842,7 @@ client.campaigns.dlc.autofill(
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.dlc.<a href="src/rcs/campaigns/dlc/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.campaigns.dlc.<a href="src/pinnacle/campaigns/dlc/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1869,7 +1869,7 @@ Retrieve DLC campaign.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -1912,7 +1912,7 @@ client.campaigns.dlc.get(
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.dlc.<a href="src/rcs/campaigns/dlc/client.py">submit</a>(...)</code></summary>
+<details><summary><code>client.campaigns.dlc.<a href="src/pinnacle/campaigns/dlc/client.py">submit</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1939,7 +1939,7 @@ Submit your DLC campaign for approval and activation with carriers.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -1982,7 +1982,7 @@ client.campaigns.dlc.submit(
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.dlc.<a href="src/rcs/campaigns/dlc/client.py">upsert</a>(...)</code></summary>
+<details><summary><code>client.campaigns.dlc.<a href="src/pinnacle/campaigns/dlc/client.py">upsert</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2011,8 +2011,8 @@ Omit campaignId to create a campaign.
 <dd>
 
 ```python
-from rcs import Pinnacle
-from rcs.campaigns.dlc import (
+from pinnacle import Pinnacle
+from pinnacle.campaigns.dlc import (
     UpsertDlcSchemaKeywords,
     UpsertDlcSchemaKeywordsHelp,
     UpsertDlcSchemaKeywordsOptIn,
@@ -2178,7 +2178,7 @@ client.campaigns.dlc.upsert(
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.dlc.<a href="src/rcs/campaigns/dlc/client.py">validate</a>(...)</code></summary>
+<details><summary><code>client.campaigns.dlc.<a href="src/pinnacle/campaigns/dlc/client.py">validate</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2205,7 +2205,7 @@ Validate your DLC campaign configuration against carrier requirements and compli
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -2258,7 +2258,7 @@ client.campaigns.dlc.validate(
 </details>
 
 ## Campaigns TollFree
-<details><summary><code>client.campaigns.toll_free.<a href="src/rcs/campaigns/toll_free/client.py">autofill</a>(...)</code></summary>
+<details><summary><code>client.campaigns.toll_free.<a href="src/pinnacle/campaigns/toll_free/client.py">autofill</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2285,7 +2285,7 @@ Generate campaign details based off existing campaign and the brand it's connect
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -2337,7 +2337,7 @@ client.campaigns.toll_free.autofill(
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.toll_free.<a href="src/rcs/campaigns/toll_free/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.campaigns.toll_free.<a href="src/pinnacle/campaigns/toll_free/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2364,7 +2364,7 @@ Retrieve Toll-Free campaign.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -2407,7 +2407,7 @@ client.campaigns.toll_free.get(
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.toll_free.<a href="src/rcs/campaigns/toll_free/client.py">submit</a>(...)</code></summary>
+<details><summary><code>client.campaigns.toll_free.<a href="src/pinnacle/campaigns/toll_free/client.py">submit</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2434,7 +2434,7 @@ Submit your toll-free campaign for approval and activation with carriers.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -2477,7 +2477,7 @@ client.campaigns.toll_free.submit(
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.toll_free.<a href="src/rcs/campaigns/toll_free/client.py">upsert</a>(...)</code></summary>
+<details><summary><code>client.campaigns.toll_free.<a href="src/pinnacle/campaigns/toll_free/client.py">upsert</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2506,8 +2506,8 @@ Omit campaignId to create a campaign.
 <dd>
 
 ```python
-from rcs import Pinnacle
-from rcs.campaigns.toll_free import (
+from pinnacle import Pinnacle
+from pinnacle.campaigns.toll_free import (
     UpsertTollFreeSchemaOptIn,
     UpsertTollFreeSchemaUseCase,
 )
@@ -2614,7 +2614,7 @@ client.campaigns.toll_free.upsert(
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.toll_free.<a href="src/rcs/campaigns/toll_free/client.py">validate</a>(...)</code></summary>
+<details><summary><code>client.campaigns.toll_free.<a href="src/pinnacle/campaigns/toll_free/client.py">validate</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2641,7 +2641,7 @@ Validate your toll-free campaign configuration against carrier requirements and 
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -2694,7 +2694,7 @@ client.campaigns.toll_free.validate(
 </details>
 
 ## Campaigns Rcs
-<details><summary><code>client.campaigns.rcs.<a href="src/rcs/campaigns/rcs/client.py">autofill</a>(...)</code></summary>
+<details><summary><code>client.campaigns.rcs.<a href="src/pinnacle/campaigns/rcs/client.py">autofill</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2721,7 +2721,7 @@ Generate campaign details based off existing campaign and the brand it's connect
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -2773,7 +2773,7 @@ client.campaigns.rcs.autofill(
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.rcs.<a href="src/rcs/campaigns/rcs/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.campaigns.rcs.<a href="src/pinnacle/campaigns/rcs/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2800,7 +2800,7 @@ Retrieve RCS campaign.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -2843,7 +2843,7 @@ client.campaigns.rcs.get(
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.rcs.<a href="src/rcs/campaigns/rcs/client.py">submit</a>(...)</code></summary>
+<details><summary><code>client.campaigns.rcs.<a href="src/pinnacle/campaigns/rcs/client.py">submit</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2870,7 +2870,7 @@ Submit your RCS campaign for approval and activation with carriers.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -2913,7 +2913,7 @@ client.campaigns.rcs.submit(
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.rcs.<a href="src/rcs/campaigns/rcs/client.py">upsert</a>(...)</code></summary>
+<details><summary><code>client.campaigns.rcs.<a href="src/pinnacle/campaigns/rcs/client.py">upsert</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2942,8 +2942,8 @@ Omit campaignId to create a campaign.
 <dd>
 
 ```python
-from rcs import Pinnacle
-from rcs.campaigns.rcs import (
+from pinnacle import Pinnacle
+from pinnacle.campaigns.rcs import (
     UpsertRcsSchemaAgent,
     UpsertRcsSchemaAgentEmailsItem,
     UpsertRcsSchemaAgentPhonesItem,
@@ -3098,7 +3098,7 @@ client.campaigns.rcs.upsert(
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.rcs.<a href="src/rcs/campaigns/rcs/client.py">validate</a>(...)</code></summary>
+<details><summary><code>client.campaigns.rcs.<a href="src/pinnacle/campaigns/rcs/client.py">validate</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3125,7 +3125,7 @@ Validate your RCS campaign configuration against carrier requirements and compli
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3178,7 +3178,7 @@ client.campaigns.rcs.validate(
 </details>
 
 ## Message Sms
-<details><summary><code>client.message.sms.<a href="src/rcs/message/sms/client.py">validate</a>(...)</code></summary>
+<details><summary><code>client.message.sms.<a href="src/pinnacle/message/sms/client.py">validate</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3205,7 +3205,7 @@ Validate SMS message content without sending it.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3249,7 +3249,7 @@ client.message.sms.validate(
 </details>
 
 ## Messages Send
-<details><summary><code>client.messages.send.<a href="src/rcs/messages/send/client.py">sms</a>(...)</code></summary>
+<details><summary><code>client.messages.send.<a href="src/pinnacle/messages/send/client.py">sms</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3276,7 +3276,7 @@ Send a SMS message immediately or schedule it for future delivery.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3345,7 +3345,7 @@ client.messages.send.sms(
 </dl>
 </details>
 
-<details><summary><code>client.messages.send.<a href="src/rcs/messages/send/client.py">mms</a>(...)</code></summary>
+<details><summary><code>client.messages.send.<a href="src/pinnacle/messages/send/client.py">mms</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3372,8 +3372,8 @@ Send a MMS immediately or schedule it for future delivery.
 <dd>
 
 ```python
-from rcs import Pinnacle
-from rcs.messages.send import SendMmsSchemaOptions
+from pinnacle import Pinnacle
+from pinnacle.messages.send import SendMmsSchemaOptions
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3461,7 +3461,7 @@ Media file URLs to send.<br>
 </dl>
 </details>
 
-<details><summary><code>client.messages.send.<a href="src/rcs/messages/send/client.py">rcs</a>(...)</code></summary>
+<details><summary><code>client.messages.send.<a href="src/pinnacle/messages/send/client.py">rcs</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3490,7 +3490,7 @@ Requires an active RCS agent and recipient devices that support RCS Business Mes
 <dd>
 
 ```python
-from rcs import Pinnacle, RcsButtonContent_OpenUrl, RcsText
+from pinnacle import Pinnacle, RcsButtonContent_OpenUrl, RcsText
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3544,7 +3544,7 @@ client.messages.send.rcs(
 </details>
 
 ## Messages Mms
-<details><summary><code>client.messages.mms.<a href="src/rcs/messages/mms/client.py">validate</a>(...)</code></summary>
+<details><summary><code>client.messages.mms.<a href="src/pinnacle/messages/mms/client.py">validate</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3571,7 +3571,7 @@ Validate MMS message content without sending it.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3632,7 +3632,7 @@ See [supported media types](https://app.pinnacle.sh/supported-file-types?type=MM
 </details>
 
 ## Messages Rcs
-<details><summary><code>client.messages.rcs.<a href="src/rcs/messages/rcs/client.py">validate</a>(...)</code></summary>
+<details><summary><code>client.messages.rcs.<a href="src/pinnacle/messages/rcs/client.py">validate</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3659,7 +3659,7 @@ Validate RCS message content without sending it.
 <dd>
 
 ```python
-from rcs import Pinnacle, RcsButtonContent_OpenUrl, RcsTextContent
+from pinnacle import Pinnacle, RcsButtonContent_OpenUrl, RcsTextContent
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3711,7 +3711,7 @@ client.messages.rcs.validate(
 </details>
 
 ## PhoneNumbers Webhook
-<details><summary><code>client.phone_numbers.webhook.<a href="src/rcs/phone_numbers/webhook/client.py">attach</a>(...)</code></summary>
+<details><summary><code>client.phone_numbers.webhook.<a href="src/pinnacle/phone_numbers/webhook/client.py">attach</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3738,7 +3738,7 @@ Connect a webhook to your phone number to receive real-time notifications for in
 <dd>
 
 ```python
-from rcs import AttachWebhookSchemaWebhookId, Pinnacle
+from pinnacle import AttachWebhookSchemaWebhookId, Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3796,7 +3796,7 @@ Must be a phone number that you own and have already [purchased](./buy) through 
 </dl>
 </details>
 
-<details><summary><code>client.phone_numbers.webhook.<a href="src/rcs/phone_numbers/webhook/client.py">detach</a>(...)</code></summary>
+<details><summary><code>client.phone_numbers.webhook.<a href="src/pinnacle/phone_numbers/webhook/client.py">detach</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3825,7 +3825,7 @@ The webhook configuration itself remains intact and available for use with other
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3886,7 +3886,7 @@ This must be a valid webhook ID that is currently attached to the specified phon
 </details>
 
 ## PhoneNumbers Campaign
-<details><summary><code>client.phone_numbers.campaign.<a href="src/rcs/phone_numbers/campaign/client.py">attach</a>(...)</code></summary>
+<details><summary><code>client.phone_numbers.campaign.<a href="src/pinnacle/phone_numbers/campaign/client.py">attach</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3913,7 +3913,7 @@ Link a phone number to a specific campaign.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3974,7 +3974,7 @@ client.phone_numbers.campaign.attach(
 </dl>
 </details>
 
-<details><summary><code>client.phone_numbers.campaign.<a href="src/rcs/phone_numbers/campaign/client.py">detach</a>(...)</code></summary>
+<details><summary><code>client.phone_numbers.campaign.<a href="src/pinnacle/phone_numbers/campaign/client.py">detach</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4001,7 +4001,7 @@ Remove the association between a phone number and its attached campaign.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -4045,7 +4045,7 @@ client.phone_numbers.campaign.detach(
 </details>
 
 ## Status Get
-<details><summary><code>client.status.get.<a href="src/rcs/status/get/client.py">brand</a>(...)</code></summary>
+<details><summary><code>client.status.get.<a href="src/pinnacle/status/get/client.py">brand</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4072,7 +4072,7 @@ Retrieve a brand's status.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -4115,7 +4115,7 @@ client.status.get.brand(
 </dl>
 </details>
 
-<details><summary><code>client.status.get.<a href="src/rcs/status/get/client.py">toll_free</a>(...)</code></summary>
+<details><summary><code>client.status.get.<a href="src/pinnacle/status/get/client.py">toll_free</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4142,7 +4142,7 @@ Retrieve a toll-free campaign's status.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -4185,7 +4185,7 @@ client.status.get.toll_free(
 </dl>
 </details>
 
-<details><summary><code>client.status.get.<a href="src/rcs/status/get/client.py">dlc</a>(...)</code></summary>
+<details><summary><code>client.status.get.<a href="src/pinnacle/status/get/client.py">dlc</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4212,7 +4212,7 @@ Retrieve a DLC campaign's status.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -4255,7 +4255,7 @@ client.status.get.dlc(
 </dl>
 </details>
 
-<details><summary><code>client.status.get.<a href="src/rcs/status/get/client.py">rcs</a>(...)</code></summary>
+<details><summary><code>client.status.get.<a href="src/pinnacle/status/get/client.py">rcs</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4282,7 +4282,7 @@ Retrieve a RCS campaign's status.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -4325,7 +4325,7 @@ client.status.get.rcs(
 </dl>
 </details>
 
-<details><summary><code>client.status.get.<a href="src/rcs/status/get/client.py">phone_number</a>(...)</code></summary>
+<details><summary><code>client.status.get.<a href="src/pinnacle/status/get/client.py">phone_number</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4354,7 +4354,7 @@ Check if a number is active and ready to send messages.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -4398,7 +4398,7 @@ client.status.get.phone_number(
 </details>
 
 ## Tools Url
-<details><summary><code>client.tools.url.<a href="src/rcs/tools/url/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.tools.url.<a href="src/pinnacle/tools/url/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4425,7 +4425,7 @@ Create a shortened URL that redirects visitors to the provided destination URL.
 <dd>
 
 ```python
-from rcs import CreateUrlOptions, Pinnacle
+from pinnacle import CreateUrlOptions, Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -4479,7 +4479,7 @@ client.tools.url.create(
 </dl>
 </details>
 
-<details><summary><code>client.tools.url.<a href="src/rcs/tools/url/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.tools.url.<a href="src/pinnacle/tools/url/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4506,7 +4506,7 @@ Retrieve configuration and details for your shortened URL using its unique ident
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -4553,7 +4553,7 @@ See the response of [Create Shortened URL](./create-url) for more information.
 </dl>
 </details>
 
-<details><summary><code>client.tools.url.<a href="src/rcs/tools/url/client.py">update</a>(...)</code></summary>
+<details><summary><code>client.tools.url.<a href="src/pinnacle/tools/url/client.py">update</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4580,7 +4580,7 @@ Update the destination or configuration of an existing shortened URL.
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -4645,7 +4645,7 @@ See the response of [Create Shortened URL](./create-url) for more information.
 </details>
 
 ## Tools File
-<details><summary><code>client.tools.file.<a href="src/rcs/tools/file/client.py">upload</a>(...)</code></summary>
+<details><summary><code>client.tools.file.<a href="src/pinnacle/tools/file/client.py">upload</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4672,8 +4672,8 @@ Generate presigned URLs that let you upload files directly to our storage and al
 <dd>
 
 ```python
-from rcs import Pinnacle
-from rcs.tools.file import (
+from pinnacle import Pinnacle
+from pinnacle.tools.file import (
     FileUploadSchemaOptions,
     FileUploadSchemaOptionsDownload,
 )
@@ -4759,7 +4759,7 @@ Supported file types:
 </details>
 
 ## Tools ContactCard
-<details><summary><code>client.tools.contact_card.<a href="src/rcs/tools/contact_card/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.tools.contact_card.<a href="src/pinnacle/tools/contact_card/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4786,7 +4786,7 @@ Retrieve contact information as a vCard and get a presigned URL to download the 
 <dd>
 
 ```python
-from rcs import Pinnacle
+from pinnacle import Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -4837,7 +4837,7 @@ client.tools.contact_card.get(
 </dl>
 </details>
 
-<details><summary><code>client.tools.contact_card.<a href="src/rcs/tools/contact_card/client.py">upsert</a>(...)</code></summary>
+<details><summary><code>client.tools.contact_card.<a href="src/pinnacle/tools/contact_card/client.py">upsert</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4864,7 +4864,7 @@ Create a new contact card or updates an existing one with full vCard data.
 <dd>
 
 ```python
-from rcs import (
+from pinnacle import (
     Pinnacle,
     VcardAddress,
     VcardEmail,

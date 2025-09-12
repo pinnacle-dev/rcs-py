@@ -8,7 +8,7 @@ import typing
 
 import typing_extensions
 
-from rcs.core.serialization import FieldMetadata
+from pinnacle.core.serialization import FieldMetadata
 
 
 class Base(typing_extensions.TypedDict):
