@@ -3,7 +3,6 @@ import mimetypes
 
 import os
 from .base_client import PinnacleBase, AsyncPinnacleBase
-from .utils import parse_inbound
 
 
 class Pinnacle(PinnacleBase):
