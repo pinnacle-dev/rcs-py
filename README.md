@@ -21,15 +21,18 @@ Instantiate and use the client with the following:
 
 ```python
 from rcs import Pinnacle
-from rcs.company import CompanyRegisterRequestCompanyId
+from rcs.brands import AutofillBrandSchemaOptions
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.company.register(
-    request=CompanyRegisterRequestCompanyId(
-        company_id="companyId",
+client.brands.autofill(
+    additional_info="A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
+    name="Pinnacle",
+    options=AutofillBrandSchemaOptions(
+        force_reload=True,
     ),
+    website="https://www.pinnacle.sh",
 )
 ```
 
@@ -41,7 +44,7 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 import asyncio
 
 from rcs import AsyncPinnacle
-from rcs.company import CompanyRegisterRequestCompanyId
+from rcs.brands import AutofillBrandSchemaOptions
 
 client = AsyncPinnacle(
     api_key="YOUR_API_KEY",
@@ -49,10 +52,13 @@ client = AsyncPinnacle(
 
 
 async def main() -> None:
-    await client.company.register(
-        request=CompanyRegisterRequestCompanyId(
-            company_id="companyId",
+    await client.brands.autofill(
+        additional_info="A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
+        name="Pinnacle",
+        options=AutofillBrandSchemaOptions(
+            force_reload=True,
         ),
+        website="https://www.pinnacle.sh",
     )
 
 
@@ -68,13 +74,29 @@ will be thrown.
 from rcs.core.api_error import ApiError
 
 try:
-    client.company.register(...)
+    client.brands.autofill(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
 ```
 
 ## Advanced
+
+### Access Raw Response Data
+
+The SDK provides access to raw response data, including headers, through the `.with_raw_response` property.
+The `.with_raw_response` property returns a "raw" client that can be used to access the `.headers` and `.data` attributes.
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    ...,
+)
+response = client.brands.with_raw_response.autofill(...)
+print(response.headers)  # access the response headers
+print(response.data)  # access the underlying object
+```
 
 ### Retries
 
@@ -91,7 +113,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.company.register(..., request_options={
+client.brands.autofill(..., request_options={
     "max_retries": 1
 })
 ```
@@ -111,7 +133,7 @@ client = Pinnacle(
 
 
 # Override timeout for a specific method
-client.company.register(..., request_options={
+client.brands.autofill(..., request_options={
     "timeout_in_seconds": 1
 })
 ```
@@ -120,6 +142,7 @@ client.company.register(..., request_options={
 
 You can override the `httpx` client to customize it for your use-case. Some common use-cases include support for proxies
 and transports.
+
 ```python
 import httpx
 from rcs import Pinnacle
@@ -127,7 +150,7 @@ from rcs import Pinnacle
 client = Pinnacle(
     ...,
     httpx_client=httpx.Client(
-        proxies="http://my.test.proxy.example.com",
+        proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
 )
