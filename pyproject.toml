@@ -1,9 +1,9 @@
 [project]
-name = "rcs"
+name = "pinnacle"
 
 [tool.poetry]
-name = "rcs"
-version = "2.0.0rc2"
+name = "pinnacle"
+version = "0.0.0"
 description = ""
 readme = "README.md"
 authors = []
