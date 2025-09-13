@@ -6,6 +6,8 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.mms_validation_result import MmsValidationResult
 from .raw_client import AsyncRawMmsClient, RawMmsClient
+from .types.mms_send_response import MmsSendResponse
+from .types.send_mms_schema_options import SendMmsSchemaOptions
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -25,6 +27,74 @@ class MmsClient:
         RawMmsClient
         """
         return self._raw_client
+
+    def send(
+        self,
+        *,
+        from_: str,
+        media_urls: typing.Sequence[str],
+        text: str,
+        to: str,
+        options: typing.Optional[SendMmsSchemaOptions] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> MmsSendResponse:
+        """
+        Send a MMS immediately or schedule it for future delivery.
+
+        Parameters
+        ----------
+        from_ : str
+            Phone number you want to send the message from in E.164 format.
+
+        media_urls : typing.Sequence[str]
+            Media file URLs to send.<br>
+
+             See [supported media types](https://app.pinnacle.sh/supported-file-types?type=MMS).
+
+        text : str
+            Message text to accompany the media.
+
+        to : str
+            Recipient's phone number in E.164 format.
+
+        options : typing.Optional[SendMmsSchemaOptions]
+            Control how your MMS is processed and delivered.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MmsSendResponse
+            Successfully sent or scheduled the message. <br>
+
+            Each message part can be tracked independently using its unique message ID. Use our [/messages/:id](./get) endpoint to track your messages.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+        from rcs.messages.mms import SendMmsSchemaOptions
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.messages.mms.send(
+            from_="+14155164736",
+            media_urls=[
+                "https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0"
+            ],
+            options=SendMmsSchemaOptions(
+                multiple_messages=True,
+                validate=True,
+            ),
+            text="Check out this image!",
+            to="+14154746461",
+        )
+        """
+        _response = self._raw_client.send(
+            from_=from_, media_urls=media_urls, text=text, to=to, options=options, request_options=request_options
+        )
+        return _response.data
 
     def validate(
         self,
@@ -88,6 +158,82 @@ class AsyncMmsClient:
         AsyncRawMmsClient
         """
         return self._raw_client
+
+    async def send(
+        self,
+        *,
+        from_: str,
+        media_urls: typing.Sequence[str],
+        text: str,
+        to: str,
+        options: typing.Optional[SendMmsSchemaOptions] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> MmsSendResponse:
+        """
+        Send a MMS immediately or schedule it for future delivery.
+
+        Parameters
+        ----------
+        from_ : str
+            Phone number you want to send the message from in E.164 format.
+
+        media_urls : typing.Sequence[str]
+            Media file URLs to send.<br>
+
+             See [supported media types](https://app.pinnacle.sh/supported-file-types?type=MMS).
+
+        text : str
+            Message text to accompany the media.
+
+        to : str
+            Recipient's phone number in E.164 format.
+
+        options : typing.Optional[SendMmsSchemaOptions]
+            Control how your MMS is processed and delivered.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MmsSendResponse
+            Successfully sent or scheduled the message. <br>
+
+            Each message part can be tracked independently using its unique message ID. Use our [/messages/:id](./get) endpoint to track your messages.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+        from rcs.messages.mms import SendMmsSchemaOptions
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.messages.mms.send(
+                from_="+14155164736",
+                media_urls=[
+                    "https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0"
+                ],
+                options=SendMmsSchemaOptions(
+                    multiple_messages=True,
+                    validate=True,
+                ),
+                text="Check out this image!",
+                to="+14154746461",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.send(
+            from_=from_, media_urls=media_urls, text=text, to=to, options=options, request_options=request_options
+        )
+        return _response.data
 
     async def validate(
         self,

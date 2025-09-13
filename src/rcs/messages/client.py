@@ -14,7 +14,7 @@ from .types.message_reaction_schema_options import MessageReactionSchemaOptions
 if typing.TYPE_CHECKING:
     from .mms.client import AsyncMmsClient, MmsClient
     from .rcs.client import AsyncRcsClient, RcsClient
-    from .send.client import AsyncSendClient, SendClient
+    from .sms.client import AsyncSmsClient, SmsClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
@@ -23,7 +23,7 @@ class MessagesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawMessagesClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
-        self._send: typing.Optional[SendClient] = None
+        self._sms: typing.Optional[SmsClient] = None
         self._mms: typing.Optional[MmsClient] = None
         self._rcs: typing.Optional[RcsClient] = None
 
@@ -122,12 +122,12 @@ class MessagesClient:
         return _response.data
 
     @property
-    def send(self):
-        if self._send is None:
-            from .send.client import SendClient  # noqa: E402
+    def sms(self):
+        if self._sms is None:
+            from .sms.client import SmsClient  # noqa: E402
 
-            self._send = SendClient(client_wrapper=self._client_wrapper)
-        return self._send
+            self._sms = SmsClient(client_wrapper=self._client_wrapper)
+        return self._sms
 
     @property
     def mms(self):
@@ -150,7 +150,7 @@ class AsyncMessagesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawMessagesClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
-        self._send: typing.Optional[AsyncSendClient] = None
+        self._sms: typing.Optional[AsyncSmsClient] = None
         self._mms: typing.Optional[AsyncMmsClient] = None
         self._rcs: typing.Optional[AsyncRcsClient] = None
 
@@ -265,12 +265,12 @@ class AsyncMessagesClient:
         return _response.data
 
     @property
-    def send(self):
-        if self._send is None:
-            from .send.client import AsyncSendClient  # noqa: E402
+    def sms(self):
+        if self._sms is None:
+            from .sms.client import AsyncSmsClient  # noqa: E402
 
-            self._send = AsyncSendClient(client_wrapper=self._client_wrapper)
-        return self._send
+            self._sms = AsyncSmsClient(client_wrapper=self._client_wrapper)
+        return self._sms
 
     @property
     def mms(self):

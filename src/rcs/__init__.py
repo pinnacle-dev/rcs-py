@@ -239,7 +239,7 @@ if typing.TYPE_CHECKING:
         PaymentRequiredError,
         UnauthorizedError,
     )
-    from . import brands, campaigns, contacts, conversations, message, messages, phone_numbers, status, tools, webhooks
+    from . import brands, campaigns, contacts, conversations, messages, phone_numbers, status, tools, webhooks
     from .brands import AutofillBrandSchemaOptions, BrandContact
     from .client import AsyncPinnacle, Pinnacle
     from .environment import PinnacleEnvironment
@@ -502,7 +502,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "campaigns": ".",
     "contacts": ".",
     "conversations": ".",
-    "message": ".",
     "messages": ".",
     "phone_numbers": ".",
     "status": ".",
@@ -778,7 +777,6 @@ __all__ = [
     "campaigns",
     "contacts",
     "conversations",
-    "message",
     "messages",
     "phone_numbers",
     "status",

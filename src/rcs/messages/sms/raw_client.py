@@ -15,22 +15,19 @@ from ...errors.not_found_error import NotFoundError
 from ...errors.payment_required_error import PaymentRequiredError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.error import Error
-from ...types.rcs import Rcs
-from .types.send_mms_response import SendMmsResponse
-from .types.send_mms_schema_options import SendMmsSchemaOptions
-from .types.send_rcs_response import SendRcsResponse
-from .types.send_sms_response import SendSmsResponse
+from ...types.sms_validation_result import SmsValidationResult
 from .types.send_sms_schema_options import SendSmsSchemaOptions
+from .types.sms_send_response import SmsSendResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
-class RawSendClient:
+class RawSmsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def sms(
+    def send(
         self,
         *,
         from_: str,
@@ -38,7 +35,7 @@ class RawSendClient:
         to: str,
         options: typing.Optional[SendSmsSchemaOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[SendSmsResponse]:
+    ) -> HttpResponse[SmsSendResponse]:
         """
         Send a SMS message immediately or schedule it for future delivery.
 
@@ -61,7 +58,7 @@ class RawSendClient:
 
         Returns
         -------
-        HttpResponse[SendSmsResponse]
+        HttpResponse[SmsSendResponse]
             Successfully sent or scheduled the message. <br>
 
             Use our [/messages/:id](./get) endpoint to track your message.
@@ -86,9 +83,9 @@ class RawSendClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    SendSmsResponse,
+                    SmsSendResponse,
                     parse_obj_as(
-                        type_=SendSmsResponse,  # type: ignore
+                        type_=SmsSendResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -153,59 +150,30 @@ class RawSendClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def mms(
-        self,
-        *,
-        from_: str,
-        media_urls: typing.Sequence[str],
-        text: str,
-        to: str,
-        options: typing.Optional[SendMmsSchemaOptions] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[SendMmsResponse]:
+    def validate(
+        self, *, text: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[SmsValidationResult]:
         """
-        Send a MMS immediately or schedule it for future delivery.
+        Validate SMS message content without sending it.
 
         Parameters
         ----------
-        from_ : str
-            Phone number you want to send the message from in E.164 format.
-
-        media_urls : typing.Sequence[str]
-            Media file URLs to send.<br>
-
-             See [supported media types](https://app.pinnacle.sh/supported-file-types?type=MMS).
-
         text : str
-            Message text to accompany the media.
-
-        to : str
-            Recipient's phone number in E.164 format.
-
-        options : typing.Optional[SendMmsSchemaOptions]
-            Control how your MMS is processed and delivered.
+            Message content.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[SendMmsResponse]
-            Successfully sent or scheduled the message. <br>
-
-            Each message part can be tracked independently using its unique message ID. Use our [/messages/:id](./get) endpoint to track your messages.
+        HttpResponse[SmsValidationResult]
+            Returns the validation results.
         """
         _response = self._client_wrapper.httpx_client.request(
-            "messages/send/mms",
+            "messages/validate/sms",
             method="POST",
             json={
-                "from": from_,
-                "mediaUrls": media_urls,
-                "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=SendMmsSchemaOptions, direction="write"
-                ),
                 "text": text,
-                "to": to,
             },
             headers={
                 "content-type": "application/json",
@@ -216,9 +184,9 @@ class RawSendClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    SendMmsResponse,
+                    SmsValidationResult,
                     parse_obj_as(
-                        type_=SendMmsResponse,  # type: ignore
+                        type_=SmsValidationResult,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -245,130 +213,6 @@ class RawSendClient:
                         ),
                     ),
                 )
-            if _response.status_code == 402:
-                raise PaymentRequiredError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def rcs(
-        self, *, request: Rcs, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[SendRcsResponse]:
-        """
-        Send a RCS message immediately or schedule it for future delivery. <br>
-
-        Requires an active RCS agent and recipient devices that support RCS Business Messaging.
-
-        Parameters
-        ----------
-        request : Rcs
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[SendRcsResponse]
-            Successfully sent or scheduled the message.
-
-            Use our [/messages/:id](./get) endpoint to track your message.
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "messages/send/rcs",
-            method="POST",
-            json=convert_and_respect_annotation_metadata(object_=request, annotation=Rcs, direction="write"),
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    SendRcsResponse,
-                    parse_obj_as(
-                        type_=SendRcsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 402:
-                raise PaymentRequiredError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 500:
                 raise InternalServerError(
                     headers=dict(_response.headers),
@@ -386,11 +230,11 @@ class RawSendClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
-class AsyncRawSendClient:
+class AsyncRawSmsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def sms(
+    async def send(
         self,
         *,
         from_: str,
@@ -398,7 +242,7 @@ class AsyncRawSendClient:
         to: str,
         options: typing.Optional[SendSmsSchemaOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[SendSmsResponse]:
+    ) -> AsyncHttpResponse[SmsSendResponse]:
         """
         Send a SMS message immediately or schedule it for future delivery.
 
@@ -421,7 +265,7 @@ class AsyncRawSendClient:
 
         Returns
         -------
-        AsyncHttpResponse[SendSmsResponse]
+        AsyncHttpResponse[SmsSendResponse]
             Successfully sent or scheduled the message. <br>
 
             Use our [/messages/:id](./get) endpoint to track your message.
@@ -446,9 +290,9 @@ class AsyncRawSendClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    SendSmsResponse,
+                    SmsSendResponse,
                     parse_obj_as(
-                        type_=SendSmsResponse,  # type: ignore
+                        type_=SmsSendResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -513,59 +357,30 @@ class AsyncRawSendClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def mms(
-        self,
-        *,
-        from_: str,
-        media_urls: typing.Sequence[str],
-        text: str,
-        to: str,
-        options: typing.Optional[SendMmsSchemaOptions] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[SendMmsResponse]:
+    async def validate(
+        self, *, text: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[SmsValidationResult]:
         """
-        Send a MMS immediately or schedule it for future delivery.
+        Validate SMS message content without sending it.
 
         Parameters
         ----------
-        from_ : str
-            Phone number you want to send the message from in E.164 format.
-
-        media_urls : typing.Sequence[str]
-            Media file URLs to send.<br>
-
-             See [supported media types](https://app.pinnacle.sh/supported-file-types?type=MMS).
-
         text : str
-            Message text to accompany the media.
-
-        to : str
-            Recipient's phone number in E.164 format.
-
-        options : typing.Optional[SendMmsSchemaOptions]
-            Control how your MMS is processed and delivered.
+            Message content.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[SendMmsResponse]
-            Successfully sent or scheduled the message. <br>
-
-            Each message part can be tracked independently using its unique message ID. Use our [/messages/:id](./get) endpoint to track your messages.
+        AsyncHttpResponse[SmsValidationResult]
+            Returns the validation results.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "messages/send/mms",
+            "messages/validate/sms",
             method="POST",
             json={
-                "from": from_,
-                "mediaUrls": media_urls,
-                "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=SendMmsSchemaOptions, direction="write"
-                ),
                 "text": text,
-                "to": to,
             },
             headers={
                 "content-type": "application/json",
@@ -576,9 +391,9 @@ class AsyncRawSendClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    SendMmsResponse,
+                    SmsValidationResult,
                     parse_obj_as(
-                        type_=SendMmsResponse,  # type: ignore
+                        type_=SmsValidationResult,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -596,130 +411,6 @@ class AsyncRawSendClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 402:
-                raise PaymentRequiredError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def rcs(
-        self, *, request: Rcs, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[SendRcsResponse]:
-        """
-        Send a RCS message immediately or schedule it for future delivery. <br>
-
-        Requires an active RCS agent and recipient devices that support RCS Business Messaging.
-
-        Parameters
-        ----------
-        request : Rcs
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[SendRcsResponse]
-            Successfully sent or scheduled the message.
-
-            Use our [/messages/:id](./get) endpoint to track your message.
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "messages/send/rcs",
-            method="POST",
-            json=convert_and_respect_annotation_metadata(object_=request, annotation=Rcs, direction="write"),
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    SendRcsResponse,
-                    parse_obj_as(
-                        type_=SendRcsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 402:
-                raise PaymentRequiredError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         Error,

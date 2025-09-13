@@ -3,6 +3,6 @@
 import typing
 
 from ....types.scheduled_messaage import ScheduledMessaage
-from ....types.sent_sms_details import SentSmsDetails
+from ....types.sent_rcs_details import SentRcsDetails
 
-SendSmsResponse = typing.Union[SentSmsDetails, ScheduledMessaage]
+RcsSendResponse = typing.Union[SentRcsDetails, ScheduledMessaage]

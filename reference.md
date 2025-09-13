@@ -3177,79 +3177,8 @@ client.campaigns.rcs.validate(
 </dl>
 </details>
 
-## Message Sms
-<details><summary><code>client.message.sms.<a href="src/rcs/message/sms/client.py">validate</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Validate SMS message content without sending it.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from rcs import Pinnacle
-
-client = Pinnacle(
-    api_key="YOUR_API_KEY",
-)
-client.message.sms.validate(
-    text="Hello from Pinnacle",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**text:** `str` — Message content.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Messages Send
-<details><summary><code>client.messages.send.<a href="src/rcs/messages/send/client.py">sms</a>(...)</code></summary>
+## Messages Sms
+<details><summary><code>client.messages.sms.<a href="src/rcs/messages/sms/client.py">send</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3281,7 +3210,7 @@ from rcs import Pinnacle
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.messages.send.sms(
+client.messages.sms.send(
     from_="+14155164736",
     text="Hey! 😂",
     to="+14154746461",
@@ -3345,7 +3274,78 @@ client.messages.send.sms(
 </dl>
 </details>
 
-<details><summary><code>client.messages.send.<a href="src/rcs/messages/send/client.py">mms</a>(...)</code></summary>
+<details><summary><code>client.messages.sms.<a href="src/rcs/messages/sms/client.py">validate</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Validate SMS message content without sending it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.messages.sms.validate(
+    text="Hello from Pinnacle",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**text:** `str` — Message content.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Messages Mms
+<details><summary><code>client.messages.mms.<a href="src/rcs/messages/mms/client.py">send</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3373,12 +3373,12 @@ Send a MMS immediately or schedule it for future delivery.
 
 ```python
 from rcs import Pinnacle
-from rcs.messages.send import SendMmsSchemaOptions
+from rcs.messages.mms import SendMmsSchemaOptions
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.messages.send.mms(
+client.messages.mms.send(
     from_="+14155164736",
     media_urls=[
         "https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0"
@@ -3461,89 +3461,6 @@ Media file URLs to send.<br>
 </dl>
 </details>
 
-<details><summary><code>client.messages.send.<a href="src/rcs/messages/send/client.py">rcs</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Send a RCS message immediately or schedule it for future delivery. <br>
-
-Requires an active RCS agent and recipient devices that support RCS Business Messaging.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from rcs import Pinnacle, RcsButtonContent_OpenUrl, RcsText
-
-client = Pinnacle(
-    api_key="YOUR_API_KEY",
-)
-client.messages.send.rcs(
-    request=RcsText(
-        quick_replies=[
-            RcsButtonContent_OpenUrl(
-                payload="payload",
-                title="title",
-            )
-        ],
-        text="text",
-        from_="from",
-        to="to",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Rcs` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Messages Mms
 <details><summary><code>client.messages.mms.<a href="src/rcs/messages/mms/client.py">validate</a>(...)</code></summary>
 <dl>
 <dd>
@@ -3632,6 +3549,88 @@ See [supported media types](https://app.pinnacle.sh/supported-file-types?type=MM
 </details>
 
 ## Messages Rcs
+<details><summary><code>client.messages.rcs.<a href="src/rcs/messages/rcs/client.py">send</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a RCS message immediately or schedule it for future delivery. <br>
+
+Requires an active RCS agent and recipient devices that support RCS Business Messaging.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle, RcsButtonContent_OpenUrl, RcsText
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.messages.rcs.send(
+    request=RcsText(
+        quick_replies=[
+            RcsButtonContent_OpenUrl(
+                payload="payload",
+                title="title",
+            )
+        ],
+        text="text",
+        from_="from",
+        to="to",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Rcs` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.messages.rcs.<a href="src/rcs/messages/rcs/client.py">validate</a>(...)</code></summary>
 <dl>
 <dd>

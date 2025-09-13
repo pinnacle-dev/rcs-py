@@ -6,21 +6,11 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import MessageReactionSchemaOptions
-    from . import mms, rcs, sms
-    from .mms import MmsSendResponse, SendMmsSchemaOptions
-    from .rcs import RcsSendResponse
-    from .sms import SendSmsSchemaOptions, SmsSendResponse
+    from .send_sms_schema_options import SendSmsSchemaOptions
+    from .sms_send_response import SmsSendResponse
 _dynamic_imports: typing.Dict[str, str] = {
-    "MessageReactionSchemaOptions": ".types",
-    "MmsSendResponse": ".mms",
-    "RcsSendResponse": ".rcs",
-    "SendMmsSchemaOptions": ".mms",
-    "SendSmsSchemaOptions": ".sms",
-    "SmsSendResponse": ".sms",
-    "mms": ".",
-    "rcs": ".",
-    "sms": ".",
+    "SendSmsSchemaOptions": ".send_sms_schema_options",
+    "SmsSendResponse": ".sms_send_response",
 }
 
 
@@ -43,14 +33,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = [
-    "MessageReactionSchemaOptions",
-    "MmsSendResponse",
-    "RcsSendResponse",
-    "SendMmsSchemaOptions",
-    "SendSmsSchemaOptions",
-    "SmsSendResponse",
-    "mms",
-    "rcs",
-    "sms",
-]
+__all__ = ["SendSmsSchemaOptions", "SmsSendResponse"]

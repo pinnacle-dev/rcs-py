@@ -4,9 +4,11 @@ import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
+from ...types.rcs import Rcs
 from ...types.rcs_validate_content import RcsValidateContent
 from ...types.rcs_validation_result import RcsValidationResult
 from .raw_client import AsyncRawRcsClient, RawRcsClient
+from .types.rcs_send_response import RcsSendResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -26,6 +28,50 @@ class RcsClient:
         RawRcsClient
         """
         return self._raw_client
+
+    def send(self, *, request: Rcs, request_options: typing.Optional[RequestOptions] = None) -> RcsSendResponse:
+        """
+        Send a RCS message immediately or schedule it for future delivery. <br>
+
+        Requires an active RCS agent and recipient devices that support RCS Business Messaging.
+
+        Parameters
+        ----------
+        request : Rcs
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RcsSendResponse
+            Successfully sent or scheduled the message.
+
+            Use our [/messages/:id](./get) endpoint to track your message.
+
+        Examples
+        --------
+        from rcs import Pinnacle, RcsButtonContent_OpenUrl, RcsText
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.messages.rcs.send(
+            request=RcsText(
+                quick_replies=[
+                    RcsButtonContent_OpenUrl(
+                        payload="payload",
+                        title="title",
+                    )
+                ],
+                text="text",
+                from_="from",
+                to="to",
+            ),
+        )
+        """
+        _response = self._raw_client.send(request=request, request_options=request_options)
+        return _response.data
 
     def validate(
         self, *, request: RcsValidateContent, request_options: typing.Optional[RequestOptions] = None
@@ -82,6 +128,58 @@ class AsyncRcsClient:
         AsyncRawRcsClient
         """
         return self._raw_client
+
+    async def send(self, *, request: Rcs, request_options: typing.Optional[RequestOptions] = None) -> RcsSendResponse:
+        """
+        Send a RCS message immediately or schedule it for future delivery. <br>
+
+        Requires an active RCS agent and recipient devices that support RCS Business Messaging.
+
+        Parameters
+        ----------
+        request : Rcs
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RcsSendResponse
+            Successfully sent or scheduled the message.
+
+            Use our [/messages/:id](./get) endpoint to track your message.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle, RcsButtonContent_OpenUrl, RcsText
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.messages.rcs.send(
+                request=RcsText(
+                    quick_replies=[
+                        RcsButtonContent_OpenUrl(
+                            payload="payload",
+                            title="title",
+                        )
+                    ],
+                    text="text",
+                    from_="from",
+                    to="to",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.send(request=request, request_options=request_options)
+        return _response.data
 
     async def validate(
         self, *, request: RcsValidateContent, request_options: typing.Optional[RequestOptions] = None

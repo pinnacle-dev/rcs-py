@@ -13,7 +13,6 @@ if typing.TYPE_CHECKING:
     from .campaigns.client import AsyncCampaignsClient, CampaignsClient
     from .contacts.client import AsyncContactsClient, ContactsClient
     from .conversations.client import AsyncConversationsClient, ConversationsClient
-    from .message.client import AsyncMessageClient, MessageClient
     from .messages.client import AsyncMessagesClient, MessagesClient
     from .phone_numbers.client import AsyncPhoneNumbersClient, PhoneNumbersClient
     from .status.client import AsyncStatusClient, StatusClient
@@ -93,7 +92,6 @@ class PinnacleBase:
         self._phone_numbers: typing.Optional[PhoneNumbersClient] = None
         self._webhooks: typing.Optional[WebhooksClient] = None
         self._campaigns: typing.Optional[CampaignsClient] = None
-        self._message: typing.Optional[MessageClient] = None
         self._status: typing.Optional[StatusClient] = None
         self._tools: typing.Optional[ToolsClient] = None
 
@@ -152,14 +150,6 @@ class PinnacleBase:
 
             self._campaigns = CampaignsClient(client_wrapper=self._client_wrapper)
         return self._campaigns
-
-    @property
-    def message(self):
-        if self._message is None:
-            from .message.client import MessageClient  # noqa: E402
-
-            self._message = MessageClient(client_wrapper=self._client_wrapper)
-        return self._message
 
     @property
     def status(self):
@@ -250,7 +240,6 @@ class AsyncPinnacleBase:
         self._phone_numbers: typing.Optional[AsyncPhoneNumbersClient] = None
         self._webhooks: typing.Optional[AsyncWebhooksClient] = None
         self._campaigns: typing.Optional[AsyncCampaignsClient] = None
-        self._message: typing.Optional[AsyncMessageClient] = None
         self._status: typing.Optional[AsyncStatusClient] = None
         self._tools: typing.Optional[AsyncToolsClient] = None
 
@@ -309,14 +298,6 @@ class AsyncPinnacleBase:
 
             self._campaigns = AsyncCampaignsClient(client_wrapper=self._client_wrapper)
         return self._campaigns
-
-    @property
-    def message(self):
-        if self._message is None:
-            from .message.client import AsyncMessageClient  # noqa: E402
-
-            self._message = AsyncMessageClient(client_wrapper=self._client_wrapper)
-        return self._message
 
     @property
     def status(self):

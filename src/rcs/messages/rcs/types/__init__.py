@@ -6,14 +6,8 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import SendMmsResponse, SendMmsSchemaOptions, SendRcsResponse, SendSmsResponse, SendSmsSchemaOptions
-_dynamic_imports: typing.Dict[str, str] = {
-    "SendMmsResponse": ".types",
-    "SendMmsSchemaOptions": ".types",
-    "SendRcsResponse": ".types",
-    "SendSmsResponse": ".types",
-    "SendSmsSchemaOptions": ".types",
-}
+    from .rcs_send_response import RcsSendResponse
+_dynamic_imports: typing.Dict[str, str] = {"RcsSendResponse": ".rcs_send_response"}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -35,4 +29,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["SendMmsResponse", "SendMmsSchemaOptions", "SendRcsResponse", "SendSmsResponse", "SendSmsSchemaOptions"]
+__all__ = ["RcsSendResponse"]
