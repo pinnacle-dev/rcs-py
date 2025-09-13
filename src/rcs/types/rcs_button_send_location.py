@@ -3,12 +3,22 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
+from .rcs_button_send_location_lat_long import RcsButtonSendLocationLatLong
 
 
-class RichButtonRequestUserLocation(UniversalBaseModel):
+class RcsButtonSendLocation(UniversalBaseModel):
     """
-    Button that prompts the recipient to share their current location.
+    Button that shares a specific location with the recipient when tapped.
+    """
+
+    lat_long: typing_extensions.Annotated[RcsButtonSendLocationLatLong, FieldMetadata(alias="latLong")] = (
+        pydantic.Field()
+    )
+    """
+    Geographic coordinates of the location to share.
     """
 
     title: str = pydantic.Field()

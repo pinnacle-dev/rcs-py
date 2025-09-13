@@ -6,14 +6,9 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class RichButtonOpenUrl(UniversalBaseModel):
+class RcsButtonRequestUserLocation(UniversalBaseModel):
     """
-    Button that opens a URL when tapped by the recipient.
-    """
-
-    payload: str = pydantic.Field()
-    """
-    The URL to open when the button is tapped. Must be a valid HTTP or HTTPS URL.
+    Button that prompts the recipient to share their current location.
     """
 
     title: str = pydantic.Field()

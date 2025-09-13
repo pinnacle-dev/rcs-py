@@ -3212,7 +3212,7 @@ client = Pinnacle(
 )
 client.messages.sms.send(
     from_="+14155164736",
-    text="Hey! 😂",
+    text="Hey!",
     to="+14154746461",
 )
 

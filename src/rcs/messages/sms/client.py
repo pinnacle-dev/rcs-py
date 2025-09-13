@@ -73,7 +73,7 @@ class SmsClient:
         )
         client.messages.sms.send(
             from_="+14155164736",
-            text="Hey! 😂",
+            text="Hey!",
             to="+14154746461",
         )
         """
@@ -179,7 +179,7 @@ class AsyncSmsClient:
         async def main() -> None:
             await client.messages.sms.send(
                 from_="+14155164736",
-                text="Hey! 😂",
+                text="Hey!",
                 to="+14154746461",
             )
 

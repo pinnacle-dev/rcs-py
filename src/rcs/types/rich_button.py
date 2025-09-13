@@ -8,7 +8,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .rich_button_send_location_lat_long import RichButtonSendLocationLatLong
+from .rcs_button_send_location_lat_long import RcsButtonSendLocationLatLong
 
 
 class RichButton_OpenUrl(UniversalBaseModel):
@@ -91,7 +91,7 @@ class RichButton_ScheduleEvent(UniversalBaseModel):
 
 class RichButton_SendLocation(UniversalBaseModel):
     type: typing.Literal["sendLocation"] = "sendLocation"
-    lat_long: typing_extensions.Annotated[RichButtonSendLocationLatLong, FieldMetadata(alias="latLong")]
+    lat_long: typing_extensions.Annotated[RcsButtonSendLocationLatLong, FieldMetadata(alias="latLong")]
     title: str
 
     if IS_PYDANTIC_V2:

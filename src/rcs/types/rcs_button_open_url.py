@@ -6,14 +6,14 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class RichButtonCall(UniversalBaseModel):
+class RcsButtonOpenUrl(UniversalBaseModel):
     """
-    Button that initiates a phone call when tapped by the recipient.
+    Button that opens a URL when tapped by the recipient.
     """
 
     payload: str = pydantic.Field()
     """
-    Phone number to call in E.164 format
+    The URL to open when the button is tapped. Must be a valid HTTP or HTTPS URL.
     """
 
     title: str = pydantic.Field()

@@ -6,24 +6,19 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class RichButtonTrigger(UniversalBaseModel):
+class RcsButtonSendLocationLatLong(UniversalBaseModel):
     """
-    Button that sends custom data back to your application when tapped by the recipient.
-    """
-
-    metadata: str = pydantic.Field()
-    """
-    Additional data attached to the button interaction.
+    Geographic coordinates of the location to share.
     """
 
-    payload: str = pydantic.Field()
+    lat: float = pydantic.Field()
     """
-    Custom data sent to your webhook when the button is tapped. Use this to identify the user's choice.
+    Latitude coordinate in decimal degrees.
     """
 
-    title: str = pydantic.Field()
+    lng: float = pydantic.Field()
     """
-    Display text for the button.
+    Longitude coordinate in decimal degrees.
     """
 
     if IS_PYDANTIC_V2:

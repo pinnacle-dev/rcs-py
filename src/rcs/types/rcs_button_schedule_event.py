@@ -8,7 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 
 
-class RichButtonScheduleEvent(UniversalBaseModel):
+class RcsButtonScheduleEvent(UniversalBaseModel):
     """
     Button that prompts the recipient to add an event to their calendar.
     """

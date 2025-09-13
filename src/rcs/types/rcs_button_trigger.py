@@ -3,22 +3,22 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
-from .rich_button_send_location_lat_long import RichButtonSendLocationLatLong
 
 
-class RichButtonSendLocation(UniversalBaseModel):
+class RcsButtonTrigger(UniversalBaseModel):
     """
-    Button that shares a specific location with the recipient when tapped.
+    Button that sends custom data back to your application when tapped by the recipient.
     """
 
-    lat_long: typing_extensions.Annotated[RichButtonSendLocationLatLong, FieldMetadata(alias="latLong")] = (
-        pydantic.Field()
-    )
+    metadata: str = pydantic.Field()
     """
-    Geographic coordinates of the location to share.
+    Additional data attached to the button interaction.
+    """
+
+    payload: str = pydantic.Field()
+    """
+    Custom data sent to your webhook when the button is tapped. Use this to identify the user's choice.
     """
 
     title: str = pydantic.Field()

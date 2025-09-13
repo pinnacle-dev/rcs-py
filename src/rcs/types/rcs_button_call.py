@@ -6,19 +6,19 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class RichButtonSendLocationLatLong(UniversalBaseModel):
+class RcsButtonCall(UniversalBaseModel):
     """
-    Geographic coordinates of the location to share.
-    """
-
-    lat: float = pydantic.Field()
-    """
-    Latitude coordinate in decimal degrees.
+    Button that initiates a phone call when tapped by the recipient.
     """
 
-    lng: float = pydantic.Field()
+    payload: str = pydantic.Field()
     """
-    Longitude coordinate in decimal degrees.
+    Phone number to call in E.164 format
+    """
+
+    title: str = pydantic.Field()
+    """
+    Display text for the button.
     """
 
     if IS_PYDANTIC_V2:
