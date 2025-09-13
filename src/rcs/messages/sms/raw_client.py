@@ -16,7 +16,7 @@ from ...errors.payment_required_error import PaymentRequiredError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.error import Error
 from ...types.sms_validation_result import SmsValidationResult
-from .types.send_sms_schema_options import SendSmsSchemaOptions
+from .types.send_sms_options import SendSmsOptions
 from .types.sms_send_response import SmsSendResponse
 
 # this is used as the default value for optional parameters
@@ -33,7 +33,7 @@ class RawSmsClient:
         from_: str,
         text: str,
         to: str,
-        options: typing.Optional[SendSmsSchemaOptions] = OMIT,
+        options: typing.Optional[SendSmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SmsSendResponse]:
         """
@@ -50,7 +50,7 @@ class RawSmsClient:
         to : str
             Recipient's phone number in E.164 format.
 
-        options : typing.Optional[SendSmsSchemaOptions]
+        options : typing.Optional[SendSmsOptions]
             Additional settings to customize SMS delivery.
 
         request_options : typing.Optional[RequestOptions]
@@ -69,7 +69,7 @@ class RawSmsClient:
             json={
                 "from": from_,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=SendSmsSchemaOptions, direction="write"
+                    object_=options, annotation=SendSmsOptions, direction="write"
                 ),
                 "text": text,
                 "to": to,
@@ -240,7 +240,7 @@ class AsyncRawSmsClient:
         from_: str,
         text: str,
         to: str,
-        options: typing.Optional[SendSmsSchemaOptions] = OMIT,
+        options: typing.Optional[SendSmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SmsSendResponse]:
         """
@@ -257,7 +257,7 @@ class AsyncRawSmsClient:
         to : str
             Recipient's phone number in E.164 format.
 
-        options : typing.Optional[SendSmsSchemaOptions]
+        options : typing.Optional[SendSmsOptions]
             Additional settings to customize SMS delivery.
 
         request_options : typing.Optional[RequestOptions]
@@ -276,7 +276,7 @@ class AsyncRawSmsClient:
             json={
                 "from": from_,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=SendSmsSchemaOptions, direction="write"
+                    object_=options, annotation=SendSmsOptions, direction="write"
                 ),
                 "text": text,
                 "to": to,

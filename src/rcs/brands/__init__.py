@@ -6,8 +6,8 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import AutofillBrandSchemaOptions, BrandContact
-_dynamic_imports: typing.Dict[str, str] = {"AutofillBrandSchemaOptions": ".types", "BrandContact": ".types"}
+    from .types import AutofillBrandOptions, BrandContact
+_dynamic_imports: typing.Dict[str, str] = {"AutofillBrandOptions": ".types", "BrandContact": ".types"}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -29,4 +29,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["AutofillBrandSchemaOptions", "BrandContact"]
+__all__ = ["AutofillBrandOptions", "BrandContact"]

@@ -12,11 +12,11 @@ from ..types.phone_number_details import PhoneNumberDetails
 from ..types.purchased_number import PurchasedNumber
 from .raw_client import AsyncRawPhoneNumbersClient, RawPhoneNumbersClient
 from .types.phone_details_schema_level import PhoneDetailsSchemaLevel
-from .types.phone_details_schema_options import PhoneDetailsSchemaOptions
 from .types.phone_numbers_get_response import PhoneNumbersGetResponse
-from .types.search_schema_location import SearchSchemaLocation
-from .types.search_schema_number import SearchSchemaNumber
-from .types.search_schema_options import SearchSchemaOptions
+from .types.retrieve_phone_number_details_options import RetrievePhoneNumberDetailsOptions
+from .types.search_phone_number_by_digits import SearchPhoneNumberByDigits
+from .types.search_phone_number_by_location import SearchPhoneNumberByLocation
+from .types.search_phone_number_options import SearchPhoneNumberOptions
 
 if typing.TYPE_CHECKING:
     from .campaign.client import AsyncCampaignClient, CampaignClient
@@ -48,9 +48,9 @@ class PhoneNumbersClient:
         *,
         type: typing.Sequence[PhoneEnum],
         features: typing.Optional[typing.Sequence[PhoneFeatureEnum]] = OMIT,
-        location: typing.Optional[SearchSchemaLocation] = OMIT,
-        phone_number_digit_filters: typing.Optional[SearchSchemaNumber] = OMIT,
-        options: typing.Optional[SearchSchemaOptions] = OMIT,
+        location: typing.Optional[SearchPhoneNumberByLocation] = OMIT,
+        number: typing.Optional[SearchPhoneNumberByDigits] = OMIT,
+        options: typing.Optional[SearchPhoneNumberOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[PhoneNumberDetails]:
         """
@@ -63,15 +63,15 @@ class PhoneNumbersClient:
 
         features : typing.Optional[typing.Sequence[PhoneFeatureEnum]]
 
-        location : typing.Optional[SearchSchemaLocation]
+        location : typing.Optional[SearchPhoneNumberByLocation]
             Filter your search by geographic location to find numbers in specific regions. <br>
 
             Toll-free numbers ignore city and state filters.
 
-        phone_number_digit_filters : typing.Optional[SearchSchemaNumber]
+        number : typing.Optional[SearchPhoneNumberByDigits]
             Filter your search by digit pattern.
 
-        options : typing.Optional[SearchSchemaOptions]
+        options : typing.Optional[SearchPhoneNumberOptions]
             Extra search settings to control how many results you get.
 
         request_options : typing.Optional[RequestOptions]
@@ -88,9 +88,9 @@ class PhoneNumbersClient:
         --------
         from rcs import Pinnacle
         from rcs.phone_numbers import (
-            SearchSchemaLocation,
-            SearchSchemaNumber,
-            SearchSchemaOptions,
+            SearchPhoneNumberByDigits,
+            SearchPhoneNumberByLocation,
+            SearchPhoneNumberOptions,
         )
 
         client = Pinnacle(
@@ -98,15 +98,15 @@ class PhoneNumbersClient:
         )
         client.phone_numbers.search(
             features=["SMS", "MMS"],
-            location=SearchSchemaLocation(
+            location=SearchPhoneNumberByLocation(
                 city="New York",
                 national_destination_code="212",
             ),
-            phone_number_digit_filters=SearchSchemaNumber(
+            number=SearchPhoneNumberByDigits(
                 contains="514",
                 starts_with="45",
             ),
-            options=SearchSchemaOptions(
+            options=SearchPhoneNumberOptions(
                 limit=4,
             ),
             type=["LOCAL"],
@@ -116,7 +116,7 @@ class PhoneNumbersClient:
             type=type,
             features=features,
             location=location,
-            phone_number_digit_filters=phone_number_digit_filters,
+            number=number,
             options=options,
             request_options=request_options,
         )
@@ -166,7 +166,7 @@ class PhoneNumbersClient:
         *,
         phone: str,
         level: PhoneDetailsSchemaLevel,
-        options: typing.Optional[PhoneDetailsSchemaOptions] = OMIT,
+        options: typing.Optional[RetrievePhoneNumberDetailsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PhoneNumbersGetResponse:
         """
@@ -182,7 +182,7 @@ class PhoneNumbersClient:
             - `basic`: Receive essential info like carrier, location, and format.
             - `advanced`: Receive a deeper analysis including fraud risk, detailed location, and enhanced contact info.
 
-        options : typing.Optional[PhoneDetailsSchemaOptions]
+        options : typing.Optional[RetrievePhoneNumberDetailsOptions]
             Customize your lookup with additional options.
 
         request_options : typing.Optional[RequestOptions]
@@ -197,8 +197,8 @@ class PhoneNumbersClient:
         --------
         from rcs import Pinnacle
         from rcs.phone_numbers import (
-            PhoneDetailsSchemaOptions,
-            PhoneDetailsSchemaOptionsEnhancedContactInfo,
+            RetrievePhoneNumberDetailsEnhancedContactInfo,
+            RetrievePhoneNumberDetailsOptions,
         )
 
         client = Pinnacle(
@@ -207,9 +207,9 @@ class PhoneNumbersClient:
         client.phone_numbers.get(
             phone="+11234567890",
             level="advanced",
-            options=PhoneDetailsSchemaOptions(
+            options=RetrievePhoneNumberDetailsOptions(
                 risk=True,
-                enhanced_contact_info=PhoneDetailsSchemaOptionsEnhancedContactInfo(
+                enhanced_contact_info=RetrievePhoneNumberDetailsEnhancedContactInfo(
                     context="This is my friend from JZ. He has done a lot in the crypto space.",
                 ),
             ),
@@ -258,9 +258,9 @@ class AsyncPhoneNumbersClient:
         *,
         type: typing.Sequence[PhoneEnum],
         features: typing.Optional[typing.Sequence[PhoneFeatureEnum]] = OMIT,
-        location: typing.Optional[SearchSchemaLocation] = OMIT,
-        phone_number_digit_filters: typing.Optional[SearchSchemaNumber] = OMIT,
-        options: typing.Optional[SearchSchemaOptions] = OMIT,
+        location: typing.Optional[SearchPhoneNumberByLocation] = OMIT,
+        number: typing.Optional[SearchPhoneNumberByDigits] = OMIT,
+        options: typing.Optional[SearchPhoneNumberOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[PhoneNumberDetails]:
         """
@@ -273,15 +273,15 @@ class AsyncPhoneNumbersClient:
 
         features : typing.Optional[typing.Sequence[PhoneFeatureEnum]]
 
-        location : typing.Optional[SearchSchemaLocation]
+        location : typing.Optional[SearchPhoneNumberByLocation]
             Filter your search by geographic location to find numbers in specific regions. <br>
 
             Toll-free numbers ignore city and state filters.
 
-        phone_number_digit_filters : typing.Optional[SearchSchemaNumber]
+        number : typing.Optional[SearchPhoneNumberByDigits]
             Filter your search by digit pattern.
 
-        options : typing.Optional[SearchSchemaOptions]
+        options : typing.Optional[SearchPhoneNumberOptions]
             Extra search settings to control how many results you get.
 
         request_options : typing.Optional[RequestOptions]
@@ -300,9 +300,9 @@ class AsyncPhoneNumbersClient:
 
         from rcs import AsyncPinnacle
         from rcs.phone_numbers import (
-            SearchSchemaLocation,
-            SearchSchemaNumber,
-            SearchSchemaOptions,
+            SearchPhoneNumberByDigits,
+            SearchPhoneNumberByLocation,
+            SearchPhoneNumberOptions,
         )
 
         client = AsyncPinnacle(
@@ -313,15 +313,15 @@ class AsyncPhoneNumbersClient:
         async def main() -> None:
             await client.phone_numbers.search(
                 features=["SMS", "MMS"],
-                location=SearchSchemaLocation(
+                location=SearchPhoneNumberByLocation(
                     city="New York",
                     national_destination_code="212",
                 ),
-                phone_number_digit_filters=SearchSchemaNumber(
+                number=SearchPhoneNumberByDigits(
                     contains="514",
                     starts_with="45",
                 ),
-                options=SearchSchemaOptions(
+                options=SearchPhoneNumberOptions(
                     limit=4,
                 ),
                 type=["LOCAL"],
@@ -334,7 +334,7 @@ class AsyncPhoneNumbersClient:
             type=type,
             features=features,
             location=location,
-            phone_number_digit_filters=phone_number_digit_filters,
+            number=number,
             options=options,
             request_options=request_options,
         )
@@ -392,7 +392,7 @@ class AsyncPhoneNumbersClient:
         *,
         phone: str,
         level: PhoneDetailsSchemaLevel,
-        options: typing.Optional[PhoneDetailsSchemaOptions] = OMIT,
+        options: typing.Optional[RetrievePhoneNumberDetailsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PhoneNumbersGetResponse:
         """
@@ -408,7 +408,7 @@ class AsyncPhoneNumbersClient:
             - `basic`: Receive essential info like carrier, location, and format.
             - `advanced`: Receive a deeper analysis including fraud risk, detailed location, and enhanced contact info.
 
-        options : typing.Optional[PhoneDetailsSchemaOptions]
+        options : typing.Optional[RetrievePhoneNumberDetailsOptions]
             Customize your lookup with additional options.
 
         request_options : typing.Optional[RequestOptions]
@@ -425,8 +425,8 @@ class AsyncPhoneNumbersClient:
 
         from rcs import AsyncPinnacle
         from rcs.phone_numbers import (
-            PhoneDetailsSchemaOptions,
-            PhoneDetailsSchemaOptionsEnhancedContactInfo,
+            RetrievePhoneNumberDetailsEnhancedContactInfo,
+            RetrievePhoneNumberDetailsOptions,
         )
 
         client = AsyncPinnacle(
@@ -438,9 +438,9 @@ class AsyncPhoneNumbersClient:
             await client.phone_numbers.get(
                 phone="+11234567890",
                 level="advanced",
-                options=PhoneDetailsSchemaOptions(
+                options=RetrievePhoneNumberDetailsOptions(
                     risk=True,
-                    enhanced_contact_info=PhoneDetailsSchemaOptionsEnhancedContactInfo(
+                    enhanced_contact_info=RetrievePhoneNumberDetailsEnhancedContactInfo(
                         context="This is my friend from JZ. He has done a lot in the crypto space.",
                     ),
                 ),

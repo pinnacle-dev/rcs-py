@@ -8,11 +8,11 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from . import contact_card, file, url
     from .contact_card import GetVCardSchemaOptions
-    from .file import FileUploadSchemaOptions, FileUploadSchemaOptionsDownload
+    from .file import DownloadOptions, UploadFileOptions
 _dynamic_imports: typing.Dict[str, str] = {
-    "FileUploadSchemaOptions": ".file",
-    "FileUploadSchemaOptionsDownload": ".file",
+    "DownloadOptions": ".file",
     "GetVCardSchemaOptions": ".contact_card",
+    "UploadFileOptions": ".file",
     "contact_card": ".",
     "file": ".",
     "url": ".",
@@ -38,11 +38,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = [
-    "FileUploadSchemaOptions",
-    "FileUploadSchemaOptionsDownload",
-    "GetVCardSchemaOptions",
-    "contact_card",
-    "file",
-    "url",
-]
+__all__ = ["DownloadOptions", "GetVCardSchemaOptions", "UploadFileOptions", "contact_card", "file", "url"]

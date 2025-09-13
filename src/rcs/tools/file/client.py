@@ -6,7 +6,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.upload_results import UploadResults
 from .raw_client import AsyncRawFileClient, RawFileClient
-from .types.file_upload_schema_options import FileUploadSchemaOptions
+from .types.upload_file_options import UploadFileOptions
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -33,7 +33,7 @@ class FileClient:
         content_type: str,
         size: int,
         name: typing.Optional[str] = OMIT,
-        options: typing.Optional[FileUploadSchemaOptions] = OMIT,
+        options: typing.Optional[UploadFileOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UploadResults:
         """
@@ -56,7 +56,7 @@ class FileClient:
         name : typing.Optional[str]
             Name of your file.
 
-        options : typing.Optional[FileUploadSchemaOptions]
+        options : typing.Optional[UploadFileOptions]
             Additional configurations for your file.
 
         request_options : typing.Optional[RequestOptions]
@@ -70,10 +70,7 @@ class FileClient:
         Examples
         --------
         from rcs import Pinnacle
-        from rcs.tools.file import (
-            FileUploadSchemaOptions,
-            FileUploadSchemaOptionsDownload,
-        )
+        from rcs.tools.file import DownloadOptions, UploadFileOptions
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
@@ -82,8 +79,8 @@ class FileClient:
             content_type="image/jpeg",
             size=1024,
             name="test.jpg",
-            options=FileUploadSchemaOptions(
-                download=FileUploadSchemaOptionsDownload(
+            options=UploadFileOptions(
+                download=DownloadOptions(
                     expires_at="2025-06-30T12:00:00.000Z",
                 ),
             ),
@@ -116,7 +113,7 @@ class AsyncFileClient:
         content_type: str,
         size: int,
         name: typing.Optional[str] = OMIT,
-        options: typing.Optional[FileUploadSchemaOptions] = OMIT,
+        options: typing.Optional[UploadFileOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UploadResults:
         """
@@ -139,7 +136,7 @@ class AsyncFileClient:
         name : typing.Optional[str]
             Name of your file.
 
-        options : typing.Optional[FileUploadSchemaOptions]
+        options : typing.Optional[UploadFileOptions]
             Additional configurations for your file.
 
         request_options : typing.Optional[RequestOptions]
@@ -155,10 +152,7 @@ class AsyncFileClient:
         import asyncio
 
         from rcs import AsyncPinnacle
-        from rcs.tools.file import (
-            FileUploadSchemaOptions,
-            FileUploadSchemaOptionsDownload,
-        )
+        from rcs.tools.file import DownloadOptions, UploadFileOptions
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -170,8 +164,8 @@ class AsyncFileClient:
                 content_type="image/jpeg",
                 size=1024,
                 name="test.jpg",
-                options=FileUploadSchemaOptions(
-                    download=FileUploadSchemaOptionsDownload(
+                options=UploadFileOptions(
+                    download=DownloadOptions(
                         expires_at="2025-06-30T12:00:00.000Z",
                     ),
                 ),

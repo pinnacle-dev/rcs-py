@@ -7,24 +7,24 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .rcs_autofill_response import RcsAutofillResponse
-    from .upsert_rcs_schema_agent import UpsertRcsSchemaAgent
-    from .upsert_rcs_schema_agent_emails_item import UpsertRcsSchemaAgentEmailsItem
-    from .upsert_rcs_schema_agent_phones_item import UpsertRcsSchemaAgentPhonesItem
-    from .upsert_rcs_schema_agent_websites_item import UpsertRcsSchemaAgentWebsitesItem
-    from .upsert_rcs_schema_links import UpsertRcsSchemaLinks
-    from .upsert_rcs_schema_opt_in import UpsertRcsSchemaOptIn
-    from .upsert_rcs_schema_opt_out import UpsertRcsSchemaOptOut
-    from .upsert_rcs_schema_use_case import UpsertRcsSchemaUseCase
+    from .upsert_rcs_agent import UpsertRcsAgent
+    from .upsert_rcs_agent_email import UpsertRcsAgentEmail
+    from .upsert_rcs_agent_phone import UpsertRcsAgentPhone
+    from .upsert_rcs_agent_website import UpsertRcsAgentWebsite
+    from .upsert_rcs_links import UpsertRcsLinks
+    from .upsert_rcs_opt_in import UpsertRcsOptIn
+    from .upsert_rcs_opt_out import UpsertRcsOptOut
+    from .upsert_rcs_use_case import UpsertRcsUseCase
 _dynamic_imports: typing.Dict[str, str] = {
     "RcsAutofillResponse": ".rcs_autofill_response",
-    "UpsertRcsSchemaAgent": ".upsert_rcs_schema_agent",
-    "UpsertRcsSchemaAgentEmailsItem": ".upsert_rcs_schema_agent_emails_item",
-    "UpsertRcsSchemaAgentPhonesItem": ".upsert_rcs_schema_agent_phones_item",
-    "UpsertRcsSchemaAgentWebsitesItem": ".upsert_rcs_schema_agent_websites_item",
-    "UpsertRcsSchemaLinks": ".upsert_rcs_schema_links",
-    "UpsertRcsSchemaOptIn": ".upsert_rcs_schema_opt_in",
-    "UpsertRcsSchemaOptOut": ".upsert_rcs_schema_opt_out",
-    "UpsertRcsSchemaUseCase": ".upsert_rcs_schema_use_case",
+    "UpsertRcsAgent": ".upsert_rcs_agent",
+    "UpsertRcsAgentEmail": ".upsert_rcs_agent_email",
+    "UpsertRcsAgentPhone": ".upsert_rcs_agent_phone",
+    "UpsertRcsAgentWebsite": ".upsert_rcs_agent_website",
+    "UpsertRcsLinks": ".upsert_rcs_links",
+    "UpsertRcsOptIn": ".upsert_rcs_opt_in",
+    "UpsertRcsOptOut": ".upsert_rcs_opt_out",
+    "UpsertRcsUseCase": ".upsert_rcs_use_case",
 }
 
 
@@ -49,12 +49,12 @@ def __dir__():
 
 __all__ = [
     "RcsAutofillResponse",
-    "UpsertRcsSchemaAgent",
-    "UpsertRcsSchemaAgentEmailsItem",
-    "UpsertRcsSchemaAgentPhonesItem",
-    "UpsertRcsSchemaAgentWebsitesItem",
-    "UpsertRcsSchemaLinks",
-    "UpsertRcsSchemaOptIn",
-    "UpsertRcsSchemaOptOut",
-    "UpsertRcsSchemaUseCase",
+    "UpsertRcsAgent",
+    "UpsertRcsAgentEmail",
+    "UpsertRcsAgentPhone",
+    "UpsertRcsAgentWebsite",
+    "UpsertRcsLinks",
+    "UpsertRcsOptIn",
+    "UpsertRcsOptOut",
+    "UpsertRcsUseCase",
 ]

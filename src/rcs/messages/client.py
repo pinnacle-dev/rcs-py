@@ -9,7 +9,7 @@ from ..core.request_options import RequestOptions
 from ..types.message import Message
 from ..types.reaction_result import ReactionResult
 from .raw_client import AsyncRawMessagesClient, RawMessagesClient
-from .types.message_reaction_schema_options import MessageReactionSchemaOptions
+from .types.react_message_options import ReactMessageOptions
 
 if typing.TYPE_CHECKING:
     from .mms.client import AsyncMmsClient, MmsClient
@@ -73,7 +73,7 @@ class MessagesClient:
         self,
         *,
         message_id: int,
-        options: typing.Optional[MessageReactionSchemaOptions] = OMIT,
+        options: typing.Optional[ReactMessageOptions] = OMIT,
         reaction: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ReactionResult:
@@ -85,7 +85,7 @@ class MessagesClient:
         message_id : int
             Unique identifier of the message.
 
-        options : typing.Optional[MessageReactionSchemaOptions]
+        options : typing.Optional[ReactMessageOptions]
 
         reaction : typing.Optional[str]
             Unicode emoji to add. <br>
@@ -103,14 +103,14 @@ class MessagesClient:
         Examples
         --------
         from rcs import Pinnacle
-        from rcs.messages import MessageReactionSchemaOptions
+        from rcs.messages import ReactMessageOptions
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.messages.react(
             message_id=1410,
-            options=MessageReactionSchemaOptions(
+            options=ReactMessageOptions(
                 force=True,
             ),
             reaction="👍",
@@ -208,7 +208,7 @@ class AsyncMessagesClient:
         self,
         *,
         message_id: int,
-        options: typing.Optional[MessageReactionSchemaOptions] = OMIT,
+        options: typing.Optional[ReactMessageOptions] = OMIT,
         reaction: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ReactionResult:
@@ -220,7 +220,7 @@ class AsyncMessagesClient:
         message_id : int
             Unique identifier of the message.
 
-        options : typing.Optional[MessageReactionSchemaOptions]
+        options : typing.Optional[ReactMessageOptions]
 
         reaction : typing.Optional[str]
             Unicode emoji to add. <br>
@@ -240,7 +240,7 @@ class AsyncMessagesClient:
         import asyncio
 
         from rcs import AsyncPinnacle
-        from rcs.messages import MessageReactionSchemaOptions
+        from rcs.messages import ReactMessageOptions
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -250,7 +250,7 @@ class AsyncMessagesClient:
         async def main() -> None:
             await client.messages.react(
                 message_id=1410,
-                options=MessageReactionSchemaOptions(
+                options=ReactMessageOptions(
                     force=True,
                 ),
                 reaction="👍",

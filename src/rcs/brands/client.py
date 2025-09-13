@@ -8,13 +8,13 @@ from ..types.company_sector_enum import CompanySectorEnum
 from ..types.company_type_enum import CompanyTypeEnum
 from ..types.extended_brand import ExtendedBrand
 from ..types.extended_brand_with_vetting import ExtendedBrandWithVetting
-from ..types.nullable_contact import NullableContact
 from ..types.optional_brand_info import OptionalBrandInfo
 from ..types.submission_results import SubmissionResults
+from ..types.upsert_contact import UpsertContact
 from ..types.validation_results import ValidationResults
 from ..types.vetting_results import VettingResults
 from .raw_client import AsyncRawBrandsClient, RawBrandsClient
-from .types.autofill_brand_schema_options import AutofillBrandSchemaOptions
+from .types.autofill_brand_options import AutofillBrandOptions
 from .types.brand_contact import BrandContact
 
 # this is used as the default value for optional parameters
@@ -41,7 +41,7 @@ class BrandsClient:
         *,
         additional_info: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        options: typing.Optional[AutofillBrandSchemaOptions] = OMIT,
+        options: typing.Optional[AutofillBrandOptions] = OMIT,
         website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> OptionalBrandInfo:
@@ -56,7 +56,7 @@ class BrandsClient:
         name : typing.Optional[str]
             Name of the brand.
 
-        options : typing.Optional[AutofillBrandSchemaOptions]
+        options : typing.Optional[AutofillBrandOptions]
 
         website : typing.Optional[str]
             Brand's website URL.
@@ -72,7 +72,7 @@ class BrandsClient:
         Examples
         --------
         from rcs import Pinnacle
-        from rcs.brands import AutofillBrandSchemaOptions
+        from rcs.brands import AutofillBrandOptions
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
@@ -80,7 +80,7 @@ class BrandsClient:
         client.brands.autofill(
             additional_info="A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
             name="Pinnacle",
-            options=AutofillBrandSchemaOptions(
+            options=AutofillBrandOptions(
                 force_reload=True,
             ),
             website="https://www.pinnacle.sh",
@@ -99,7 +99,7 @@ class BrandsClient:
         self,
         *,
         address: typing.Optional[str] = OMIT,
-        contact: typing.Optional[NullableContact] = OMIT,
+        contact: typing.Optional[UpsertContact] = OMIT,
         dba: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
@@ -119,7 +119,7 @@ class BrandsClient:
         address : typing.Optional[str]
             Primary brand address where the company is located.
 
-        contact : typing.Optional[NullableContact]
+        contact : typing.Optional[UpsertContact]
             Contact information for the brand.
 
         dba : typing.Optional[str]
@@ -159,14 +159,14 @@ class BrandsClient:
 
         Examples
         --------
-        from rcs import NullableContact, Pinnacle
+        from rcs import Pinnacle, UpsertContact
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.brands.upsert(
             address="500 Folsom St, San Francisco, CA 94105",
-            contact=NullableContact(
+            contact=UpsertContact(
                 email="michael.chen@trypinnacle.app",
                 name="Michael Chen",
                 phone="+14155551234",
@@ -425,7 +425,7 @@ class AsyncBrandsClient:
         *,
         additional_info: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        options: typing.Optional[AutofillBrandSchemaOptions] = OMIT,
+        options: typing.Optional[AutofillBrandOptions] = OMIT,
         website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> OptionalBrandInfo:
@@ -440,7 +440,7 @@ class AsyncBrandsClient:
         name : typing.Optional[str]
             Name of the brand.
 
-        options : typing.Optional[AutofillBrandSchemaOptions]
+        options : typing.Optional[AutofillBrandOptions]
 
         website : typing.Optional[str]
             Brand's website URL.
@@ -458,7 +458,7 @@ class AsyncBrandsClient:
         import asyncio
 
         from rcs import AsyncPinnacle
-        from rcs.brands import AutofillBrandSchemaOptions
+        from rcs.brands import AutofillBrandOptions
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -469,7 +469,7 @@ class AsyncBrandsClient:
             await client.brands.autofill(
                 additional_info="A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
                 name="Pinnacle",
-                options=AutofillBrandSchemaOptions(
+                options=AutofillBrandOptions(
                     force_reload=True,
                 ),
                 website="https://www.pinnacle.sh",
@@ -491,7 +491,7 @@ class AsyncBrandsClient:
         self,
         *,
         address: typing.Optional[str] = OMIT,
-        contact: typing.Optional[NullableContact] = OMIT,
+        contact: typing.Optional[UpsertContact] = OMIT,
         dba: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
@@ -511,7 +511,7 @@ class AsyncBrandsClient:
         address : typing.Optional[str]
             Primary brand address where the company is located.
 
-        contact : typing.Optional[NullableContact]
+        contact : typing.Optional[UpsertContact]
             Contact information for the brand.
 
         dba : typing.Optional[str]
@@ -553,7 +553,7 @@ class AsyncBrandsClient:
         --------
         import asyncio
 
-        from rcs import AsyncPinnacle, NullableContact
+        from rcs import AsyncPinnacle, UpsertContact
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -563,7 +563,7 @@ class AsyncBrandsClient:
         async def main() -> None:
             await client.brands.upsert(
                 address="500 Folsom St, San Francisco, CA 94105",
-                contact=NullableContact(
+                contact=UpsertContact(
                     email="michael.chen@trypinnacle.app",
                     name="Michael Chen",
                     phone="+14155551234",

@@ -6,7 +6,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.sms_validation_result import SmsValidationResult
 from .raw_client import AsyncRawSmsClient, RawSmsClient
-from .types.send_sms_schema_options import SendSmsSchemaOptions
+from .types.send_sms_options import SendSmsOptions
 from .types.sms_send_response import SmsSendResponse
 
 # this is used as the default value for optional parameters
@@ -34,7 +34,7 @@ class SmsClient:
         from_: str,
         text: str,
         to: str,
-        options: typing.Optional[SendSmsSchemaOptions] = OMIT,
+        options: typing.Optional[SendSmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SmsSendResponse:
         """
@@ -51,7 +51,7 @@ class SmsClient:
         to : str
             Recipient's phone number in E.164 format.
 
-        options : typing.Optional[SendSmsSchemaOptions]
+        options : typing.Optional[SendSmsOptions]
             Additional settings to customize SMS delivery.
 
         request_options : typing.Optional[RequestOptions]
@@ -135,7 +135,7 @@ class AsyncSmsClient:
         from_: str,
         text: str,
         to: str,
-        options: typing.Optional[SendSmsSchemaOptions] = OMIT,
+        options: typing.Optional[SendSmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SmsSendResponse:
         """
@@ -152,7 +152,7 @@ class AsyncSmsClient:
         to : str
             Recipient's phone number in E.164 format.
 
-        options : typing.Optional[SendSmsSchemaOptions]
+        options : typing.Optional[SendSmsOptions]
             Additional settings to customize SMS delivery.
 
         request_options : typing.Optional[RequestOptions]

@@ -20,11 +20,11 @@ from ..types.phone_feature_enum import PhoneFeatureEnum
 from ..types.phone_number_details import PhoneNumberDetails
 from ..types.purchased_number import PurchasedNumber
 from .types.phone_details_schema_level import PhoneDetailsSchemaLevel
-from .types.phone_details_schema_options import PhoneDetailsSchemaOptions
 from .types.phone_numbers_get_response import PhoneNumbersGetResponse
-from .types.search_schema_location import SearchSchemaLocation
-from .types.search_schema_number import SearchSchemaNumber
-from .types.search_schema_options import SearchSchemaOptions
+from .types.retrieve_phone_number_details_options import RetrievePhoneNumberDetailsOptions
+from .types.search_phone_number_by_digits import SearchPhoneNumberByDigits
+from .types.search_phone_number_by_location import SearchPhoneNumberByLocation
+from .types.search_phone_number_options import SearchPhoneNumberOptions
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -39,9 +39,9 @@ class RawPhoneNumbersClient:
         *,
         type: typing.Sequence[PhoneEnum],
         features: typing.Optional[typing.Sequence[PhoneFeatureEnum]] = OMIT,
-        location: typing.Optional[SearchSchemaLocation] = OMIT,
-        phone_number_digit_filters: typing.Optional[SearchSchemaNumber] = OMIT,
-        options: typing.Optional[SearchSchemaOptions] = OMIT,
+        location: typing.Optional[SearchPhoneNumberByLocation] = OMIT,
+        number: typing.Optional[SearchPhoneNumberByDigits] = OMIT,
+        options: typing.Optional[SearchPhoneNumberOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[PhoneNumberDetails]]:
         """
@@ -54,15 +54,15 @@ class RawPhoneNumbersClient:
 
         features : typing.Optional[typing.Sequence[PhoneFeatureEnum]]
 
-        location : typing.Optional[SearchSchemaLocation]
+        location : typing.Optional[SearchPhoneNumberByLocation]
             Filter your search by geographic location to find numbers in specific regions. <br>
 
             Toll-free numbers ignore city and state filters.
 
-        phone_number_digit_filters : typing.Optional[SearchSchemaNumber]
+        number : typing.Optional[SearchPhoneNumberByDigits]
             Filter your search by digit pattern.
 
-        options : typing.Optional[SearchSchemaOptions]
+        options : typing.Optional[SearchPhoneNumberOptions]
             Extra search settings to control how many results you get.
 
         request_options : typing.Optional[RequestOptions]
@@ -81,13 +81,13 @@ class RawPhoneNumbersClient:
             json={
                 "features": features,
                 "location": convert_and_respect_annotation_metadata(
-                    object_=location, annotation=SearchSchemaLocation, direction="write"
+                    object_=location, annotation=SearchPhoneNumberByLocation, direction="write"
                 ),
                 "number": convert_and_respect_annotation_metadata(
-                    object_=phone_number_digit_filters, annotation=SearchSchemaNumber, direction="write"
+                    object_=number, annotation=SearchPhoneNumberByDigits, direction="write"
                 ),
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=SearchSchemaOptions, direction="write"
+                    object_=options, annotation=SearchPhoneNumberOptions, direction="write"
                 ),
                 "type": type,
             },
@@ -257,7 +257,7 @@ class RawPhoneNumbersClient:
         *,
         phone: str,
         level: PhoneDetailsSchemaLevel,
-        options: typing.Optional[PhoneDetailsSchemaOptions] = OMIT,
+        options: typing.Optional[RetrievePhoneNumberDetailsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PhoneNumbersGetResponse]:
         """
@@ -273,7 +273,7 @@ class RawPhoneNumbersClient:
             - `basic`: Receive essential info like carrier, location, and format.
             - `advanced`: Receive a deeper analysis including fraud risk, detailed location, and enhanced contact info.
 
-        options : typing.Optional[PhoneDetailsSchemaOptions]
+        options : typing.Optional[RetrievePhoneNumberDetailsOptions]
             Customize your lookup with additional options.
 
         request_options : typing.Optional[RequestOptions]
@@ -291,7 +291,7 @@ class RawPhoneNumbersClient:
                 "phone": phone,
                 "level": level,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=PhoneDetailsSchemaOptions, direction="write"
+                    object_=options, annotation=RetrievePhoneNumberDetailsOptions, direction="write"
                 ),
             },
             headers={
@@ -380,9 +380,9 @@ class AsyncRawPhoneNumbersClient:
         *,
         type: typing.Sequence[PhoneEnum],
         features: typing.Optional[typing.Sequence[PhoneFeatureEnum]] = OMIT,
-        location: typing.Optional[SearchSchemaLocation] = OMIT,
-        phone_number_digit_filters: typing.Optional[SearchSchemaNumber] = OMIT,
-        options: typing.Optional[SearchSchemaOptions] = OMIT,
+        location: typing.Optional[SearchPhoneNumberByLocation] = OMIT,
+        number: typing.Optional[SearchPhoneNumberByDigits] = OMIT,
+        options: typing.Optional[SearchPhoneNumberOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[PhoneNumberDetails]]:
         """
@@ -395,15 +395,15 @@ class AsyncRawPhoneNumbersClient:
 
         features : typing.Optional[typing.Sequence[PhoneFeatureEnum]]
 
-        location : typing.Optional[SearchSchemaLocation]
+        location : typing.Optional[SearchPhoneNumberByLocation]
             Filter your search by geographic location to find numbers in specific regions. <br>
 
             Toll-free numbers ignore city and state filters.
 
-        phone_number_digit_filters : typing.Optional[SearchSchemaNumber]
+        number : typing.Optional[SearchPhoneNumberByDigits]
             Filter your search by digit pattern.
 
-        options : typing.Optional[SearchSchemaOptions]
+        options : typing.Optional[SearchPhoneNumberOptions]
             Extra search settings to control how many results you get.
 
         request_options : typing.Optional[RequestOptions]
@@ -422,13 +422,13 @@ class AsyncRawPhoneNumbersClient:
             json={
                 "features": features,
                 "location": convert_and_respect_annotation_metadata(
-                    object_=location, annotation=SearchSchemaLocation, direction="write"
+                    object_=location, annotation=SearchPhoneNumberByLocation, direction="write"
                 ),
                 "number": convert_and_respect_annotation_metadata(
-                    object_=phone_number_digit_filters, annotation=SearchSchemaNumber, direction="write"
+                    object_=number, annotation=SearchPhoneNumberByDigits, direction="write"
                 ),
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=SearchSchemaOptions, direction="write"
+                    object_=options, annotation=SearchPhoneNumberOptions, direction="write"
                 ),
                 "type": type,
             },
@@ -598,7 +598,7 @@ class AsyncRawPhoneNumbersClient:
         *,
         phone: str,
         level: PhoneDetailsSchemaLevel,
-        options: typing.Optional[PhoneDetailsSchemaOptions] = OMIT,
+        options: typing.Optional[RetrievePhoneNumberDetailsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PhoneNumbersGetResponse]:
         """
@@ -614,7 +614,7 @@ class AsyncRawPhoneNumbersClient:
             - `basic`: Receive essential info like carrier, location, and format.
             - `advanced`: Receive a deeper analysis including fraud risk, detailed location, and enhanced contact info.
 
-        options : typing.Optional[PhoneDetailsSchemaOptions]
+        options : typing.Optional[RetrievePhoneNumberDetailsOptions]
             Customize your lookup with additional options.
 
         request_options : typing.Optional[RequestOptions]
@@ -632,7 +632,7 @@ class AsyncRawPhoneNumbersClient:
                 "phone": phone,
                 "level": level,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=PhoneDetailsSchemaOptions, direction="write"
+                    object_=options, annotation=RetrievePhoneNumberDetailsOptions, direction="write"
                 ),
             },
             headers={

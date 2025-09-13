@@ -7,20 +7,20 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .phone_details_schema_level import PhoneDetailsSchemaLevel
-    from .phone_details_schema_options import PhoneDetailsSchemaOptions
-    from .phone_details_schema_options_enhanced_contact_info import PhoneDetailsSchemaOptionsEnhancedContactInfo
     from .phone_numbers_get_response import PhoneNumbersGetResponse
-    from .search_schema_location import SearchSchemaLocation
-    from .search_schema_number import SearchSchemaNumber
-    from .search_schema_options import SearchSchemaOptions
+    from .retrieve_phone_number_details_enhanced_contact_info import RetrievePhoneNumberDetailsEnhancedContactInfo
+    from .retrieve_phone_number_details_options import RetrievePhoneNumberDetailsOptions
+    from .search_phone_number_by_digits import SearchPhoneNumberByDigits
+    from .search_phone_number_by_location import SearchPhoneNumberByLocation
+    from .search_phone_number_options import SearchPhoneNumberOptions
 _dynamic_imports: typing.Dict[str, str] = {
     "PhoneDetailsSchemaLevel": ".phone_details_schema_level",
-    "PhoneDetailsSchemaOptions": ".phone_details_schema_options",
-    "PhoneDetailsSchemaOptionsEnhancedContactInfo": ".phone_details_schema_options_enhanced_contact_info",
     "PhoneNumbersGetResponse": ".phone_numbers_get_response",
-    "SearchSchemaLocation": ".search_schema_location",
-    "SearchSchemaNumber": ".search_schema_number",
-    "SearchSchemaOptions": ".search_schema_options",
+    "RetrievePhoneNumberDetailsEnhancedContactInfo": ".retrieve_phone_number_details_enhanced_contact_info",
+    "RetrievePhoneNumberDetailsOptions": ".retrieve_phone_number_details_options",
+    "SearchPhoneNumberByDigits": ".search_phone_number_by_digits",
+    "SearchPhoneNumberByLocation": ".search_phone_number_by_location",
+    "SearchPhoneNumberOptions": ".search_phone_number_options",
 }
 
 
@@ -45,10 +45,10 @@ def __dir__():
 
 __all__ = [
     "PhoneDetailsSchemaLevel",
-    "PhoneDetailsSchemaOptions",
-    "PhoneDetailsSchemaOptionsEnhancedContactInfo",
     "PhoneNumbersGetResponse",
-    "SearchSchemaLocation",
-    "SearchSchemaNumber",
-    "SearchSchemaOptions",
+    "RetrievePhoneNumberDetailsEnhancedContactInfo",
+    "RetrievePhoneNumberDetailsOptions",
+    "SearchPhoneNumberByDigits",
+    "SearchPhoneNumberByLocation",
+    "SearchPhoneNumberOptions",
 ]

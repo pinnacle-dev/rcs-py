@@ -21,7 +21,7 @@ Instantiate and use the client with the following:
 
 ```python
 from rcs import Pinnacle
-from rcs.brands import AutofillBrandSchemaOptions
+from rcs.brands import AutofillBrandOptions
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -29,7 +29,7 @@ client = Pinnacle(
 client.brands.autofill(
     additional_info="A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
     name="Pinnacle",
-    options=AutofillBrandSchemaOptions(
+    options=AutofillBrandOptions(
         force_reload=True,
     ),
     website="https://www.pinnacle.sh",
@@ -44,7 +44,7 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 import asyncio
 
 from rcs import AsyncPinnacle
-from rcs.brands import AutofillBrandSchemaOptions
+from rcs.brands import AutofillBrandOptions
 
 client = AsyncPinnacle(
     api_key="YOUR_API_KEY",
@@ -55,7 +55,7 @@ async def main() -> None:
     await client.brands.autofill(
         additional_info="A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
         name="Pinnacle",
-        options=AutofillBrandSchemaOptions(
+        options=AutofillBrandOptions(
             force_reload=True,
         ),
         website="https://www.pinnacle.sh",

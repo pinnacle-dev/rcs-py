@@ -28,7 +28,7 @@ Automatically populate brand information based on partial input data you provide
 
 ```python
 from rcs import Pinnacle
-from rcs.brands import AutofillBrandSchemaOptions
+from rcs.brands import AutofillBrandOptions
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -36,7 +36,7 @@ client = Pinnacle(
 client.brands.autofill(
     additional_info="A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
     name="Pinnacle",
-    options=AutofillBrandSchemaOptions(
+    options=AutofillBrandOptions(
         force_reload=True,
     ),
     website="https://www.pinnacle.sh",
@@ -72,7 +72,7 @@ client.brands.autofill(
 <dl>
 <dd>
 
-**options:** `typing.Optional[AutofillBrandSchemaOptions]` 
+**options:** `typing.Optional[AutofillBrandOptions]` 
     
 </dd>
 </dl>
@@ -127,14 +127,14 @@ Create a new brand or update an existing brand by with the provided information.
 <dd>
 
 ```python
-from rcs import NullableContact, Pinnacle
+from rcs import Pinnacle, UpsertContact
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.brands.upsert(
     address="500 Folsom St, San Francisco, CA 94105",
-    contact=NullableContact(
+    contact=UpsertContact(
         email="michael.chen@trypinnacle.app",
         name="Michael Chen",
         phone="+14155551234",
@@ -173,7 +173,7 @@ client.brands.upsert(
 <dl>
 <dd>
 
-**contact:** `typing.Optional[NullableContact]` — Contact information for the brand.
+**contact:** `typing.Optional[UpsertContact]` — Contact information for the brand.
     
 </dd>
 </dl>
@@ -969,13 +969,13 @@ Fetch a specific conversation using either its unique identifier or by matching 
 <dd>
 
 ```python
-from rcs import GetConversationRequestId, Pinnacle
+from rcs import ConversationByIdParams, Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.conversations.get(
-    request=GetConversationRequestId(
+    request=ConversationByIdParams(
         id=1,
     ),
 )
@@ -1316,14 +1316,14 @@ Add or remove an emoji reaction to a previously sent message.
 
 ```python
 from rcs import Pinnacle
-from rcs.messages import MessageReactionSchemaOptions
+from rcs.messages import ReactMessageOptions
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.messages.react(
     message_id=1410,
-    options=MessageReactionSchemaOptions(
+    options=ReactMessageOptions(
         force=True,
     ),
     reaction="👍",
@@ -1351,7 +1351,7 @@ client.messages.react(
 <dl>
 <dd>
 
-**options:** `typing.Optional[MessageReactionSchemaOptions]` 
+**options:** `typing.Optional[ReactMessageOptions]` 
     
 </dd>
 </dl>
@@ -1413,9 +1413,9 @@ Search for available phone numbers that match your exact criteria.
 ```python
 from rcs import Pinnacle
 from rcs.phone_numbers import (
-    SearchSchemaLocation,
-    SearchSchemaNumber,
-    SearchSchemaOptions,
+    SearchPhoneNumberByDigits,
+    SearchPhoneNumberByLocation,
+    SearchPhoneNumberOptions,
 )
 
 client = Pinnacle(
@@ -1423,15 +1423,15 @@ client = Pinnacle(
 )
 client.phone_numbers.search(
     features=["SMS", "MMS"],
-    location=SearchSchemaLocation(
+    location=SearchPhoneNumberByLocation(
         city="New York",
         national_destination_code="212",
     ),
-    phone_number_digit_filters=SearchSchemaNumber(
+    number=SearchPhoneNumberByDigits(
         contains="514",
         starts_with="45",
     ),
-    options=SearchSchemaOptions(
+    options=SearchPhoneNumberOptions(
         limit=4,
     ),
     type=["LOCAL"],
@@ -1467,7 +1467,7 @@ client.phone_numbers.search(
 <dl>
 <dd>
 
-**location:** `typing.Optional[SearchSchemaLocation]` 
+**location:** `typing.Optional[SearchPhoneNumberByLocation]` 
 
 Filter your search by geographic location to find numbers in specific regions. <br>
 
@@ -1479,7 +1479,7 @@ Toll-free numbers ignore city and state filters.
 <dl>
 <dd>
 
-**phone_number_digit_filters:** `typing.Optional[SearchSchemaNumber]` — Filter your search by digit pattern.
+**number:** `typing.Optional[SearchPhoneNumberByDigits]` — Filter your search by digit pattern.
     
 </dd>
 </dl>
@@ -1487,7 +1487,7 @@ Toll-free numbers ignore city and state filters.
 <dl>
 <dd>
 
-**options:** `typing.Optional[SearchSchemaOptions]` — Extra search settings to control how many results you get.
+**options:** `typing.Optional[SearchPhoneNumberOptions]` — Extra search settings to control how many results you get.
     
 </dd>
 </dl>
@@ -1614,8 +1614,8 @@ Retrieve information about any phone number.
 ```python
 from rcs import Pinnacle
 from rcs.phone_numbers import (
-    PhoneDetailsSchemaOptions,
-    PhoneDetailsSchemaOptionsEnhancedContactInfo,
+    RetrievePhoneNumberDetailsEnhancedContactInfo,
+    RetrievePhoneNumberDetailsOptions,
 )
 
 client = Pinnacle(
@@ -1624,9 +1624,9 @@ client = Pinnacle(
 client.phone_numbers.get(
     phone="+11234567890",
     level="advanced",
-    options=PhoneDetailsSchemaOptions(
+    options=RetrievePhoneNumberDetailsOptions(
         risk=True,
-        enhanced_contact_info=PhoneDetailsSchemaOptionsEnhancedContactInfo(
+        enhanced_contact_info=RetrievePhoneNumberDetailsEnhancedContactInfo(
             context="This is my friend from JZ. He has done a lot in the crypto space.",
         ),
     ),
@@ -1666,7 +1666,7 @@ Choose how much detail you want in your results:
 <dl>
 <dd>
 
-**options:** `typing.Optional[PhoneDetailsSchemaOptions]` — Customize your lookup with additional options.
+**options:** `typing.Optional[RetrievePhoneNumberDetailsOptions]` — Customize your lookup with additional options.
     
 </dd>
 </dl>
@@ -2013,13 +2013,13 @@ Omit campaignId to create a campaign.
 ```python
 from rcs import Pinnacle
 from rcs.campaigns.dlc import (
-    UpsertDlcSchemaKeywords,
-    UpsertDlcSchemaKeywordsHelp,
-    UpsertDlcSchemaKeywordsOptIn,
-    UpsertDlcSchemaKeywordsOptOut,
-    UpsertDlcSchemaLinks,
+    UpsertDlcCampaignHelpKeyword,
+    UpsertDlcCampaignKeywords,
+    UpsertDlcCampaignLinks,
+    UpsertDlcCampaignOptInKeyword,
+    UpsertDlcCampaignOptOutKeyword,
+    UpsertDlcCampaignUseCase,
     UpsertDlcSchemaOptions,
-    UpsertDlcSchemaUseCase,
 )
 
 client = Pinnacle(
@@ -2029,21 +2029,21 @@ client.campaigns.dlc.upsert(
     auto_renew=True,
     brand=1,
     campaign_id=161,
-    keywords=UpsertDlcSchemaKeywords(
-        help=UpsertDlcSchemaKeywordsHelp(
+    keywords=UpsertDlcCampaignKeywords(
+        help=UpsertDlcCampaignHelpKeyword(
             message="Reply HELP for assistance, STOP to opt-out",
             values=["HELP", "INFO", "SUPPORT"],
         ),
-        opt_in=UpsertDlcSchemaKeywordsOptIn(
+        opt_in=UpsertDlcCampaignOptInKeyword(
             message="Welcome! You're now subscribed to Pinnacle.",
             values=["JOIN", "START", "SUBSCRIBE"],
         ),
-        opt_out=UpsertDlcSchemaKeywordsOptOut(
+        opt_out=UpsertDlcCampaignOptOutKeyword(
             message="You've been unsubscribed. Reply START to rejoin.",
             values=["STOP", "QUIT", "UNSUBSCRIBE"],
         ),
     ),
-    links=UpsertDlcSchemaLinks(
+    links=UpsertDlcCampaignLinks(
         privacy_policy="https://www.pinnacle.sh/privacy",
         terms_of_service="https://www.pinnacle.sh/terms",
     ),
@@ -2058,7 +2058,7 @@ client.campaigns.dlc.upsert(
         number_pooling=False,
     ),
     sample_messages=["Security alert: Unusual login detected from new device."],
-    use_case=UpsertDlcSchemaUseCase(
+    use_case=UpsertDlcCampaignUseCase(
         sub=["FRAUD_ALERT"],
         value="ACCOUNT_NOTIFICATION",
     ),
@@ -2110,7 +2110,7 @@ client.campaigns.dlc.upsert(
 <dl>
 <dd>
 
-**keywords:** `typing.Optional[UpsertDlcSchemaKeywords]` — Keyword response configuration.
+**keywords:** `typing.Optional[UpsertDlcCampaignKeywords]` — Keyword response configuration.
     
 </dd>
 </dl>
@@ -2118,7 +2118,7 @@ client.campaigns.dlc.upsert(
 <dl>
 <dd>
 
-**links:** `typing.Optional[UpsertDlcSchemaLinks]` — Legal documentation links.
+**links:** `typing.Optional[UpsertDlcCampaignLinks]` — Legal documentation links.
     
 </dd>
 </dl>
@@ -2158,7 +2158,7 @@ client.campaigns.dlc.upsert(
 <dl>
 <dd>
 
-**use_case:** `typing.Optional[UpsertDlcSchemaUseCase]` — Use case for the campaign.
+**use_case:** `typing.Optional[UpsertDlcCampaignUseCase]` — Use case for the campaign.
     
 </dd>
 </dl>
@@ -2944,25 +2944,25 @@ Omit campaignId to create a campaign.
 ```python
 from rcs import Pinnacle
 from rcs.campaigns.rcs import (
-    UpsertRcsSchemaAgent,
-    UpsertRcsSchemaAgentEmailsItem,
-    UpsertRcsSchemaAgentPhonesItem,
-    UpsertRcsSchemaAgentWebsitesItem,
-    UpsertRcsSchemaLinks,
-    UpsertRcsSchemaOptIn,
-    UpsertRcsSchemaOptOut,
-    UpsertRcsSchemaUseCase,
+    UpsertRcsAgent,
+    UpsertRcsAgentEmail,
+    UpsertRcsAgentPhone,
+    UpsertRcsAgentWebsite,
+    UpsertRcsLinks,
+    UpsertRcsOptIn,
+    UpsertRcsOptOut,
+    UpsertRcsUseCase,
 )
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.campaigns.rcs.upsert(
-    agent=UpsertRcsSchemaAgent(
+    agent=UpsertRcsAgent(
         color="#000000",
         description="Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
         emails=[
-            UpsertRcsSchemaAgentEmailsItem(
+            UpsertRcsAgentEmail(
                 email="founders@trypinnacle.app",
                 label="Email Us",
             )
@@ -2971,13 +2971,13 @@ client.campaigns.rcs.upsert(
         icon_url="https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
         name="Pinnacle Software Development",
         phones=[
-            UpsertRcsSchemaAgentPhonesItem(
+            UpsertRcsAgentPhone(
                 label="Contact us directly",
                 phone="+14154467821",
             )
         ],
         websites=[
-            UpsertRcsSchemaAgentWebsitesItem(
+            UpsertRcsAgentWebsite(
                 label="Get started with Pinnacle",
                 url="https://www.trypinnacle.app/",
             )
@@ -2990,19 +2990,19 @@ client.campaigns.rcs.upsert(
         "Here are the available times to connect with a representative tomorrow.",
         "Your appointment has been scheduled.",
     ],
-    links=UpsertRcsSchemaLinks(
+    links=UpsertRcsLinks(
         privacy_policy="https://www.trypinnacle.app/privacy",
         terms_of_service="https://www.trypinnacle.app/terms",
     ),
-    opt_in=UpsertRcsSchemaOptIn(
+    opt_in=UpsertRcsOptIn(
         method="WEBSITE",
         terms_and_conditions="Would you like to subscribe to Pinnacle?",
     ),
-    opt_out=UpsertRcsSchemaOptOut(
+    opt_out=UpsertRcsOptOut(
         description="Reply STOP to opt-out anytime.",
         keywords=["STOP", "UNSUBSCRIBE", "END"],
     ),
-    use_case=UpsertRcsSchemaUseCase(
+    use_case=UpsertRcsUseCase(
         behavior="Acts as a customer service representative.",
         value="OTHER",
     ),
@@ -3022,7 +3022,7 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**agent:** `typing.Optional[UpsertRcsSchemaAgent]` — Create an agent for the campaign.
+**agent:** `typing.Optional[UpsertRcsAgent]` — Create an agent for the campaign.
     
 </dd>
 </dl>
@@ -3054,7 +3054,7 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**links:** `typing.Optional[UpsertRcsSchemaLinks]` — Legal documentation links.
+**links:** `typing.Optional[UpsertRcsLinks]` — Legal documentation links.
     
 </dd>
 </dl>
@@ -3062,7 +3062,7 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**opt_in:** `typing.Optional[UpsertRcsSchemaOptIn]` — Opt-in configuration.
+**opt_in:** `typing.Optional[UpsertRcsOptIn]` — Opt-in configuration.
     
 </dd>
 </dl>
@@ -3070,7 +3070,7 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**opt_out:** `typing.Optional[UpsertRcsSchemaOptOut]` — Opt-out configuration.
+**opt_out:** `typing.Optional[UpsertRcsOptOut]` — Opt-out configuration.
     
 </dd>
 </dl>
@@ -3078,7 +3078,7 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**use_case:** `typing.Optional[UpsertRcsSchemaUseCase]` — Use case classification for the campaign.
+**use_case:** `typing.Optional[UpsertRcsUseCase]` — Use case classification for the campaign.
     
 </dd>
 </dl>
@@ -3254,7 +3254,7 @@ client.messages.sms.send(
 <dl>
 <dd>
 
-**options:** `typing.Optional[SendSmsSchemaOptions]` — Additional settings to customize SMS delivery.
+**options:** `typing.Optional[SendSmsOptions]` — Additional settings to customize SMS delivery.
     
 </dd>
 </dl>
@@ -3373,7 +3373,7 @@ Send a MMS immediately or schedule it for future delivery.
 
 ```python
 from rcs import Pinnacle
-from rcs.messages.mms import SendMmsSchemaOptions
+from rcs.messages.mms import SendMmsOptions
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3383,7 +3383,7 @@ client.messages.mms.send(
     media_urls=[
         "https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0"
     ],
-    options=SendMmsSchemaOptions(
+    options=SendMmsOptions(
         multiple_messages=True,
         validate=True,
     ),
@@ -3441,7 +3441,7 @@ Media file URLs to send.<br>
 <dl>
 <dd>
 
-**options:** `typing.Optional[SendMmsSchemaOptions]` — Control how your MMS is processed and delivered.
+**options:** `typing.Optional[SendMmsOptions]` — Control how your MMS is processed and delivered.
     
 </dd>
 </dl>
@@ -3578,13 +3578,13 @@ Requires an active RCS agent and recipient devices that support RCS Business Mes
 <dd>
 
 ```python
-from rcs import Pinnacle, RcsButtonContent_OpenUrl, RcsText
+from rcs import Pinnacle, RcsButtonContent_OpenUrl, RichTextMessage
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.messages.rcs.send(
-    request=RcsText(
+    request=RichTextMessage(
         quick_replies=[
             RcsButtonContent_OpenUrl(
                 payload="payload",
@@ -3737,14 +3737,14 @@ Connect a webhook to your phone number to receive real-time notifications for in
 <dd>
 
 ```python
-from rcs import AttachWebhookSchemaWebhookId, Pinnacle
+from rcs import AttachWebhookById, Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.phone_numbers.webhook.attach(
     phone="%2B14155551234",
-    request=AttachWebhookSchemaWebhookId(
+    request=AttachWebhookById(
         webhook_id=1,
     ),
 )
@@ -4672,10 +4672,7 @@ Generate presigned URLs that let you upload files directly to our storage and al
 
 ```python
 from rcs import Pinnacle
-from rcs.tools.file import (
-    FileUploadSchemaOptions,
-    FileUploadSchemaOptionsDownload,
-)
+from rcs.tools.file import DownloadOptions, UploadFileOptions
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -4684,8 +4681,8 @@ client.tools.file.upload(
     content_type="image/jpeg",
     size=1024,
     name="test.jpg",
-    options=FileUploadSchemaOptions(
-        download=FileUploadSchemaOptionsDownload(
+    options=UploadFileOptions(
+        download=DownloadOptions(
             expires_at="2025-06-30T12:00:00.000Z",
         ),
     ),
@@ -4737,7 +4734,7 @@ Supported file types:
 <dl>
 <dd>
 
-**options:** `typing.Optional[FileUploadSchemaOptions]` — Additional configurations for your file.
+**options:** `typing.Optional[UploadFileOptions]` — Additional configurations for your file.
     
 </dd>
 </dl>

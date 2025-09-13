@@ -6,21 +6,21 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .upsert_dlc_schema_keywords import UpsertDlcSchemaKeywords
-    from .upsert_dlc_schema_keywords_help import UpsertDlcSchemaKeywordsHelp
-    from .upsert_dlc_schema_keywords_opt_in import UpsertDlcSchemaKeywordsOptIn
-    from .upsert_dlc_schema_keywords_opt_out import UpsertDlcSchemaKeywordsOptOut
-    from .upsert_dlc_schema_links import UpsertDlcSchemaLinks
+    from .upsert_dlc_campaign_help_keyword import UpsertDlcCampaignHelpKeyword
+    from .upsert_dlc_campaign_keywords import UpsertDlcCampaignKeywords
+    from .upsert_dlc_campaign_links import UpsertDlcCampaignLinks
+    from .upsert_dlc_campaign_opt_in_keyword import UpsertDlcCampaignOptInKeyword
+    from .upsert_dlc_campaign_opt_out_keyword import UpsertDlcCampaignOptOutKeyword
+    from .upsert_dlc_campaign_use_case import UpsertDlcCampaignUseCase
     from .upsert_dlc_schema_options import UpsertDlcSchemaOptions
-    from .upsert_dlc_schema_use_case import UpsertDlcSchemaUseCase
 _dynamic_imports: typing.Dict[str, str] = {
-    "UpsertDlcSchemaKeywords": ".upsert_dlc_schema_keywords",
-    "UpsertDlcSchemaKeywordsHelp": ".upsert_dlc_schema_keywords_help",
-    "UpsertDlcSchemaKeywordsOptIn": ".upsert_dlc_schema_keywords_opt_in",
-    "UpsertDlcSchemaKeywordsOptOut": ".upsert_dlc_schema_keywords_opt_out",
-    "UpsertDlcSchemaLinks": ".upsert_dlc_schema_links",
+    "UpsertDlcCampaignHelpKeyword": ".upsert_dlc_campaign_help_keyword",
+    "UpsertDlcCampaignKeywords": ".upsert_dlc_campaign_keywords",
+    "UpsertDlcCampaignLinks": ".upsert_dlc_campaign_links",
+    "UpsertDlcCampaignOptInKeyword": ".upsert_dlc_campaign_opt_in_keyword",
+    "UpsertDlcCampaignOptOutKeyword": ".upsert_dlc_campaign_opt_out_keyword",
+    "UpsertDlcCampaignUseCase": ".upsert_dlc_campaign_use_case",
     "UpsertDlcSchemaOptions": ".upsert_dlc_schema_options",
-    "UpsertDlcSchemaUseCase": ".upsert_dlc_schema_use_case",
 }
 
 
@@ -44,11 +44,11 @@ def __dir__():
 
 
 __all__ = [
-    "UpsertDlcSchemaKeywords",
-    "UpsertDlcSchemaKeywordsHelp",
-    "UpsertDlcSchemaKeywordsOptIn",
-    "UpsertDlcSchemaKeywordsOptOut",
-    "UpsertDlcSchemaLinks",
+    "UpsertDlcCampaignHelpKeyword",
+    "UpsertDlcCampaignKeywords",
+    "UpsertDlcCampaignLinks",
+    "UpsertDlcCampaignOptInKeyword",
+    "UpsertDlcCampaignOptOutKeyword",
+    "UpsertDlcCampaignUseCase",
     "UpsertDlcSchemaOptions",
-    "UpsertDlcSchemaUseCase",
 ]

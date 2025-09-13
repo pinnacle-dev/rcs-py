@@ -19,10 +19,10 @@ from ...types.campaign_submission_result import CampaignSubmissionResult
 from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.dlc_campaign_with_extended_brand_and_status import DlcCampaignWithExtendedBrandAndStatus
 from ...types.error import Error
-from .types.upsert_dlc_schema_keywords import UpsertDlcSchemaKeywords
-from .types.upsert_dlc_schema_links import UpsertDlcSchemaLinks
+from .types.upsert_dlc_campaign_keywords import UpsertDlcCampaignKeywords
+from .types.upsert_dlc_campaign_links import UpsertDlcCampaignLinks
+from .types.upsert_dlc_campaign_use_case import UpsertDlcCampaignUseCase
 from .types.upsert_dlc_schema_options import UpsertDlcSchemaOptions
-from .types.upsert_dlc_schema_use_case import UpsertDlcSchemaUseCase
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -292,13 +292,13 @@ class RawDlcClient:
         brand: typing.Optional[int] = OMIT,
         campaign_id: typing.Optional[int] = OMIT,
         description: typing.Optional[str] = OMIT,
-        keywords: typing.Optional[UpsertDlcSchemaKeywords] = OMIT,
-        links: typing.Optional[UpsertDlcSchemaLinks] = OMIT,
+        keywords: typing.Optional[UpsertDlcCampaignKeywords] = OMIT,
+        links: typing.Optional[UpsertDlcCampaignLinks] = OMIT,
         message_flow: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         options: typing.Optional[UpsertDlcSchemaOptions] = OMIT,
         sample_messages: typing.Optional[typing.Sequence[str]] = OMIT,
-        use_case: typing.Optional[UpsertDlcSchemaUseCase] = OMIT,
+        use_case: typing.Optional[UpsertDlcCampaignUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DlcCampaignWithExtendedBrandAndStatus]:
         """
@@ -320,10 +320,10 @@ class RawDlcClient:
         description : typing.Optional[str]
             Description of the campaign.
 
-        keywords : typing.Optional[UpsertDlcSchemaKeywords]
+        keywords : typing.Optional[UpsertDlcCampaignKeywords]
             Keyword response configuration.
 
-        links : typing.Optional[UpsertDlcSchemaLinks]
+        links : typing.Optional[UpsertDlcCampaignLinks]
             Legal documentation links.
 
         message_flow : typing.Optional[str]
@@ -338,7 +338,7 @@ class RawDlcClient:
         sample_messages : typing.Optional[typing.Sequence[str]]
             Example messages for the campaign.
 
-        use_case : typing.Optional[UpsertDlcSchemaUseCase]
+        use_case : typing.Optional[UpsertDlcCampaignUseCase]
             Use case for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -358,10 +358,10 @@ class RawDlcClient:
                 "campaignId": campaign_id,
                 "description": description,
                 "keywords": convert_and_respect_annotation_metadata(
-                    object_=keywords, annotation=UpsertDlcSchemaKeywords, direction="write"
+                    object_=keywords, annotation=UpsertDlcCampaignKeywords, direction="write"
                 ),
                 "links": convert_and_respect_annotation_metadata(
-                    object_=links, annotation=UpsertDlcSchemaLinks, direction="write"
+                    object_=links, annotation=UpsertDlcCampaignLinks, direction="write"
                 ),
                 "messageFlow": message_flow,
                 "name": name,
@@ -370,7 +370,7 @@ class RawDlcClient:
                 ),
                 "sampleMessages": sample_messages,
                 "useCase": convert_and_respect_annotation_metadata(
-                    object_=use_case, annotation=UpsertDlcSchemaUseCase, direction="write"
+                    object_=use_case, annotation=UpsertDlcCampaignUseCase, direction="write"
                 ),
             },
             headers={
@@ -790,13 +790,13 @@ class AsyncRawDlcClient:
         brand: typing.Optional[int] = OMIT,
         campaign_id: typing.Optional[int] = OMIT,
         description: typing.Optional[str] = OMIT,
-        keywords: typing.Optional[UpsertDlcSchemaKeywords] = OMIT,
-        links: typing.Optional[UpsertDlcSchemaLinks] = OMIT,
+        keywords: typing.Optional[UpsertDlcCampaignKeywords] = OMIT,
+        links: typing.Optional[UpsertDlcCampaignLinks] = OMIT,
         message_flow: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         options: typing.Optional[UpsertDlcSchemaOptions] = OMIT,
         sample_messages: typing.Optional[typing.Sequence[str]] = OMIT,
-        use_case: typing.Optional[UpsertDlcSchemaUseCase] = OMIT,
+        use_case: typing.Optional[UpsertDlcCampaignUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DlcCampaignWithExtendedBrandAndStatus]:
         """
@@ -818,10 +818,10 @@ class AsyncRawDlcClient:
         description : typing.Optional[str]
             Description of the campaign.
 
-        keywords : typing.Optional[UpsertDlcSchemaKeywords]
+        keywords : typing.Optional[UpsertDlcCampaignKeywords]
             Keyword response configuration.
 
-        links : typing.Optional[UpsertDlcSchemaLinks]
+        links : typing.Optional[UpsertDlcCampaignLinks]
             Legal documentation links.
 
         message_flow : typing.Optional[str]
@@ -836,7 +836,7 @@ class AsyncRawDlcClient:
         sample_messages : typing.Optional[typing.Sequence[str]]
             Example messages for the campaign.
 
-        use_case : typing.Optional[UpsertDlcSchemaUseCase]
+        use_case : typing.Optional[UpsertDlcCampaignUseCase]
             Use case for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -856,10 +856,10 @@ class AsyncRawDlcClient:
                 "campaignId": campaign_id,
                 "description": description,
                 "keywords": convert_and_respect_annotation_metadata(
-                    object_=keywords, annotation=UpsertDlcSchemaKeywords, direction="write"
+                    object_=keywords, annotation=UpsertDlcCampaignKeywords, direction="write"
                 ),
                 "links": convert_and_respect_annotation_metadata(
-                    object_=links, annotation=UpsertDlcSchemaLinks, direction="write"
+                    object_=links, annotation=UpsertDlcCampaignLinks, direction="write"
                 ),
                 "messageFlow": message_flow,
                 "name": name,
@@ -868,7 +868,7 @@ class AsyncRawDlcClient:
                 ),
                 "sampleMessages": sample_messages,
                 "useCase": convert_and_respect_annotation_metadata(
-                    object_=use_case, annotation=UpsertDlcSchemaUseCase, direction="write"
+                    object_=use_case, annotation=UpsertDlcCampaignUseCase, direction="write"
                 ),
             },
             headers={

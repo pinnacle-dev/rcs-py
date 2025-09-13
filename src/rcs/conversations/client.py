@@ -51,13 +51,13 @@ class ConversationsClient:
 
         Examples
         --------
-        from rcs import GetConversationRequestId, Pinnacle
+        from rcs import ConversationByIdParams, Pinnacle
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.conversations.get(
-            request=GetConversationRequestId(
+            request=ConversationByIdParams(
                 id=1,
             ),
         )
@@ -213,7 +213,7 @@ class AsyncConversationsClient:
         --------
         import asyncio
 
-        from rcs import AsyncPinnacle, GetConversationRequestId
+        from rcs import AsyncPinnacle, ConversationByIdParams
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -222,7 +222,7 @@ class AsyncConversationsClient:
 
         async def main() -> None:
             await client.conversations.get(
-                request=GetConversationRequestId(
+                request=ConversationByIdParams(
                     id=1,
                 ),
             )

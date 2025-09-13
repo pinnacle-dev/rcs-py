@@ -9,10 +9,10 @@ from ...types.campaign_submission_result import CampaignSubmissionResult
 from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.dlc_campaign_with_extended_brand_and_status import DlcCampaignWithExtendedBrandAndStatus
 from .raw_client import AsyncRawDlcClient, RawDlcClient
-from .types.upsert_dlc_schema_keywords import UpsertDlcSchemaKeywords
-from .types.upsert_dlc_schema_links import UpsertDlcSchemaLinks
+from .types.upsert_dlc_campaign_keywords import UpsertDlcCampaignKeywords
+from .types.upsert_dlc_campaign_links import UpsertDlcCampaignLinks
+from .types.upsert_dlc_campaign_use_case import UpsertDlcCampaignUseCase
 from .types.upsert_dlc_schema_options import UpsertDlcSchemaOptions
-from .types.upsert_dlc_schema_use_case import UpsertDlcSchemaUseCase
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -149,13 +149,13 @@ class DlcClient:
         brand: typing.Optional[int] = OMIT,
         campaign_id: typing.Optional[int] = OMIT,
         description: typing.Optional[str] = OMIT,
-        keywords: typing.Optional[UpsertDlcSchemaKeywords] = OMIT,
-        links: typing.Optional[UpsertDlcSchemaLinks] = OMIT,
+        keywords: typing.Optional[UpsertDlcCampaignKeywords] = OMIT,
+        links: typing.Optional[UpsertDlcCampaignLinks] = OMIT,
         message_flow: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         options: typing.Optional[UpsertDlcSchemaOptions] = OMIT,
         sample_messages: typing.Optional[typing.Sequence[str]] = OMIT,
-        use_case: typing.Optional[UpsertDlcSchemaUseCase] = OMIT,
+        use_case: typing.Optional[UpsertDlcCampaignUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DlcCampaignWithExtendedBrandAndStatus:
         """
@@ -177,10 +177,10 @@ class DlcClient:
         description : typing.Optional[str]
             Description of the campaign.
 
-        keywords : typing.Optional[UpsertDlcSchemaKeywords]
+        keywords : typing.Optional[UpsertDlcCampaignKeywords]
             Keyword response configuration.
 
-        links : typing.Optional[UpsertDlcSchemaLinks]
+        links : typing.Optional[UpsertDlcCampaignLinks]
             Legal documentation links.
 
         message_flow : typing.Optional[str]
@@ -195,7 +195,7 @@ class DlcClient:
         sample_messages : typing.Optional[typing.Sequence[str]]
             Example messages for the campaign.
 
-        use_case : typing.Optional[UpsertDlcSchemaUseCase]
+        use_case : typing.Optional[UpsertDlcCampaignUseCase]
             Use case for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -210,13 +210,13 @@ class DlcClient:
         --------
         from rcs import Pinnacle
         from rcs.campaigns.dlc import (
-            UpsertDlcSchemaKeywords,
-            UpsertDlcSchemaKeywordsHelp,
-            UpsertDlcSchemaKeywordsOptIn,
-            UpsertDlcSchemaKeywordsOptOut,
-            UpsertDlcSchemaLinks,
+            UpsertDlcCampaignHelpKeyword,
+            UpsertDlcCampaignKeywords,
+            UpsertDlcCampaignLinks,
+            UpsertDlcCampaignOptInKeyword,
+            UpsertDlcCampaignOptOutKeyword,
+            UpsertDlcCampaignUseCase,
             UpsertDlcSchemaOptions,
-            UpsertDlcSchemaUseCase,
         )
 
         client = Pinnacle(
@@ -226,21 +226,21 @@ class DlcClient:
             auto_renew=True,
             brand=1,
             campaign_id=161,
-            keywords=UpsertDlcSchemaKeywords(
-                help=UpsertDlcSchemaKeywordsHelp(
+            keywords=UpsertDlcCampaignKeywords(
+                help=UpsertDlcCampaignHelpKeyword(
                     message="Reply HELP for assistance, STOP to opt-out",
                     values=["HELP", "INFO", "SUPPORT"],
                 ),
-                opt_in=UpsertDlcSchemaKeywordsOptIn(
+                opt_in=UpsertDlcCampaignOptInKeyword(
                     message="Welcome! You're now subscribed to Pinnacle.",
                     values=["JOIN", "START", "SUBSCRIBE"],
                 ),
-                opt_out=UpsertDlcSchemaKeywordsOptOut(
+                opt_out=UpsertDlcCampaignOptOutKeyword(
                     message="You've been unsubscribed. Reply START to rejoin.",
                     values=["STOP", "QUIT", "UNSUBSCRIBE"],
                 ),
             ),
-            links=UpsertDlcSchemaLinks(
+            links=UpsertDlcCampaignLinks(
                 privacy_policy="https://www.pinnacle.sh/privacy",
                 terms_of_service="https://www.pinnacle.sh/terms",
             ),
@@ -255,7 +255,7 @@ class DlcClient:
                 number_pooling=False,
             ),
             sample_messages=["Security alert: Unusual login detected from new device."],
-            use_case=UpsertDlcSchemaUseCase(
+            use_case=UpsertDlcCampaignUseCase(
                 sub=["FRAUD_ALERT"],
                 value="ACCOUNT_NOTIFICATION",
             ),
@@ -476,13 +476,13 @@ class AsyncDlcClient:
         brand: typing.Optional[int] = OMIT,
         campaign_id: typing.Optional[int] = OMIT,
         description: typing.Optional[str] = OMIT,
-        keywords: typing.Optional[UpsertDlcSchemaKeywords] = OMIT,
-        links: typing.Optional[UpsertDlcSchemaLinks] = OMIT,
+        keywords: typing.Optional[UpsertDlcCampaignKeywords] = OMIT,
+        links: typing.Optional[UpsertDlcCampaignLinks] = OMIT,
         message_flow: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         options: typing.Optional[UpsertDlcSchemaOptions] = OMIT,
         sample_messages: typing.Optional[typing.Sequence[str]] = OMIT,
-        use_case: typing.Optional[UpsertDlcSchemaUseCase] = OMIT,
+        use_case: typing.Optional[UpsertDlcCampaignUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DlcCampaignWithExtendedBrandAndStatus:
         """
@@ -504,10 +504,10 @@ class AsyncDlcClient:
         description : typing.Optional[str]
             Description of the campaign.
 
-        keywords : typing.Optional[UpsertDlcSchemaKeywords]
+        keywords : typing.Optional[UpsertDlcCampaignKeywords]
             Keyword response configuration.
 
-        links : typing.Optional[UpsertDlcSchemaLinks]
+        links : typing.Optional[UpsertDlcCampaignLinks]
             Legal documentation links.
 
         message_flow : typing.Optional[str]
@@ -522,7 +522,7 @@ class AsyncDlcClient:
         sample_messages : typing.Optional[typing.Sequence[str]]
             Example messages for the campaign.
 
-        use_case : typing.Optional[UpsertDlcSchemaUseCase]
+        use_case : typing.Optional[UpsertDlcCampaignUseCase]
             Use case for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -539,13 +539,13 @@ class AsyncDlcClient:
 
         from rcs import AsyncPinnacle
         from rcs.campaigns.dlc import (
-            UpsertDlcSchemaKeywords,
-            UpsertDlcSchemaKeywordsHelp,
-            UpsertDlcSchemaKeywordsOptIn,
-            UpsertDlcSchemaKeywordsOptOut,
-            UpsertDlcSchemaLinks,
+            UpsertDlcCampaignHelpKeyword,
+            UpsertDlcCampaignKeywords,
+            UpsertDlcCampaignLinks,
+            UpsertDlcCampaignOptInKeyword,
+            UpsertDlcCampaignOptOutKeyword,
+            UpsertDlcCampaignUseCase,
             UpsertDlcSchemaOptions,
-            UpsertDlcSchemaUseCase,
         )
 
         client = AsyncPinnacle(
@@ -558,21 +558,21 @@ class AsyncDlcClient:
                 auto_renew=True,
                 brand=1,
                 campaign_id=161,
-                keywords=UpsertDlcSchemaKeywords(
-                    help=UpsertDlcSchemaKeywordsHelp(
+                keywords=UpsertDlcCampaignKeywords(
+                    help=UpsertDlcCampaignHelpKeyword(
                         message="Reply HELP for assistance, STOP to opt-out",
                         values=["HELP", "INFO", "SUPPORT"],
                     ),
-                    opt_in=UpsertDlcSchemaKeywordsOptIn(
+                    opt_in=UpsertDlcCampaignOptInKeyword(
                         message="Welcome! You're now subscribed to Pinnacle.",
                         values=["JOIN", "START", "SUBSCRIBE"],
                     ),
-                    opt_out=UpsertDlcSchemaKeywordsOptOut(
+                    opt_out=UpsertDlcCampaignOptOutKeyword(
                         message="You've been unsubscribed. Reply START to rejoin.",
                         values=["STOP", "QUIT", "UNSUBSCRIBE"],
                     ),
                 ),
-                links=UpsertDlcSchemaLinks(
+                links=UpsertDlcCampaignLinks(
                     privacy_policy="https://www.pinnacle.sh/privacy",
                     terms_of_service="https://www.pinnacle.sh/terms",
                 ),
@@ -589,7 +589,7 @@ class AsyncDlcClient:
                 sample_messages=[
                     "Security alert: Unusual login detected from new device."
                 ],
-                use_case=UpsertDlcSchemaUseCase(
+                use_case=UpsertDlcCampaignUseCase(
                     sub=["FRAUD_ALERT"],
                     value="ACCOUNT_NOTIFICATION",
                 ),

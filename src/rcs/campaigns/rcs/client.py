@@ -9,11 +9,11 @@ from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.extended_rcs_campaign import ExtendedRcsCampaign
 from .raw_client import AsyncRawRcsClient, RawRcsClient
 from .types.rcs_autofill_response import RcsAutofillResponse
-from .types.upsert_rcs_schema_agent import UpsertRcsSchemaAgent
-from .types.upsert_rcs_schema_links import UpsertRcsSchemaLinks
-from .types.upsert_rcs_schema_opt_in import UpsertRcsSchemaOptIn
-from .types.upsert_rcs_schema_opt_out import UpsertRcsSchemaOptOut
-from .types.upsert_rcs_schema_use_case import UpsertRcsSchemaUseCase
+from .types.upsert_rcs_agent import UpsertRcsAgent
+from .types.upsert_rcs_links import UpsertRcsLinks
+from .types.upsert_rcs_opt_in import UpsertRcsOptIn
+from .types.upsert_rcs_opt_out import UpsertRcsOptOut
+from .types.upsert_rcs_use_case import UpsertRcsUseCase
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -144,14 +144,14 @@ class RcsClient:
     def upsert(
         self,
         *,
-        agent: typing.Optional[UpsertRcsSchemaAgent] = OMIT,
+        agent: typing.Optional[UpsertRcsAgent] = OMIT,
         brand: typing.Optional[int] = OMIT,
         campaign_id: typing.Optional[int] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
-        links: typing.Optional[UpsertRcsSchemaLinks] = OMIT,
-        opt_in: typing.Optional[UpsertRcsSchemaOptIn] = OMIT,
-        opt_out: typing.Optional[UpsertRcsSchemaOptOut] = OMIT,
-        use_case: typing.Optional[UpsertRcsSchemaUseCase] = OMIT,
+        links: typing.Optional[UpsertRcsLinks] = OMIT,
+        opt_in: typing.Optional[UpsertRcsOptIn] = OMIT,
+        opt_out: typing.Optional[UpsertRcsOptOut] = OMIT,
+        use_case: typing.Optional[UpsertRcsUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ExtendedRcsCampaign:
         """
@@ -161,7 +161,7 @@ class RcsClient:
 
         Parameters
         ----------
-        agent : typing.Optional[UpsertRcsSchemaAgent]
+        agent : typing.Optional[UpsertRcsAgent]
             Create an agent for the campaign.
 
         brand : typing.Optional[int]
@@ -173,16 +173,16 @@ class RcsClient:
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
             List of what the agent might say to users (1-5 required).
 
-        links : typing.Optional[UpsertRcsSchemaLinks]
+        links : typing.Optional[UpsertRcsLinks]
             Legal documentation links.
 
-        opt_in : typing.Optional[UpsertRcsSchemaOptIn]
+        opt_in : typing.Optional[UpsertRcsOptIn]
             Opt-in configuration.
 
-        opt_out : typing.Optional[UpsertRcsSchemaOptOut]
+        opt_out : typing.Optional[UpsertRcsOptOut]
             Opt-out configuration.
 
-        use_case : typing.Optional[UpsertRcsSchemaUseCase]
+        use_case : typing.Optional[UpsertRcsUseCase]
             Use case classification for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -197,25 +197,25 @@ class RcsClient:
         --------
         from rcs import Pinnacle
         from rcs.campaigns.rcs import (
-            UpsertRcsSchemaAgent,
-            UpsertRcsSchemaAgentEmailsItem,
-            UpsertRcsSchemaAgentPhonesItem,
-            UpsertRcsSchemaAgentWebsitesItem,
-            UpsertRcsSchemaLinks,
-            UpsertRcsSchemaOptIn,
-            UpsertRcsSchemaOptOut,
-            UpsertRcsSchemaUseCase,
+            UpsertRcsAgent,
+            UpsertRcsAgentEmail,
+            UpsertRcsAgentPhone,
+            UpsertRcsAgentWebsite,
+            UpsertRcsLinks,
+            UpsertRcsOptIn,
+            UpsertRcsOptOut,
+            UpsertRcsUseCase,
         )
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.campaigns.rcs.upsert(
-            agent=UpsertRcsSchemaAgent(
+            agent=UpsertRcsAgent(
                 color="#000000",
                 description="Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
                 emails=[
-                    UpsertRcsSchemaAgentEmailsItem(
+                    UpsertRcsAgentEmail(
                         email="founders@trypinnacle.app",
                         label="Email Us",
                     )
@@ -224,13 +224,13 @@ class RcsClient:
                 icon_url="https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
                 name="Pinnacle Software Development",
                 phones=[
-                    UpsertRcsSchemaAgentPhonesItem(
+                    UpsertRcsAgentPhone(
                         label="Contact us directly",
                         phone="+14154467821",
                     )
                 ],
                 websites=[
-                    UpsertRcsSchemaAgentWebsitesItem(
+                    UpsertRcsAgentWebsite(
                         label="Get started with Pinnacle",
                         url="https://www.trypinnacle.app/",
                     )
@@ -243,19 +243,19 @@ class RcsClient:
                 "Here are the available times to connect with a representative tomorrow.",
                 "Your appointment has been scheduled.",
             ],
-            links=UpsertRcsSchemaLinks(
+            links=UpsertRcsLinks(
                 privacy_policy="https://www.trypinnacle.app/privacy",
                 terms_of_service="https://www.trypinnacle.app/terms",
             ),
-            opt_in=UpsertRcsSchemaOptIn(
+            opt_in=UpsertRcsOptIn(
                 method="WEBSITE",
                 terms_and_conditions="Would you like to subscribe to Pinnacle?",
             ),
-            opt_out=UpsertRcsSchemaOptOut(
+            opt_out=UpsertRcsOptOut(
                 description="Reply STOP to opt-out anytime.",
                 keywords=["STOP", "UNSUBSCRIBE", "END"],
             ),
-            use_case=UpsertRcsSchemaUseCase(
+            use_case=UpsertRcsUseCase(
                 behavior="Acts as a customer service representative.",
                 value="OTHER",
             ),
@@ -469,14 +469,14 @@ class AsyncRcsClient:
     async def upsert(
         self,
         *,
-        agent: typing.Optional[UpsertRcsSchemaAgent] = OMIT,
+        agent: typing.Optional[UpsertRcsAgent] = OMIT,
         brand: typing.Optional[int] = OMIT,
         campaign_id: typing.Optional[int] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
-        links: typing.Optional[UpsertRcsSchemaLinks] = OMIT,
-        opt_in: typing.Optional[UpsertRcsSchemaOptIn] = OMIT,
-        opt_out: typing.Optional[UpsertRcsSchemaOptOut] = OMIT,
-        use_case: typing.Optional[UpsertRcsSchemaUseCase] = OMIT,
+        links: typing.Optional[UpsertRcsLinks] = OMIT,
+        opt_in: typing.Optional[UpsertRcsOptIn] = OMIT,
+        opt_out: typing.Optional[UpsertRcsOptOut] = OMIT,
+        use_case: typing.Optional[UpsertRcsUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ExtendedRcsCampaign:
         """
@@ -486,7 +486,7 @@ class AsyncRcsClient:
 
         Parameters
         ----------
-        agent : typing.Optional[UpsertRcsSchemaAgent]
+        agent : typing.Optional[UpsertRcsAgent]
             Create an agent for the campaign.
 
         brand : typing.Optional[int]
@@ -498,16 +498,16 @@ class AsyncRcsClient:
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
             List of what the agent might say to users (1-5 required).
 
-        links : typing.Optional[UpsertRcsSchemaLinks]
+        links : typing.Optional[UpsertRcsLinks]
             Legal documentation links.
 
-        opt_in : typing.Optional[UpsertRcsSchemaOptIn]
+        opt_in : typing.Optional[UpsertRcsOptIn]
             Opt-in configuration.
 
-        opt_out : typing.Optional[UpsertRcsSchemaOptOut]
+        opt_out : typing.Optional[UpsertRcsOptOut]
             Opt-out configuration.
 
-        use_case : typing.Optional[UpsertRcsSchemaUseCase]
+        use_case : typing.Optional[UpsertRcsUseCase]
             Use case classification for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -524,14 +524,14 @@ class AsyncRcsClient:
 
         from rcs import AsyncPinnacle
         from rcs.campaigns.rcs import (
-            UpsertRcsSchemaAgent,
-            UpsertRcsSchemaAgentEmailsItem,
-            UpsertRcsSchemaAgentPhonesItem,
-            UpsertRcsSchemaAgentWebsitesItem,
-            UpsertRcsSchemaLinks,
-            UpsertRcsSchemaOptIn,
-            UpsertRcsSchemaOptOut,
-            UpsertRcsSchemaUseCase,
+            UpsertRcsAgent,
+            UpsertRcsAgentEmail,
+            UpsertRcsAgentPhone,
+            UpsertRcsAgentWebsite,
+            UpsertRcsLinks,
+            UpsertRcsOptIn,
+            UpsertRcsOptOut,
+            UpsertRcsUseCase,
         )
 
         client = AsyncPinnacle(
@@ -541,11 +541,11 @@ class AsyncRcsClient:
 
         async def main() -> None:
             await client.campaigns.rcs.upsert(
-                agent=UpsertRcsSchemaAgent(
+                agent=UpsertRcsAgent(
                     color="#000000",
                     description="Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
                     emails=[
-                        UpsertRcsSchemaAgentEmailsItem(
+                        UpsertRcsAgentEmail(
                             email="founders@trypinnacle.app",
                             label="Email Us",
                         )
@@ -554,13 +554,13 @@ class AsyncRcsClient:
                     icon_url="https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
                     name="Pinnacle Software Development",
                     phones=[
-                        UpsertRcsSchemaAgentPhonesItem(
+                        UpsertRcsAgentPhone(
                             label="Contact us directly",
                             phone="+14154467821",
                         )
                     ],
                     websites=[
-                        UpsertRcsSchemaAgentWebsitesItem(
+                        UpsertRcsAgentWebsite(
                             label="Get started with Pinnacle",
                             url="https://www.trypinnacle.app/",
                         )
@@ -573,19 +573,19 @@ class AsyncRcsClient:
                     "Here are the available times to connect with a representative tomorrow.",
                     "Your appointment has been scheduled.",
                 ],
-                links=UpsertRcsSchemaLinks(
+                links=UpsertRcsLinks(
                     privacy_policy="https://www.trypinnacle.app/privacy",
                     terms_of_service="https://www.trypinnacle.app/terms",
                 ),
-                opt_in=UpsertRcsSchemaOptIn(
+                opt_in=UpsertRcsOptIn(
                     method="WEBSITE",
                     terms_and_conditions="Would you like to subscribe to Pinnacle?",
                 ),
-                opt_out=UpsertRcsSchemaOptOut(
+                opt_out=UpsertRcsOptOut(
                     description="Reply STOP to opt-out anytime.",
                     keywords=["STOP", "UNSUBSCRIBE", "END"],
                 ),
-                use_case=UpsertRcsSchemaUseCase(
+                use_case=UpsertRcsUseCase(
                     behavior="Acts as a customer service representative.",
                     value="OTHER",
                 ),

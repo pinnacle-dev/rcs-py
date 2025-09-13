@@ -19,11 +19,11 @@ from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.error import Error
 from ...types.extended_rcs_campaign import ExtendedRcsCampaign
 from .types.rcs_autofill_response import RcsAutofillResponse
-from .types.upsert_rcs_schema_agent import UpsertRcsSchemaAgent
-from .types.upsert_rcs_schema_links import UpsertRcsSchemaLinks
-from .types.upsert_rcs_schema_opt_in import UpsertRcsSchemaOptIn
-from .types.upsert_rcs_schema_opt_out import UpsertRcsSchemaOptOut
-from .types.upsert_rcs_schema_use_case import UpsertRcsSchemaUseCase
+from .types.upsert_rcs_agent import UpsertRcsAgent
+from .types.upsert_rcs_links import UpsertRcsLinks
+from .types.upsert_rcs_opt_in import UpsertRcsOptIn
+from .types.upsert_rcs_opt_out import UpsertRcsOptOut
+from .types.upsert_rcs_use_case import UpsertRcsUseCase
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -289,14 +289,14 @@ class RawRcsClient:
     def upsert(
         self,
         *,
-        agent: typing.Optional[UpsertRcsSchemaAgent] = OMIT,
+        agent: typing.Optional[UpsertRcsAgent] = OMIT,
         brand: typing.Optional[int] = OMIT,
         campaign_id: typing.Optional[int] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
-        links: typing.Optional[UpsertRcsSchemaLinks] = OMIT,
-        opt_in: typing.Optional[UpsertRcsSchemaOptIn] = OMIT,
-        opt_out: typing.Optional[UpsertRcsSchemaOptOut] = OMIT,
-        use_case: typing.Optional[UpsertRcsSchemaUseCase] = OMIT,
+        links: typing.Optional[UpsertRcsLinks] = OMIT,
+        opt_in: typing.Optional[UpsertRcsOptIn] = OMIT,
+        opt_out: typing.Optional[UpsertRcsOptOut] = OMIT,
+        use_case: typing.Optional[UpsertRcsUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ExtendedRcsCampaign]:
         """
@@ -306,7 +306,7 @@ class RawRcsClient:
 
         Parameters
         ----------
-        agent : typing.Optional[UpsertRcsSchemaAgent]
+        agent : typing.Optional[UpsertRcsAgent]
             Create an agent for the campaign.
 
         brand : typing.Optional[int]
@@ -318,16 +318,16 @@ class RawRcsClient:
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
             List of what the agent might say to users (1-5 required).
 
-        links : typing.Optional[UpsertRcsSchemaLinks]
+        links : typing.Optional[UpsertRcsLinks]
             Legal documentation links.
 
-        opt_in : typing.Optional[UpsertRcsSchemaOptIn]
+        opt_in : typing.Optional[UpsertRcsOptIn]
             Opt-in configuration.
 
-        opt_out : typing.Optional[UpsertRcsSchemaOptOut]
+        opt_out : typing.Optional[UpsertRcsOptOut]
             Opt-out configuration.
 
-        use_case : typing.Optional[UpsertRcsSchemaUseCase]
+        use_case : typing.Optional[UpsertRcsUseCase]
             Use case classification for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -343,22 +343,22 @@ class RawRcsClient:
             method="POST",
             json={
                 "agent": convert_and_respect_annotation_metadata(
-                    object_=agent, annotation=UpsertRcsSchemaAgent, direction="write"
+                    object_=agent, annotation=UpsertRcsAgent, direction="write"
                 ),
                 "brand": brand,
                 "campaignId": campaign_id,
                 "expectedAgentResponses": expected_agent_responses,
                 "links": convert_and_respect_annotation_metadata(
-                    object_=links, annotation=UpsertRcsSchemaLinks, direction="write"
+                    object_=links, annotation=UpsertRcsLinks, direction="write"
                 ),
                 "optIn": convert_and_respect_annotation_metadata(
-                    object_=opt_in, annotation=UpsertRcsSchemaOptIn, direction="write"
+                    object_=opt_in, annotation=UpsertRcsOptIn, direction="write"
                 ),
                 "optOut": convert_and_respect_annotation_metadata(
-                    object_=opt_out, annotation=UpsertRcsSchemaOptOut, direction="write"
+                    object_=opt_out, annotation=UpsertRcsOptOut, direction="write"
                 ),
                 "useCase": convert_and_respect_annotation_metadata(
-                    object_=use_case, annotation=UpsertRcsSchemaUseCase, direction="write"
+                    object_=use_case, annotation=UpsertRcsUseCase, direction="write"
                 ),
             },
             headers={
@@ -774,14 +774,14 @@ class AsyncRawRcsClient:
     async def upsert(
         self,
         *,
-        agent: typing.Optional[UpsertRcsSchemaAgent] = OMIT,
+        agent: typing.Optional[UpsertRcsAgent] = OMIT,
         brand: typing.Optional[int] = OMIT,
         campaign_id: typing.Optional[int] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
-        links: typing.Optional[UpsertRcsSchemaLinks] = OMIT,
-        opt_in: typing.Optional[UpsertRcsSchemaOptIn] = OMIT,
-        opt_out: typing.Optional[UpsertRcsSchemaOptOut] = OMIT,
-        use_case: typing.Optional[UpsertRcsSchemaUseCase] = OMIT,
+        links: typing.Optional[UpsertRcsLinks] = OMIT,
+        opt_in: typing.Optional[UpsertRcsOptIn] = OMIT,
+        opt_out: typing.Optional[UpsertRcsOptOut] = OMIT,
+        use_case: typing.Optional[UpsertRcsUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ExtendedRcsCampaign]:
         """
@@ -791,7 +791,7 @@ class AsyncRawRcsClient:
 
         Parameters
         ----------
-        agent : typing.Optional[UpsertRcsSchemaAgent]
+        agent : typing.Optional[UpsertRcsAgent]
             Create an agent for the campaign.
 
         brand : typing.Optional[int]
@@ -803,16 +803,16 @@ class AsyncRawRcsClient:
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
             List of what the agent might say to users (1-5 required).
 
-        links : typing.Optional[UpsertRcsSchemaLinks]
+        links : typing.Optional[UpsertRcsLinks]
             Legal documentation links.
 
-        opt_in : typing.Optional[UpsertRcsSchemaOptIn]
+        opt_in : typing.Optional[UpsertRcsOptIn]
             Opt-in configuration.
 
-        opt_out : typing.Optional[UpsertRcsSchemaOptOut]
+        opt_out : typing.Optional[UpsertRcsOptOut]
             Opt-out configuration.
 
-        use_case : typing.Optional[UpsertRcsSchemaUseCase]
+        use_case : typing.Optional[UpsertRcsUseCase]
             Use case classification for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -828,22 +828,22 @@ class AsyncRawRcsClient:
             method="POST",
             json={
                 "agent": convert_and_respect_annotation_metadata(
-                    object_=agent, annotation=UpsertRcsSchemaAgent, direction="write"
+                    object_=agent, annotation=UpsertRcsAgent, direction="write"
                 ),
                 "brand": brand,
                 "campaignId": campaign_id,
                 "expectedAgentResponses": expected_agent_responses,
                 "links": convert_and_respect_annotation_metadata(
-                    object_=links, annotation=UpsertRcsSchemaLinks, direction="write"
+                    object_=links, annotation=UpsertRcsLinks, direction="write"
                 ),
                 "optIn": convert_and_respect_annotation_metadata(
-                    object_=opt_in, annotation=UpsertRcsSchemaOptIn, direction="write"
+                    object_=opt_in, annotation=UpsertRcsOptIn, direction="write"
                 ),
                 "optOut": convert_and_respect_annotation_metadata(
-                    object_=opt_out, annotation=UpsertRcsSchemaOptOut, direction="write"
+                    object_=opt_out, annotation=UpsertRcsOptOut, direction="write"
                 ),
                 "useCase": convert_and_respect_annotation_metadata(
-                    object_=use_case, annotation=UpsertRcsSchemaUseCase, direction="write"
+                    object_=use_case, annotation=UpsertRcsUseCase, direction="write"
                 ),
             },
             headers={

@@ -51,13 +51,13 @@ class RcsClient:
 
         Examples
         --------
-        from rcs import Pinnacle, RcsButtonContent_OpenUrl, RcsText
+        from rcs import Pinnacle, RcsButtonContent_OpenUrl, RichTextMessage
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.messages.rcs.send(
-            request=RcsText(
+            request=RichTextMessage(
                 quick_replies=[
                     RcsButtonContent_OpenUrl(
                         payload="payload",
@@ -153,7 +153,7 @@ class AsyncRcsClient:
         --------
         import asyncio
 
-        from rcs import AsyncPinnacle, RcsButtonContent_OpenUrl, RcsText
+        from rcs import AsyncPinnacle, RcsButtonContent_OpenUrl, RichTextMessage
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -162,7 +162,7 @@ class AsyncRcsClient:
 
         async def main() -> None:
             await client.messages.rcs.send(
-                request=RcsText(
+                request=RichTextMessage(
                     quick_replies=[
                         RcsButtonContent_OpenUrl(
                             payload="payload",

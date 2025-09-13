@@ -17,7 +17,7 @@ from ...errors.unauthorized_error import UnauthorizedError
 from ...types.error import Error
 from ...types.mms_validation_result import MmsValidationResult
 from .types.mms_send_response import MmsSendResponse
-from .types.send_mms_schema_options import SendMmsSchemaOptions
+from .types.send_mms_options import SendMmsOptions
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -34,7 +34,7 @@ class RawMmsClient:
         media_urls: typing.Sequence[str],
         text: str,
         to: str,
-        options: typing.Optional[SendMmsSchemaOptions] = OMIT,
+        options: typing.Optional[SendMmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[MmsSendResponse]:
         """
@@ -56,7 +56,7 @@ class RawMmsClient:
         to : str
             Recipient's phone number in E.164 format.
 
-        options : typing.Optional[SendMmsSchemaOptions]
+        options : typing.Optional[SendMmsOptions]
             Control how your MMS is processed and delivered.
 
         request_options : typing.Optional[RequestOptions]
@@ -76,7 +76,7 @@ class RawMmsClient:
                 "from": from_,
                 "mediaUrls": media_urls,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=SendMmsSchemaOptions, direction="write"
+                    object_=options, annotation=SendMmsOptions, direction="write"
                 ),
                 "text": text,
                 "to": to,
@@ -258,7 +258,7 @@ class AsyncRawMmsClient:
         media_urls: typing.Sequence[str],
         text: str,
         to: str,
-        options: typing.Optional[SendMmsSchemaOptions] = OMIT,
+        options: typing.Optional[SendMmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[MmsSendResponse]:
         """
@@ -280,7 +280,7 @@ class AsyncRawMmsClient:
         to : str
             Recipient's phone number in E.164 format.
 
-        options : typing.Optional[SendMmsSchemaOptions]
+        options : typing.Optional[SendMmsOptions]
             Control how your MMS is processed and delivered.
 
         request_options : typing.Optional[RequestOptions]
@@ -300,7 +300,7 @@ class AsyncRawMmsClient:
                 "from": from_,
                 "mediaUrls": media_urls,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=SendMmsSchemaOptions, direction="write"
+                    object_=options, annotation=SendMmsOptions, direction="write"
                 ),
                 "text": text,
                 "to": to,

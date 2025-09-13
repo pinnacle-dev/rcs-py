@@ -6,11 +6,11 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .file_upload_schema_options import FileUploadSchemaOptions
-    from .file_upload_schema_options_download import FileUploadSchemaOptionsDownload
+    from .download_options import DownloadOptions
+    from .upload_file_options import UploadFileOptions
 _dynamic_imports: typing.Dict[str, str] = {
-    "FileUploadSchemaOptions": ".file_upload_schema_options",
-    "FileUploadSchemaOptionsDownload": ".file_upload_schema_options_download",
+    "DownloadOptions": ".download_options",
+    "UploadFileOptions": ".upload_file_options",
 }
 
 
@@ -33,4 +33,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["FileUploadSchemaOptions", "FileUploadSchemaOptionsDownload"]
+__all__ = ["DownloadOptions", "UploadFileOptions"]

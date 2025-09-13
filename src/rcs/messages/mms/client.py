@@ -7,7 +7,7 @@ from ...core.request_options import RequestOptions
 from ...types.mms_validation_result import MmsValidationResult
 from .raw_client import AsyncRawMmsClient, RawMmsClient
 from .types.mms_send_response import MmsSendResponse
-from .types.send_mms_schema_options import SendMmsSchemaOptions
+from .types.send_mms_options import SendMmsOptions
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -35,7 +35,7 @@ class MmsClient:
         media_urls: typing.Sequence[str],
         text: str,
         to: str,
-        options: typing.Optional[SendMmsSchemaOptions] = OMIT,
+        options: typing.Optional[SendMmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> MmsSendResponse:
         """
@@ -57,7 +57,7 @@ class MmsClient:
         to : str
             Recipient's phone number in E.164 format.
 
-        options : typing.Optional[SendMmsSchemaOptions]
+        options : typing.Optional[SendMmsOptions]
             Control how your MMS is processed and delivered.
 
         request_options : typing.Optional[RequestOptions]
@@ -73,7 +73,7 @@ class MmsClient:
         Examples
         --------
         from rcs import Pinnacle
-        from rcs.messages.mms import SendMmsSchemaOptions
+        from rcs.messages.mms import SendMmsOptions
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
@@ -83,7 +83,7 @@ class MmsClient:
             media_urls=[
                 "https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0"
             ],
-            options=SendMmsSchemaOptions(
+            options=SendMmsOptions(
                 multiple_messages=True,
                 validate=True,
             ),
@@ -166,7 +166,7 @@ class AsyncMmsClient:
         media_urls: typing.Sequence[str],
         text: str,
         to: str,
-        options: typing.Optional[SendMmsSchemaOptions] = OMIT,
+        options: typing.Optional[SendMmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> MmsSendResponse:
         """
@@ -188,7 +188,7 @@ class AsyncMmsClient:
         to : str
             Recipient's phone number in E.164 format.
 
-        options : typing.Optional[SendMmsSchemaOptions]
+        options : typing.Optional[SendMmsOptions]
             Control how your MMS is processed and delivered.
 
         request_options : typing.Optional[RequestOptions]
@@ -206,7 +206,7 @@ class AsyncMmsClient:
         import asyncio
 
         from rcs import AsyncPinnacle
-        from rcs.messages.mms import SendMmsSchemaOptions
+        from rcs.messages.mms import SendMmsOptions
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -219,7 +219,7 @@ class AsyncMmsClient:
                 media_urls=[
                     "https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0"
                 ],
-                options=SendMmsSchemaOptions(
+                options=SendMmsOptions(
                     multiple_messages=True,
                     validate=True,
                 ),

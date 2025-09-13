@@ -17,7 +17,7 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.error import Error
 from ..types.message import Message
 from ..types.reaction_result import ReactionResult
-from .types.message_reaction_schema_options import MessageReactionSchemaOptions
+from .types.react_message_options import ReactMessageOptions
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -112,7 +112,7 @@ class RawMessagesClient:
         self,
         *,
         message_id: int,
-        options: typing.Optional[MessageReactionSchemaOptions] = OMIT,
+        options: typing.Optional[ReactMessageOptions] = OMIT,
         reaction: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ReactionResult]:
@@ -124,7 +124,7 @@ class RawMessagesClient:
         message_id : int
             Unique identifier of the message.
 
-        options : typing.Optional[MessageReactionSchemaOptions]
+        options : typing.Optional[ReactMessageOptions]
 
         reaction : typing.Optional[str]
             Unicode emoji to add. <br>
@@ -145,7 +145,7 @@ class RawMessagesClient:
             json={
                 "messageId": message_id,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=MessageReactionSchemaOptions, direction="write"
+                    object_=options, annotation=ReactMessageOptions, direction="write"
                 ),
                 "reaction": reaction,
             },
@@ -295,7 +295,7 @@ class AsyncRawMessagesClient:
         self,
         *,
         message_id: int,
-        options: typing.Optional[MessageReactionSchemaOptions] = OMIT,
+        options: typing.Optional[ReactMessageOptions] = OMIT,
         reaction: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ReactionResult]:
@@ -307,7 +307,7 @@ class AsyncRawMessagesClient:
         message_id : int
             Unique identifier of the message.
 
-        options : typing.Optional[MessageReactionSchemaOptions]
+        options : typing.Optional[ReactMessageOptions]
 
         reaction : typing.Optional[str]
             Unicode emoji to add. <br>
@@ -328,7 +328,7 @@ class AsyncRawMessagesClient:
             json={
                 "messageId": message_id,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=MessageReactionSchemaOptions, direction="write"
+                    object_=options, annotation=ReactMessageOptions, direction="write"
                 ),
                 "reaction": reaction,
             },

@@ -21,12 +21,12 @@ from ..types.company_type_enum import CompanyTypeEnum
 from ..types.error import Error
 from ..types.extended_brand import ExtendedBrand
 from ..types.extended_brand_with_vetting import ExtendedBrandWithVetting
-from ..types.nullable_contact import NullableContact
 from ..types.optional_brand_info import OptionalBrandInfo
 from ..types.submission_results import SubmissionResults
+from ..types.upsert_contact import UpsertContact
 from ..types.validation_results import ValidationResults
 from ..types.vetting_results import VettingResults
-from .types.autofill_brand_schema_options import AutofillBrandSchemaOptions
+from .types.autofill_brand_options import AutofillBrandOptions
 from .types.brand_contact import BrandContact
 
 # this is used as the default value for optional parameters
@@ -42,7 +42,7 @@ class RawBrandsClient:
         *,
         additional_info: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        options: typing.Optional[AutofillBrandSchemaOptions] = OMIT,
+        options: typing.Optional[AutofillBrandOptions] = OMIT,
         website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[OptionalBrandInfo]:
@@ -57,7 +57,7 @@ class RawBrandsClient:
         name : typing.Optional[str]
             Name of the brand.
 
-        options : typing.Optional[AutofillBrandSchemaOptions]
+        options : typing.Optional[AutofillBrandOptions]
 
         website : typing.Optional[str]
             Brand's website URL.
@@ -77,7 +77,7 @@ class RawBrandsClient:
                 "additional_info": additional_info,
                 "name": name,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=AutofillBrandSchemaOptions, direction="write"
+                    object_=options, annotation=AutofillBrandOptions, direction="write"
                 ),
                 "website": website,
             },
@@ -139,7 +139,7 @@ class RawBrandsClient:
         self,
         *,
         address: typing.Optional[str] = OMIT,
-        contact: typing.Optional[NullableContact] = OMIT,
+        contact: typing.Optional[UpsertContact] = OMIT,
         dba: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
@@ -159,7 +159,7 @@ class RawBrandsClient:
         address : typing.Optional[str]
             Primary brand address where the company is located.
 
-        contact : typing.Optional[NullableContact]
+        contact : typing.Optional[UpsertContact]
             Contact information for the brand.
 
         dba : typing.Optional[str]
@@ -203,7 +203,7 @@ class RawBrandsClient:
             json={
                 "address": address,
                 "contact": convert_and_respect_annotation_metadata(
-                    object_=contact, annotation=typing.Optional[NullableContact], direction="write"
+                    object_=contact, annotation=typing.Optional[UpsertContact], direction="write"
                 ),
                 "dba": dba,
                 "description": description,
@@ -702,7 +702,7 @@ class AsyncRawBrandsClient:
         *,
         additional_info: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        options: typing.Optional[AutofillBrandSchemaOptions] = OMIT,
+        options: typing.Optional[AutofillBrandOptions] = OMIT,
         website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[OptionalBrandInfo]:
@@ -717,7 +717,7 @@ class AsyncRawBrandsClient:
         name : typing.Optional[str]
             Name of the brand.
 
-        options : typing.Optional[AutofillBrandSchemaOptions]
+        options : typing.Optional[AutofillBrandOptions]
 
         website : typing.Optional[str]
             Brand's website URL.
@@ -737,7 +737,7 @@ class AsyncRawBrandsClient:
                 "additional_info": additional_info,
                 "name": name,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=AutofillBrandSchemaOptions, direction="write"
+                    object_=options, annotation=AutofillBrandOptions, direction="write"
                 ),
                 "website": website,
             },
@@ -799,7 +799,7 @@ class AsyncRawBrandsClient:
         self,
         *,
         address: typing.Optional[str] = OMIT,
-        contact: typing.Optional[NullableContact] = OMIT,
+        contact: typing.Optional[UpsertContact] = OMIT,
         dba: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
@@ -819,7 +819,7 @@ class AsyncRawBrandsClient:
         address : typing.Optional[str]
             Primary brand address where the company is located.
 
-        contact : typing.Optional[NullableContact]
+        contact : typing.Optional[UpsertContact]
             Contact information for the brand.
 
         dba : typing.Optional[str]
@@ -863,7 +863,7 @@ class AsyncRawBrandsClient:
             json={
                 "address": address,
                 "contact": convert_and_respect_annotation_metadata(
-                    object_=contact, annotation=typing.Optional[NullableContact], direction="write"
+                    object_=contact, annotation=typing.Optional[UpsertContact], direction="write"
                 ),
                 "dba": dba,
                 "description": description,

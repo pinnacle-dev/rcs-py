@@ -7,10 +7,10 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .mms_send_response import MmsSendResponse
-    from .send_mms_schema_options import SendMmsSchemaOptions
+    from .send_mms_options import SendMmsOptions
 _dynamic_imports: typing.Dict[str, str] = {
     "MmsSendResponse": ".mms_send_response",
-    "SendMmsSchemaOptions": ".send_mms_schema_options",
+    "SendMmsOptions": ".send_mms_options",
 }
 
 
@@ -33,4 +33,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["MmsSendResponse", "SendMmsSchemaOptions"]
+__all__ = ["MmsSendResponse", "SendMmsOptions"]

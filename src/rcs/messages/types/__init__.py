@@ -6,8 +6,8 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .message_reaction_schema_options import MessageReactionSchemaOptions
-_dynamic_imports: typing.Dict[str, str] = {"MessageReactionSchemaOptions": ".message_reaction_schema_options"}
+    from .react_message_options import ReactMessageOptions
+_dynamic_imports: typing.Dict[str, str] = {"ReactMessageOptions": ".react_message_options"}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -29,4 +29,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["MessageReactionSchemaOptions"]
+__all__ = ["ReactMessageOptions"]

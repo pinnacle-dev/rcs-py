@@ -2,7 +2,7 @@
 
 import typing
 
-from .get_conversation_request_id import GetConversationRequestId
-from .get_conversation_request_recipient import GetConversationRequestRecipient
+from .conversation_by_id_params import ConversationByIdParams
+from .conversation_by_participants_params import ConversationByParticipantsParams
 
-GetConversationParams = typing.Union[GetConversationRequestId, GetConversationRequestRecipient]
+GetConversationParams = typing.Union[ConversationByIdParams, ConversationByParticipantsParams]

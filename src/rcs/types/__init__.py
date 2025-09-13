@@ -15,10 +15,9 @@ if typing.TYPE_CHECKING:
     from .advanced_phone_information_type import AdvancedPhoneInformationType
     from .advanced_phone_information_type_recommendation import AdvancedPhoneInformationTypeRecommendation
     from .agent import Agent
+    from .attach_webhook_by_id import AttachWebhookById
     from .attach_webhook_params import AttachWebhookParams
     from .attach_webhook_response_webhook import AttachWebhookResponseWebhook
-    from .attach_webhook_schema_name import AttachWebhookSchemaName
-    from .attach_webhook_schema_webhook_id import AttachWebhookSchemaWebhookId
     from .attached_phone_number_result import AttachedPhoneNumberResult
     from .autofill_campaign_params import AutofillCampaignParams
     from .autofill_dlc_campaign_response import AutofillDlcCampaignResponse
@@ -42,6 +41,7 @@ if typing.TYPE_CHECKING:
     from .campaign_submission_result import CampaignSubmissionResult
     from .campaign_validation_response_errors_item import CampaignValidationResponseErrorsItem
     from .campaign_validation_result import CampaignValidationResult
+    from .cards_message import CardsMessage
     from .click_action import ClickAction
     from .click_action_data import ClickActionData
     from .click_action_data_metadata import ClickActionDataMetadata
@@ -51,9 +51,12 @@ if typing.TYPE_CHECKING:
     from .contact import Contact
     from .contact_id import ContactId
     from .conversation import Conversation
+    from .conversation_by_id_params import ConversationByIdParams
+    from .conversation_by_participants_params import ConversationByParticipantsParams
     from .conversation_contact import ConversationContact
     from .conversation_list import ConversationList
     from .conversation_sender import ConversationSender
+    from .create_and_attach_webhook_by_url import CreateAndAttachWebhookByUrl
     from .create_url_options import CreateUrlOptions
     from .detached_phone_number_result import DetachedPhoneNumberResult
     from .detached_webhook_info import DetachedWebhookInfo
@@ -76,8 +79,6 @@ if typing.TYPE_CHECKING:
     from .extended_brand_with_vetting import ExtendedBrandWithVetting
     from .extended_rcs_campaign import ExtendedRcsCampaign
     from .get_conversation_params import GetConversationParams
-    from .get_conversation_request_id import GetConversationRequestId
-    from .get_conversation_request_recipient import GetConversationRequestRecipient
     from .get_dlc_campaign_status_response_updates import GetDlcCampaignStatusResponseUpdates
     from .get_toll_free_campaign_status_response_updates import GetTollFreeCampaignStatusResponseUpdates
     from .inbound_button import InboundButton
@@ -96,7 +97,6 @@ if typing.TYPE_CHECKING:
     from .mms_validation_response_segments import MmsValidationResponseSegments
     from .mms_validation_response_segments_value_item import MmsValidationResponseSegmentsValueItem
     from .mms_validation_result import MmsValidationResult
-    from .nullable_contact import NullableContact
     from .number_format import NumberFormat
     from .opt_in_method_enum import OptInMethodEnum
     from .optional_brand_info import OptionalBrandInfo
@@ -129,7 +129,6 @@ if typing.TYPE_CHECKING:
     from .rcs import Rcs
     from .rcs_base import RcsBase
     from .rcs_base_options import RcsBaseOptions
-    from .rcs_button_call import RcsButtonCall
     from .rcs_button_content import (
         RcsButtonContent,
         RcsButtonContent_Call,
@@ -139,12 +138,7 @@ if typing.TYPE_CHECKING:
         RcsButtonContent_SendLocation,
         RcsButtonContent_Trigger,
     )
-    from .rcs_button_open_url import RcsButtonOpenUrl
-    from .rcs_button_request_user_location import RcsButtonRequestUserLocation
-    from .rcs_button_schedule_event import RcsButtonScheduleEvent
-    from .rcs_button_send_location import RcsButtonSendLocation
     from .rcs_button_send_location_lat_long import RcsButtonSendLocationLatLong
-    from .rcs_button_trigger import RcsButtonTrigger
     from .rcs_campaign import RcsCampaign
     from .rcs_campaign_opt_in_method_enum import RcsCampaignOptInMethodEnum
     from .rcs_campaign_schema_agent import RcsCampaignSchemaAgent
@@ -165,21 +159,26 @@ if typing.TYPE_CHECKING:
     from .rcs_campaign_schema_use_case import RcsCampaignSchemaUseCase
     from .rcs_campaign_status import RcsCampaignStatus
     from .rcs_campaign_use_case_enum import RcsCampaignUseCaseEnum
-    from .rcs_card import RcsCard
     from .rcs_cards import RcsCards
     from .rcs_cards_cards_item import RcsCardsCardsItem
     from .rcs_cards_content import RcsCardsContent
     from .rcs_cards_content_cards_item import RcsCardsContentCardsItem
     from .rcs_content import RcsContent
-    from .rcs_media import RcsMedia
     from .rcs_media_content import RcsMediaContent
     from .rcs_media_details_content import RcsMediaDetailsContent
-    from .rcs_text import RcsText
     from .rcs_text_content import RcsTextContent
     from .rcs_validate_content import RcsValidateContent
     from .rcs_validate_content_media import RcsValidateContentMedia
     from .rcs_validation_result import RcsValidationResult
     from .reaction_result import ReactionResult
+    from .rich_button_call import RichButtonCall
+    from .rich_button_open_url import RichButtonOpenUrl
+    from .rich_button_request_user_location import RichButtonRequestUserLocation
+    from .rich_button_schedule_event import RichButtonScheduleEvent
+    from .rich_button_send_location import RichButtonSendLocation
+    from .rich_button_trigger import RichButtonTrigger
+    from .rich_media_message import RichMediaMessage
+    from .rich_text_message import RichTextMessage
     from .scheduled_messaage import ScheduledMessaage
     from .scheduled_send_response_config import ScheduledSendResponseConfig
     from .send_sms_response_segments import SendSmsResponseSegments
@@ -200,8 +199,6 @@ if typing.TYPE_CHECKING:
     from .submission_results import SubmissionResults
     from .successful_conversation_update import SuccessfulConversationUpdate
     from .toll_free_campaign import TollFreeCampaign
-    from .toll_free_campaign_schema_opt_in import TollFreeCampaignSchemaOptIn
-    from .toll_free_campaign_schema_use_case import TollFreeCampaignSchemaUseCase
     from .toll_free_campaign_status import TollFreeCampaignStatus
     from .toll_free_campaign_use_case_enum import TollFreeCampaignUseCaseEnum
     from .toll_free_campaign_with_extended_brand_and_status import TollFreeCampaignWithExtendedBrandAndStatus
@@ -209,6 +206,9 @@ if typing.TYPE_CHECKING:
     from .tracking import Tracking
     from .updated_contact_id import UpdatedContactId
     from .upload_results import UploadResults
+    from .upsert_contact import UpsertContact
+    from .upsert_toll_free_campaign_opt_in import UpsertTollFreeCampaignOptIn
+    from .upsert_toll_free_campaign_use_case import UpsertTollFreeCampaignUseCase
     from .v_card_address_schema_type_item import VCardAddressSchemaTypeItem
     from .v_card_data import VCardData
     from .v_card_data_file import VCardDataFile
@@ -245,10 +245,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdvancedPhoneInformationType": ".advanced_phone_information_type",
     "AdvancedPhoneInformationTypeRecommendation": ".advanced_phone_information_type_recommendation",
     "Agent": ".agent",
+    "AttachWebhookById": ".attach_webhook_by_id",
     "AttachWebhookParams": ".attach_webhook_params",
     "AttachWebhookResponseWebhook": ".attach_webhook_response_webhook",
-    "AttachWebhookSchemaName": ".attach_webhook_schema_name",
-    "AttachWebhookSchemaWebhookId": ".attach_webhook_schema_webhook_id",
     "AttachedPhoneNumberResult": ".attached_phone_number_result",
     "AutofillCampaignParams": ".autofill_campaign_params",
     "AutofillDlcCampaignResponse": ".autofill_dlc_campaign_response",
@@ -272,6 +271,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CampaignSubmissionResult": ".campaign_submission_result",
     "CampaignValidationResponseErrorsItem": ".campaign_validation_response_errors_item",
     "CampaignValidationResult": ".campaign_validation_result",
+    "CardsMessage": ".cards_message",
     "ClickAction": ".click_action",
     "ClickActionData": ".click_action_data",
     "ClickActionDataMetadata": ".click_action_data_metadata",
@@ -281,9 +281,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Contact": ".contact",
     "ContactId": ".contact_id",
     "Conversation": ".conversation",
+    "ConversationByIdParams": ".conversation_by_id_params",
+    "ConversationByParticipantsParams": ".conversation_by_participants_params",
     "ConversationContact": ".conversation_contact",
     "ConversationList": ".conversation_list",
     "ConversationSender": ".conversation_sender",
+    "CreateAndAttachWebhookByUrl": ".create_and_attach_webhook_by_url",
     "CreateUrlOptions": ".create_url_options",
     "DetachedPhoneNumberResult": ".detached_phone_number_result",
     "DetachedWebhookInfo": ".detached_webhook_info",
@@ -306,8 +309,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExtendedBrandWithVetting": ".extended_brand_with_vetting",
     "ExtendedRcsCampaign": ".extended_rcs_campaign",
     "GetConversationParams": ".get_conversation_params",
-    "GetConversationRequestId": ".get_conversation_request_id",
-    "GetConversationRequestRecipient": ".get_conversation_request_recipient",
     "GetDlcCampaignStatusResponseUpdates": ".get_dlc_campaign_status_response_updates",
     "GetTollFreeCampaignStatusResponseUpdates": ".get_toll_free_campaign_status_response_updates",
     "InboundButton": ".inbound_button",
@@ -326,7 +327,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MmsValidationResponseSegments": ".mms_validation_response_segments",
     "MmsValidationResponseSegmentsValueItem": ".mms_validation_response_segments_value_item",
     "MmsValidationResult": ".mms_validation_result",
-    "NullableContact": ".nullable_contact",
     "NumberFormat": ".number_format",
     "OptInMethodEnum": ".opt_in_method_enum",
     "OptionalBrandInfo": ".optional_brand_info",
@@ -355,7 +355,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Rcs": ".rcs",
     "RcsBase": ".rcs_base",
     "RcsBaseOptions": ".rcs_base_options",
-    "RcsButtonCall": ".rcs_button_call",
     "RcsButtonContent": ".rcs_button_content",
     "RcsButtonContent_Call": ".rcs_button_content",
     "RcsButtonContent_OpenUrl": ".rcs_button_content",
@@ -363,12 +362,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsButtonContent_ScheduleEvent": ".rcs_button_content",
     "RcsButtonContent_SendLocation": ".rcs_button_content",
     "RcsButtonContent_Trigger": ".rcs_button_content",
-    "RcsButtonOpenUrl": ".rcs_button_open_url",
-    "RcsButtonRequestUserLocation": ".rcs_button_request_user_location",
-    "RcsButtonScheduleEvent": ".rcs_button_schedule_event",
-    "RcsButtonSendLocation": ".rcs_button_send_location",
     "RcsButtonSendLocationLatLong": ".rcs_button_send_location_lat_long",
-    "RcsButtonTrigger": ".rcs_button_trigger",
     "RcsCampaign": ".rcs_campaign",
     "RcsCampaignOptInMethodEnum": ".rcs_campaign_opt_in_method_enum",
     "RcsCampaignSchemaAgent": ".rcs_campaign_schema_agent",
@@ -389,21 +383,26 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsCampaignSchemaUseCase": ".rcs_campaign_schema_use_case",
     "RcsCampaignStatus": ".rcs_campaign_status",
     "RcsCampaignUseCaseEnum": ".rcs_campaign_use_case_enum",
-    "RcsCard": ".rcs_card",
     "RcsCards": ".rcs_cards",
     "RcsCardsCardsItem": ".rcs_cards_cards_item",
     "RcsCardsContent": ".rcs_cards_content",
     "RcsCardsContentCardsItem": ".rcs_cards_content_cards_item",
     "RcsContent": ".rcs_content",
-    "RcsMedia": ".rcs_media",
     "RcsMediaContent": ".rcs_media_content",
     "RcsMediaDetailsContent": ".rcs_media_details_content",
-    "RcsText": ".rcs_text",
     "RcsTextContent": ".rcs_text_content",
     "RcsValidateContent": ".rcs_validate_content",
     "RcsValidateContentMedia": ".rcs_validate_content_media",
     "RcsValidationResult": ".rcs_validation_result",
     "ReactionResult": ".reaction_result",
+    "RichButtonCall": ".rich_button_call",
+    "RichButtonOpenUrl": ".rich_button_open_url",
+    "RichButtonRequestUserLocation": ".rich_button_request_user_location",
+    "RichButtonScheduleEvent": ".rich_button_schedule_event",
+    "RichButtonSendLocation": ".rich_button_send_location",
+    "RichButtonTrigger": ".rich_button_trigger",
+    "RichMediaMessage": ".rich_media_message",
+    "RichTextMessage": ".rich_text_message",
     "ScheduledMessaage": ".scheduled_messaage",
     "ScheduledSendResponseConfig": ".scheduled_send_response_config",
     "SendSmsResponseSegments": ".send_sms_response_segments",
@@ -424,8 +423,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SubmissionResults": ".submission_results",
     "SuccessfulConversationUpdate": ".successful_conversation_update",
     "TollFreeCampaign": ".toll_free_campaign",
-    "TollFreeCampaignSchemaOptIn": ".toll_free_campaign_schema_opt_in",
-    "TollFreeCampaignSchemaUseCase": ".toll_free_campaign_schema_use_case",
     "TollFreeCampaignStatus": ".toll_free_campaign_status",
     "TollFreeCampaignUseCaseEnum": ".toll_free_campaign_use_case_enum",
     "TollFreeCampaignWithExtendedBrandAndStatus": ".toll_free_campaign_with_extended_brand_and_status",
@@ -433,6 +430,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Tracking": ".tracking",
     "UpdatedContactId": ".updated_contact_id",
     "UploadResults": ".upload_results",
+    "UpsertContact": ".upsert_contact",
+    "UpsertTollFreeCampaignOptIn": ".upsert_toll_free_campaign_opt_in",
+    "UpsertTollFreeCampaignUseCase": ".upsert_toll_free_campaign_use_case",
     "VCardAddressSchemaTypeItem": ".v_card_address_schema_type_item",
     "VCardData": ".v_card_data",
     "VCardDataFile": ".v_card_data_file",
@@ -491,10 +491,9 @@ __all__ = [
     "AdvancedPhoneInformationType",
     "AdvancedPhoneInformationTypeRecommendation",
     "Agent",
+    "AttachWebhookById",
     "AttachWebhookParams",
     "AttachWebhookResponseWebhook",
-    "AttachWebhookSchemaName",
-    "AttachWebhookSchemaWebhookId",
     "AttachedPhoneNumberResult",
     "AutofillCampaignParams",
     "AutofillDlcCampaignResponse",
@@ -518,6 +517,7 @@ __all__ = [
     "CampaignSubmissionResult",
     "CampaignValidationResponseErrorsItem",
     "CampaignValidationResult",
+    "CardsMessage",
     "ClickAction",
     "ClickActionData",
     "ClickActionDataMetadata",
@@ -527,9 +527,12 @@ __all__ = [
     "Contact",
     "ContactId",
     "Conversation",
+    "ConversationByIdParams",
+    "ConversationByParticipantsParams",
     "ConversationContact",
     "ConversationList",
     "ConversationSender",
+    "CreateAndAttachWebhookByUrl",
     "CreateUrlOptions",
     "DetachedPhoneNumberResult",
     "DetachedWebhookInfo",
@@ -552,8 +555,6 @@ __all__ = [
     "ExtendedBrandWithVetting",
     "ExtendedRcsCampaign",
     "GetConversationParams",
-    "GetConversationRequestId",
-    "GetConversationRequestRecipient",
     "GetDlcCampaignStatusResponseUpdates",
     "GetTollFreeCampaignStatusResponseUpdates",
     "InboundButton",
@@ -572,7 +573,6 @@ __all__ = [
     "MmsValidationResponseSegments",
     "MmsValidationResponseSegmentsValueItem",
     "MmsValidationResult",
-    "NullableContact",
     "NumberFormat",
     "OptInMethodEnum",
     "OptionalBrandInfo",
@@ -601,7 +601,6 @@ __all__ = [
     "Rcs",
     "RcsBase",
     "RcsBaseOptions",
-    "RcsButtonCall",
     "RcsButtonContent",
     "RcsButtonContent_Call",
     "RcsButtonContent_OpenUrl",
@@ -609,12 +608,7 @@ __all__ = [
     "RcsButtonContent_ScheduleEvent",
     "RcsButtonContent_SendLocation",
     "RcsButtonContent_Trigger",
-    "RcsButtonOpenUrl",
-    "RcsButtonRequestUserLocation",
-    "RcsButtonScheduleEvent",
-    "RcsButtonSendLocation",
     "RcsButtonSendLocationLatLong",
-    "RcsButtonTrigger",
     "RcsCampaign",
     "RcsCampaignOptInMethodEnum",
     "RcsCampaignSchemaAgent",
@@ -635,21 +629,26 @@ __all__ = [
     "RcsCampaignSchemaUseCase",
     "RcsCampaignStatus",
     "RcsCampaignUseCaseEnum",
-    "RcsCard",
     "RcsCards",
     "RcsCardsCardsItem",
     "RcsCardsContent",
     "RcsCardsContentCardsItem",
     "RcsContent",
-    "RcsMedia",
     "RcsMediaContent",
     "RcsMediaDetailsContent",
-    "RcsText",
     "RcsTextContent",
     "RcsValidateContent",
     "RcsValidateContentMedia",
     "RcsValidationResult",
     "ReactionResult",
+    "RichButtonCall",
+    "RichButtonOpenUrl",
+    "RichButtonRequestUserLocation",
+    "RichButtonScheduleEvent",
+    "RichButtonSendLocation",
+    "RichButtonTrigger",
+    "RichMediaMessage",
+    "RichTextMessage",
     "ScheduledMessaage",
     "ScheduledSendResponseConfig",
     "SendSmsResponseSegments",
@@ -670,8 +669,6 @@ __all__ = [
     "SubmissionResults",
     "SuccessfulConversationUpdate",
     "TollFreeCampaign",
-    "TollFreeCampaignSchemaOptIn",
-    "TollFreeCampaignSchemaUseCase",
     "TollFreeCampaignStatus",
     "TollFreeCampaignUseCaseEnum",
     "TollFreeCampaignWithExtendedBrandAndStatus",
@@ -679,6 +676,9 @@ __all__ = [
     "Tracking",
     "UpdatedContactId",
     "UploadResults",
+    "UpsertContact",
+    "UpsertTollFreeCampaignOptIn",
+    "UpsertTollFreeCampaignUseCase",
     "VCardAddressSchemaTypeItem",
     "VCardData",
     "VCardDataFile",

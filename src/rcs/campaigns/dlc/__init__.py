@@ -7,22 +7,22 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        UpsertDlcSchemaKeywords,
-        UpsertDlcSchemaKeywordsHelp,
-        UpsertDlcSchemaKeywordsOptIn,
-        UpsertDlcSchemaKeywordsOptOut,
-        UpsertDlcSchemaLinks,
+        UpsertDlcCampaignHelpKeyword,
+        UpsertDlcCampaignKeywords,
+        UpsertDlcCampaignLinks,
+        UpsertDlcCampaignOptInKeyword,
+        UpsertDlcCampaignOptOutKeyword,
+        UpsertDlcCampaignUseCase,
         UpsertDlcSchemaOptions,
-        UpsertDlcSchemaUseCase,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "UpsertDlcSchemaKeywords": ".types",
-    "UpsertDlcSchemaKeywordsHelp": ".types",
-    "UpsertDlcSchemaKeywordsOptIn": ".types",
-    "UpsertDlcSchemaKeywordsOptOut": ".types",
-    "UpsertDlcSchemaLinks": ".types",
+    "UpsertDlcCampaignHelpKeyword": ".types",
+    "UpsertDlcCampaignKeywords": ".types",
+    "UpsertDlcCampaignLinks": ".types",
+    "UpsertDlcCampaignOptInKeyword": ".types",
+    "UpsertDlcCampaignOptOutKeyword": ".types",
+    "UpsertDlcCampaignUseCase": ".types",
     "UpsertDlcSchemaOptions": ".types",
-    "UpsertDlcSchemaUseCase": ".types",
 }
 
 
@@ -46,11 +46,11 @@ def __dir__():
 
 
 __all__ = [
-    "UpsertDlcSchemaKeywords",
-    "UpsertDlcSchemaKeywordsHelp",
-    "UpsertDlcSchemaKeywordsOptIn",
-    "UpsertDlcSchemaKeywordsOptOut",
-    "UpsertDlcSchemaLinks",
+    "UpsertDlcCampaignHelpKeyword",
+    "UpsertDlcCampaignKeywords",
+    "UpsertDlcCampaignLinks",
+    "UpsertDlcCampaignOptInKeyword",
+    "UpsertDlcCampaignOptOutKeyword",
+    "UpsertDlcCampaignUseCase",
     "UpsertDlcSchemaOptions",
-    "UpsertDlcSchemaUseCase",
 ]

@@ -7,8 +7,8 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .message_volume_enum import MessageVolumeEnum
-from .toll_free_campaign_schema_opt_in import TollFreeCampaignSchemaOptIn
-from .toll_free_campaign_schema_use_case import TollFreeCampaignSchemaUseCase
+from .upsert_toll_free_campaign_opt_in import UpsertTollFreeCampaignOptIn
+from .upsert_toll_free_campaign_use_case import UpsertTollFreeCampaignUseCase
 
 
 class TollFreeCampaign(UniversalBaseModel):
@@ -27,7 +27,7 @@ class TollFreeCampaign(UniversalBaseModel):
     Display name of the campaign.
     """
 
-    opt_in: typing_extensions.Annotated[typing.Optional[TollFreeCampaignSchemaOptIn], FieldMetadata(alias="optIn")] = (
+    opt_in: typing_extensions.Annotated[typing.Optional[UpsertTollFreeCampaignOptIn], FieldMetadata(alias="optIn")] = (
         pydantic.Field(default=None)
     )
     """
@@ -42,7 +42,7 @@ class TollFreeCampaign(UniversalBaseModel):
     """
 
     use_case: typing_extensions.Annotated[
-        typing.Optional[TollFreeCampaignSchemaUseCase], FieldMetadata(alias="useCase")
+        typing.Optional[UpsertTollFreeCampaignUseCase], FieldMetadata(alias="useCase")
     ] = pydantic.Field(default=None)
     """
     Use case classification for the campaign.

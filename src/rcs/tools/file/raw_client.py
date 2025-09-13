@@ -14,7 +14,7 @@ from ...errors.internal_server_error import InternalServerError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.error import Error
 from ...types.upload_results import UploadResults
-from .types.file_upload_schema_options import FileUploadSchemaOptions
+from .types.upload_file_options import UploadFileOptions
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -30,7 +30,7 @@ class RawFileClient:
         content_type: str,
         size: int,
         name: typing.Optional[str] = OMIT,
-        options: typing.Optional[FileUploadSchemaOptions] = OMIT,
+        options: typing.Optional[UploadFileOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UploadResults]:
         """
@@ -53,7 +53,7 @@ class RawFileClient:
         name : typing.Optional[str]
             Name of your file.
 
-        options : typing.Optional[FileUploadSchemaOptions]
+        options : typing.Optional[UploadFileOptions]
             Additional configurations for your file.
 
         request_options : typing.Optional[RequestOptions]
@@ -72,7 +72,7 @@ class RawFileClient:
                 "size": size,
                 "name": name,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=FileUploadSchemaOptions, direction="write"
+                    object_=options, annotation=UploadFileOptions, direction="write"
                 ),
             },
             headers={
@@ -140,7 +140,7 @@ class AsyncRawFileClient:
         content_type: str,
         size: int,
         name: typing.Optional[str] = OMIT,
-        options: typing.Optional[FileUploadSchemaOptions] = OMIT,
+        options: typing.Optional[UploadFileOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UploadResults]:
         """
@@ -163,7 +163,7 @@ class AsyncRawFileClient:
         name : typing.Optional[str]
             Name of your file.
 
-        options : typing.Optional[FileUploadSchemaOptions]
+        options : typing.Optional[UploadFileOptions]
             Additional configurations for your file.
 
         request_options : typing.Optional[RequestOptions]
@@ -182,7 +182,7 @@ class AsyncRawFileClient:
                 "size": size,
                 "name": name,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=FileUploadSchemaOptions, direction="write"
+                    object_=options, annotation=UploadFileOptions, direction="write"
                 ),
             },
             headers={

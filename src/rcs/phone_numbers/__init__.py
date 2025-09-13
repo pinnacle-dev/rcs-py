@@ -8,22 +8,22 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .types import (
         PhoneDetailsSchemaLevel,
-        PhoneDetailsSchemaOptions,
-        PhoneDetailsSchemaOptionsEnhancedContactInfo,
         PhoneNumbersGetResponse,
-        SearchSchemaLocation,
-        SearchSchemaNumber,
-        SearchSchemaOptions,
+        RetrievePhoneNumberDetailsEnhancedContactInfo,
+        RetrievePhoneNumberDetailsOptions,
+        SearchPhoneNumberByDigits,
+        SearchPhoneNumberByLocation,
+        SearchPhoneNumberOptions,
     )
     from . import campaign, webhook
 _dynamic_imports: typing.Dict[str, str] = {
     "PhoneDetailsSchemaLevel": ".types",
-    "PhoneDetailsSchemaOptions": ".types",
-    "PhoneDetailsSchemaOptionsEnhancedContactInfo": ".types",
     "PhoneNumbersGetResponse": ".types",
-    "SearchSchemaLocation": ".types",
-    "SearchSchemaNumber": ".types",
-    "SearchSchemaOptions": ".types",
+    "RetrievePhoneNumberDetailsEnhancedContactInfo": ".types",
+    "RetrievePhoneNumberDetailsOptions": ".types",
+    "SearchPhoneNumberByDigits": ".types",
+    "SearchPhoneNumberByLocation": ".types",
+    "SearchPhoneNumberOptions": ".types",
     "campaign": ".",
     "webhook": ".",
 }
@@ -50,12 +50,12 @@ def __dir__():
 
 __all__ = [
     "PhoneDetailsSchemaLevel",
-    "PhoneDetailsSchemaOptions",
-    "PhoneDetailsSchemaOptionsEnhancedContactInfo",
     "PhoneNumbersGetResponse",
-    "SearchSchemaLocation",
-    "SearchSchemaNumber",
-    "SearchSchemaOptions",
+    "RetrievePhoneNumberDetailsEnhancedContactInfo",
+    "RetrievePhoneNumberDetailsOptions",
+    "SearchPhoneNumberByDigits",
+    "SearchPhoneNumberByLocation",
+    "SearchPhoneNumberOptions",
     "campaign",
     "webhook",
 ]
