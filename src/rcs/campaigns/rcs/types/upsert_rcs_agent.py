@@ -6,9 +6,9 @@ import pydantic
 import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ....core.serialization import FieldMetadata
-from .upsert_rcs_agent_email import UpsertRcsAgentEmail
-from .upsert_rcs_agent_phone import UpsertRcsAgentPhone
-from .upsert_rcs_agent_website import UpsertRcsAgentWebsite
+from .rcs_agent_email import RcsAgentEmail
+from .rcs_agent_phone import RcsAgentPhone
+from .rcs_agent_website import RcsAgentWebsite
 
 
 class UpsertRcsAgent(UniversalBaseModel):
@@ -28,7 +28,7 @@ class UpsertRcsAgent(UniversalBaseModel):
     Description of the agent.
     """
 
-    emails: typing.Optional[typing.List[UpsertRcsAgentEmail]] = pydantic.Field(default=None)
+    emails: typing.Optional[typing.List[RcsAgentEmail]] = pydantic.Field(default=None)
     """
     List of emails (1-3 required).
     """
@@ -52,12 +52,12 @@ class UpsertRcsAgent(UniversalBaseModel):
     Name of the agent.
     """
 
-    phones: typing.Optional[typing.List[UpsertRcsAgentPhone]] = pydantic.Field(default=None)
+    phones: typing.Optional[typing.List[RcsAgentPhone]] = pydantic.Field(default=None)
     """
     List of phone numbers (1-3 required).
     """
 
-    websites: typing.Optional[typing.List[UpsertRcsAgentWebsite]] = pydantic.Field(default=None)
+    websites: typing.Optional[typing.List[RcsAgentWebsite]] = pydantic.Field(default=None)
     """
     List of urls (1-3 required).
     """

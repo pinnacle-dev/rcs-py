@@ -6,19 +6,19 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class UpsertDlcCampaignOptOutKeyword(UniversalBaseModel):
+class UpsertDlcCampaignHelpKeywords(UniversalBaseModel):
     """
-    Opt-out keyword settings.
+    Help keyword settings.
     """
 
     message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Response message for opt-out keywords.
+    Response message for help keywords.
     """
 
     values: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Keywords that trigger opt-out.
+    Keywords that trigger help response.
     """
 
     if IS_PYDANTIC_V2:

@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .rcs_button_send_location_lat_long import RcsButtonSendLocationLatLong
+from .rich_button_send_location_lat_long import RichButtonSendLocationLatLong
 
 
 class RichButtonSendLocation(UniversalBaseModel):
@@ -14,7 +14,7 @@ class RichButtonSendLocation(UniversalBaseModel):
     Button that shares a specific location with the recipient when tapped.
     """
 
-    lat_long: typing_extensions.Annotated[RcsButtonSendLocationLatLong, FieldMetadata(alias="latLong")] = (
+    lat_long: typing_extensions.Annotated[RichButtonSendLocationLatLong, FieldMetadata(alias="latLong")] = (
         pydantic.Field()
     )
     """

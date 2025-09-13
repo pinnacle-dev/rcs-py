@@ -6,15 +6,19 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class UpsertRcsAgentEmail(UniversalBaseModel):
-    email: typing.Optional[str] = pydantic.Field(default=None)
+class UpsertDlcCampaignOptInKeywords(UniversalBaseModel):
     """
-    Email attached to the agent.
+    Opt-in keyword settings.
     """
 
-    label: typing.Optional[str] = pydantic.Field(default=None)
+    message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Label for the email.
+    Response message for opt-in keywords.
+    """
+
+    values: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Keywords that trigger opt-in.
     """
 
     if IS_PYDANTIC_V2:

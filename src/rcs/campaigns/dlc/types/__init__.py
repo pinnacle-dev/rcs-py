@@ -6,21 +6,21 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .upsert_dlc_campaign_help_keyword import UpsertDlcCampaignHelpKeyword
+    from .upsert_dlc_campaign_help_keywords import UpsertDlcCampaignHelpKeywords
     from .upsert_dlc_campaign_keywords import UpsertDlcCampaignKeywords
     from .upsert_dlc_campaign_links import UpsertDlcCampaignLinks
-    from .upsert_dlc_campaign_opt_in_keyword import UpsertDlcCampaignOptInKeyword
-    from .upsert_dlc_campaign_opt_out_keyword import UpsertDlcCampaignOptOutKeyword
+    from .upsert_dlc_campaign_opt_in_keywords import UpsertDlcCampaignOptInKeywords
+    from .upsert_dlc_campaign_opt_out_keywords import UpsertDlcCampaignOptOutKeywords
+    from .upsert_dlc_campaign_options import UpsertDlcCampaignOptions
     from .upsert_dlc_campaign_use_case import UpsertDlcCampaignUseCase
-    from .upsert_dlc_schema_options import UpsertDlcSchemaOptions
 _dynamic_imports: typing.Dict[str, str] = {
-    "UpsertDlcCampaignHelpKeyword": ".upsert_dlc_campaign_help_keyword",
+    "UpsertDlcCampaignHelpKeywords": ".upsert_dlc_campaign_help_keywords",
     "UpsertDlcCampaignKeywords": ".upsert_dlc_campaign_keywords",
     "UpsertDlcCampaignLinks": ".upsert_dlc_campaign_links",
-    "UpsertDlcCampaignOptInKeyword": ".upsert_dlc_campaign_opt_in_keyword",
-    "UpsertDlcCampaignOptOutKeyword": ".upsert_dlc_campaign_opt_out_keyword",
+    "UpsertDlcCampaignOptInKeywords": ".upsert_dlc_campaign_opt_in_keywords",
+    "UpsertDlcCampaignOptOutKeywords": ".upsert_dlc_campaign_opt_out_keywords",
+    "UpsertDlcCampaignOptions": ".upsert_dlc_campaign_options",
     "UpsertDlcCampaignUseCase": ".upsert_dlc_campaign_use_case",
-    "UpsertDlcSchemaOptions": ".upsert_dlc_schema_options",
 }
 
 
@@ -44,11 +44,11 @@ def __dir__():
 
 
 __all__ = [
-    "UpsertDlcCampaignHelpKeyword",
+    "UpsertDlcCampaignHelpKeywords",
     "UpsertDlcCampaignKeywords",
     "UpsertDlcCampaignLinks",
-    "UpsertDlcCampaignOptInKeyword",
-    "UpsertDlcCampaignOptOutKeyword",
+    "UpsertDlcCampaignOptInKeywords",
+    "UpsertDlcCampaignOptOutKeywords",
+    "UpsertDlcCampaignOptions",
     "UpsertDlcCampaignUseCase",
-    "UpsertDlcSchemaOptions",
 ]

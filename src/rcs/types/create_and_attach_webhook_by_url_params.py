@@ -3,22 +3,25 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ..core.serialization import FieldMetadata
 from .webhook_event_enum import WebhookEventEnum
 
 
-class AttachWebhookById(UniversalBaseModel):
+class CreateAndAttachWebhookByUrlParams(UniversalBaseModel):
     """
-    Attach a webhook you’ve already created in your account to this phone number.
+    Create a new webhook and immediately attach it to your phone number.
     """
 
-    webhook_id: typing_extensions.Annotated[int, FieldMetadata(alias="webhookId")] = pydantic.Field()
+    name: str = pydantic.Field()
     """
-    The unique ID of the webhook you want to attach.<br>
+    Name of your new webhook.
+    """
+
+    url: str = pydantic.Field()
+    """
+    HTTPS endpoint where your webhook events will be sent as HTTP POST requests. <br>
     
-    Make sure this webhook is active and able to receive event notifications.
+    Ensure this URL is publicly accessible and ready to handle incoming webhook calls.
     """
 
     event: typing.Optional[WebhookEventEnum] = pydantic.Field(default=None)

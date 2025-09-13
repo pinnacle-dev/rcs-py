@@ -6,15 +6,19 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class UpsertRcsAgentPhone(UniversalBaseModel):
-    label: typing.Optional[str] = pydantic.Field(default=None)
+class UpsertDlcCampaignOptOutKeywords(UniversalBaseModel):
     """
-    Label for the phone number.
+    Opt-out keyword settings.
     """
 
-    phone: typing.Optional[str] = pydantic.Field(default=None)
+    message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Phone number attached to the agent in E.164 format.
+    Response message for opt-out keywords.
+    """
+
+    values: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Keywords that trigger opt-out.
     """
 
     if IS_PYDANTIC_V2:

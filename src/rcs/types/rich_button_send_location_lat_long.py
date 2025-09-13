@@ -3,17 +3,22 @@
 import typing
 
 import pydantic
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class RetrievePhoneNumberDetailsEnhancedContactInfo(UniversalBaseModel):
+class RichButtonSendLocationLatLong(UniversalBaseModel):
     """
-    Additional information to tailor lookup.
+    Geographic coordinates of the location to share.
     """
 
-    context: typing.Optional[str] = pydantic.Field(default=None)
+    lat: float = pydantic.Field()
     """
-    Business context.
+    Latitude coordinate in decimal degrees.
+    """
+
+    lng: float = pydantic.Field()
+    """
+    Longitude coordinate in decimal degrees.
     """
 
     if IS_PYDANTIC_V2:

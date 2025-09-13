@@ -2,8 +2,8 @@
 
 import typing
 
-from .cards_message import CardsMessage
+from .rich_cards_message import RichCardsMessage
 from .rich_media_message import RichMediaMessage
 from .rich_text_message import RichTextMessage
 
-Rcs = typing.Union[RichTextMessage, RichMediaMessage, CardsMessage]
+Rcs = typing.Union[RichTextMessage, RichMediaMessage, RichCardsMessage]

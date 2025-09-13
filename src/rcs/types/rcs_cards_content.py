@@ -6,8 +6,8 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .rcs_button_content import RcsButtonContent
 from .rcs_cards_content_cards_item import RcsCardsContentCardsItem
+from .rich_button import RichButton
 
 
 class RcsCardsContent(UniversalBaseModel):
@@ -22,7 +22,7 @@ class RcsCardsContent(UniversalBaseModel):
     Collection of cards attached to the message.
     """
 
-    quick_replies: typing_extensions.Annotated[typing.List[RcsButtonContent], FieldMetadata(alias="quickReplies")] = (
+    quick_replies: typing_extensions.Annotated[typing.List[RichButton], FieldMetadata(alias="quickReplies")] = (
         pydantic.Field()
     )
     """

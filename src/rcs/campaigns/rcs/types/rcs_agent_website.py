@@ -6,19 +6,15 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class UpsertDlcCampaignHelpKeyword(UniversalBaseModel):
+class RcsAgentWebsite(UniversalBaseModel):
+    label: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Help keyword settings.
-    """
-
-    message: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Response message for help keywords.
+    Label for the url.
     """
 
-    values: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Keywords that trigger help response.
+    Url attached to the agent.
     """
 
     if IS_PYDANTIC_V2:

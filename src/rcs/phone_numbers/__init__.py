@@ -7,9 +7,9 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        EnhancedContactInfo,
         PhoneDetailsSchemaLevel,
         PhoneNumbersGetResponse,
-        RetrievePhoneNumberDetailsEnhancedContactInfo,
         RetrievePhoneNumberDetailsOptions,
         SearchPhoneNumberByDigits,
         SearchPhoneNumberByLocation,
@@ -17,9 +17,9 @@ if typing.TYPE_CHECKING:
     )
     from . import campaign, webhook
 _dynamic_imports: typing.Dict[str, str] = {
+    "EnhancedContactInfo": ".types",
     "PhoneDetailsSchemaLevel": ".types",
     "PhoneNumbersGetResponse": ".types",
-    "RetrievePhoneNumberDetailsEnhancedContactInfo": ".types",
     "RetrievePhoneNumberDetailsOptions": ".types",
     "SearchPhoneNumberByDigits": ".types",
     "SearchPhoneNumberByLocation": ".types",
@@ -49,9 +49,9 @@ def __dir__():
 
 
 __all__ = [
+    "EnhancedContactInfo",
     "PhoneDetailsSchemaLevel",
     "PhoneNumbersGetResponse",
-    "RetrievePhoneNumberDetailsEnhancedContactInfo",
     "RetrievePhoneNumberDetailsOptions",
     "SearchPhoneNumberByDigits",
     "SearchPhoneNumberByLocation",

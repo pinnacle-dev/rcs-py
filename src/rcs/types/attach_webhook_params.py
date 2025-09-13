@@ -2,7 +2,7 @@
 
 import typing
 
-from .attach_webhook_by_id import AttachWebhookById
-from .create_and_attach_webhook_by_url import CreateAndAttachWebhookByUrl
+from .attach_webhook_by_id_params import AttachWebhookByIdParams
+from .create_and_attach_webhook_by_url_params import CreateAndAttachWebhookByUrlParams
 
-AttachWebhookParams = typing.Union[AttachWebhookById, CreateAndAttachWebhookByUrl]
+AttachWebhookParams = typing.Union[AttachWebhookByIdParams, CreateAndAttachWebhookByUrlParams]

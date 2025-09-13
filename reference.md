@@ -1614,7 +1614,7 @@ Retrieve information about any phone number.
 ```python
 from rcs import Pinnacle
 from rcs.phone_numbers import (
-    RetrievePhoneNumberDetailsEnhancedContactInfo,
+    EnhancedContactInfo,
     RetrievePhoneNumberDetailsOptions,
 )
 
@@ -1626,7 +1626,7 @@ client.phone_numbers.get(
     level="advanced",
     options=RetrievePhoneNumberDetailsOptions(
         risk=True,
-        enhanced_contact_info=RetrievePhoneNumberDetailsEnhancedContactInfo(
+        enhanced_contact_info=EnhancedContactInfo(
             context="This is my friend from JZ. He has done a lot in the crypto space.",
         ),
     ),
@@ -2013,13 +2013,13 @@ Omit campaignId to create a campaign.
 ```python
 from rcs import Pinnacle
 from rcs.campaigns.dlc import (
-    UpsertDlcCampaignHelpKeyword,
+    UpsertDlcCampaignHelpKeywords,
     UpsertDlcCampaignKeywords,
     UpsertDlcCampaignLinks,
-    UpsertDlcCampaignOptInKeyword,
-    UpsertDlcCampaignOptOutKeyword,
+    UpsertDlcCampaignOptInKeywords,
+    UpsertDlcCampaignOptions,
+    UpsertDlcCampaignOptOutKeywords,
     UpsertDlcCampaignUseCase,
-    UpsertDlcSchemaOptions,
 )
 
 client = Pinnacle(
@@ -2030,15 +2030,15 @@ client.campaigns.dlc.upsert(
     brand=1,
     campaign_id=161,
     keywords=UpsertDlcCampaignKeywords(
-        help=UpsertDlcCampaignHelpKeyword(
+        help=UpsertDlcCampaignHelpKeywords(
             message="Reply HELP for assistance, STOP to opt-out",
             values=["HELP", "INFO", "SUPPORT"],
         ),
-        opt_in=UpsertDlcCampaignOptInKeyword(
+        opt_in=UpsertDlcCampaignOptInKeywords(
             message="Welcome! You're now subscribed to Pinnacle.",
             values=["JOIN", "START", "SUBSCRIBE"],
         ),
-        opt_out=UpsertDlcCampaignOptOutKeyword(
+        opt_out=UpsertDlcCampaignOptOutKeywords(
             message="You've been unsubscribed. Reply START to rejoin.",
             values=["STOP", "QUIT", "UNSUBSCRIBE"],
         ),
@@ -2049,7 +2049,7 @@ client.campaigns.dlc.upsert(
     ),
     message_flow="Customer initiates -> Automated response -> Agent follow-up if needed",
     name="Account Notifications",
-    options=UpsertDlcSchemaOptions(
+    options=UpsertDlcCampaignOptions(
         affiliate_marketing=False,
         age_gated=False,
         direct_lending=False,
@@ -2142,7 +2142,7 @@ client.campaigns.dlc.upsert(
 <dl>
 <dd>
 
-**options:** `typing.Optional[UpsertDlcSchemaOptions]` — Campaign configuration options.
+**options:** `typing.Optional[UpsertDlcCampaignOptions]` — Campaign configuration options.
     
 </dd>
 </dl>
@@ -2944,10 +2944,10 @@ Omit campaignId to create a campaign.
 ```python
 from rcs import Pinnacle
 from rcs.campaigns.rcs import (
+    RcsAgentEmail,
+    RcsAgentPhone,
+    RcsAgentWebsite,
     UpsertRcsAgent,
-    UpsertRcsAgentEmail,
-    UpsertRcsAgentPhone,
-    UpsertRcsAgentWebsite,
     UpsertRcsLinks,
     UpsertRcsOptIn,
     UpsertRcsOptOut,
@@ -2962,7 +2962,7 @@ client.campaigns.rcs.upsert(
         color="#000000",
         description="Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
         emails=[
-            UpsertRcsAgentEmail(
+            RcsAgentEmail(
                 email="founders@trypinnacle.app",
                 label="Email Us",
             )
@@ -2971,13 +2971,13 @@ client.campaigns.rcs.upsert(
         icon_url="https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
         name="Pinnacle Software Development",
         phones=[
-            UpsertRcsAgentPhone(
+            RcsAgentPhone(
                 label="Contact us directly",
                 phone="+14154467821",
             )
         ],
         websites=[
-            UpsertRcsAgentWebsite(
+            RcsAgentWebsite(
                 label="Get started with Pinnacle",
                 url="https://www.trypinnacle.app/",
             )
@@ -3578,7 +3578,7 @@ Requires an active RCS agent and recipient devices that support RCS Business Mes
 <dd>
 
 ```python
-from rcs import Pinnacle, RcsButtonContent_OpenUrl, RichTextMessage
+from rcs import Pinnacle, RichButton_OpenUrl, RichTextMessage
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3586,7 +3586,7 @@ client = Pinnacle(
 client.messages.rcs.send(
     request=RichTextMessage(
         quick_replies=[
-            RcsButtonContent_OpenUrl(
+            RichButton_OpenUrl(
                 payload="payload",
                 title="title",
             )
@@ -3658,7 +3658,7 @@ Validate RCS message content without sending it.
 <dd>
 
 ```python
-from rcs import Pinnacle, RcsButtonContent_OpenUrl, RcsTextContent
+from rcs import Pinnacle, RcsTextContent, RichButton_OpenUrl
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
@@ -3666,7 +3666,7 @@ client = Pinnacle(
 client.messages.rcs.validate(
     request=RcsTextContent(
         quick_replies=[
-            RcsButtonContent_OpenUrl(
+            RichButton_OpenUrl(
                 payload="payload",
                 title="title",
             )
@@ -3737,14 +3737,14 @@ Connect a webhook to your phone number to receive real-time notifications for in
 <dd>
 
 ```python
-from rcs import AttachWebhookById, Pinnacle
+from rcs import AttachWebhookByIdParams, Pinnacle
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.phone_numbers.webhook.attach(
     phone="%2B14155551234",
-    request=AttachWebhookById(
+    request=AttachWebhookByIdParams(
         webhook_id=1,
     ),
 )

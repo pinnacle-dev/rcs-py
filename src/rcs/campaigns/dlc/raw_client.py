@@ -21,8 +21,8 @@ from ...types.dlc_campaign_with_extended_brand_and_status import DlcCampaignWith
 from ...types.error import Error
 from .types.upsert_dlc_campaign_keywords import UpsertDlcCampaignKeywords
 from .types.upsert_dlc_campaign_links import UpsertDlcCampaignLinks
+from .types.upsert_dlc_campaign_options import UpsertDlcCampaignOptions
 from .types.upsert_dlc_campaign_use_case import UpsertDlcCampaignUseCase
-from .types.upsert_dlc_schema_options import UpsertDlcSchemaOptions
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -296,7 +296,7 @@ class RawDlcClient:
         links: typing.Optional[UpsertDlcCampaignLinks] = OMIT,
         message_flow: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        options: typing.Optional[UpsertDlcSchemaOptions] = OMIT,
+        options: typing.Optional[UpsertDlcCampaignOptions] = OMIT,
         sample_messages: typing.Optional[typing.Sequence[str]] = OMIT,
         use_case: typing.Optional[UpsertDlcCampaignUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -332,7 +332,7 @@ class RawDlcClient:
         name : typing.Optional[str]
             Display name of the campaign.
 
-        options : typing.Optional[UpsertDlcSchemaOptions]
+        options : typing.Optional[UpsertDlcCampaignOptions]
             Campaign configuration options.
 
         sample_messages : typing.Optional[typing.Sequence[str]]
@@ -366,7 +366,7 @@ class RawDlcClient:
                 "messageFlow": message_flow,
                 "name": name,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=UpsertDlcSchemaOptions, direction="write"
+                    object_=options, annotation=UpsertDlcCampaignOptions, direction="write"
                 ),
                 "sampleMessages": sample_messages,
                 "useCase": convert_and_respect_annotation_metadata(
@@ -794,7 +794,7 @@ class AsyncRawDlcClient:
         links: typing.Optional[UpsertDlcCampaignLinks] = OMIT,
         message_flow: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        options: typing.Optional[UpsertDlcSchemaOptions] = OMIT,
+        options: typing.Optional[UpsertDlcCampaignOptions] = OMIT,
         sample_messages: typing.Optional[typing.Sequence[str]] = OMIT,
         use_case: typing.Optional[UpsertDlcCampaignUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -830,7 +830,7 @@ class AsyncRawDlcClient:
         name : typing.Optional[str]
             Display name of the campaign.
 
-        options : typing.Optional[UpsertDlcSchemaOptions]
+        options : typing.Optional[UpsertDlcCampaignOptions]
             Campaign configuration options.
 
         sample_messages : typing.Optional[typing.Sequence[str]]
@@ -864,7 +864,7 @@ class AsyncRawDlcClient:
                 "messageFlow": message_flow,
                 "name": name,
                 "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=UpsertDlcSchemaOptions, direction="write"
+                    object_=options, annotation=UpsertDlcCampaignOptions, direction="write"
                 ),
                 "sampleMessages": sample_messages,
                 "useCase": convert_and_respect_annotation_metadata(

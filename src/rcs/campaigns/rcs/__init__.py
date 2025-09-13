@@ -7,22 +7,22 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        RcsAgentEmail,
+        RcsAgentPhone,
+        RcsAgentWebsite,
         RcsAutofillResponse,
         UpsertRcsAgent,
-        UpsertRcsAgentEmail,
-        UpsertRcsAgentPhone,
-        UpsertRcsAgentWebsite,
         UpsertRcsLinks,
         UpsertRcsOptIn,
         UpsertRcsOptOut,
         UpsertRcsUseCase,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "RcsAgentEmail": ".types",
+    "RcsAgentPhone": ".types",
+    "RcsAgentWebsite": ".types",
     "RcsAutofillResponse": ".types",
     "UpsertRcsAgent": ".types",
-    "UpsertRcsAgentEmail": ".types",
-    "UpsertRcsAgentPhone": ".types",
-    "UpsertRcsAgentWebsite": ".types",
     "UpsertRcsLinks": ".types",
     "UpsertRcsOptIn": ".types",
     "UpsertRcsOptOut": ".types",
@@ -50,11 +50,11 @@ def __dir__():
 
 
 __all__ = [
+    "RcsAgentEmail",
+    "RcsAgentPhone",
+    "RcsAgentWebsite",
     "RcsAutofillResponse",
     "UpsertRcsAgent",
-    "UpsertRcsAgentEmail",
-    "UpsertRcsAgentPhone",
-    "UpsertRcsAgentWebsite",
     "UpsertRcsLinks",
     "UpsertRcsOptIn",
     "UpsertRcsOptOut",

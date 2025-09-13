@@ -15,7 +15,7 @@ if typing.TYPE_CHECKING:
     from .advanced_phone_information_type import AdvancedPhoneInformationType
     from .advanced_phone_information_type_recommendation import AdvancedPhoneInformationTypeRecommendation
     from .agent import Agent
-    from .attach_webhook_by_id import AttachWebhookById
+    from .attach_webhook_by_id_params import AttachWebhookByIdParams
     from .attach_webhook_params import AttachWebhookParams
     from .attach_webhook_response_webhook import AttachWebhookResponseWebhook
     from .attached_phone_number_result import AttachedPhoneNumberResult
@@ -41,7 +41,6 @@ if typing.TYPE_CHECKING:
     from .campaign_submission_result import CampaignSubmissionResult
     from .campaign_validation_response_errors_item import CampaignValidationResponseErrorsItem
     from .campaign_validation_result import CampaignValidationResult
-    from .cards_message import CardsMessage
     from .click_action import ClickAction
     from .click_action_data import ClickActionData
     from .click_action_data_metadata import ClickActionDataMetadata
@@ -56,7 +55,7 @@ if typing.TYPE_CHECKING:
     from .conversation_contact import ConversationContact
     from .conversation_list import ConversationList
     from .conversation_sender import ConversationSender
-    from .create_and_attach_webhook_by_url import CreateAndAttachWebhookByUrl
+    from .create_and_attach_webhook_by_url_params import CreateAndAttachWebhookByUrlParams
     from .create_url_options import CreateUrlOptions
     from .detached_phone_number_result import DetachedPhoneNumberResult
     from .detached_webhook_info import DetachedWebhookInfo
@@ -129,16 +128,6 @@ if typing.TYPE_CHECKING:
     from .rcs import Rcs
     from .rcs_base import RcsBase
     from .rcs_base_options import RcsBaseOptions
-    from .rcs_button_content import (
-        RcsButtonContent,
-        RcsButtonContent_Call,
-        RcsButtonContent_OpenUrl,
-        RcsButtonContent_RequestUserLocation,
-        RcsButtonContent_ScheduleEvent,
-        RcsButtonContent_SendLocation,
-        RcsButtonContent_Trigger,
-    )
-    from .rcs_button_send_location_lat_long import RcsButtonSendLocationLatLong
     from .rcs_campaign import RcsCampaign
     from .rcs_campaign_opt_in_method_enum import RcsCampaignOptInMethodEnum
     from .rcs_campaign_schema_agent import RcsCampaignSchemaAgent
@@ -171,12 +160,23 @@ if typing.TYPE_CHECKING:
     from .rcs_validate_content_media import RcsValidateContentMedia
     from .rcs_validation_result import RcsValidationResult
     from .reaction_result import ReactionResult
+    from .rich_button import (
+        RichButton,
+        RichButton_Call,
+        RichButton_OpenUrl,
+        RichButton_RequestUserLocation,
+        RichButton_ScheduleEvent,
+        RichButton_SendLocation,
+        RichButton_Trigger,
+    )
     from .rich_button_call import RichButtonCall
     from .rich_button_open_url import RichButtonOpenUrl
     from .rich_button_request_user_location import RichButtonRequestUserLocation
     from .rich_button_schedule_event import RichButtonScheduleEvent
     from .rich_button_send_location import RichButtonSendLocation
+    from .rich_button_send_location_lat_long import RichButtonSendLocationLatLong
     from .rich_button_trigger import RichButtonTrigger
+    from .rich_cards_message import RichCardsMessage
     from .rich_media_message import RichMediaMessage
     from .rich_text_message import RichTextMessage
     from .scheduled_messaage import ScheduledMessaage
@@ -245,7 +245,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdvancedPhoneInformationType": ".advanced_phone_information_type",
     "AdvancedPhoneInformationTypeRecommendation": ".advanced_phone_information_type_recommendation",
     "Agent": ".agent",
-    "AttachWebhookById": ".attach_webhook_by_id",
+    "AttachWebhookByIdParams": ".attach_webhook_by_id_params",
     "AttachWebhookParams": ".attach_webhook_params",
     "AttachWebhookResponseWebhook": ".attach_webhook_response_webhook",
     "AttachedPhoneNumberResult": ".attached_phone_number_result",
@@ -271,7 +271,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CampaignSubmissionResult": ".campaign_submission_result",
     "CampaignValidationResponseErrorsItem": ".campaign_validation_response_errors_item",
     "CampaignValidationResult": ".campaign_validation_result",
-    "CardsMessage": ".cards_message",
     "ClickAction": ".click_action",
     "ClickActionData": ".click_action_data",
     "ClickActionDataMetadata": ".click_action_data_metadata",
@@ -286,7 +285,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConversationContact": ".conversation_contact",
     "ConversationList": ".conversation_list",
     "ConversationSender": ".conversation_sender",
-    "CreateAndAttachWebhookByUrl": ".create_and_attach_webhook_by_url",
+    "CreateAndAttachWebhookByUrlParams": ".create_and_attach_webhook_by_url_params",
     "CreateUrlOptions": ".create_url_options",
     "DetachedPhoneNumberResult": ".detached_phone_number_result",
     "DetachedWebhookInfo": ".detached_webhook_info",
@@ -355,14 +354,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Rcs": ".rcs",
     "RcsBase": ".rcs_base",
     "RcsBaseOptions": ".rcs_base_options",
-    "RcsButtonContent": ".rcs_button_content",
-    "RcsButtonContent_Call": ".rcs_button_content",
-    "RcsButtonContent_OpenUrl": ".rcs_button_content",
-    "RcsButtonContent_RequestUserLocation": ".rcs_button_content",
-    "RcsButtonContent_ScheduleEvent": ".rcs_button_content",
-    "RcsButtonContent_SendLocation": ".rcs_button_content",
-    "RcsButtonContent_Trigger": ".rcs_button_content",
-    "RcsButtonSendLocationLatLong": ".rcs_button_send_location_lat_long",
     "RcsCampaign": ".rcs_campaign",
     "RcsCampaignOptInMethodEnum": ".rcs_campaign_opt_in_method_enum",
     "RcsCampaignSchemaAgent": ".rcs_campaign_schema_agent",
@@ -395,12 +386,21 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsValidateContentMedia": ".rcs_validate_content_media",
     "RcsValidationResult": ".rcs_validation_result",
     "ReactionResult": ".reaction_result",
+    "RichButton": ".rich_button",
     "RichButtonCall": ".rich_button_call",
     "RichButtonOpenUrl": ".rich_button_open_url",
     "RichButtonRequestUserLocation": ".rich_button_request_user_location",
     "RichButtonScheduleEvent": ".rich_button_schedule_event",
     "RichButtonSendLocation": ".rich_button_send_location",
+    "RichButtonSendLocationLatLong": ".rich_button_send_location_lat_long",
     "RichButtonTrigger": ".rich_button_trigger",
+    "RichButton_Call": ".rich_button",
+    "RichButton_OpenUrl": ".rich_button",
+    "RichButton_RequestUserLocation": ".rich_button",
+    "RichButton_ScheduleEvent": ".rich_button",
+    "RichButton_SendLocation": ".rich_button",
+    "RichButton_Trigger": ".rich_button",
+    "RichCardsMessage": ".rich_cards_message",
     "RichMediaMessage": ".rich_media_message",
     "RichTextMessage": ".rich_text_message",
     "ScheduledMessaage": ".scheduled_messaage",
@@ -491,7 +491,7 @@ __all__ = [
     "AdvancedPhoneInformationType",
     "AdvancedPhoneInformationTypeRecommendation",
     "Agent",
-    "AttachWebhookById",
+    "AttachWebhookByIdParams",
     "AttachWebhookParams",
     "AttachWebhookResponseWebhook",
     "AttachedPhoneNumberResult",
@@ -517,7 +517,6 @@ __all__ = [
     "CampaignSubmissionResult",
     "CampaignValidationResponseErrorsItem",
     "CampaignValidationResult",
-    "CardsMessage",
     "ClickAction",
     "ClickActionData",
     "ClickActionDataMetadata",
@@ -532,7 +531,7 @@ __all__ = [
     "ConversationContact",
     "ConversationList",
     "ConversationSender",
-    "CreateAndAttachWebhookByUrl",
+    "CreateAndAttachWebhookByUrlParams",
     "CreateUrlOptions",
     "DetachedPhoneNumberResult",
     "DetachedWebhookInfo",
@@ -601,14 +600,6 @@ __all__ = [
     "Rcs",
     "RcsBase",
     "RcsBaseOptions",
-    "RcsButtonContent",
-    "RcsButtonContent_Call",
-    "RcsButtonContent_OpenUrl",
-    "RcsButtonContent_RequestUserLocation",
-    "RcsButtonContent_ScheduleEvent",
-    "RcsButtonContent_SendLocation",
-    "RcsButtonContent_Trigger",
-    "RcsButtonSendLocationLatLong",
     "RcsCampaign",
     "RcsCampaignOptInMethodEnum",
     "RcsCampaignSchemaAgent",
@@ -641,12 +632,21 @@ __all__ = [
     "RcsValidateContentMedia",
     "RcsValidationResult",
     "ReactionResult",
+    "RichButton",
     "RichButtonCall",
     "RichButtonOpenUrl",
     "RichButtonRequestUserLocation",
     "RichButtonScheduleEvent",
     "RichButtonSendLocation",
+    "RichButtonSendLocationLatLong",
     "RichButtonTrigger",
+    "RichButton_Call",
+    "RichButton_OpenUrl",
+    "RichButton_RequestUserLocation",
+    "RichButton_ScheduleEvent",
+    "RichButton_SendLocation",
+    "RichButton_Trigger",
+    "RichCardsMessage",
     "RichMediaMessage",
     "RichTextMessage",
     "ScheduledMessaage",

@@ -4,8 +4,8 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .rcs_button_content import RcsButtonContent
 from .rcs_media_details_content import RcsMediaDetailsContent
+from .rich_button import RichButton
 
 
 class RcsCardsContentCardsItem(UniversalBaseModel):
@@ -13,7 +13,7 @@ class RcsCardsContentCardsItem(UniversalBaseModel):
     Individual card containing title, optional media, and action buttons.
     """
 
-    buttons: typing.List[RcsButtonContent] = pydantic.Field()
+    buttons: typing.List[RichButton] = pydantic.Field()
     """
     Action buttons attached to the card.
     """

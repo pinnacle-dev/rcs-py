@@ -51,7 +51,7 @@ class RcsClient:
 
         Examples
         --------
-        from rcs import Pinnacle, RcsButtonContent_OpenUrl, RichTextMessage
+        from rcs import Pinnacle, RichButton_OpenUrl, RichTextMessage
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
@@ -59,7 +59,7 @@ class RcsClient:
         client.messages.rcs.send(
             request=RichTextMessage(
                 quick_replies=[
-                    RcsButtonContent_OpenUrl(
+                    RichButton_OpenUrl(
                         payload="payload",
                         title="title",
                     )
@@ -93,7 +93,7 @@ class RcsClient:
 
         Examples
         --------
-        from rcs import Pinnacle, RcsButtonContent_OpenUrl, RcsTextContent
+        from rcs import Pinnacle, RcsTextContent, RichButton_OpenUrl
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
@@ -101,7 +101,7 @@ class RcsClient:
         client.messages.rcs.validate(
             request=RcsTextContent(
                 quick_replies=[
-                    RcsButtonContent_OpenUrl(
+                    RichButton_OpenUrl(
                         payload="payload",
                         title="title",
                     )
@@ -153,7 +153,7 @@ class AsyncRcsClient:
         --------
         import asyncio
 
-        from rcs import AsyncPinnacle, RcsButtonContent_OpenUrl, RichTextMessage
+        from rcs import AsyncPinnacle, RichButton_OpenUrl, RichTextMessage
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -164,7 +164,7 @@ class AsyncRcsClient:
             await client.messages.rcs.send(
                 request=RichTextMessage(
                     quick_replies=[
-                        RcsButtonContent_OpenUrl(
+                        RichButton_OpenUrl(
                             payload="payload",
                             title="title",
                         )
@@ -203,7 +203,7 @@ class AsyncRcsClient:
         --------
         import asyncio
 
-        from rcs import AsyncPinnacle, RcsButtonContent_OpenUrl, RcsTextContent
+        from rcs import AsyncPinnacle, RcsTextContent, RichButton_OpenUrl
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -214,7 +214,7 @@ class AsyncRcsClient:
             await client.messages.rcs.validate(
                 request=RcsTextContent(
                     quick_replies=[
-                        RcsButtonContent_OpenUrl(
+                        RichButton_OpenUrl(
                             payload="payload",
                             title="title",
                         )

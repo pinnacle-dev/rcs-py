@@ -4,7 +4,7 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .retrieve_phone_number_details_enhanced_contact_info import RetrievePhoneNumberDetailsEnhancedContactInfo
+from .enhanced_contact_info import EnhancedContactInfo
 
 
 class RetrievePhoneNumberDetailsOptions(UniversalBaseModel):
@@ -24,7 +24,7 @@ class RetrievePhoneNumberDetailsOptions(UniversalBaseModel):
     Include a fraud risk and security analysis.
     """
 
-    enhanced_contact_info: typing.Optional[RetrievePhoneNumberDetailsEnhancedContactInfo] = pydantic.Field(default=None)
+    enhanced_contact_info: typing.Optional[EnhancedContactInfo] = pydantic.Field(default=None)
     """
     Additional information to tailor lookup.
     """

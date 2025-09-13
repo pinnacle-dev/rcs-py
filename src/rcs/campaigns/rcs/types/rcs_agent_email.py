@@ -6,15 +6,15 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class UpsertRcsAgentWebsite(UniversalBaseModel):
-    label: typing.Optional[str] = pydantic.Field(default=None)
+class RcsAgentEmail(UniversalBaseModel):
+    email: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Label for the url.
+    Email attached to the agent.
     """
 
-    url: typing.Optional[str] = pydantic.Field(default=None)
+    label: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Url attached to the agent.
+    Label for the email.
     """
 
     if IS_PYDANTIC_V2:

@@ -6,8 +6,8 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .rcs_button_content import RcsButtonContent
 from .rcs_media_details_content import RcsMediaDetailsContent
+from .rich_button import RichButton
 
 
 class RcsMediaContent(UniversalBaseModel):
@@ -18,7 +18,7 @@ class RcsMediaContent(UniversalBaseModel):
     """
 
     media: RcsMediaDetailsContent
-    quick_replies: typing_extensions.Annotated[typing.List[RcsButtonContent], FieldMetadata(alias="quickReplies")] = (
+    quick_replies: typing_extensions.Annotated[typing.List[RichButton], FieldMetadata(alias="quickReplies")] = (
         pydantic.Field()
     )
     """

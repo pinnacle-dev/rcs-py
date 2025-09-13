@@ -3,22 +3,17 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class RcsButtonSendLocationLatLong(UniversalBaseModel):
+class EnhancedContactInfo(UniversalBaseModel):
     """
-    Geographic coordinates of the location to share.
-    """
-
-    lat: float = pydantic.Field()
-    """
-    Latitude coordinate in decimal degrees.
+    Additional information to tailor lookup.
     """
 
-    lng: float = pydantic.Field()
+    context: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Longitude coordinate in decimal degrees.
+    Business context.
     """
 
     if IS_PYDANTIC_V2:

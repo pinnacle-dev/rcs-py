@@ -6,9 +6,9 @@ import pydantic
 import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ....core.serialization import FieldMetadata
-from .upsert_dlc_campaign_help_keyword import UpsertDlcCampaignHelpKeyword
-from .upsert_dlc_campaign_opt_in_keyword import UpsertDlcCampaignOptInKeyword
-from .upsert_dlc_campaign_opt_out_keyword import UpsertDlcCampaignOptOutKeyword
+from .upsert_dlc_campaign_help_keywords import UpsertDlcCampaignHelpKeywords
+from .upsert_dlc_campaign_opt_in_keywords import UpsertDlcCampaignOptInKeywords
+from .upsert_dlc_campaign_opt_out_keywords import UpsertDlcCampaignOptOutKeywords
 
 
 class UpsertDlcCampaignKeywords(UniversalBaseModel):
@@ -16,7 +16,7 @@ class UpsertDlcCampaignKeywords(UniversalBaseModel):
     Keyword response configuration.
     """
 
-    help: typing_extensions.Annotated[typing.Optional[UpsertDlcCampaignHelpKeyword], FieldMetadata(alias="HELP")] = (
+    help: typing_extensions.Annotated[typing.Optional[UpsertDlcCampaignHelpKeywords], FieldMetadata(alias="HELP")] = (
         pydantic.Field(default=None)
     )
     """
@@ -24,14 +24,14 @@ class UpsertDlcCampaignKeywords(UniversalBaseModel):
     """
 
     opt_in: typing_extensions.Annotated[
-        typing.Optional[UpsertDlcCampaignOptInKeyword], FieldMetadata(alias="OPT_IN")
+        typing.Optional[UpsertDlcCampaignOptInKeywords], FieldMetadata(alias="OPT_IN")
     ] = pydantic.Field(default=None)
     """
     Opt-in keyword settings.
     """
 
     opt_out: typing_extensions.Annotated[
-        typing.Optional[UpsertDlcCampaignOptOutKeyword], FieldMetadata(alias="OPT_OUT")
+        typing.Optional[UpsertDlcCampaignOptOutKeywords], FieldMetadata(alias="OPT_OUT")
     ] = pydantic.Field(default=None)
     """
     Opt-out keyword settings.

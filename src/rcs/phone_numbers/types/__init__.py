@@ -6,17 +6,17 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .enhanced_contact_info import EnhancedContactInfo
     from .phone_details_schema_level import PhoneDetailsSchemaLevel
     from .phone_numbers_get_response import PhoneNumbersGetResponse
-    from .retrieve_phone_number_details_enhanced_contact_info import RetrievePhoneNumberDetailsEnhancedContactInfo
     from .retrieve_phone_number_details_options import RetrievePhoneNumberDetailsOptions
     from .search_phone_number_by_digits import SearchPhoneNumberByDigits
     from .search_phone_number_by_location import SearchPhoneNumberByLocation
     from .search_phone_number_options import SearchPhoneNumberOptions
 _dynamic_imports: typing.Dict[str, str] = {
+    "EnhancedContactInfo": ".enhanced_contact_info",
     "PhoneDetailsSchemaLevel": ".phone_details_schema_level",
     "PhoneNumbersGetResponse": ".phone_numbers_get_response",
-    "RetrievePhoneNumberDetailsEnhancedContactInfo": ".retrieve_phone_number_details_enhanced_contact_info",
     "RetrievePhoneNumberDetailsOptions": ".retrieve_phone_number_details_options",
     "SearchPhoneNumberByDigits": ".search_phone_number_by_digits",
     "SearchPhoneNumberByLocation": ".search_phone_number_by_location",
@@ -44,9 +44,9 @@ def __dir__():
 
 
 __all__ = [
+    "EnhancedContactInfo",
     "PhoneDetailsSchemaLevel",
     "PhoneNumbersGetResponse",
-    "RetrievePhoneNumberDetailsEnhancedContactInfo",
     "RetrievePhoneNumberDetailsOptions",
     "SearchPhoneNumberByDigits",
     "SearchPhoneNumberByLocation",

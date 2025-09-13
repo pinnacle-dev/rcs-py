@@ -7,7 +7,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
 from .rcs_base import RcsBase
-from .rcs_button_content import RcsButtonContent
+from .rich_button import RichButton
 
 
 class RichMediaMessage(RcsBase):
@@ -18,7 +18,7 @@ class RichMediaMessage(RcsBase):
     See [supported media types](https://app.pinnacle.sh/supported-file-types?type=RCS-MEDIA).
     """
 
-    quick_replies: typing_extensions.Annotated[typing.List[RcsButtonContent], FieldMetadata(alias="quickReplies")] = (
+    quick_replies: typing_extensions.Annotated[typing.List[RichButton], FieldMetadata(alias="quickReplies")] = (
         pydantic.Field()
     )
     """

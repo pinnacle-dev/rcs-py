@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .rcs_button_content import RcsButtonContent
+from .rich_button import RichButton
 
 
 class RcsTextContent(UniversalBaseModel):
@@ -14,7 +14,7 @@ class RcsTextContent(UniversalBaseModel):
     Message containing longer text content with optional quick reply buttons.
     """
 
-    quick_replies: typing_extensions.Annotated[typing.List[RcsButtonContent], FieldMetadata(alias="quickReplies")] = (
+    quick_replies: typing_extensions.Annotated[typing.List[RichButton], FieldMetadata(alias="quickReplies")] = (
         pydantic.Field()
     )
     """

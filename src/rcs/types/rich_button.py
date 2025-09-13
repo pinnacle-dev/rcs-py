@@ -8,10 +8,10 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .rcs_button_send_location_lat_long import RcsButtonSendLocationLatLong
+from .rich_button_send_location_lat_long import RichButtonSendLocationLatLong
 
 
-class RcsButtonContent_OpenUrl(UniversalBaseModel):
+class RichButton_OpenUrl(UniversalBaseModel):
     type: typing.Literal["openUrl"] = "openUrl"
     payload: str
     title: str
@@ -26,7 +26,7 @@ class RcsButtonContent_OpenUrl(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
-class RcsButtonContent_Call(UniversalBaseModel):
+class RichButton_Call(UniversalBaseModel):
     type: typing.Literal["call"] = "call"
     payload: str
     title: str
@@ -41,7 +41,7 @@ class RcsButtonContent_Call(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
-class RcsButtonContent_Trigger(UniversalBaseModel):
+class RichButton_Trigger(UniversalBaseModel):
     type: typing.Literal["trigger"] = "trigger"
     metadata: str
     payload: str
@@ -57,7 +57,7 @@ class RcsButtonContent_Trigger(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
-class RcsButtonContent_RequestUserLocation(UniversalBaseModel):
+class RichButton_RequestUserLocation(UniversalBaseModel):
     type: typing.Literal["requestUserLocation"] = "requestUserLocation"
     title: str
 
@@ -71,7 +71,7 @@ class RcsButtonContent_RequestUserLocation(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
-class RcsButtonContent_ScheduleEvent(UniversalBaseModel):
+class RichButton_ScheduleEvent(UniversalBaseModel):
     type: typing.Literal["scheduleEvent"] = "scheduleEvent"
     event_description: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="eventDescription")] = None
     event_end_time: typing_extensions.Annotated[str, FieldMetadata(alias="eventEndTime")]
@@ -89,9 +89,9 @@ class RcsButtonContent_ScheduleEvent(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
-class RcsButtonContent_SendLocation(UniversalBaseModel):
+class RichButton_SendLocation(UniversalBaseModel):
     type: typing.Literal["sendLocation"] = "sendLocation"
-    lat_long: typing_extensions.Annotated[RcsButtonSendLocationLatLong, FieldMetadata(alias="latLong")]
+    lat_long: typing_extensions.Annotated[RichButtonSendLocationLatLong, FieldMetadata(alias="latLong")]
     title: str
 
     if IS_PYDANTIC_V2:
@@ -104,11 +104,11 @@ class RcsButtonContent_SendLocation(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
-RcsButtonContent = typing.Union[
-    RcsButtonContent_OpenUrl,
-    RcsButtonContent_Call,
-    RcsButtonContent_Trigger,
-    RcsButtonContent_RequestUserLocation,
-    RcsButtonContent_ScheduleEvent,
-    RcsButtonContent_SendLocation,
+RichButton = typing.Union[
+    RichButton_OpenUrl,
+    RichButton_Call,
+    RichButton_Trigger,
+    RichButton_RequestUserLocation,
+    RichButton_ScheduleEvent,
+    RichButton_SendLocation,
 ]

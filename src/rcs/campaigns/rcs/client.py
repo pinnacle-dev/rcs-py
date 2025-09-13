@@ -197,10 +197,10 @@ class RcsClient:
         --------
         from rcs import Pinnacle
         from rcs.campaigns.rcs import (
+            RcsAgentEmail,
+            RcsAgentPhone,
+            RcsAgentWebsite,
             UpsertRcsAgent,
-            UpsertRcsAgentEmail,
-            UpsertRcsAgentPhone,
-            UpsertRcsAgentWebsite,
             UpsertRcsLinks,
             UpsertRcsOptIn,
             UpsertRcsOptOut,
@@ -215,7 +215,7 @@ class RcsClient:
                 color="#000000",
                 description="Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
                 emails=[
-                    UpsertRcsAgentEmail(
+                    RcsAgentEmail(
                         email="founders@trypinnacle.app",
                         label="Email Us",
                     )
@@ -224,13 +224,13 @@ class RcsClient:
                 icon_url="https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
                 name="Pinnacle Software Development",
                 phones=[
-                    UpsertRcsAgentPhone(
+                    RcsAgentPhone(
                         label="Contact us directly",
                         phone="+14154467821",
                     )
                 ],
                 websites=[
-                    UpsertRcsAgentWebsite(
+                    RcsAgentWebsite(
                         label="Get started with Pinnacle",
                         url="https://www.trypinnacle.app/",
                     )
@@ -524,10 +524,10 @@ class AsyncRcsClient:
 
         from rcs import AsyncPinnacle
         from rcs.campaigns.rcs import (
+            RcsAgentEmail,
+            RcsAgentPhone,
+            RcsAgentWebsite,
             UpsertRcsAgent,
-            UpsertRcsAgentEmail,
-            UpsertRcsAgentPhone,
-            UpsertRcsAgentWebsite,
             UpsertRcsLinks,
             UpsertRcsOptIn,
             UpsertRcsOptOut,
@@ -545,7 +545,7 @@ class AsyncRcsClient:
                     color="#000000",
                     description="Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
                     emails=[
-                        UpsertRcsAgentEmail(
+                        RcsAgentEmail(
                             email="founders@trypinnacle.app",
                             label="Email Us",
                         )
@@ -554,13 +554,13 @@ class AsyncRcsClient:
                     icon_url="https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
                     name="Pinnacle Software Development",
                     phones=[
-                        UpsertRcsAgentPhone(
+                        RcsAgentPhone(
                             label="Contact us directly",
                             phone="+14154467821",
                         )
                     ],
                     websites=[
-                        UpsertRcsAgentWebsite(
+                        RcsAgentWebsite(
                             label="Get started with Pinnacle",
                             url="https://www.trypinnacle.app/",
                         )

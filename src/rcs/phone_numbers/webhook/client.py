@@ -55,14 +55,14 @@ class WebhookClient:
 
         Examples
         --------
-        from rcs import AttachWebhookById, Pinnacle
+        from rcs import AttachWebhookByIdParams, Pinnacle
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.phone_numbers.webhook.attach(
             phone="%2B14155551234",
-            request=AttachWebhookById(
+            request=AttachWebhookByIdParams(
                 webhook_id=1,
             ),
         )
@@ -158,7 +158,7 @@ class AsyncWebhookClient:
         --------
         import asyncio
 
-        from rcs import AsyncPinnacle, AttachWebhookById
+        from rcs import AsyncPinnacle, AttachWebhookByIdParams
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -168,7 +168,7 @@ class AsyncWebhookClient:
         async def main() -> None:
             await client.phone_numbers.webhook.attach(
                 phone="%2B14155551234",
-                request=AttachWebhookById(
+                request=AttachWebhookByIdParams(
                     webhook_id=1,
                 ),
             )

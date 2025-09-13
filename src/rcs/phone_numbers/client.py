@@ -197,7 +197,7 @@ class PhoneNumbersClient:
         --------
         from rcs import Pinnacle
         from rcs.phone_numbers import (
-            RetrievePhoneNumberDetailsEnhancedContactInfo,
+            EnhancedContactInfo,
             RetrievePhoneNumberDetailsOptions,
         )
 
@@ -209,7 +209,7 @@ class PhoneNumbersClient:
             level="advanced",
             options=RetrievePhoneNumberDetailsOptions(
                 risk=True,
-                enhanced_contact_info=RetrievePhoneNumberDetailsEnhancedContactInfo(
+                enhanced_contact_info=EnhancedContactInfo(
                     context="This is my friend from JZ. He has done a lot in the crypto space.",
                 ),
             ),
@@ -425,7 +425,7 @@ class AsyncPhoneNumbersClient:
 
         from rcs import AsyncPinnacle
         from rcs.phone_numbers import (
-            RetrievePhoneNumberDetailsEnhancedContactInfo,
+            EnhancedContactInfo,
             RetrievePhoneNumberDetailsOptions,
         )
 
@@ -440,7 +440,7 @@ class AsyncPhoneNumbersClient:
                 level="advanced",
                 options=RetrievePhoneNumberDetailsOptions(
                     risk=True,
-                    enhanced_contact_info=RetrievePhoneNumberDetailsEnhancedContactInfo(
+                    enhanced_contact_info=EnhancedContactInfo(
                         context="This is my friend from JZ. He has done a lot in the crypto space.",
                     ),
                 ),
