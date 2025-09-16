@@ -26,6 +26,13 @@ class RcsCampaign(UniversalBaseModel):
     Unique identifier for the campaign.
     """
 
+    brand_verification_url: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="brandVerificationUrl")
+    ] = pydantic.Field(default=None)
+    """
+    Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
+    """
+
     expected_agent_responses: typing_extensions.Annotated[
         typing.Optional[typing.List[str]], FieldMetadata(alias="expectedAgentResponses")
     ] = pydantic.Field(default=None)

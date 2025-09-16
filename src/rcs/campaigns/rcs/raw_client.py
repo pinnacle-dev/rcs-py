@@ -290,6 +290,7 @@ class RawRcsClient:
         self,
         *,
         agent: typing.Optional[UpsertRcsAgent] = OMIT,
+        brand_verification_url: typing.Optional[str] = OMIT,
         brand: typing.Optional[int] = OMIT,
         campaign_id: typing.Optional[int] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -308,6 +309,9 @@ class RawRcsClient:
         ----------
         agent : typing.Optional[UpsertRcsAgent]
             Create an agent for the campaign.
+
+        brand_verification_url : typing.Optional[str]
+            Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
 
         brand : typing.Optional[int]
             Unique identifier for the brand.
@@ -345,6 +349,7 @@ class RawRcsClient:
                 "agent": convert_and_respect_annotation_metadata(
                     object_=agent, annotation=UpsertRcsAgent, direction="write"
                 ),
+                "brandVerificationUrl": brand_verification_url,
                 "brand": brand,
                 "campaignId": campaign_id,
                 "expectedAgentResponses": expected_agent_responses,
@@ -775,6 +780,7 @@ class AsyncRawRcsClient:
         self,
         *,
         agent: typing.Optional[UpsertRcsAgent] = OMIT,
+        brand_verification_url: typing.Optional[str] = OMIT,
         brand: typing.Optional[int] = OMIT,
         campaign_id: typing.Optional[int] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -793,6 +799,9 @@ class AsyncRawRcsClient:
         ----------
         agent : typing.Optional[UpsertRcsAgent]
             Create an agent for the campaign.
+
+        brand_verification_url : typing.Optional[str]
+            Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
 
         brand : typing.Optional[int]
             Unique identifier for the brand.
@@ -830,6 +839,7 @@ class AsyncRawRcsClient:
                 "agent": convert_and_respect_annotation_metadata(
                     object_=agent, annotation=UpsertRcsAgent, direction="write"
                 ),
+                "brandVerificationUrl": brand_verification_url,
                 "brand": brand,
                 "campaignId": campaign_id,
                 "expectedAgentResponses": expected_agent_responses,

@@ -145,6 +145,7 @@ class RcsClient:
         self,
         *,
         agent: typing.Optional[UpsertRcsAgent] = OMIT,
+        brand_verification_url: typing.Optional[str] = OMIT,
         brand: typing.Optional[int] = OMIT,
         campaign_id: typing.Optional[int] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -163,6 +164,9 @@ class RcsClient:
         ----------
         agent : typing.Optional[UpsertRcsAgent]
             Create an agent for the campaign.
+
+        brand_verification_url : typing.Optional[str]
+            Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
 
         brand : typing.Optional[int]
             Unique identifier for the brand.
@@ -236,6 +240,7 @@ class RcsClient:
                     )
                 ],
             ),
+            brand_verification_url="https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brand=2,
             expected_agent_responses=[
                 "Here are the things I can help you with.",
@@ -263,6 +268,7 @@ class RcsClient:
         """
         _response = self._raw_client.upsert(
             agent=agent,
+            brand_verification_url=brand_verification_url,
             brand=brand,
             campaign_id=campaign_id,
             expected_agent_responses=expected_agent_responses,
@@ -470,6 +476,7 @@ class AsyncRcsClient:
         self,
         *,
         agent: typing.Optional[UpsertRcsAgent] = OMIT,
+        brand_verification_url: typing.Optional[str] = OMIT,
         brand: typing.Optional[int] = OMIT,
         campaign_id: typing.Optional[int] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -488,6 +495,9 @@ class AsyncRcsClient:
         ----------
         agent : typing.Optional[UpsertRcsAgent]
             Create an agent for the campaign.
+
+        brand_verification_url : typing.Optional[str]
+            Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
 
         brand : typing.Optional[int]
             Unique identifier for the brand.
@@ -566,6 +576,7 @@ class AsyncRcsClient:
                         )
                     ],
                 ),
+                brand_verification_url="https://www.pinnacle.sh/articles-of-incorporation.pdf",
                 brand=2,
                 expected_agent_responses=[
                     "Here are the things I can help you with.",
@@ -596,6 +607,7 @@ class AsyncRcsClient:
         """
         _response = await self._raw_client.upsert(
             agent=agent,
+            brand_verification_url=brand_verification_url,
             brand=brand,
             campaign_id=campaign_id,
             expected_agent_responses=expected_agent_responses,

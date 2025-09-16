@@ -2983,6 +2983,7 @@ client.campaigns.rcs.upsert(
             )
         ],
     ),
+    brand_verification_url="https://www.pinnacle.sh/articles-of-incorporation.pdf",
     brand=2,
     expected_agent_responses=[
         "Here are the things I can help you with.",
@@ -3023,6 +3024,14 @@ client.campaigns.rcs.upsert(
 <dd>
 
 **agent:** `typing.Optional[UpsertRcsAgent]` — Create an agent for the campaign.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**brand_verification_url:** `typing.Optional[str]` — Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
     
 </dd>
 </dl>
