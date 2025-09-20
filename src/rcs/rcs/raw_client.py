@@ -248,7 +248,7 @@ class RawRcsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def link(
+    def get_link(
         self,
         *,
         agent_id: str,
@@ -602,7 +602,7 @@ class AsyncRawRcsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def link(
+    async def get_link(
         self,
         *,
         agent_id: str,

@@ -1859,7 +1859,7 @@ client.rcs.whitelist(
 </dl>
 </details>
 
-<details><summary><code>client.rcs.<a href="src/rcs/rcs/client.py">link</a>(...)</code></summary>
+<details><summary><code>client.rcs.<a href="src/rcs/rcs/client.py">get_link</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1894,7 +1894,7 @@ from rcs import Pinnacle
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.rcs.link(
+client.rcs.get_link(
     agent_id="agent_XXXXXXXXXXXX",
     test_mode=False,
     phone_number="+12345678901",

@@ -127,7 +127,7 @@ class RcsClient:
         )
         return _response.data
 
-    def link(
+    def get_link(
         self,
         *,
         agent_id: str,
@@ -176,14 +176,14 @@ class RcsClient:
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
-        client.rcs.link(
+        client.rcs.get_link(
             agent_id="agent_XXXXXXXXXXXX",
             test_mode=False,
             phone_number="+12345678901",
             body="Hello, I need help with my order",
         )
         """
-        _response = self._raw_client.link(
+        _response = self._raw_client.get_link(
             agent_id=agent_id,
             test_mode=test_mode,
             phone_number=phone_number,
@@ -325,7 +325,7 @@ class AsyncRcsClient:
         )
         return _response.data
 
-    async def link(
+    async def get_link(
         self,
         *,
         agent_id: str,
@@ -379,7 +379,7 @@ class AsyncRcsClient:
 
 
         async def main() -> None:
-            await client.rcs.link(
+            await client.rcs.get_link(
                 agent_id="agent_XXXXXXXXXXXX",
                 test_mode=False,
                 phone_number="+12345678901",
@@ -389,7 +389,7 @@ class AsyncRcsClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.link(
+        _response = await self._raw_client.get_link(
             agent_id=agent_id,
             test_mode=test_mode,
             phone_number=phone_number,
