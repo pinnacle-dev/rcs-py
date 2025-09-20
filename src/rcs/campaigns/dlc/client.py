@@ -57,7 +57,7 @@ class DlcClient:
         Returns
         -------
         AutofillDlcCampaignResponse
-            Returns autofilled DLC information.
+            Returns autofilled 10DLC information.
 
         Examples
         --------
@@ -80,12 +80,12 @@ class DlcClient:
         self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DlcCampaignWithExtendedBrandAndStatus:
         """
-        Retrieve DLC campaign.
+        Retrieve 10DLC campaign.
 
         Parameters
         ----------
         campaign_id : int
-            Unique identifier of the DLC campaign.
+            Unique identifier of the 10DLC campaign.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -113,12 +113,12 @@ class DlcClient:
         self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CampaignSubmissionResult:
         """
-        Submit your DLC campaign for approval and activation with carriers.
+        Submit your 10DLC campaign for approval and activation with carriers.
 
         Parameters
         ----------
         campaign_id : int
-            Unique identifier of the DLC campaign to submit.
+            Unique identifier of the 10DLC campaign to submit.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -126,7 +126,7 @@ class DlcClient:
         Returns
         -------
         CampaignSubmissionResult
-            Successfully submitted DLC campaign for approval.
+            Successfully submitted 10DLC campaign for approval.
 
         Examples
         --------
@@ -159,7 +159,7 @@ class DlcClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DlcCampaignWithExtendedBrandAndStatus:
         """
-        Create a new DLC campaign or updates an existing one. <br>
+        Create a new 10DLC campaign or updates an existing one. <br>
 
         Omit campaignId to create a campaign.
 
@@ -285,7 +285,7 @@ class DlcClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CampaignValidationResult:
         """
-        Validate your DLC campaign configuration against carrier requirements and compliance rules.
+        Validate your 10DLC campaign configuration against carrier requirements and compliance rules.
 
         Parameters
         ----------
@@ -360,7 +360,7 @@ class AsyncDlcClient:
         Returns
         -------
         AutofillDlcCampaignResponse
-            Returns autofilled DLC information.
+            Returns autofilled 10DLC information.
 
         Examples
         --------
@@ -391,12 +391,12 @@ class AsyncDlcClient:
         self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DlcCampaignWithExtendedBrandAndStatus:
         """
-        Retrieve DLC campaign.
+        Retrieve 10DLC campaign.
 
         Parameters
         ----------
         campaign_id : int
-            Unique identifier of the DLC campaign.
+            Unique identifier of the 10DLC campaign.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -432,12 +432,12 @@ class AsyncDlcClient:
         self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CampaignSubmissionResult:
         """
-        Submit your DLC campaign for approval and activation with carriers.
+        Submit your 10DLC campaign for approval and activation with carriers.
 
         Parameters
         ----------
         campaign_id : int
-            Unique identifier of the DLC campaign to submit.
+            Unique identifier of the 10DLC campaign to submit.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -445,7 +445,7 @@ class AsyncDlcClient:
         Returns
         -------
         CampaignSubmissionResult
-            Successfully submitted DLC campaign for approval.
+            Successfully submitted 10DLC campaign for approval.
 
         Examples
         --------
@@ -486,7 +486,7 @@ class AsyncDlcClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DlcCampaignWithExtendedBrandAndStatus:
         """
-        Create a new DLC campaign or updates an existing one. <br>
+        Create a new 10DLC campaign or updates an existing one. <br>
 
         Omit campaignId to create a campaign.
 
@@ -622,7 +622,7 @@ class AsyncDlcClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CampaignValidationResult:
         """
-        Validate your DLC campaign configuration against carrier requirements and compliance rules.
+        Validate your 10DLC campaign configuration against carrier requirements and compliance rules.
 
         Parameters
         ----------

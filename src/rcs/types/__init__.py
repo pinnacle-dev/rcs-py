@@ -74,6 +74,7 @@ if typing.TYPE_CHECKING:
     from .enhanced_contact import EnhancedContact
     from .enhanced_contact_item import EnhancedContactItem
     from .error import Error
+    from .error_response import ErrorResponse
     from .extended_brand import ExtendedBrand
     from .extended_brand_with_vetting import ExtendedBrandWithVetting
     from .extended_rcs_campaign import ExtendedRcsCampaign
@@ -155,18 +156,25 @@ if typing.TYPE_CHECKING:
     from .rcs_campaign_schema_use_case import RcsCampaignSchemaUseCase
     from .rcs_campaign_status import RcsCampaignStatus
     from .rcs_campaign_use_case_enum import RcsCampaignUseCaseEnum
+    from .rcs_capabilities_result import RcsCapabilitiesResult
+    from .rcs_capability import RcsCapability
+    from .rcs_capability_actions import RcsCapabilityActions
+    from .rcs_capability_cards import RcsCapabilityCards
     from .rcs_cards import RcsCards
     from .rcs_cards_cards_item import RcsCardsCardsItem
     from .rcs_cards_content import RcsCardsContent
     from .rcs_cards_content_cards_item import RcsCardsContentCardsItem
     from .rcs_content import RcsContent
+    from .rcs_link_result import RcsLinkResult
     from .rcs_media_content import RcsMediaContent
     from .rcs_media_details_content import RcsMediaDetailsContent
     from .rcs_text_content import RcsTextContent
     from .rcs_validate_content import RcsValidateContent
     from .rcs_validate_content_media import RcsValidateContentMedia
     from .rcs_validation_result import RcsValidationResult
+    from .rcs_whitelist_response import RcsWhitelistResponse
     from .reaction_result import ReactionResult
+    from .retrieved_conversations import RetrievedConversations
     from .rich_button import (
         RichButton,
         RichButton_Call,
@@ -304,6 +312,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EnhancedContact": ".enhanced_contact",
     "EnhancedContactItem": ".enhanced_contact_item",
     "Error": ".error",
+    "ErrorResponse": ".error_response",
     "ExtendedBrand": ".extended_brand",
     "ExtendedBrandWithVetting": ".extended_brand_with_vetting",
     "ExtendedRcsCampaign": ".extended_rcs_campaign",
@@ -381,18 +390,25 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsCampaignSchemaUseCase": ".rcs_campaign_schema_use_case",
     "RcsCampaignStatus": ".rcs_campaign_status",
     "RcsCampaignUseCaseEnum": ".rcs_campaign_use_case_enum",
+    "RcsCapabilitiesResult": ".rcs_capabilities_result",
+    "RcsCapability": ".rcs_capability",
+    "RcsCapabilityActions": ".rcs_capability_actions",
+    "RcsCapabilityCards": ".rcs_capability_cards",
     "RcsCards": ".rcs_cards",
     "RcsCardsCardsItem": ".rcs_cards_cards_item",
     "RcsCardsContent": ".rcs_cards_content",
     "RcsCardsContentCardsItem": ".rcs_cards_content_cards_item",
     "RcsContent": ".rcs_content",
+    "RcsLinkResult": ".rcs_link_result",
     "RcsMediaContent": ".rcs_media_content",
     "RcsMediaDetailsContent": ".rcs_media_details_content",
     "RcsTextContent": ".rcs_text_content",
     "RcsValidateContent": ".rcs_validate_content",
     "RcsValidateContentMedia": ".rcs_validate_content_media",
     "RcsValidationResult": ".rcs_validation_result",
+    "RcsWhitelistResponse": ".rcs_whitelist_response",
     "ReactionResult": ".reaction_result",
+    "RetrievedConversations": ".retrieved_conversations",
     "RichButton": ".rich_button",
     "RichButton_Call": ".rich_button",
     "RichButton_OpenUrl": ".rich_button",
@@ -550,6 +566,7 @@ __all__ = [
     "EnhancedContact",
     "EnhancedContactItem",
     "Error",
+    "ErrorResponse",
     "ExtendedBrand",
     "ExtendedBrandWithVetting",
     "ExtendedRcsCampaign",
@@ -627,18 +644,25 @@ __all__ = [
     "RcsCampaignSchemaUseCase",
     "RcsCampaignStatus",
     "RcsCampaignUseCaseEnum",
+    "RcsCapabilitiesResult",
+    "RcsCapability",
+    "RcsCapabilityActions",
+    "RcsCapabilityCards",
     "RcsCards",
     "RcsCardsCardsItem",
     "RcsCardsContent",
     "RcsCardsContentCardsItem",
     "RcsContent",
+    "RcsLinkResult",
     "RcsMediaContent",
     "RcsMediaDetailsContent",
     "RcsTextContent",
     "RcsValidateContent",
     "RcsValidateContentMedia",
     "RcsValidationResult",
+    "RcsWhitelistResponse",
     "ReactionResult",
+    "RetrievedConversations",
     "RichButton",
     "RichButton_Call",
     "RichButton_OpenUrl",

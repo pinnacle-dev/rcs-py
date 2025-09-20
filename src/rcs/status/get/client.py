@@ -93,12 +93,12 @@ class GetClient:
 
     def dlc(self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None) -> DlcCampaignStatus:
         """
-        Retrieve a DLC campaign's status.
+        Retrieve a 10DLC campaign's status.
 
         Parameters
         ----------
         campaign_id : int
-            ID of the DLC campaign.
+            ID of the 10DLC campaign.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -288,12 +288,12 @@ class AsyncGetClient:
         self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DlcCampaignStatus:
         """
-        Retrieve a DLC campaign's status.
+        Retrieve a 10DLC campaign's status.
 
         Parameters
         ----------
         campaign_id : int
-            ID of the DLC campaign.
+            ID of the 10DLC campaign.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

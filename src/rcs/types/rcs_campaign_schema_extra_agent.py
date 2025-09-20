@@ -35,14 +35,14 @@ class RcsCampaignSchemaExtraAgent(UniversalBaseModel):
         default=None
     )
     """
-    Link to the agent's hero.
+    Link to the agent's hero. Hero must be an image file with dimensions 1440x448px.
     """
 
     icon_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="iconUrl")] = pydantic.Field(
         default=None
     )
     """
-    Link to the agent's icon.
+    Link to the agent's icon. Icon must be an image file with dimensions 224x224px.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)

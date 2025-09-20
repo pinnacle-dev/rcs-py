@@ -15,6 +15,7 @@ if typing.TYPE_CHECKING:
     from .conversations.client import AsyncConversationsClient, ConversationsClient
     from .messages.client import AsyncMessagesClient, MessagesClient
     from .phone_numbers.client import AsyncPhoneNumbersClient, PhoneNumbersClient
+    from .rcs.client import AsyncRcsClient, RcsClient
     from .status.client import AsyncStatusClient, StatusClient
     from .tools.client import AsyncToolsClient, ToolsClient
     from .webhooks.client import AsyncWebhooksClient, WebhooksClient
@@ -90,6 +91,7 @@ class PinnacleBase:
         self._conversations: typing.Optional[ConversationsClient] = None
         self._messages: typing.Optional[MessagesClient] = None
         self._phone_numbers: typing.Optional[PhoneNumbersClient] = None
+        self._rcs: typing.Optional[RcsClient] = None
         self._webhooks: typing.Optional[WebhooksClient] = None
         self._campaigns: typing.Optional[CampaignsClient] = None
         self._status: typing.Optional[StatusClient] = None
@@ -134,6 +136,14 @@ class PinnacleBase:
 
             self._phone_numbers = PhoneNumbersClient(client_wrapper=self._client_wrapper)
         return self._phone_numbers
+
+    @property
+    def rcs(self):
+        if self._rcs is None:
+            from .rcs.client import RcsClient  # noqa: E402
+
+            self._rcs = RcsClient(client_wrapper=self._client_wrapper)
+        return self._rcs
 
     @property
     def webhooks(self):
@@ -238,6 +248,7 @@ class AsyncPinnacleBase:
         self._conversations: typing.Optional[AsyncConversationsClient] = None
         self._messages: typing.Optional[AsyncMessagesClient] = None
         self._phone_numbers: typing.Optional[AsyncPhoneNumbersClient] = None
+        self._rcs: typing.Optional[AsyncRcsClient] = None
         self._webhooks: typing.Optional[AsyncWebhooksClient] = None
         self._campaigns: typing.Optional[AsyncCampaignsClient] = None
         self._status: typing.Optional[AsyncStatusClient] = None
@@ -282,6 +293,14 @@ class AsyncPinnacleBase:
 
             self._phone_numbers = AsyncPhoneNumbersClient(client_wrapper=self._client_wrapper)
         return self._phone_numbers
+
+    @property
+    def rcs(self):
+        if self._rcs is None:
+            from .rcs.client import AsyncRcsClient  # noqa: E402
+
+            self._rcs = AsyncRcsClient(client_wrapper=self._client_wrapper)
+        return self._rcs
 
     @property
     def webhooks(self):

@@ -56,7 +56,7 @@ class RawDlcClient:
         Returns
         -------
         HttpResponse[AutofillDlcCampaignResponse]
-            Returns autofilled DLC information.
+            Returns autofilled 10DLC information.
         """
         _response = self._client_wrapper.httpx_client.request(
             "campaigns/dlc/autofill",
@@ -123,12 +123,12 @@ class RawDlcClient:
         self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[DlcCampaignWithExtendedBrandAndStatus]:
         """
-        Retrieve DLC campaign.
+        Retrieve 10DLC campaign.
 
         Parameters
         ----------
         campaign_id : int
-            Unique identifier of the DLC campaign.
+            Unique identifier of the 10DLC campaign.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -206,12 +206,12 @@ class RawDlcClient:
         self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CampaignSubmissionResult]:
         """
-        Submit your DLC campaign for approval and activation with carriers.
+        Submit your 10DLC campaign for approval and activation with carriers.
 
         Parameters
         ----------
         campaign_id : int
-            Unique identifier of the DLC campaign to submit.
+            Unique identifier of the 10DLC campaign to submit.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -219,7 +219,7 @@ class RawDlcClient:
         Returns
         -------
         HttpResponse[CampaignSubmissionResult]
-            Successfully submitted DLC campaign for approval.
+            Successfully submitted 10DLC campaign for approval.
         """
         _response = self._client_wrapper.httpx_client.request(
             f"campaigns/dlc/submit/{jsonable_encoder(campaign_id)}",
@@ -302,7 +302,7 @@ class RawDlcClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DlcCampaignWithExtendedBrandAndStatus]:
         """
-        Create a new DLC campaign or updates an existing one. <br>
+        Create a new 10DLC campaign or updates an existing one. <br>
 
         Omit campaignId to create a campaign.
 
@@ -446,7 +446,7 @@ class RawDlcClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CampaignValidationResult]:
         """
-        Validate your DLC campaign configuration against carrier requirements and compliance rules.
+        Validate your 10DLC campaign configuration against carrier requirements and compliance rules.
 
         Parameters
         ----------
@@ -554,7 +554,7 @@ class AsyncRawDlcClient:
         Returns
         -------
         AsyncHttpResponse[AutofillDlcCampaignResponse]
-            Returns autofilled DLC information.
+            Returns autofilled 10DLC information.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "campaigns/dlc/autofill",
@@ -621,12 +621,12 @@ class AsyncRawDlcClient:
         self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[DlcCampaignWithExtendedBrandAndStatus]:
         """
-        Retrieve DLC campaign.
+        Retrieve 10DLC campaign.
 
         Parameters
         ----------
         campaign_id : int
-            Unique identifier of the DLC campaign.
+            Unique identifier of the 10DLC campaign.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -704,12 +704,12 @@ class AsyncRawDlcClient:
         self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CampaignSubmissionResult]:
         """
-        Submit your DLC campaign for approval and activation with carriers.
+        Submit your 10DLC campaign for approval and activation with carriers.
 
         Parameters
         ----------
         campaign_id : int
-            Unique identifier of the DLC campaign to submit.
+            Unique identifier of the 10DLC campaign to submit.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -717,7 +717,7 @@ class AsyncRawDlcClient:
         Returns
         -------
         AsyncHttpResponse[CampaignSubmissionResult]
-            Successfully submitted DLC campaign for approval.
+            Successfully submitted 10DLC campaign for approval.
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"campaigns/dlc/submit/{jsonable_encoder(campaign_id)}",
@@ -800,7 +800,7 @@ class AsyncRawDlcClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DlcCampaignWithExtendedBrandAndStatus]:
         """
-        Create a new DLC campaign or updates an existing one. <br>
+        Create a new 10DLC campaign or updates an existing one. <br>
 
         Omit campaignId to create a campaign.
 
@@ -944,7 +944,7 @@ class AsyncRawDlcClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CampaignValidationResult]:
         """
-        Validate your DLC campaign configuration against carrier requirements and compliance rules.
+        Validate your 10DLC campaign configuration against carrier requirements and compliance rules.
 
         Parameters
         ----------

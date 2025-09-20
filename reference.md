@@ -1686,6 +1686,279 @@ Choose how much detail you want in your results:
 </dl>
 </details>
 
+## RCS
+<details><summary><code>client.rcs.<a href="src/rcs/rcs/client.py">get_capabilities</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Check RCS capabilities for one or more phone numbers.
+
+This endpoint allows you to verify which RCS features (cards, buttons, etc.) are supported
+on specific phone numbers before sending RCS messages to them.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.rcs.get_capabilities(
+    phone_numbers=["+12345678901", "+19876543210"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**phone_numbers:** `typing.Sequence[str]` — List of phone numbers to check RCS capabilities for (E.164 format)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.rcs.<a href="src/rcs/rcs/client.py">whitelist</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Whitelist a phone number for testing with your test RCS agent.
+
+## Overview
+During development and testing, RCS agents can only send messages to whitelisted phone numbers.
+Use this endpoint to add test devices to your agent's whitelist before sending test messages.
+
+## Verification Process
+After whitelisting a number, you'll need to complete verification:
+
+1. Check the test device for an "RBM Tester Management" request
+2. Accept the request on the device
+3. Enter the 4-digit verification code in the Pinnacle dashboard at:
+   ```
+   https://app.pinnacle.sh/dashboard/brands/{brandId}?campaignId={campaignId}&campaignType=RCS
+   ```
+
+> **Important Notes**
+>
+> - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number
+> - **AT&T limitation:** Whitelisting may currently fail for AT&T numbers
+> - **Verification required:** The whitelist request isn't complete until you verify the device.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.rcs.whitelist(
+    agent_id="agent_XXXXXXXXXXXX",
+    phone_number="+12345678901",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` — The RCS agent ID (must be prefixed with 'agent_')
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**phone_number:** `str` — Phone number to whitelist for testing (E.164 format)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.rcs.<a href="src/rcs/rcs/client.py">link</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generate a link for initiating an RCS conversation with your agent. 
+
+Users can click these links to start conversations with your RCS agent directly
+from websites, emails, or other applications.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.rcs.link(
+    agent_id="agent_XXXXXXXXXXXX",
+    test_mode=False,
+    phone_number="+12345678901",
+    body="Hello, I need help with my order",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` — The RCS agent ID (must be prefixed with 'agent_')
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**test_mode:** `typing.Optional[bool]` — Link to the test agent or the production agent if false
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**phone_number:** `typing.Optional[str]` — Fallback phone number (E.164 format) to use if the phone number does not support RCS. If not provided, no url will be generated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**body:** `typing.Optional[str]` — Optional message body to pre-fill after the user clicks the link
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Webhooks
 <details><summary><code>client.webhooks.<a href="src/rcs/webhooks/client.py">get</a>(...)</code></summary>
 <dl>
@@ -1854,7 +2127,7 @@ client.campaigns.dlc.autofill(
 <dl>
 <dd>
 
-Retrieve DLC campaign.
+Retrieve 10DLC campaign.
 </dd>
 </dl>
 </dd>
@@ -1892,7 +2165,7 @@ client.campaigns.dlc.get(
 <dl>
 <dd>
 
-**campaign_id:** `int` — Unique identifier of the DLC campaign.
+**campaign_id:** `int` — Unique identifier of the 10DLC campaign.
     
 </dd>
 </dl>
@@ -1924,7 +2197,7 @@ client.campaigns.dlc.get(
 <dl>
 <dd>
 
-Submit your DLC campaign for approval and activation with carriers.
+Submit your 10DLC campaign for approval and activation with carriers.
 </dd>
 </dl>
 </dd>
@@ -1962,7 +2235,7 @@ client.campaigns.dlc.submit(
 <dl>
 <dd>
 
-**campaign_id:** `int` — Unique identifier of the DLC campaign to submit.
+**campaign_id:** `int` — Unique identifier of the 10DLC campaign to submit.
     
 </dd>
 </dl>
@@ -1994,7 +2267,7 @@ client.campaigns.dlc.submit(
 <dl>
 <dd>
 
-Create a new DLC campaign or updates an existing one. <br>
+Create a new 10DLC campaign or updates an existing one. <br>
 
 Omit campaignId to create a campaign.
 </dd>
@@ -2190,7 +2463,7 @@ client.campaigns.dlc.upsert(
 <dl>
 <dd>
 
-Validate your DLC campaign configuration against carrier requirements and compliance rules.
+Validate your 10DLC campaign configuration against carrier requirements and compliance rules.
 </dd>
 </dl>
 </dd>
@@ -4205,7 +4478,7 @@ client.status.get.toll_free(
 <dl>
 <dd>
 
-Retrieve a DLC campaign's status.
+Retrieve a 10DLC campaign's status.
 </dd>
 </dl>
 </dd>
@@ -4243,7 +4516,7 @@ client.status.get.dlc(
 <dl>
 <dd>
 
-**campaign_id:** `int` — ID of the DLC campaign.
+**campaign_id:** `int` — ID of the 10DLC campaign.
     
 </dd>
 </dl>

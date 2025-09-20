@@ -6,22 +6,20 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .rich_button import RichButton
+from .conversation import Conversation
 
 
-class RcsValidateContentMedia(UniversalBaseModel):
+class RetrievedConversations(UniversalBaseModel):
+    count: int = pydantic.Field()
     """
-    Message containing a media file and/or text with optional quick reply buttons.<br>
-
-    See [supported media types](https://app.pinnacle.sh/supported-file-types?type=RCS-MEDIA).
-    """
-
-    media: str = pydantic.Field()
-    """
-    Media file URLs to send.
+    Total number of conversations matching the filter.
     """
 
-    quick_replies: typing_extensions.Annotated[typing.List[RichButton], FieldMetadata(alias="quickReplies")]
+    conversations: typing.List[Conversation]
+    has_more: typing_extensions.Annotated[bool, FieldMetadata(alias="hasMore")] = pydantic.Field()
+    """
+    Indicates if more conversations are available beyond the current page.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -11,6 +11,7 @@ from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
 from ...errors.internal_server_error import InternalServerError
 from ...errors.not_found_error import NotFoundError
+from ...errors.not_implemented_error import NotImplementedError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.attached_phone_number_result import AttachedPhoneNumberResult
 from ...types.detached_phone_number_result import DetachedPhoneNumberResult
@@ -122,6 +123,17 @@ class RawCampaignClient:
                         ),
                     ),
                 )
+            if _response.status_code == 501:
+                raise NotImplementedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -203,6 +215,17 @@ class RawCampaignClient:
                 )
             if _response.status_code == 500:
                 raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 501:
+                raise NotImplementedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         Error,
@@ -319,6 +342,17 @@ class AsyncRawCampaignClient:
                         ),
                     ),
                 )
+            if _response.status_code == 501:
+                raise NotImplementedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -400,6 +434,17 @@ class AsyncRawCampaignClient:
                 )
             if _response.status_code == 500:
                 raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 501:
+                raise NotImplementedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         Error,
