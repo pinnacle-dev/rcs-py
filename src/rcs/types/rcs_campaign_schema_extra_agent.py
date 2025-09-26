@@ -26,7 +26,7 @@ class RcsCampaignSchemaExtraAgent(UniversalBaseModel):
     Description of the agent.
     """
 
-    emails: typing.Optional[typing.List[RcsCampaignSchemaExtraAgentEmailsItem]] = pydantic.Field(default=None)
+    emails: typing.List[RcsCampaignSchemaExtraAgentEmailsItem] = pydantic.Field()
     """
     List of emails.
     """
@@ -50,12 +50,12 @@ class RcsCampaignSchemaExtraAgent(UniversalBaseModel):
     Name of the agent.
     """
 
-    phones: typing.Optional[typing.List[RcsCampaignSchemaExtraAgentPhonesItem]] = pydantic.Field(default=None)
+    phones: typing.List[RcsCampaignSchemaExtraAgentPhonesItem] = pydantic.Field()
     """
     List of phone numbers.
     """
 
-    websites: typing.Optional[typing.List[RcsCampaignSchemaExtraAgentWebsitesItem]] = pydantic.Field(default=None)
+    websites: typing.List[RcsCampaignSchemaExtraAgentWebsitesItem] = pydantic.Field()
     """
     List of urls.
     """

@@ -16,23 +16,21 @@ class AutofillDlcResponseKeywords(UniversalBaseModel):
     Keyword response configuration.
     """
 
-    help: typing_extensions.Annotated[typing.Optional[AutofillDlcResponseKeywordsHelp], FieldMetadata(alias="HELP")] = (
-        pydantic.Field(default=None)
-    )
+    help: typing_extensions.Annotated[AutofillDlcResponseKeywordsHelp, FieldMetadata(alias="HELP")] = pydantic.Field()
     """
     Help keyword settings.
     """
 
-    opt_in: typing_extensions.Annotated[
-        typing.Optional[AutofillDlcResponseKeywordsOptIn], FieldMetadata(alias="OPT_IN")
-    ] = pydantic.Field(default=None)
+    opt_in: typing_extensions.Annotated[AutofillDlcResponseKeywordsOptIn, FieldMetadata(alias="OPT_IN")] = (
+        pydantic.Field()
+    )
     """
     Opt-in keyword settings.
     """
 
-    opt_out: typing_extensions.Annotated[
-        typing.Optional[AutofillDlcResponseKeywordsOptOut], FieldMetadata(alias="OPT_OUT")
-    ] = pydantic.Field(default=None)
+    opt_out: typing_extensions.Annotated[AutofillDlcResponseKeywordsOptOut, FieldMetadata(alias="OPT_OUT")] = (
+        pydantic.Field()
+    )
     """
     Opt-out keyword settings.
     """

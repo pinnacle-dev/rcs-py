@@ -13,23 +13,17 @@ class AutofillDlcResponseOptions(UniversalBaseModel):
     Campaign configuration options.
     """
 
-    affiliate_marketing: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="affiliateMarketing")
-    ] = pydantic.Field(default=None)
+    affiliate_marketing: typing_extensions.Annotated[bool, FieldMetadata(alias="affiliateMarketing")] = pydantic.Field()
     """
     Whether the campaign uses affiliate marketing.
     """
 
-    age_gated: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="ageGated")] = pydantic.Field(
-        default=None
-    )
+    age_gated: typing_extensions.Annotated[bool, FieldMetadata(alias="ageGated")] = pydantic.Field()
     """
     Whether the campaign is age-gated.
     """
 
-    direct_lending: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="directLending")] = (
-        pydantic.Field(default=None)
-    )
+    direct_lending: typing_extensions.Annotated[bool, FieldMetadata(alias="directLending")] = pydantic.Field()
     """
     Whether the campaign involves direct lending.
     """
@@ -41,16 +35,12 @@ class AutofillDlcResponseOptions(UniversalBaseModel):
     Link embedded in campaign message.
     """
 
-    embedded_phone: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="embeddedPhone")] = (
-        pydantic.Field(default=None)
-    )
+    embedded_phone: typing_extensions.Annotated[bool, FieldMetadata(alias="embeddedPhone")] = pydantic.Field()
     """
     Whether messages include phone numbers.
     """
 
-    number_pooling: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="numberPooling")] = (
-        pydantic.Field(default=None)
-    )
+    number_pooling: typing_extensions.Annotated[bool, FieldMetadata(alias="numberPooling")] = pydantic.Field()
     """
     Whether the campaign uses number pooling.
     """

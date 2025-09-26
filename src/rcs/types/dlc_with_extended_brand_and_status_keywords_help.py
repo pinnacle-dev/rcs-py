@@ -16,7 +16,7 @@ class DlcWithExtendedBrandAndStatusKeywordsHelp(UniversalBaseModel):
     Response message for help keywords.
     """
 
-    values: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    values: typing.List[str] = pydantic.Field()
     """
     Keywords that trigger help response.
     """

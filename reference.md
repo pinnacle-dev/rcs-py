@@ -3893,7 +3893,7 @@ client.messages.rcs.send(
 <dl>
 <dd>
 
-**request:** `Rcs` 
+**request:** `RichMessage` 
     
 </dd>
 </dl>

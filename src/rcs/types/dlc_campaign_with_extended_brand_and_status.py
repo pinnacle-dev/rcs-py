@@ -41,7 +41,7 @@ class DlcCampaignWithExtendedBrandAndStatus(UniversalBaseModel):
     Description of the campaign.
     """
 
-    keywords: typing.Optional[DlcWithExtendedBrandAndStatusKeywords] = pydantic.Field(default=None)
+    keywords: DlcWithExtendedBrandAndStatusKeywords = pydantic.Field()
     """
     Keyword response configuration.
     """
@@ -63,7 +63,7 @@ class DlcCampaignWithExtendedBrandAndStatus(UniversalBaseModel):
     Display name of the campaign.
     """
 
-    options: typing.Optional[DlcWithExtendedBrandAndStatusOptions] = pydantic.Field(default=None)
+    options: DlcWithExtendedBrandAndStatusOptions = pydantic.Field()
     """
     Campaign configuration options.
     """
@@ -77,12 +77,15 @@ class DlcCampaignWithExtendedBrandAndStatus(UniversalBaseModel):
 
     status: ProfileStatusEnum = pydantic.Field()
     """
-    Current review status of the campaign.<br>
+    Current review status of the campaign. <br>
     
-    `INCOMPLETE`: Not submitted.<br>
-    `IN REVIEW`: Being reviewed by carriers.<br>
-    `VERIFIED`: Approved and ready to send messages.<br>
-    `FAILED`: Issues and errors related to the campaign's details.<br>
+    `INCOMPLETE`: Not submitted. <br>
+    
+    `IN REVIEW`: Being reviewed by carriers. <br>
+    
+    `VERIFIED`: Approved and ready to send messages. <br>
+    
+    `FAILED`: Issues and errors related to the campaign's details.
     """
 
     use_case: typing_extensions.Annotated[

@@ -16,7 +16,7 @@ class AutofillDlcResponseKeywordsOptOut(UniversalBaseModel):
     Response message for opt-out keywords.
     """
 
-    values: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    values: typing.List[str] = pydantic.Field()
     """
     Keywords that trigger opt-out.
     """

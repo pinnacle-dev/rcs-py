@@ -16,9 +16,9 @@ from ...errors.not_implemented_error import NotImplementedError
 from ...errors.payment_required_error import PaymentRequiredError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.error import Error
-from ...types.rcs import Rcs
 from ...types.rcs_validate_content import RcsValidateContent
 from ...types.rcs_validation_result import RcsValidationResult
+from ...types.rich_message import RichMessage
 from .types.rcs_send_response import RcsSendResponse
 
 # this is used as the default value for optional parameters
@@ -30,7 +30,7 @@ class RawRcsClient:
         self._client_wrapper = client_wrapper
 
     def send(
-        self, *, request: Rcs, request_options: typing.Optional[RequestOptions] = None
+        self, *, request: RichMessage, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[RcsSendResponse]:
         """
         Send a RCS message immediately or schedule it for future delivery. <br>
@@ -39,7 +39,7 @@ class RawRcsClient:
 
         Parameters
         ----------
-        request : Rcs
+        request : RichMessage
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -54,7 +54,7 @@ class RawRcsClient:
         _response = self._client_wrapper.httpx_client.request(
             "messages/send/rcs",
             method="POST",
-            json=convert_and_respect_annotation_metadata(object_=request, annotation=Rcs, direction="write"),
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=RichMessage, direction="write"),
             headers={
                 "content-type": "application/json",
             },
@@ -226,7 +226,7 @@ class AsyncRawRcsClient:
         self._client_wrapper = client_wrapper
 
     async def send(
-        self, *, request: Rcs, request_options: typing.Optional[RequestOptions] = None
+        self, *, request: RichMessage, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[RcsSendResponse]:
         """
         Send a RCS message immediately or schedule it for future delivery. <br>
@@ -235,7 +235,7 @@ class AsyncRawRcsClient:
 
         Parameters
         ----------
-        request : Rcs
+        request : RichMessage
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -250,7 +250,7 @@ class AsyncRawRcsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "messages/send/rcs",
             method="POST",
-            json=convert_and_respect_annotation_metadata(object_=request, annotation=Rcs, direction="write"),
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=RichMessage, direction="write"),
             headers={
                 "content-type": "application/json",
             },

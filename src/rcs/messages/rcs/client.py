@@ -4,9 +4,9 @@ import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
-from ...types.rcs import Rcs
 from ...types.rcs_validate_content import RcsValidateContent
 from ...types.rcs_validation_result import RcsValidationResult
+from ...types.rich_message import RichMessage
 from .raw_client import AsyncRawRcsClient, RawRcsClient
 from .types.rcs_send_response import RcsSendResponse
 
@@ -29,7 +29,7 @@ class RcsClient:
         """
         return self._raw_client
 
-    def send(self, *, request: Rcs, request_options: typing.Optional[RequestOptions] = None) -> RcsSendResponse:
+    def send(self, *, request: RichMessage, request_options: typing.Optional[RequestOptions] = None) -> RcsSendResponse:
         """
         Send a RCS message immediately or schedule it for future delivery. <br>
 
@@ -37,7 +37,7 @@ class RcsClient:
 
         Parameters
         ----------
-        request : Rcs
+        request : RichMessage
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -129,7 +129,9 @@ class AsyncRcsClient:
         """
         return self._raw_client
 
-    async def send(self, *, request: Rcs, request_options: typing.Optional[RequestOptions] = None) -> RcsSendResponse:
+    async def send(
+        self, *, request: RichMessage, request_options: typing.Optional[RequestOptions] = None
+    ) -> RcsSendResponse:
         """
         Send a RCS message immediately or schedule it for future delivery. <br>
 
@@ -137,7 +139,7 @@ class AsyncRcsClient:
 
         Parameters
         ----------
-        request : Rcs
+        request : RichMessage
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -3,22 +3,29 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 
 
-class AutofillDlcResponseKeywordsHelp(UniversalBaseModel):
+class MessageEventConversation(UniversalBaseModel):
     """
-    Help keyword settings.
-    """
-
-    message: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Response message for help keywords.
+    Conversation metadata containing the conversation ID, sender, and recipient information.
     """
 
-    values: typing.List[str] = pydantic.Field()
+    id: int = pydantic.Field()
     """
-    Keywords that trigger help response.
+    Unique identifier for the conversation.
+    """
+
+    from_: typing_extensions.Annotated[str, FieldMetadata(alias="from")] = pydantic.Field()
+    """
+    Sender's phone number or agent ID.
+    """
+
+    to: str = pydantic.Field()
+    """
+    Recipient's phone number.
     """
 
     if IS_PYDANTIC_V2:

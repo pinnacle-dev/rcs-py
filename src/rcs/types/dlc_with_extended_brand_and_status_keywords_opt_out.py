@@ -11,7 +11,7 @@ class DlcWithExtendedBrandAndStatusKeywordsOptOut(UniversalBaseModel):
     Opt-out keyword settings.
     """
 
-    message: str = pydantic.Field()
+    message: typing.Optional[str] = pydantic.Field(default=None)
     """
     Response message for opt-out keywords.
     """

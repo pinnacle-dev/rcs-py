@@ -7,6 +7,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .extended_brand import ExtendedBrand
+from .profile_status_enum import ProfileStatusEnum
 from .rcs_campaign_schema_extra_agent import RcsCampaignSchemaExtraAgent
 from .rcs_campaign_schema_extra_links import RcsCampaignSchemaExtraLinks
 from .rcs_campaign_schema_extra_opt_in import RcsCampaignSchemaExtraOptIn
@@ -42,7 +43,9 @@ class ExtendedRcsCampaign(UniversalBaseModel):
     Indicates whether the brand has provided an attestation.
     """
 
-    campaign_id: typing_extensions.Annotated[int, FieldMetadata(alias="campaignId")] = pydantic.Field()
+    campaign_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="campaignId")] = pydantic.Field(
+        default=None
+    )
     """
     Unique identifier for the campaign.
     """
@@ -54,24 +57,29 @@ class ExtendedRcsCampaign(UniversalBaseModel):
     List of what the agent might say to users.
     """
 
-    links: RcsCampaignSchemaExtraLinks = pydantic.Field()
+    links: typing.Optional[RcsCampaignSchemaExtraLinks] = pydantic.Field(default=None)
     """
     Legal documentation links.
     """
 
-    opt_in: typing_extensions.Annotated[RcsCampaignSchemaExtraOptIn, FieldMetadata(alias="optIn")] = pydantic.Field()
+    status: ProfileStatusEnum
+    opt_in: typing_extensions.Annotated[typing.Optional[RcsCampaignSchemaExtraOptIn], FieldMetadata(alias="optIn")] = (
+        pydantic.Field(default=None)
+    )
     """
     Opt-in configuration.
     """
 
-    opt_out: typing_extensions.Annotated[RcsCampaignSchemaExtraOptOut, FieldMetadata(alias="optOut")] = pydantic.Field()
+    opt_out: typing_extensions.Annotated[
+        typing.Optional[RcsCampaignSchemaExtraOptOut], FieldMetadata(alias="optOut")
+    ] = pydantic.Field(default=None)
     """
     Opt-out configuration.
     """
 
-    use_case: typing_extensions.Annotated[RcsCampaignSchemaExtraUseCase, FieldMetadata(alias="useCase")] = (
-        pydantic.Field()
-    )
+    use_case: typing_extensions.Annotated[
+        typing.Optional[RcsCampaignSchemaExtraUseCase], FieldMetadata(alias="useCase")
+    ] = pydantic.Field(default=None)
     """
     Use case classification for the campaign.
     """

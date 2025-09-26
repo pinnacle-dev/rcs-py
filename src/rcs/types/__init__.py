@@ -87,6 +87,10 @@ if typing.TYPE_CHECKING:
     from .location_share_action_data import LocationShareActionData
     from .message import Message
     from .message_content import MessageContent
+    from .message_event import MessageEvent
+    from .message_event_conversation import MessageEventConversation
+    from .message_event_direction import MessageEventDirection
+    from .message_event_message import MessageEventMessage
     from .message_method_enum import MessageMethodEnum
     from .message_protocol_enum import MessageProtocolEnum
     from .message_schedule import MessageSchedule
@@ -126,7 +130,6 @@ if typing.TYPE_CHECKING:
     from .pinnacle_url_config import PinnacleUrlConfig
     from .profile_status_enum import ProfileStatusEnum
     from .purchased_number import PurchasedNumber
-    from .rcs import Rcs
     from .rcs_base import RcsBase
     from .rcs_base_options import RcsBaseOptions
     from .rcs_button_call import RcsButtonCall
@@ -186,6 +189,7 @@ if typing.TYPE_CHECKING:
     )
     from .rich_cards_message import RichCardsMessage
     from .rich_media_message import RichMediaMessage
+    from .rich_message import RichMessage
     from .rich_text_message import RichTextMessage
     from .scheduled_messaage import ScheduledMessaage
     from .scheduled_send_response_config import ScheduledSendResponseConfig
@@ -325,6 +329,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LocationShareActionData": ".location_share_action_data",
     "Message": ".message",
     "MessageContent": ".message_content",
+    "MessageEvent": ".message_event",
+    "MessageEventConversation": ".message_event_conversation",
+    "MessageEventDirection": ".message_event_direction",
+    "MessageEventMessage": ".message_event_message",
     "MessageMethodEnum": ".message_method_enum",
     "MessageProtocolEnum": ".message_protocol_enum",
     "MessageSchedule": ".message_schedule",
@@ -360,7 +368,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PinnacleUrlConfig": ".pinnacle_url_config",
     "ProfileStatusEnum": ".profile_status_enum",
     "PurchasedNumber": ".purchased_number",
-    "Rcs": ".rcs",
     "RcsBase": ".rcs_base",
     "RcsBaseOptions": ".rcs_base_options",
     "RcsButtonCall": ".rcs_button_call",
@@ -418,6 +425,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RichButton_Trigger": ".rich_button",
     "RichCardsMessage": ".rich_cards_message",
     "RichMediaMessage": ".rich_media_message",
+    "RichMessage": ".rich_message",
     "RichTextMessage": ".rich_text_message",
     "ScheduledMessaage": ".scheduled_messaage",
     "ScheduledSendResponseConfig": ".scheduled_send_response_config",
@@ -579,6 +587,10 @@ __all__ = [
     "LocationShareActionData",
     "Message",
     "MessageContent",
+    "MessageEvent",
+    "MessageEventConversation",
+    "MessageEventDirection",
+    "MessageEventMessage",
     "MessageMethodEnum",
     "MessageProtocolEnum",
     "MessageSchedule",
@@ -614,7 +626,6 @@ __all__ = [
     "PinnacleUrlConfig",
     "ProfileStatusEnum",
     "PurchasedNumber",
-    "Rcs",
     "RcsBase",
     "RcsBaseOptions",
     "RcsButtonCall",
@@ -672,6 +683,7 @@ __all__ = [
     "RichButton_Trigger",
     "RichCardsMessage",
     "RichMediaMessage",
+    "RichMessage",
     "RichTextMessage",
     "ScheduledMessaage",
     "ScheduledSendResponseConfig",

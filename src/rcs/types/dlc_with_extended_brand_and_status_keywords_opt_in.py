@@ -11,7 +11,7 @@ class DlcWithExtendedBrandAndStatusKeywordsOptIn(UniversalBaseModel):
     Opt-in keyword settings.
     """
 
-    message: str = pydantic.Field()
+    message: typing.Optional[str] = pydantic.Field(default=None)
     """
     Response message for opt-in keywords.
     """

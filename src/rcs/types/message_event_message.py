@@ -4,22 +4,20 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .message_content import MessageContent
 
 
-class AutofillDlcResponseKeywordsHelp(UniversalBaseModel):
+class MessageEventMessage(UniversalBaseModel):
     """
-    Help keyword settings.
-    """
-
-    message: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Response message for help keywords.
+    Message details including ID and content.
     """
 
-    values: typing.List[str] = pydantic.Field()
+    id: int = pydantic.Field()
     """
-    Keywords that trigger help response.
+    Unique identifier of the message.
     """
+
+    content: MessageContent
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
