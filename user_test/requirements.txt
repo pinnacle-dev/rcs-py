@@ -1,0 +1,8 @@
+# Requirements for test scripts
+
+# For sync test (test.py)
+flask>=3.0.0
+
+# For async test (test_async.py)
+fastapi>=0.110.0
+uvicorn>=0.30.0
