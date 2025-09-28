@@ -13,6 +13,7 @@ from ...errors.bad_request_error import BadRequestError
 from ...errors.internal_server_error import InternalServerError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.error import Error
+from ...types.refreshed_file import RefreshedFile
 from ...types.upload_results import UploadResults
 from .types.upload_file_options import UploadFileOptions
 
@@ -129,6 +130,95 @@ class RawFileClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def refresh(
+        self, *, uris: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[typing.List[RefreshedFile]]:
+        """
+        Refresh expiring presigned URLs for Pinnacle-hosted files to extend their access time.
+
+        <Callout type="info">
+          This only works for presigned download URLs. At this moment, you cannot refresh a presigned upload URL, generate a new one instead.
+        </Callout>
+
+        Parameters
+        ----------
+        uris : typing.Sequence[str]
+            Array of file URIs to refresh for extended access. <br>
+
+            Accepted formats:
+            - **Full presigned URLs**: `https://server.trypinnacle.app/storage/v1/object/sign/...`
+            - **Short URIs**: `{BUCKET}/${TEAM_ID}/...` (e.g., `vault/3/document.pdf`)
+
+            Invalid or external URLs will be returned unchanged in the response.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[typing.List[RefreshedFile]]
+            Successfully refreshed file URLs.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "tools/files/refresh",
+            method="POST",
+            json={
+                "uris": uris,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.List[RefreshedFile],
+                    parse_obj_as(
+                        type_=typing.List[RefreshedFile],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawFileClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -197,6 +287,95 @@ class AsyncRawFileClient:
                     UploadResults,
                     parse_obj_as(
                         type_=UploadResults,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def refresh(
+        self, *, uris: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[typing.List[RefreshedFile]]:
+        """
+        Refresh expiring presigned URLs for Pinnacle-hosted files to extend their access time.
+
+        <Callout type="info">
+          This only works for presigned download URLs. At this moment, you cannot refresh a presigned upload URL, generate a new one instead.
+        </Callout>
+
+        Parameters
+        ----------
+        uris : typing.Sequence[str]
+            Array of file URIs to refresh for extended access. <br>
+
+            Accepted formats:
+            - **Full presigned URLs**: `https://server.trypinnacle.app/storage/v1/object/sign/...`
+            - **Short URIs**: `{BUCKET}/${TEAM_ID}/...` (e.g., `vault/3/document.pdf`)
+
+            Invalid or external URLs will be returned unchanged in the response.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[typing.List[RefreshedFile]]
+            Successfully refreshed file URLs.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "tools/files/refresh",
+            method="POST",
+            json={
+                "uris": uris,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.List[RefreshedFile],
+                    parse_obj_as(
+                        type_=typing.List[RefreshedFile],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

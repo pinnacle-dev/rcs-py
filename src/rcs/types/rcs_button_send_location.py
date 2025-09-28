@@ -21,6 +21,11 @@ class RcsButtonSendLocation(UniversalBaseModel):
     Geographic coordinates of the location to share.
     """
 
+    metadata: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Optional additional data to attach to this button.
+    """
+
     title: str = pydantic.Field()
     """
     Display text for the button.

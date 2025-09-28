@@ -14,7 +14,7 @@ class MessageEventMessage(UniversalBaseModel):
 
     id: int = pydantic.Field()
     """
-    Unique identifier of the message.
+    Unique identifier of the message. To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
     """
 
     content: MessageContent

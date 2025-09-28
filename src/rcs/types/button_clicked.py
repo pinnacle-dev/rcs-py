@@ -2,7 +2,7 @@
 
 import typing
 
-from .click_action import ClickAction
+from .button_clicked_data import ButtonClickedData
 from .location_share_action import LocationShareAction
 
-InboundButton = typing.Union[ClickAction, LocationShareAction]
+ButtonClicked = typing.Union[ButtonClickedData, LocationShareAction]

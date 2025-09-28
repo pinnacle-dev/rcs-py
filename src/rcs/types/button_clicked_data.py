@@ -6,26 +6,24 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .button_clicked_data_button import ButtonClickedDataButton
 
 
-class MessageEventConversation(UniversalBaseModel):
+class ButtonClickedData(UniversalBaseModel):
     """
-    Conversation metadata containing the conversation ID, sender, and recipient information.
-    """
-
-    id: int = pydantic.Field()
-    """
-    Unique identifier for the conversation. To get more conversation details, use the [POST /conversations/get](/api-reference/conversations/get) endpoint.
+    Unified data structure for button click events.
     """
 
-    from_: typing_extensions.Annotated[str, FieldMetadata(alias="from")] = pydantic.Field()
+    button: ButtonClickedDataButton = pydantic.Field()
     """
-    Sender's phone number or agent ID.
+    Information about the button that was clicked.
     """
 
-    to: str = pydantic.Field()
+    message_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="messageId")] = pydantic.Field(
+        default=None
+    )
     """
-    Recipient's phone number.
+    ID of the message this button was attached to, or null if not available. To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
     """
 
     if IS_PYDANTIC_V2:

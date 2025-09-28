@@ -4846,7 +4846,7 @@ See the response of [Create Shortened URL](./create-url) for more information.
 <dl>
 <dd>
 
-Update the destination or configuration of an existing shortened URL.
+Update the destination or expiration date of an existing shortened URL. Expiring links cannot be updated into a permalink.
 </dd>
 </dl>
 </dd>
@@ -5017,6 +5017,94 @@ Supported file types:
 <dd>
 
 **options:** `typing.Optional[UploadFileOptions]` — Additional configurations for your file.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.file.<a href="src/rcs/tools/file/client.py">refresh</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh expiring presigned URLs for Pinnacle-hosted files to extend their access time.
+
+<Callout type="info">
+  This only works for presigned download URLs. At this moment, you cannot refresh a presigned upload URL, generate a new one instead.
+</Callout>  
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.tools.file.refresh(
+    uris=[
+        "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken",
+        "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
+        "icons/3/test.jpg",
+        "invalid/url",
+        "https://google.com",
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uris:** `typing.Sequence[str]` 
+
+Array of file URIs to refresh for extended access. <br>
+
+Accepted formats:
+- **Full presigned URLs**: `https://server.trypinnacle.app/storage/v1/object/sign/...`
+- **Short URIs**: `{BUCKET}/${TEAM_ID}/...` (e.g., `vault/3/document.pdf`)
+
+Invalid or external URLs will be returned unchanged in the response.
     
 </dd>
 </dl>

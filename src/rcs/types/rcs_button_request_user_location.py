@@ -11,6 +11,11 @@ class RcsButtonRequestUserLocation(UniversalBaseModel):
     Button that prompts the recipient to share their current location.
     """
 
+    metadata: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Optional additional data to attach to this button.
+    """
+
     title: str = pydantic.Field()
     """
     Display text for the button.

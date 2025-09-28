@@ -197,7 +197,7 @@ class RawUrlClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ShortenedUrl]:
         """
-        Update the destination or configuration of an existing shortened URL.
+        Update the destination or expiration date of an existing shortened URL. Expiring links cannot be updated into a permalink.
 
         Parameters
         ----------
@@ -458,7 +458,7 @@ class AsyncRawUrlClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ShortenedUrl]:
         """
-        Update the destination or configuration of an existing shortened URL.
+        Update the destination or expiration date of an existing shortened URL. Expiring links cannot be updated into a permalink.
 
         Parameters
         ----------

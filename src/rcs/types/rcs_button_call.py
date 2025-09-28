@@ -11,6 +11,11 @@ class RcsButtonCall(UniversalBaseModel):
     Button that initiates a phone call when tapped by the recipient.
     """
 
+    metadata: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Optional additional data to attach to this button.
+    """
+
     payload: str = pydantic.Field()
     """
     Phone number to call in E.164 format

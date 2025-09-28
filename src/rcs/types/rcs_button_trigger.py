@@ -11,9 +11,9 @@ class RcsButtonTrigger(UniversalBaseModel):
     Button that sends custom data back to your application when tapped by the recipient.
     """
 
-    metadata: str = pydantic.Field()
+    metadata: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Additional data attached to the button interaction.
+    Optional additional data to attach to this button.
     """
 
     payload: str = pydantic.Field()

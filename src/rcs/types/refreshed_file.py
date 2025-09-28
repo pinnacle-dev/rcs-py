@@ -6,21 +6,15 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class ClickActionDataMetadata(UniversalBaseModel):
+class RefreshedFile(UniversalBaseModel):
+    original: str = pydantic.Field()
     """
-    Data that is attached to the button. <br>
-
-    This is only returned when `trigger` buttons are pressed.
-    """
-
-    metadata: str = pydantic.Field()
-    """
-    Additional metadata attached to the interaction.
+    The original file URI that was provided in the request.
     """
 
-    payload: str = pydantic.Field()
+    refreshed: str = pydantic.Field()
     """
-    Payload associated with the button.
+    The new refreshed presigned URL that expires in one hour.
     """
 
     if IS_PYDANTIC_V2:

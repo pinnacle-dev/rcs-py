@@ -13,6 +13,7 @@ from .rcs_button_send_location_lat_long import RcsButtonSendLocationLatLong
 
 class RichButton_OpenUrl(UniversalBaseModel):
     type: typing.Literal["openUrl"] = "openUrl"
+    metadata: typing.Optional[str] = None
     payload: str
     title: str
 
@@ -28,6 +29,7 @@ class RichButton_OpenUrl(UniversalBaseModel):
 
 class RichButton_Call(UniversalBaseModel):
     type: typing.Literal["call"] = "call"
+    metadata: typing.Optional[str] = None
     payload: str
     title: str
 
@@ -43,7 +45,7 @@ class RichButton_Call(UniversalBaseModel):
 
 class RichButton_Trigger(UniversalBaseModel):
     type: typing.Literal["trigger"] = "trigger"
-    metadata: str
+    metadata: typing.Optional[str] = None
     payload: str
     title: str
 
@@ -59,6 +61,7 @@ class RichButton_Trigger(UniversalBaseModel):
 
 class RichButton_RequestUserLocation(UniversalBaseModel):
     type: typing.Literal["requestUserLocation"] = "requestUserLocation"
+    metadata: typing.Optional[str] = None
     title: str
 
     if IS_PYDANTIC_V2:
@@ -77,6 +80,7 @@ class RichButton_ScheduleEvent(UniversalBaseModel):
     event_end_time: typing_extensions.Annotated[str, FieldMetadata(alias="eventEndTime")]
     event_start_time: typing_extensions.Annotated[str, FieldMetadata(alias="eventStartTime")]
     event_title: typing_extensions.Annotated[str, FieldMetadata(alias="eventTitle")]
+    metadata: typing.Optional[str] = None
     title: str
 
     if IS_PYDANTIC_V2:
@@ -92,6 +96,7 @@ class RichButton_ScheduleEvent(UniversalBaseModel):
 class RichButton_SendLocation(UniversalBaseModel):
     type: typing.Literal["sendLocation"] = "sendLocation"
     lat_long: typing_extensions.Annotated[RcsButtonSendLocationLatLong, FieldMetadata(alias="latLong")]
+    metadata: typing.Optional[str] = None
     title: str
 
     if IS_PYDANTIC_V2:

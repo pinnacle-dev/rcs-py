@@ -2,9 +2,9 @@
 
 import typing
 
-from .inbound_button import InboundButton
+from .button_clicked import ButtonClicked
 from .mms_content import MmsContent
 from .rcs_content import RcsContent
 from .sms_content import SmsContent
 
-MessageContent = typing.Union[SmsContent, MmsContent, RcsContent, InboundButton]
+MessageContent = typing.Union[SmsContent, MmsContent, RcsContent, ButtonClicked]

@@ -11,6 +11,11 @@ class RcsButtonOpenUrl(UniversalBaseModel):
     Button that opens a URL when tapped by the recipient.
     """
 
+    metadata: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Optional additional data to attach to this button.
+    """
+
     payload: str = pydantic.Field()
     """
     The URL to open when the button is tapped. Must be a valid HTTP or HTTPS URL.
