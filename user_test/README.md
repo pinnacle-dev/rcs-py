@@ -7,10 +7,16 @@ Simple test scripts to verify the `process` and `upload_from_path` methods from 
 ```bash
 # Install test dependencies
 pip install -r requirements.txt
-
-# Set your API key (required for upload tests)
-export PINNACLE_API_KEY="your-api-key-here"
 ```
+
+## Configuration
+
+Create a `.env` file in the root directory (`rcs-py/.env`) with your API key:
+```bash
+PINNACLE_API_KEY="your-api-key-here"
+```
+
+The test scripts will automatically load environment variables from the `.env` file.
 
 ## Usage
 
@@ -33,10 +39,14 @@ curl -X POST http://localhost:8080/webhook \
 # Upload any file
 python test.py /path/to/your/file.jpg
 
+# Upload with custom name
+python test.py /path/to/your/file.jpg custom-name.jpg
+
 # Examples
 python test.py image.png
-python test.py document.pdf
-python test.py video.mp4
+python test.py document.pdf report.pdf
+python test.py video.mp4 "my-video.mp4"
+python test.py requirements.txt dependencies.txt
 ```
 
 ### Async Version (`test_async.py`)
@@ -58,10 +68,14 @@ curl -X POST http://localhost:8080/webhook \
 # Upload any file with async client
 python test_async.py /path/to/your/file.jpg
 
+# Upload with custom name
+python test_async.py /path/to/your/file.jpg custom-name.jpg
+
 # Examples
 python test_async.py image.png
-python test_async.py document.pdf
-python test_async.py video.mp4
+python test_async.py document.pdf report.pdf
+python test_async.py video.mp4 "my-video.mp4"
+python test_async.py requirements.txt dependencies.txt
 ```
 
 ## Expected Output
@@ -79,7 +93,7 @@ python test_async.py video.mp4
 📁 Uploading: image.jpg
    Size: 245,678 bytes
 ✅ Upload successful!
-   URL: https://upload.pinnacle.com/...
+   Download URL: https://storage.pinnacle.com/...
    Expires: 2024-01-15T10:30:00Z
 ```
 

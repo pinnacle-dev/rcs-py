@@ -1,5 +1,8 @@
 # Requirements for test scripts
 
+# Environment variables
+python-dotenv>=1.0.0
+
 # For sync test (test.py)
 flask>=3.0.0
 

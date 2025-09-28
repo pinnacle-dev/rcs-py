@@ -8,14 +8,12 @@ from ...types.message_event import MessageEvent
 from ...core.client_wrapper import SyncClientWrapper, AsyncClientWrapper
 from .adapters import (
     NormalizedRequest,
-    BaseAdapter,
     FlaskAdapter,
     DjangoAdapter,
     PyramidAdapter,
     FalconAdapter,
     BottleAdapter,
     TornadoAdapter,
-    WerkzeugAdapter,
     FastAPIAdapter,
     QuartAdapter,
     AioHttpAdapter,

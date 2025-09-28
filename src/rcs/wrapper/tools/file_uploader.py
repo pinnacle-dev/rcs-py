@@ -90,7 +90,7 @@ class FileUploader(FileClient):
             content_type=content_type,
             size=size,
             name=file_name,
-            options=options
+            options=options or UploadFileOptions()
         )
 
         if upload_result.upload_url:
@@ -140,7 +140,7 @@ class AsyncFileUploader(AsyncFileClient):
             content_type=content_type,
             size=size,
             name=file_name,
-            options=options
+            options=options or UploadFileOptions()
         )
 
         if upload_result.upload_url:

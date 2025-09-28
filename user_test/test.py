@@ -10,8 +10,12 @@ import sys
 import os
 from pathlib import Path
 
+# Load environment variables from .env file
+from dotenv import load_dotenv
+load_dotenv(Path(__file__).parent.parent / ".env")
+
 # Add the src directory to the path so we can import the SDK
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from rcs import Pinnacle
 
@@ -56,7 +60,7 @@ def test_process():
     app.run(port=8080, debug=False)
 
 
-def test_upload_from_path(file_path):
+def test_upload_from_path(file_path, custom_name=None):
     """Test uploading a file."""
     # Check API key
     api_key = os.environ.get("PINNACLE_API_KEY")
@@ -73,13 +77,18 @@ def test_upload_from_path(file_path):
         sys.exit(1)
 
     print(f"📁 Uploading: {file_path}")
+    if custom_name:
+        print(f"   Custom name: {custom_name}")
     print(f"   Size: {os.path.getsize(file_path):,} bytes")
 
     try:
-        result = client.file_uploader.upload_from_path(file_path=file_path)
+        result = client.file_uploader.upload_from_path(
+            file_path=file_path,
+            name=custom_name
+        )
         print(f"✅ Upload successful!")
-        print(f"   URL: {result.url}")
-        print(f"   Expires: {result.expires_at}")
+        print(f"   Download URL: {result.download_url}")
+        print(f"   Expires: {result.metadata.expires_at if result.metadata.expires_at else 'In 1 hour'}")
     except Exception as e:
         print(f"❌ Upload failed: {e}")
         sys.exit(1)
@@ -88,6 +97,10 @@ def test_upload_from_path(file_path):
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print(__doc__)
+        print("\nUsage:")
+        print("  python test.py server                     # Run webhook server")
+        print("  python test.py <file_path>                # Upload file")
+        print("  python test.py <file_path> <custom_name>  # Upload with custom name")
         sys.exit(1)
 
     arg = sys.argv[1]
@@ -95,4 +108,6 @@ if __name__ == "__main__":
     if arg.lower() == "server":
         test_process()
     else:
-        test_upload_from_path(arg)
+        # Check if custom name is provided
+        custom_name = sys.argv[2] if len(sys.argv) > 2 else None
+        test_upload_from_path(arg, custom_name)
