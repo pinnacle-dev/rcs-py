@@ -1,0 +1,12 @@
+# Requirements for test scripts
+# Compatible with Python 3.8+
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# For sync test (test.py)
+flask>=2.3.0
+
+# For async test (test_async.py)
+fastapi>=0.100.0
+uvicorn>=0.23.0 
