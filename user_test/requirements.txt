@@ -9,4 +9,7 @@ flask>=2.3.0
 
 # For async test (test_async.py)
 fastapi>=0.100.0
-uvicorn>=0.23.0 
+uvicorn>=0.23.0
+
+# For webhook testing (send_webhook_test.py)
+requests>=2.28.0 

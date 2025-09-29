@@ -35,28 +35,14 @@ async def test_process():
     api_key = os.environ.get("PINNACLE_API_KEY", "test-api-key")
     client = AsyncPinnacle(api_key=api_key)
 
-    # Set a test secret
-    os.environ["PINNACLE_SIGNING_SECRET"] = "test-secret"
-
     app = FastAPI()
 
     @app.post('/webhook')
     async def webhook(request: Request):
         try:
-            # IMPORTANT: Parse JSON and add to request.body for process() to work
-            body = await request.json()
-            request.body = body
-
-            message_event = await client.enhanced_messages.process(request)
+            message_event = await client.enhanced_messages.process({"headers": request.headers, "body": await request.json()})
             print(f"\n✅ Processed webhook:")
-            print(f"   Type: {message_event.type}")
-            print(f"   From: {message_event.conversation.from_}")
-            print(f"   To: {message_event.conversation.to}")
-
-            # Handle message content if present
-            if hasattr(message_event.message, 'content'):
-                if hasattr(message_event.message.content, 'text'):
-                    print(f"   Message: {message_event.message.content.text}")
+            print(message_event)
 
             return JSONResponse({"status": "success"}, status_code=200)
         except Exception as e:
@@ -64,12 +50,6 @@ async def test_process():
             return JSONResponse({"error": str(e)}, status_code=400)
 
     print("🚀 Async server running on http://localhost:8080/webhook")
-    print("   Test with: curl -X POST http://localhost:8080/webhook \\")
-    print("     -H 'Content-Type: application/json' \\")
-    print("     -H 'PINNACLE-SIGNING-SECRET: test-secret' \\")
-    print('     -d \'{"type":"MESSAGE.RECEIVED","conversation":{"id":123,"from_":"+14155551234","to":"+14155555678"},"status":"received","direction":"inbound","segments":1,"sent_at":"2024-01-01T00:00:00Z","message":{"id":456,"content":{"text":"Hello from test!"}}}\'')
-    print("\n   Press Ctrl+C to stop")
-
     config = uvicorn.Config(app=app, host="0.0.0.0", port=8080, log_level="error")
     server = uvicorn.Server(config)
     await server.serve()
