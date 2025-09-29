@@ -258,6 +258,8 @@ if typing.TYPE_CHECKING:
     from .client import AsyncPinnacle, Pinnacle
     from .environment import PinnacleEnvironment
     from .messages import ReactMessageOptions
+    from .wrapper.messages.client import EnhancedMessages, AsyncEnhancedMessages
+    from .wrapper.tools.file_uploader import FileUploader, AsyncFileUploader
     from .phone_numbers import (
         EnhancedContactInfo,
         PhoneDetailsSchemaLevel,
@@ -270,6 +272,8 @@ if typing.TYPE_CHECKING:
     from .version import __version__
 _dynamic_imports: typing.Dict[str, str] = {
     "AdvancedPhoneInformation": ".types",
+    "AsyncEnhancedMessages": ".wrapper.messages.client",
+    "AsyncFileUploader": ".wrapper.tools.file_uploader",
     "AdvancedPhoneInformationCarrier": ".types",
     "AdvancedPhoneInformationContact": ".types",
     "AdvancedPhoneInformationLocation": ".types",
@@ -343,9 +347,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EnhancedContact": ".types",
     "EnhancedContactInfo": ".phone_numbers",
     "EnhancedContactItem": ".types",
+    "EnhancedMessages": ".wrapper.messages.client",
     "Error": ".types",
     "ErrorResponse": ".types",
     "ExtendedBrand": ".types",
+    "FileUploader": ".wrapper.tools.file_uploader",
     "ExtendedBrandWithVetting": ".types",
     "ExtendedRcsCampaign": ".types",
     "GetConversationParams": ".types",
@@ -560,6 +566,8 @@ def __dir__():
 
 __all__ = [
     "AdvancedPhoneInformation",
+    "AsyncEnhancedMessages",
+    "AsyncFileUploader",
     "AdvancedPhoneInformationCarrier",
     "AdvancedPhoneInformationContact",
     "AdvancedPhoneInformationLocation",
@@ -633,9 +641,11 @@ __all__ = [
     "EnhancedContact",
     "EnhancedContactInfo",
     "EnhancedContactItem",
+    "EnhancedMessages",
     "Error",
     "ErrorResponse",
     "ExtendedBrand",
+    "FileUploader",
     "ExtendedBrandWithVetting",
     "ExtendedRcsCampaign",
     "GetConversationParams",
