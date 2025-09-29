@@ -36,6 +36,11 @@ class ButtonClickedDataButton(UniversalBaseModel):
     Additional metadata attached to the button's `metadata` field, if provided.
     """
 
+    clicks: int = pydantic.Field()
+    """
+    Number of times the button has been clicked.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
