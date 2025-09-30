@@ -40,7 +40,7 @@ async def test_process():
     @app.post('/webhook')
     async def webhook(request: Request):
         try:
-            message_event = await client.enhanced_messages.process({"headers": request.headers, "body": await request.json()})
+            message_event = await client.messages.process({"headers": request.headers, "body": await request.json()})
             print(f"\n✅ Processed webhook:")
             print(message_event)
 
@@ -76,8 +76,8 @@ async def test_upload_from_path(file_path, custom_name=None):
         print(f"   Custom name: {custom_name}")
     print(f"   Size: {os.path.getsize(file_path):,} bytes")
 
-    try:
-        result = await client.file_uploader.upload_from_path(
+    try:   
+        result = await client.tools.file.upload_from_path(
             file_path=file_path,
             name=custom_name
         )
