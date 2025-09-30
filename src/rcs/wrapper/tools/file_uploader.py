@@ -68,7 +68,7 @@ class FileUploader(FileClient):
         *,
         name: Optional[str] = None,
         options: Optional[UploadFileOptions] = None
-    ) -> UploadResults:
+    ) -> str:
         path = Path(file_path)
 
         if not path.exists():
@@ -105,7 +105,7 @@ class FileUploader(FileClient):
                 )
                 response.raise_for_status()
 
-        return upload_result
+        return upload_result.download_url
 
 class AsyncFileUploader(AsyncFileClient):
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -118,7 +118,7 @@ class AsyncFileUploader(AsyncFileClient):
         *,
         name: Optional[str] = None,
         options: Optional[UploadFileOptions] = None
-    ) -> UploadResults:
+    ) -> str:
         path = Path(file_path)
 
         if not path.exists():
@@ -155,5 +155,5 @@ class AsyncFileUploader(AsyncFileClient):
                 )
                 response.raise_for_status()
 
-        return upload_result
+        return upload_result.download_url
 
