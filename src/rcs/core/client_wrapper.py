@@ -22,10 +22,10 @@ class BaseClientWrapper:
 
     def get_headers(self) -> typing.Dict[str, str]:
         headers: typing.Dict[str, str] = {
-            "User-Agent": "rcs/2.0.0rc9",
+            "User-Agent": "rcs/2.0.0rc10",
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "rcs",
-            "X-Fern-SDK-Version": "2.0.0rc9",
+            "X-Fern-SDK-Version": "2.0.0rc10",
             **(self.get_custom_headers() or {}),
         }
         headers["PINNACLE-API-KEY"] = self.api_key
@@ -51,7 +51,9 @@ class SyncClientWrapper(BaseClientWrapper):
         timeout: typing.Optional[float] = None,
         httpx_client: httpx.Client,
     ):
-        super().__init__(api_key=api_key, headers=headers, base_url=base_url, timeout=timeout)
+        super().__init__(
+            api_key=api_key, headers=headers, base_url=base_url, timeout=timeout
+        )
         self.httpx_client = HttpClient(
             httpx_client=httpx_client,
             base_headers=self.get_headers,
@@ -70,7 +72,9 @@ class AsyncClientWrapper(BaseClientWrapper):
         timeout: typing.Optional[float] = None,
         httpx_client: httpx.AsyncClient,
     ):
-        super().__init__(api_key=api_key, headers=headers, base_url=base_url, timeout=timeout)
+        super().__init__(
+            api_key=api_key, headers=headers, base_url=base_url, timeout=timeout
+        )
         self.httpx_client = AsyncHttpClient(
             httpx_client=httpx_client,
             base_headers=self.get_headers,
