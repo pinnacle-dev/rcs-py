@@ -63,7 +63,8 @@ class WebhookClient:
         client.phone_numbers.webhook.attach(
             phone="%2B14155551234",
             request=AttachWebhookByIdParams(
-                webhook_id=1,
+                webhook_id=123,
+                event="MESSAGE.STATUS",
             ),
         )
         """
@@ -169,7 +170,8 @@ class AsyncWebhookClient:
             await client.phone_numbers.webhook.attach(
                 phone="%2B14155551234",
                 request=AttachWebhookByIdParams(
-                    webhook_id=1,
+                    webhook_id=123,
+                    event="MESSAGE.STATUS",
                 ),
             )
 
