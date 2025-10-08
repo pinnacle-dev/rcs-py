@@ -22,7 +22,6 @@ class TollFreeCampaignWithExtendedBrandAndStatus(TollFreeCampaign):
     `INCOMPLETE`: Has not been submitted.<br>
     `PENDING`: Currently being reviewed.<br>
     `VERIFIED`: Verified and good to go.<br>
-    `UNVERIFIED`: No longer verified due to an update in the brand details.<br>
     `VETTED`: Brand has been vetted by an external provider and has received vetting scores.
     """
 

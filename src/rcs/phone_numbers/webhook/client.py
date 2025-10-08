@@ -39,7 +39,7 @@ class WebhookClient:
         phone : str
             The phone number you want to attach the webhook to in E.164 format. Make sure it is url encoded (i.e. replace the leading + with %2B). <br>
 
-            Must be a phone number that you own and have already [purchased](./buy) through the API.
+            Must be a phone number that you own and have already [purchased](./buy) through the API. A phone number can have multiple webhooks attached to it.
 
         request : AttachWebhookParams
 
@@ -140,7 +140,7 @@ class AsyncWebhookClient:
         phone : str
             The phone number you want to attach the webhook to in E.164 format. Make sure it is url encoded (i.e. replace the leading + with %2B). <br>
 
-            Must be a phone number that you own and have already [purchased](./buy) through the API.
+            Must be a phone number that you own and have already [purchased](./buy) through the API. A phone number can have multiple webhooks attached to it.
 
         request : AttachWebhookParams
 

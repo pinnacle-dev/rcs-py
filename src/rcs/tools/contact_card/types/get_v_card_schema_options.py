@@ -15,7 +15,7 @@ class GetVCardSchemaOptions(UniversalBaseModel):
     """
     Set an expiration date for your download URL in IS0 8610 format. <br>
     
-    If this field is not provided, the expiration time is defaulted to one hour after retrieval. 
+    If this field is not provided, the expiration time is defaulted to one hour after retrieval.
     """
 
     if IS_PYDANTIC_V2:

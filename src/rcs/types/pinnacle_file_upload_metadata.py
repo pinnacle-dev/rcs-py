@@ -25,7 +25,7 @@ class PinnacleFileUploadMetadata(UniversalBaseModel):
     """
     Expiration date in ISO 8601 format for file download access.<br>
     
-    Null indicates that `download.expiresAt` was not provided and the expiration time is defaulted to one hour after uploading.   
+    Null indicates that `download.expiresAt` was not provided and the expiration time is defaulted to one hour after uploading.
     """
 
     if IS_PYDANTIC_V2:

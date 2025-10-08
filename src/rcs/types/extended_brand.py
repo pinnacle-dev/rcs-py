@@ -28,7 +28,7 @@ class ExtendedBrand(OptionalBrandInfo):
 
     status: BrandStatusEnum = pydantic.Field()
     """
-    Current review status of the campaign. <br>
+    Current review status of the brand. <br>
     
     `INCOMPLETE`: Not submitted. <br>
     
@@ -36,7 +36,11 @@ class ExtendedBrand(OptionalBrandInfo):
     
     `VERIFIED`: Approved and ready to send messages. <br>
     
-    `FAILED`: Issues and errors related to the campaign's details.
+    `FAILED`: Issues and errors related to the campaign's details. <br>
+    
+    `VETTED`: Has undergone additional vetting by a third party service post the brand being verified. Your brand will be assigned a trust score, with higher trust scores having higher message volumes. <br>
+    
+    `UNVERIFIED`: Brand details have been updated, and the brand will need to undergo re-verification.
     """
 
     updated_at: typing_extensions.Annotated[str, FieldMetadata(alias="updatedAt")] = pydantic.Field()

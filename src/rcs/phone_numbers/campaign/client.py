@@ -37,7 +37,7 @@ class CampaignClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AttachedPhoneNumberResult:
         """
-        Link a phone number to a specific campaign.
+        Link a phone number to a specific campaign. Phone numbers must be linked to a campaign to send messages.
 
         Parameters
         ----------
@@ -133,7 +133,7 @@ class AsyncCampaignClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AttachedPhoneNumberResult:
         """
-        Link a phone number to a specific campaign.
+        Link a phone number to a specific campaign. Phone numbers must be linked to a campaign to send messages.
 
         Parameters
         ----------

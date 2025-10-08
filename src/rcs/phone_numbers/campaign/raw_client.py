@@ -35,7 +35,7 @@ class RawCampaignClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AttachedPhoneNumberResult]:
         """
-        Link a phone number to a specific campaign.
+        Link a phone number to a specific campaign. Phone numbers must be linked to a campaign to send messages.
 
         Parameters
         ----------
@@ -254,7 +254,7 @@ class AsyncRawCampaignClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AttachedPhoneNumberResult]:
         """
-        Link a phone number to a specific campaign.
+        Link a phone number to a specific campaign. Phone numbers must be linked to a campaign to send messages.
 
         Parameters
         ----------

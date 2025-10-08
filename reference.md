@@ -4049,7 +4049,7 @@ client.phone_numbers.webhook.attach(
 
 The phone number you want to attach the webhook to in E.164 format. Make sure it is url encoded (i.e. replace the leading + with %2B). <br>
 
-Must be a phone number that you own and have already [purchased](./buy) through the API.
+Must be a phone number that you own and have already [purchased](./buy) through the API. A phone number can have multiple webhooks attached to it.
     
 </dd>
 </dl>
@@ -4179,7 +4179,7 @@ This must be a valid webhook ID that is currently attached to the specified phon
 <dl>
 <dd>
 
-Link a phone number to a specific campaign.
+Link a phone number to a specific campaign. Phone numbers must be linked to a campaign to send messages.
 </dd>
 </dl>
 </dd>
@@ -4814,7 +4814,7 @@ client.tools.url.get(
 
 Unique identifier from your shortened URL. For example, for `https://pncl.to/ePzVxILF`, the `linkId` is `ePzVxILF`. <br>
 
-See the response of [Create Shortened URL](./create-url) for more information. 
+See the response of [Create Shortened URL](./create-url) for more information.
     
 </dd>
 </dl>
@@ -4889,7 +4889,7 @@ client.tools.url.update(
 
 Unique identifier from your shortened URL. For example, for `https://pncl.to/ePzVxILF`, the `linkId` is `ePzVxILF`. <br>
 
-See the response of [Create Shortened URL](./create-url) for more information. 
+See the response of [Create Shortened URL](./create-url) for more information.
     
 </dd>
 </dl>
@@ -5052,7 +5052,7 @@ Refresh expiring presigned URLs for Pinnacle-hosted files to extend their access
 
 <Callout type="info">
   This only works for presigned download URLs. At this moment, you cannot refresh a presigned upload URL, generate a new one instead.
-</Callout>  
+</Callout>
 </dd>
 </dl>
 </dd>
@@ -5137,7 +5137,7 @@ Invalid or external URLs will be returned unchanged in the response.
 <dl>
 <dd>
 
-Retrieve contact information as a vCard and get a presigned URL to download the file.
+Retrieve contact information as a vCard and get a presigned URL to download the file. Contact cards can be sent [via MMS](/api-reference/messages/send-mms) as a media file.
 </dd>
 </dl>
 </dd>
@@ -5215,7 +5215,7 @@ client.tools.contact_card.get(
 <dl>
 <dd>
 
-Create a new contact card or updates an existing one with full vCard data.
+Create a new contact card or updates an existing one with full vCard data. Contact cards can be sent [via MMS](/api-reference/messages/send-mms) as a media file.
 </dd>
 </dl>
 </dd>

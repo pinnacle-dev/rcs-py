@@ -42,7 +42,7 @@ class ContactCardClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> VCardData:
         """
-        Retrieve contact information as a vCard and get a presigned URL to download the file.
+        Retrieve contact information as a vCard and get a presigned URL to download the file. Contact cards can be sent [via MMS](/api-reference/messages/send-mms) as a media file.
 
         Parameters
         ----------
@@ -96,7 +96,7 @@ class ContactCardClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> VcardResource:
         """
-        Create a new contact card or updates an existing one with full vCard data.
+        Create a new contact card or updates an existing one with full vCard data. Contact cards can be sent [via MMS](/api-reference/messages/send-mms) as a media file.
 
         Parameters
         ----------
@@ -273,7 +273,7 @@ class AsyncContactCardClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> VCardData:
         """
-        Retrieve contact information as a vCard and get a presigned URL to download the file.
+        Retrieve contact information as a vCard and get a presigned URL to download the file. Contact cards can be sent [via MMS](/api-reference/messages/send-mms) as a media file.
 
         Parameters
         ----------
@@ -335,7 +335,7 @@ class AsyncContactCardClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> VcardResource:
         """
-        Create a new contact card or updates an existing one with full vCard data.
+        Create a new contact card or updates an existing one with full vCard data. Contact cards can be sent [via MMS](/api-reference/messages/send-mms) as a media file.
 
         Parameters
         ----------
