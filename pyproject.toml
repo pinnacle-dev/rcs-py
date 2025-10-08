@@ -3,7 +3,7 @@ name = "rcs"
 
 [tool.poetry]
 name = "rcs"
-version = "2.0.0rc11"
+version = "2.0.0"
 description = ""
 readme = "README.md"
 authors = []
