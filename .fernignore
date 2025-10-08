@@ -2,3 +2,4 @@
 
 src/rcs/client.py
 src/rcs/utils.py
+src/rcs/wrapper
