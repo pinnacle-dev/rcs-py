@@ -48,7 +48,7 @@ class EnhancedMessages(MessagesClient):
 
     def process(
         self, req: PinnacleRequest, secret: Optional[str] = None
-    ) -> MessageEvent | UserEvent:
+    ) -> Union[MessageEvent, UserEvent]:
         """Process incoming webhook request from any supported framework.
 
         Args:
@@ -83,7 +83,7 @@ class AsyncEnhancedMessages(AsyncMessagesClient):
 
     async def process(
         self, req: PinnacleRequest, secret: Optional[str] = None
-    ) -> MessageEvent | UserEvent:
+    ) -> Union[MessageEvent, UserEvent]:
         """Process incoming webhook request from any supported async framework.
 
         Args:
