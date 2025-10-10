@@ -1,20 +1,19 @@
 import os
-from typing import Dict, Any, Optional, List, Union
+from typing import Dict, Any, Optional, List, Union, TypedDict
 import json
 import typing
-from dataclasses import dataclass
 from ...messages.client import MessagesClient, AsyncMessagesClient
 from ...errors.unauthorized_error import UnauthorizedError
 from ...errors.bad_request_error import BadRequestError
 from ...types.error import Error
+from ...types.user_event import UserEvent
 from ...types.message_event import MessageEvent
 from ...core.client_wrapper import SyncClientWrapper, AsyncClientWrapper
 from ...core.pydantic_utilities import parse_obj_as
 
 
-@dataclass
-class PinnacleRequest(typing.TypedDict):
-    headers: Dict[str, Union[str, List[str], None]]
+class PinnacleRequest(TypedDict):
+    headers: Dict[str, Any]
     body: str
 
 
@@ -49,7 +48,7 @@ class EnhancedMessages(MessagesClient):
 
     def process(
         self, req: PinnacleRequest, secret: Optional[str] = None
-    ) -> MessageEvent:
+    ) -> MessageEvent | UserEvent:
         """Process incoming webhook request from any supported framework.
 
         Args:
@@ -68,7 +67,10 @@ class EnhancedMessages(MessagesClient):
 
         try:
             body = json.loads(req["body"])
-            return parse_obj_as(MessageEvent, body)
+            if body["type"] == "USER.TYPING":
+                return parse_obj_as(UserEvent, body)
+            else:
+                return parse_obj_as(MessageEvent, body)
         except Exception as e:
             raise BadRequestError(body=f"Invalid message event format: {str(e)}")
 
@@ -81,7 +83,7 @@ class AsyncEnhancedMessages(AsyncMessagesClient):
 
     async def process(
         self, req: PinnacleRequest, secret: Optional[str] = None
-    ) -> MessageEvent:
+    ) -> MessageEvent | UserEvent:
         """Process incoming webhook request from any supported async framework.
 
         Args:
@@ -100,6 +102,9 @@ class AsyncEnhancedMessages(AsyncMessagesClient):
 
         try:
             body = json.loads(req["body"])
-            return parse_obj_as(MessageEvent, body)
+            if body["type"] == "USER.TYPING":
+                return parse_obj_as(UserEvent, body)
+            else:
+                return parse_obj_as(MessageEvent, body)
         except Exception as e:
             raise BadRequestError(body=f"Invalid message event format: {str(e)}")
