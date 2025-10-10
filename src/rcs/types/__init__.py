@@ -223,6 +223,8 @@ if typing.TYPE_CHECKING:
     from .upsert_contact import UpsertContact
     from .upsert_toll_free_campaign_opt_in import UpsertTollFreeCampaignOptIn
     from .upsert_toll_free_campaign_use_case import UpsertTollFreeCampaignUseCase
+    from .user_event import UserEvent
+    from .user_event_conversation import UserEventConversation
     from .v_card_address_schema_type_item import VCardAddressSchemaTypeItem
     from .v_card_data import VCardData
     from .v_card_data_file import VCardDataFile
@@ -461,6 +463,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpsertContact": ".upsert_contact",
     "UpsertTollFreeCampaignOptIn": ".upsert_toll_free_campaign_opt_in",
     "UpsertTollFreeCampaignUseCase": ".upsert_toll_free_campaign_use_case",
+    "UserEvent": ".user_event",
+    "UserEventConversation": ".user_event_conversation",
     "VCardAddressSchemaTypeItem": ".v_card_address_schema_type_item",
     "VCardData": ".v_card_data",
     "VCardDataFile": ".v_card_data_file",
@@ -721,6 +725,8 @@ __all__ = [
     "UpsertContact",
     "UpsertTollFreeCampaignOptIn",
     "UpsertTollFreeCampaignUseCase",
+    "UserEvent",
+    "UserEventConversation",
     "VCardAddressSchemaTypeItem",
     "VCardData",
     "VCardDataFile",
