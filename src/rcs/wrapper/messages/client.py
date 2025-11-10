@@ -21,8 +21,10 @@ def _validate_webhook_secret(
     req: PinnacleRequest, secret: Optional[str] = None
 ) -> None:
     """Validate webhook signature for both sync and async clients."""
-    header_secret = req["headers"].get("PINNACLE-SIGNING-SECRET") or req["headers"].get(
-        "pinnacle-signing-secret"
+    header_secret = (
+        req["headers"].get("PINNACLE-SIGNING-SECRET")
+        or req["headers"].get("pinnacle-signing-secret")
+        or req["headers"].get("Pinnacle-Signing-Secret")
     )
 
     env_secret = secret or os.environ.get("PINNACLE_SIGNING_SECRET")
