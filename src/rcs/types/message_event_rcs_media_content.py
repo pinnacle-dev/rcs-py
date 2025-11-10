@@ -6,7 +6,6 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .rcs_media_details_content import RcsMediaDetailsContent
 from .rich_button import RichButton
 
 
@@ -28,7 +27,11 @@ class MessageEventRcsMediaContent(UniversalBaseModel):
     To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
     """
 
-    media: RcsMediaDetailsContent
+    media: str = pydantic.Field()
+    """
+    URL of the media file.
+    """
+
     quick_replies: typing_extensions.Annotated[typing.List[RichButton], FieldMetadata(alias="quickReplies")] = (
         pydantic.Field()
     )
