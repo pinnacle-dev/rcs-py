@@ -16,9 +16,9 @@ class ExtendedBrand(OptionalBrandInfo):
     ISO 8601 formatted timestamp of when this brand was added to our system.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    The brand's ID.
+    The brand's ID. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
     """
 
     is_archived: typing_extensions.Annotated[bool, FieldMetadata(alias="isArchived")] = pydantic.Field()

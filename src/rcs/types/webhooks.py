@@ -16,9 +16,9 @@ class Webhooks(UniversalBaseModel):
     URL where webhook events are delivered.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Unique identifier for the webhook.
+    The unique identifier of the webhook. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
     """
 
     name: str = pydantic.Field()

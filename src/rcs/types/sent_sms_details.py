@@ -10,9 +10,9 @@ from .send_sms_response_segments import SendSmsResponseSegments
 
 
 class SentSmsDetails(UniversalBaseModel):
-    message_id: typing_extensions.Annotated[int, FieldMetadata(alias="messageId")] = pydantic.Field()
+    message_id: typing_extensions.Annotated[str, FieldMetadata(alias="messageId")] = pydantic.Field()
     """
-    Unique identifier for the sent message.
+    Unique identifier for the sent message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
     """
 
     segments: SendSmsResponseSegments = pydantic.Field()

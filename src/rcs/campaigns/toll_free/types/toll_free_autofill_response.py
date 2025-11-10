@@ -8,7 +8,7 @@ from ....types.toll_free_campaign import TollFreeCampaign
 
 
 class TollFreeAutofillResponse(TollFreeCampaign):
-    brand: typing.Optional[int] = None
+    brand: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

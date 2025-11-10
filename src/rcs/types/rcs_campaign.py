@@ -19,7 +19,7 @@ class RcsCampaign(UniversalBaseModel):
     Agent configured to the campaign.
     """
 
-    campaign_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="campaignId")] = pydantic.Field(
+    campaign_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="campaignId")] = pydantic.Field(
         default=None
     )
     """

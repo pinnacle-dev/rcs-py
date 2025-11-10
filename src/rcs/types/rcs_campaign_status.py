@@ -17,9 +17,9 @@ class RcsCampaignStatus(UniversalBaseModel):
     List of errors that occured.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Id of the RCS campaign.
+    The unique identifier of the RCS campaign. This identifier is a string that always begins with the prefix `rcs_`, for example: `rcs_1234567890`.
     """
 
     status: ProfileStatusEnum = pydantic.Field()

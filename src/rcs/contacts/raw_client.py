@@ -28,7 +28,7 @@ class RawContactsClient:
     def get(
         self,
         *,
-        id: typing.Optional[int] = None,
+        id: typing.Optional[str] = None,
         phone_number: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Contact]:
@@ -37,7 +37,7 @@ class RawContactsClient:
 
         Parameters
         ----------
-        id : typing.Optional[int]
+        id : typing.Optional[str]
             Unique identifier of a specific contact you want to retrieve. <br>
 
             Either this parameter or `phoneNumber` must be provided, but not both.
@@ -98,9 +98,9 @@ class RawContactsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -226,7 +226,7 @@ class RawContactsClient:
     def update(
         self,
         *,
-        id: int,
+        id: str,
         description: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
@@ -238,8 +238,8 @@ class RawContactsClient:
 
         Parameters
         ----------
-        id : int
-            ID of the contact you want to update.
+        id : str
+            ID of the contact you want to update. This identifier is a string that always begins with the prefix `co_`, for example: `co_1234567890`.
 
         description : typing.Optional[str]
             New notes or details for your contact.
@@ -313,9 +313,9 @@ class RawContactsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -344,7 +344,7 @@ class AsyncRawContactsClient:
     async def get(
         self,
         *,
-        id: typing.Optional[int] = None,
+        id: typing.Optional[str] = None,
         phone_number: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Contact]:
@@ -353,7 +353,7 @@ class AsyncRawContactsClient:
 
         Parameters
         ----------
-        id : typing.Optional[int]
+        id : typing.Optional[str]
             Unique identifier of a specific contact you want to retrieve. <br>
 
             Either this parameter or `phoneNumber` must be provided, but not both.
@@ -414,9 +414,9 @@ class AsyncRawContactsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -542,7 +542,7 @@ class AsyncRawContactsClient:
     async def update(
         self,
         *,
-        id: int,
+        id: str,
         description: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
@@ -554,8 +554,8 @@ class AsyncRawContactsClient:
 
         Parameters
         ----------
-        id : int
-            ID of the contact you want to update.
+        id : str
+            ID of the contact you want to update. This identifier is a string that always begins with the prefix `co_`, for example: `co_1234567890`.
 
         description : typing.Optional[str]
             New notes or details for your contact.
@@ -629,9 +629,9 @@ class AsyncRawContactsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

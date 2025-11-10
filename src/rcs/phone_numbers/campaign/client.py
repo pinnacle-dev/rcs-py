@@ -33,7 +33,7 @@ class CampaignClient:
         *,
         phones: typing.Sequence[str],
         campaign_type: MessagingProfileEnum,
-        campaign_id: int,
+        campaign_id: str,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AttachedPhoneNumberResult:
         """
@@ -46,8 +46,15 @@ class CampaignClient:
 
         campaign_type : MessagingProfileEnum
 
-        campaign_id : int
-            Campaign's identifier.
+        campaign_id : str
+            Unique identifier for the campaign. <br>
+
+             - **TOLL_FREE** campaigns:
+               - Must begin with the prefix `tf_`
+               - Example: `tf_1234567890`
+             - **10DLC** campaigns:
+               - Must begin with the prefix `dlc_`
+               - Example: `dlc_1234567890`
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -67,7 +74,7 @@ class CampaignClient:
         client.phone_numbers.campaign.attach(
             phones=["+14155550123", "+14155559876", "+14155550111"],
             campaign_type="TOLL_FREE",
-            campaign_id=101,
+            campaign_id="tf_1234567890",
         )
         """
         _response = self._raw_client.attach(
@@ -129,7 +136,7 @@ class AsyncCampaignClient:
         *,
         phones: typing.Sequence[str],
         campaign_type: MessagingProfileEnum,
-        campaign_id: int,
+        campaign_id: str,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AttachedPhoneNumberResult:
         """
@@ -142,8 +149,15 @@ class AsyncCampaignClient:
 
         campaign_type : MessagingProfileEnum
 
-        campaign_id : int
-            Campaign's identifier.
+        campaign_id : str
+            Unique identifier for the campaign. <br>
+
+             - **TOLL_FREE** campaigns:
+               - Must begin with the prefix `tf_`
+               - Example: `tf_1234567890`
+             - **10DLC** campaigns:
+               - Must begin with the prefix `dlc_`
+               - Example: `dlc_1234567890`
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -168,7 +182,7 @@ class AsyncCampaignClient:
             await client.phone_numbers.campaign.attach(
                 phones=["+14155550123", "+14155559876", "+14155550111"],
                 campaign_type="TOLL_FREE",
-                campaign_id=101,
+                campaign_id="tf_1234567890",
             )
 
 

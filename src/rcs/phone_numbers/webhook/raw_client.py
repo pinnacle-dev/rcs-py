@@ -101,9 +101,9 @@ class RawWebhookClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -136,7 +136,7 @@ class RawWebhookClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def detach(
-        self, phone: str, webhook_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, phone: str, webhook_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[DetachedWebhookInfo]:
         """
         Disconnect a webhook from your phone number to stop receiving event notifications for that specific number. <br>
@@ -150,10 +150,10 @@ class RawWebhookClient:
 
             Must be a phone number that you own and currently has the specified webhook attached.
 
-        webhook_id : int
+        webhook_id : str
             The unique identifier of the webhook you want to detach from the phone number. <br>
 
-            This must be a valid webhook ID that is currently attached to the specified phone number.
+            This must be a valid webhook ID that is currently attached to the specified phone number. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -204,9 +204,9 @@ class RawWebhookClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -316,9 +316,9 @@ class AsyncRawWebhookClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -351,7 +351,7 @@ class AsyncRawWebhookClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def detach(
-        self, phone: str, webhook_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, phone: str, webhook_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[DetachedWebhookInfo]:
         """
         Disconnect a webhook from your phone number to stop receiving event notifications for that specific number. <br>
@@ -365,10 +365,10 @@ class AsyncRawWebhookClient:
 
             Must be a phone number that you own and currently has the specified webhook attached.
 
-        webhook_id : int
+        webhook_id : str
             The unique identifier of the webhook you want to detach from the phone number. <br>
 
-            This must be a valid webhook ID that is currently attached to the specified phone number.
+            This must be a valid webhook ID that is currently attached to the specified phone number. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -419,9 +419,9 @@ class AsyncRawWebhookClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

@@ -38,7 +38,7 @@ class RcsClient:
         self,
         *,
         additional_info: typing.Optional[str] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RcsAutofillResponse:
         """
@@ -49,8 +49,11 @@ class RcsClient:
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
 
-        campaign_id : typing.Optional[int]
-            Campaign ID.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign.
+            - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -68,8 +71,8 @@ class RcsClient:
             api_key="YOUR_API_KEY",
         )
         client.campaigns.rcs.autofill(
-            additional_info="Please autofill missing DLC campaign fields using my brand profile",
-            campaign_id=161,
+            additional_info="Please autofill missing campaign fields using my brand profile",
+            campaign_id="dlc_1234567890",
         )
         """
         _response = self._raw_client.autofill(
@@ -77,14 +80,14 @@ class RcsClient:
         )
         return _response.data
 
-    def get(self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None) -> ExtendedRcsCampaign:
+    def get(self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ExtendedRcsCampaign:
         """
         Retrieve RCS campaign.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the RCS campaign.
+        campaign_id : str
+            Unique identifier of the RCS campaign. Must begin with the prefix `rcs_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -102,22 +105,22 @@ class RcsClient:
             api_key="YOUR_API_KEY",
         )
         client.campaigns.rcs.get(
-            campaign_id=161,
+            campaign_id="rcs_1234567890",
         )
         """
         _response = self._raw_client.get(campaign_id, request_options=request_options)
         return _response.data
 
     def submit(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CampaignSubmissionResult:
         """
         Submit your RCS campaign for approval and activation with carriers.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the RCS campaign to retrieve.
+        campaign_id : str
+            Unique identifier of the RCS campaign to retrieve. Must begin with the prefix `rcs_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -135,7 +138,7 @@ class RcsClient:
             api_key="YOUR_API_KEY",
         )
         client.campaigns.rcs.submit(
-            campaign_id=161,
+            campaign_id="rcs_1234567890",
         )
         """
         _response = self._raw_client.submit(campaign_id, request_options=request_options)
@@ -146,8 +149,8 @@ class RcsClient:
         *,
         agent: typing.Optional[UpsertRcsAgent] = OMIT,
         brand_verification_url: typing.Optional[str] = OMIT,
-        brand: typing.Optional[int] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        brand: typing.Optional[str] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
         links: typing.Optional[UpsertRcsLinks] = OMIT,
         opt_in: typing.Optional[UpsertRcsOptIn] = OMIT,
@@ -168,10 +171,10 @@ class RcsClient:
         brand_verification_url : typing.Optional[str]
             Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
 
-        brand : typing.Optional[int]
+        brand : typing.Optional[str]
             Unique identifier for the brand.
 
-        campaign_id : typing.Optional[int]
+        campaign_id : typing.Optional[str]
             Unique identifier for the campaign.
 
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
@@ -241,7 +244,8 @@ class RcsClient:
                 ],
             ),
             brand_verification_url="https://www.pinnacle.sh/articles-of-incorporation.pdf",
-            brand=2,
+            brand="b_1234567890",
+            campaign_id="rcs_1234567890",
             expected_agent_responses=[
                 "Here are the things I can help you with.",
                 "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -283,7 +287,7 @@ class RcsClient:
     def validate(
         self,
         *,
-        campaign_id: int,
+        campaign_id: str,
         additional_info: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CampaignValidationResult:
@@ -292,8 +296,11 @@ class RcsClient:
 
         Parameters
         ----------
-        campaign_id : int
-            Campaign ID.
+        campaign_id : str
+            Unique identifier for the campaign.
+            - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
@@ -315,7 +322,7 @@ class RcsClient:
         )
         client.campaigns.rcs.validate(
             additional_info="Please validate this DLC campaign for 10DLC compliance",
-            campaign_id=161,
+            campaign_id="dlc_1234567890",
         )
         """
         _response = self._raw_client.validate(
@@ -343,7 +350,7 @@ class AsyncRcsClient:
         self,
         *,
         additional_info: typing.Optional[str] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RcsAutofillResponse:
         """
@@ -354,8 +361,11 @@ class AsyncRcsClient:
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
 
-        campaign_id : typing.Optional[int]
-            Campaign ID.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign.
+            - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -378,8 +388,8 @@ class AsyncRcsClient:
 
         async def main() -> None:
             await client.campaigns.rcs.autofill(
-                additional_info="Please autofill missing DLC campaign fields using my brand profile",
-                campaign_id=161,
+                additional_info="Please autofill missing campaign fields using my brand profile",
+                campaign_id="dlc_1234567890",
             )
 
 
@@ -391,15 +401,15 @@ class AsyncRcsClient:
         return _response.data
 
     async def get(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ExtendedRcsCampaign:
         """
         Retrieve RCS campaign.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the RCS campaign.
+        campaign_id : str
+            Unique identifier of the RCS campaign. Must begin with the prefix `rcs_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -422,7 +432,7 @@ class AsyncRcsClient:
 
         async def main() -> None:
             await client.campaigns.rcs.get(
-                campaign_id=161,
+                campaign_id="rcs_1234567890",
             )
 
 
@@ -432,15 +442,15 @@ class AsyncRcsClient:
         return _response.data
 
     async def submit(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CampaignSubmissionResult:
         """
         Submit your RCS campaign for approval and activation with carriers.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the RCS campaign to retrieve.
+        campaign_id : str
+            Unique identifier of the RCS campaign to retrieve. Must begin with the prefix `rcs_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -463,7 +473,7 @@ class AsyncRcsClient:
 
         async def main() -> None:
             await client.campaigns.rcs.submit(
-                campaign_id=161,
+                campaign_id="rcs_1234567890",
             )
 
 
@@ -477,8 +487,8 @@ class AsyncRcsClient:
         *,
         agent: typing.Optional[UpsertRcsAgent] = OMIT,
         brand_verification_url: typing.Optional[str] = OMIT,
-        brand: typing.Optional[int] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        brand: typing.Optional[str] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
         links: typing.Optional[UpsertRcsLinks] = OMIT,
         opt_in: typing.Optional[UpsertRcsOptIn] = OMIT,
@@ -499,10 +509,10 @@ class AsyncRcsClient:
         brand_verification_url : typing.Optional[str]
             Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
 
-        brand : typing.Optional[int]
+        brand : typing.Optional[str]
             Unique identifier for the brand.
 
-        campaign_id : typing.Optional[int]
+        campaign_id : typing.Optional[str]
             Unique identifier for the campaign.
 
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
@@ -577,7 +587,8 @@ class AsyncRcsClient:
                     ],
                 ),
                 brand_verification_url="https://www.pinnacle.sh/articles-of-incorporation.pdf",
-                brand=2,
+                brand="b_1234567890",
+                campaign_id="rcs_1234567890",
                 expected_agent_responses=[
                     "Here are the things I can help you with.",
                     "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -622,7 +633,7 @@ class AsyncRcsClient:
     async def validate(
         self,
         *,
-        campaign_id: int,
+        campaign_id: str,
         additional_info: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CampaignValidationResult:
@@ -631,8 +642,11 @@ class AsyncRcsClient:
 
         Parameters
         ----------
-        campaign_id : int
-            Campaign ID.
+        campaign_id : str
+            Unique identifier for the campaign.
+            - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
@@ -659,7 +673,7 @@ class AsyncRcsClient:
         async def main() -> None:
             await client.campaigns.rcs.validate(
                 additional_info="Please validate this DLC campaign for 10DLC compliance",
-                campaign_id=161,
+                campaign_id="dlc_1234567890",
             )
 
 

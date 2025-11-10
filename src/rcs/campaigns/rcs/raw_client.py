@@ -38,7 +38,7 @@ class RawRcsClient:
         self,
         *,
         additional_info: typing.Optional[str] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RcsAutofillResponse]:
         """
@@ -49,8 +49,11 @@ class RawRcsClient:
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
 
-        campaign_id : typing.Optional[int]
-            Campaign ID.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign.
+            - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -122,15 +125,15 @@ class RawRcsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[ExtendedRcsCampaign]:
         """
         Retrieve RCS campaign.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the RCS campaign.
+        campaign_id : str
+            Unique identifier of the RCS campaign. Must begin with the prefix `rcs_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -181,9 +184,9 @@ class RawRcsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -205,15 +208,15 @@ class RawRcsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def submit(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CampaignSubmissionResult]:
         """
         Submit your RCS campaign for approval and activation with carriers.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the RCS campaign to retrieve.
+        campaign_id : str
+            Unique identifier of the RCS campaign to retrieve. Must begin with the prefix `rcs_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -275,9 +278,9 @@ class RawRcsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -303,8 +306,8 @@ class RawRcsClient:
         *,
         agent: typing.Optional[UpsertRcsAgent] = OMIT,
         brand_verification_url: typing.Optional[str] = OMIT,
-        brand: typing.Optional[int] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        brand: typing.Optional[str] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
         links: typing.Optional[UpsertRcsLinks] = OMIT,
         opt_in: typing.Optional[UpsertRcsOptIn] = OMIT,
@@ -325,10 +328,10 @@ class RawRcsClient:
         brand_verification_url : typing.Optional[str]
             Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
 
-        brand : typing.Optional[int]
+        brand : typing.Optional[str]
             Unique identifier for the brand.
 
-        campaign_id : typing.Optional[int]
+        campaign_id : typing.Optional[str]
             Unique identifier for the campaign.
 
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
@@ -420,9 +423,9 @@ class RawRcsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -446,7 +449,7 @@ class RawRcsClient:
     def validate(
         self,
         *,
-        campaign_id: int,
+        campaign_id: str,
         additional_info: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CampaignValidationResult]:
@@ -455,8 +458,11 @@ class RawRcsClient:
 
         Parameters
         ----------
-        campaign_id : int
-            Campaign ID.
+        campaign_id : str
+            Unique identifier for the campaign.
+            - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
@@ -539,7 +545,7 @@ class AsyncRawRcsClient:
         self,
         *,
         additional_info: typing.Optional[str] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RcsAutofillResponse]:
         """
@@ -550,8 +556,11 @@ class AsyncRawRcsClient:
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
 
-        campaign_id : typing.Optional[int]
-            Campaign ID.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign.
+            - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -623,15 +632,15 @@ class AsyncRawRcsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ExtendedRcsCampaign]:
         """
         Retrieve RCS campaign.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the RCS campaign.
+        campaign_id : str
+            Unique identifier of the RCS campaign. Must begin with the prefix `rcs_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -682,9 +691,9 @@ class AsyncRawRcsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -706,15 +715,15 @@ class AsyncRawRcsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def submit(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CampaignSubmissionResult]:
         """
         Submit your RCS campaign for approval and activation with carriers.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the RCS campaign to retrieve.
+        campaign_id : str
+            Unique identifier of the RCS campaign to retrieve. Must begin with the prefix `rcs_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -776,9 +785,9 @@ class AsyncRawRcsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -804,8 +813,8 @@ class AsyncRawRcsClient:
         *,
         agent: typing.Optional[UpsertRcsAgent] = OMIT,
         brand_verification_url: typing.Optional[str] = OMIT,
-        brand: typing.Optional[int] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        brand: typing.Optional[str] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
         links: typing.Optional[UpsertRcsLinks] = OMIT,
         opt_in: typing.Optional[UpsertRcsOptIn] = OMIT,
@@ -826,10 +835,10 @@ class AsyncRawRcsClient:
         brand_verification_url : typing.Optional[str]
             Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
 
-        brand : typing.Optional[int]
+        brand : typing.Optional[str]
             Unique identifier for the brand.
 
-        campaign_id : typing.Optional[int]
+        campaign_id : typing.Optional[str]
             Unique identifier for the campaign.
 
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
@@ -921,9 +930,9 @@ class AsyncRawRcsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -947,7 +956,7 @@ class AsyncRawRcsClient:
     async def validate(
         self,
         *,
-        campaign_id: int,
+        campaign_id: str,
         additional_info: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CampaignValidationResult]:
@@ -956,8 +965,11 @@ class AsyncRawRcsClient:
 
         Parameters
         ----------
-        campaign_id : int
-            Campaign ID.
+        campaign_id : str
+            Unique identifier for the campaign.
+            - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         additional_info : typing.Optional[str]
             Any additional information you want to provide.

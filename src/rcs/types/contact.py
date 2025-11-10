@@ -19,9 +19,9 @@ class Contact(UniversalBaseModel):
     Contact's email address, if available.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Unique ID of the contact.
+    Unique ID of the contact. This identifier is a string that always begins with the prefix `co_`, for example: `co_1234567890`.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)

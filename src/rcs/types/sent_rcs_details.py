@@ -9,11 +9,9 @@ from ..core.serialization import FieldMetadata
 
 
 class SentRcsDetails(UniversalBaseModel):
-    message_ids: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="messageIds")] = (
-        pydantic.Field(default=None)
-    )
+    message_id: typing_extensions.Annotated[str, FieldMetadata(alias="messageId")] = pydantic.Field()
     """
-    Unique identifier for the sent MMS messages.
+    Unique identifier for the sent RCS message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
     """
 
     segments: int = pydantic.Field()

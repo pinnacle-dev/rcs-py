@@ -13,9 +13,10 @@ class MessageEventConversation(UniversalBaseModel):
     Conversation metadata containing the conversation ID, sender, and recipient information.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Unique identifier for the conversation. To get more conversation details, use the [POST /conversations/get](/api-reference/conversations/get) endpoint.
+    Unique identifier for the conversation. This identifier is a string that always begins with the prefix `conv_`, for example: `conv_1234567890`. <br><br>
+    To get more conversation details, use the [POST /conversations/get](/api-reference/conversations/get) endpoint.
     """
 
     from_: typing_extensions.Annotated[str, FieldMetadata(alias="from")] = pydantic.Field()

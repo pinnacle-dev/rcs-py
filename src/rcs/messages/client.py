@@ -38,14 +38,14 @@ class MessagesClient:
         """
         return self._raw_client
 
-    def get(self, id: int, *, request_options: typing.Optional[RequestOptions] = None) -> Message:
+    def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Message:
         """
         Retrieve a previously sent message.
 
         Parameters
         ----------
-        id : int
-            Unique identifier of the message.
+        id : str
+            Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -63,7 +63,7 @@ class MessagesClient:
             api_key="YOUR_API_KEY",
         )
         client.messages.get(
-            id=1240,
+            id="msg_1234567890",
         )
         """
         _response = self._raw_client.get(id, request_options=request_options)
@@ -72,7 +72,7 @@ class MessagesClient:
     def react(
         self,
         *,
-        message_id: int,
+        message_id: str,
         options: typing.Optional[ReactMessageOptions] = OMIT,
         reaction: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -82,8 +82,8 @@ class MessagesClient:
 
         Parameters
         ----------
-        message_id : int
-            Unique identifier of the message.
+        message_id : str
+            Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
 
         options : typing.Optional[ReactMessageOptions]
 
@@ -109,7 +109,7 @@ class MessagesClient:
             api_key="YOUR_API_KEY",
         )
         client.messages.react(
-            message_id=1410,
+            message_id="msg_1234567890",
             options=ReactMessageOptions(
                 force=True,
             ),
@@ -165,14 +165,14 @@ class AsyncMessagesClient:
         """
         return self._raw_client
 
-    async def get(self, id: int, *, request_options: typing.Optional[RequestOptions] = None) -> Message:
+    async def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Message:
         """
         Retrieve a previously sent message.
 
         Parameters
         ----------
-        id : int
-            Unique identifier of the message.
+        id : str
+            Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -195,7 +195,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.messages.get(
-                id=1240,
+                id="msg_1234567890",
             )
 
 
@@ -207,7 +207,7 @@ class AsyncMessagesClient:
     async def react(
         self,
         *,
-        message_id: int,
+        message_id: str,
         options: typing.Optional[ReactMessageOptions] = OMIT,
         reaction: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -217,8 +217,8 @@ class AsyncMessagesClient:
 
         Parameters
         ----------
-        message_id : int
-            Unique identifier of the message.
+        message_id : str
+            Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
 
         options : typing.Optional[ReactMessageOptions]
 
@@ -249,7 +249,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.messages.react(
-                message_id=1410,
+                message_id="msg_1234567890",
                 options=ReactMessageOptions(
                     force=True,
                 ),

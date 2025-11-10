@@ -14,7 +14,10 @@ class CampaignQuery(UniversalBaseModel):
 
     id: str = pydantic.Field()
     """
-    Unique identifier for the campaign
+    Unique identifier for the campaign. This identifier is a string that begins with the prefix: 
+    - TOLL_FREE: `tf_` (e.g., `tf_1234567890`)
+    - 10DLC: `dlc_` (e.g., `dlc_1234567890`)
+    - RCS: `rcs_` (e.g., `rcs_1234567890`)
     """
 
     type: CampaignEnum

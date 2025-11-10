@@ -76,7 +76,6 @@ if typing.TYPE_CHECKING:
     from .enhanced_contact import EnhancedContact
     from .enhanced_contact_item import EnhancedContactItem
     from .error import Error
-    from .error_response import ErrorResponse
     from .extended_brand import ExtendedBrand
     from .extended_brand_with_vetting import ExtendedBrandWithVetting
     from .extended_rcs_campaign import ExtendedRcsCampaign
@@ -89,19 +88,31 @@ if typing.TYPE_CHECKING:
     from .message import Message
     from .message_content import MessageContent
     from .message_event import MessageEvent
+    from .message_event_content import MessageEventContent
     from .message_event_conversation import MessageEventConversation
     from .message_event_direction import MessageEventDirection
-    from .message_event_message import MessageEventMessage
+    from .message_event_mms_content import MessageEventMmsContent
+    from .message_event_rcs_button_data import MessageEventRcsButtonData
+    from .message_event_rcs_cards_content import MessageEventRcsCardsContent
+    from .message_event_rcs_cards_content_cards_item import MessageEventRcsCardsContentCardsItem
+    from .message_event_rcs_location_data import MessageEventRcsLocationData
+    from .message_event_rcs_media_content import MessageEventRcsMediaContent
+    from .message_event_rcs_text_content import MessageEventRcsTextContent
+    from .message_event_sms_content import MessageEventSmsContent
+    from .message_list import MessageList
     from .message_method_enum import MessageMethodEnum
     from .message_protocol_enum import MessageProtocolEnum
     from .message_schedule import MessageSchedule
     from .message_status_enum import MessageStatusEnum
     from .message_volume_enum import MessageVolumeEnum
+    from .message_with_reaction import MessageWithReaction
+    from .message_with_reaction_direction import MessageWithReactionDirection
     from .messaging_profile_enum import MessagingProfileEnum
     from .mms_content import MmsContent
     from .mms_validation_response_segments import MmsValidationResponseSegments
     from .mms_validation_response_segments_value_item import MmsValidationResponseSegmentsValueItem
     from .mms_validation_result import MmsValidationResult
+    from .not_found_error_body import NotFoundErrorBody
     from .number_format import NumberFormat
     from .opt_in_method_enum import OptInMethodEnum
     from .optional_brand_info import OptionalBrandInfo
@@ -179,7 +190,6 @@ if typing.TYPE_CHECKING:
     from .rcs_whitelist_response import RcsWhitelistResponse
     from .reaction_result import ReactionResult
     from .refreshed_file import RefreshedFile
-    from .retrieved_conversations import RetrievedConversations
     from .rich_button import (
         RichButton,
         RichButton_Call,
@@ -322,7 +332,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EnhancedContact": ".enhanced_contact",
     "EnhancedContactItem": ".enhanced_contact_item",
     "Error": ".error",
-    "ErrorResponse": ".error_response",
     "ExtendedBrand": ".extended_brand",
     "ExtendedBrandWithVetting": ".extended_brand_with_vetting",
     "ExtendedRcsCampaign": ".extended_rcs_campaign",
@@ -335,19 +344,31 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Message": ".message",
     "MessageContent": ".message_content",
     "MessageEvent": ".message_event",
+    "MessageEventContent": ".message_event_content",
     "MessageEventConversation": ".message_event_conversation",
     "MessageEventDirection": ".message_event_direction",
-    "MessageEventMessage": ".message_event_message",
+    "MessageEventMmsContent": ".message_event_mms_content",
+    "MessageEventRcsButtonData": ".message_event_rcs_button_data",
+    "MessageEventRcsCardsContent": ".message_event_rcs_cards_content",
+    "MessageEventRcsCardsContentCardsItem": ".message_event_rcs_cards_content_cards_item",
+    "MessageEventRcsLocationData": ".message_event_rcs_location_data",
+    "MessageEventRcsMediaContent": ".message_event_rcs_media_content",
+    "MessageEventRcsTextContent": ".message_event_rcs_text_content",
+    "MessageEventSmsContent": ".message_event_sms_content",
+    "MessageList": ".message_list",
     "MessageMethodEnum": ".message_method_enum",
     "MessageProtocolEnum": ".message_protocol_enum",
     "MessageSchedule": ".message_schedule",
     "MessageStatusEnum": ".message_status_enum",
     "MessageVolumeEnum": ".message_volume_enum",
+    "MessageWithReaction": ".message_with_reaction",
+    "MessageWithReactionDirection": ".message_with_reaction_direction",
     "MessagingProfileEnum": ".messaging_profile_enum",
     "MmsContent": ".mms_content",
     "MmsValidationResponseSegments": ".mms_validation_response_segments",
     "MmsValidationResponseSegmentsValueItem": ".mms_validation_response_segments_value_item",
     "MmsValidationResult": ".mms_validation_result",
+    "NotFoundErrorBody": ".not_found_error_body",
     "NumberFormat": ".number_format",
     "OptInMethodEnum": ".opt_in_method_enum",
     "OptionalBrandInfo": ".optional_brand_info",
@@ -421,7 +442,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsWhitelistResponse": ".rcs_whitelist_response",
     "ReactionResult": ".reaction_result",
     "RefreshedFile": ".refreshed_file",
-    "RetrievedConversations": ".retrieved_conversations",
     "RichButton": ".rich_button",
     "RichButton_Call": ".rich_button",
     "RichButton_OpenUrl": ".rich_button",
@@ -584,7 +604,6 @@ __all__ = [
     "EnhancedContact",
     "EnhancedContactItem",
     "Error",
-    "ErrorResponse",
     "ExtendedBrand",
     "ExtendedBrandWithVetting",
     "ExtendedRcsCampaign",
@@ -597,19 +616,31 @@ __all__ = [
     "Message",
     "MessageContent",
     "MessageEvent",
+    "MessageEventContent",
     "MessageEventConversation",
     "MessageEventDirection",
-    "MessageEventMessage",
+    "MessageEventMmsContent",
+    "MessageEventRcsButtonData",
+    "MessageEventRcsCardsContent",
+    "MessageEventRcsCardsContentCardsItem",
+    "MessageEventRcsLocationData",
+    "MessageEventRcsMediaContent",
+    "MessageEventRcsTextContent",
+    "MessageEventSmsContent",
+    "MessageList",
     "MessageMethodEnum",
     "MessageProtocolEnum",
     "MessageSchedule",
     "MessageStatusEnum",
     "MessageVolumeEnum",
+    "MessageWithReaction",
+    "MessageWithReactionDirection",
     "MessagingProfileEnum",
     "MmsContent",
     "MmsValidationResponseSegments",
     "MmsValidationResponseSegmentsValueItem",
     "MmsValidationResult",
+    "NotFoundErrorBody",
     "NumberFormat",
     "OptInMethodEnum",
     "OptionalBrandInfo",
@@ -683,7 +714,6 @@ __all__ = [
     "RcsWhitelistResponse",
     "ReactionResult",
     "RefreshedFile",
-    "RetrievedConversations",
     "RichButton",
     "RichButton_Call",
     "RichButton_OpenUrl",

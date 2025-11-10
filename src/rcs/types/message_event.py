@@ -6,9 +6,9 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .message_event_content import MessageEventContent
 from .message_event_conversation import MessageEventConversation
 from .message_event_direction import MessageEventDirection
-from .message_event_message import MessageEventMessage
 from .message_status_enum import MessageStatusEnum
 from .webhook_event_enum import WebhookEventEnum
 
@@ -52,10 +52,7 @@ class MessageEvent(UniversalBaseModel):
     Null if not yet delivered or for inbound messages.
     """
 
-    message: MessageEventMessage = pydantic.Field()
-    """
-    Message details including ID and content.
-    """
+    message: MessageEventContent
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

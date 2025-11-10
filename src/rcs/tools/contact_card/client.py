@@ -37,7 +37,7 @@ class ContactCardClient:
     def get(
         self,
         *,
-        id: int,
+        id: str,
         options: typing.Optional[GetVCardSchemaOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> VCardData:
@@ -46,8 +46,8 @@ class ContactCardClient:
 
         Parameters
         ----------
-        id : int
-            ID of your contact.
+        id : str
+            The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`.
 
         options : typing.Optional[GetVCardSchemaOptions]
 
@@ -67,7 +67,7 @@ class ContactCardClient:
             api_key="YOUR_API_KEY",
         )
         client.tools.contact_card.get(
-            id=33,
+            id="cc_1234567890",
         )
         """
         _response = self._raw_client.get(id=id, options=options, request_options=request_options)
@@ -77,7 +77,7 @@ class ContactCardClient:
         self,
         *,
         photo: typing.Optional[str] = OMIT,
-        id: typing.Optional[int] = OMIT,
+        id: typing.Optional[str] = OMIT,
         formatted_name: typing.Optional[str] = OMIT,
         name: typing.Optional[VCardName] = OMIT,
         nickname: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -103,8 +103,8 @@ class ContactCardClient:
         photo : typing.Optional[str]
             Contact's photo
 
-        id : typing.Optional[int]
-            Unique identifier for the contact.
+        id : typing.Optional[str]
+            The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`.
 
         formatted_name : typing.Optional[str]
             Full display name for the vCard.
@@ -175,7 +175,7 @@ class ContactCardClient:
             api_key="YOUR_API_KEY",
         )
         client.tools.contact_card.upsert(
-            id=34,
+            id="cc_1234567890",
             formatted_name="Jane Smith",
             name=VCardName(
                 family_name="Smith",
@@ -268,7 +268,7 @@ class AsyncContactCardClient:
     async def get(
         self,
         *,
-        id: int,
+        id: str,
         options: typing.Optional[GetVCardSchemaOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> VCardData:
@@ -277,8 +277,8 @@ class AsyncContactCardClient:
 
         Parameters
         ----------
-        id : int
-            ID of your contact.
+        id : str
+            The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`.
 
         options : typing.Optional[GetVCardSchemaOptions]
 
@@ -303,7 +303,7 @@ class AsyncContactCardClient:
 
         async def main() -> None:
             await client.tools.contact_card.get(
-                id=33,
+                id="cc_1234567890",
             )
 
 
@@ -316,7 +316,7 @@ class AsyncContactCardClient:
         self,
         *,
         photo: typing.Optional[str] = OMIT,
-        id: typing.Optional[int] = OMIT,
+        id: typing.Optional[str] = OMIT,
         formatted_name: typing.Optional[str] = OMIT,
         name: typing.Optional[VCardName] = OMIT,
         nickname: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -342,8 +342,8 @@ class AsyncContactCardClient:
         photo : typing.Optional[str]
             Contact's photo
 
-        id : typing.Optional[int]
-            Unique identifier for the contact.
+        id : typing.Optional[str]
+            The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`.
 
         formatted_name : typing.Optional[str]
             Full display name for the vCard.
@@ -419,7 +419,7 @@ class AsyncContactCardClient:
 
         async def main() -> None:
             await client.tools.contact_card.upsert(
-                id=34,
+                id="cc_1234567890",
                 formatted_name="Jane Smith",
                 name=VCardName(
                     family_name="Smith",

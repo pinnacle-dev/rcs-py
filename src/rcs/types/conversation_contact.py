@@ -13,9 +13,9 @@ class ConversationContact(UniversalBaseModel):
     Contact information for the recipient in a conversation.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Unique identifier for the contact.
+    Unique ID of the contact. This identifier is a string that always begins with the prefix `co_`, for example: `co_1234567890`.
     """
 
     phone_number: typing_extensions.Annotated[str, FieldMetadata(alias="phoneNumber")] = pydantic.Field()

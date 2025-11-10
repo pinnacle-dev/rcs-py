@@ -29,14 +29,14 @@ class RawMessagesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get(self, id: int, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Message]:
+    def get(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Message]:
         """
         Retrieve a previously sent message.
 
         Parameters
         ----------
-        id : int
-            Unique identifier of the message.
+        id : str
+            Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -87,9 +87,9 @@ class RawMessagesClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -113,7 +113,7 @@ class RawMessagesClient:
     def react(
         self,
         *,
-        message_id: int,
+        message_id: str,
         options: typing.Optional[ReactMessageOptions] = OMIT,
         reaction: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -123,8 +123,8 @@ class RawMessagesClient:
 
         Parameters
         ----------
-        message_id : int
-            Unique identifier of the message.
+        message_id : str
+            Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
 
         options : typing.Optional[ReactMessageOptions]
 
@@ -204,9 +204,9 @@ class RawMessagesClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -244,15 +244,15 @@ class AsyncRawMessagesClient:
         self._client_wrapper = client_wrapper
 
     async def get(
-        self, id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Message]:
         """
         Retrieve a previously sent message.
 
         Parameters
         ----------
-        id : int
-            Unique identifier of the message.
+        id : str
+            Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -303,9 +303,9 @@ class AsyncRawMessagesClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -329,7 +329,7 @@ class AsyncRawMessagesClient:
     async def react(
         self,
         *,
-        message_id: int,
+        message_id: str,
         options: typing.Optional[ReactMessageOptions] = OMIT,
         reaction: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -339,8 +339,8 @@ class AsyncRawMessagesClient:
 
         Parameters
         ----------
-        message_id : int
-            Unique identifier of the message.
+        message_id : str
+            Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
 
         options : typing.Optional[ReactMessageOptions]
 
@@ -420,9 +420,9 @@ class AsyncRawMessagesClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

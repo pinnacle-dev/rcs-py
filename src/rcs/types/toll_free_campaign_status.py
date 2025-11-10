@@ -19,9 +19,9 @@ class TollFreeCampaignStatus(UniversalBaseModel):
     These errors may request additional information or point out erroneous and/or missing fields.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Id of the toll-free campaign.
+    The unique identifier of the toll-free campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
     """
 
     updates: GetTollFreeCampaignStatusResponseUpdates = pydantic.Field()

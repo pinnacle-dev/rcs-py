@@ -3,13 +3,24 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ....core.serialization import FieldMetadata
 from .download_options import DownloadOptions
 
 
 class UploadFileOptions(UniversalBaseModel):
     """
     Additional configurations for your file.
+    """
+
+    delete_at: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="deleteAt")] = pydantic.Field(
+        default=None
+    )
+    """
+    Set a deletion date for your file in ISO 8601 format. After this date, the file will be automatically deleted from our storage.<br>
+    
+    If this field is not provided, the file will not be deleted. You can still schedule deletion or delete the file manually in the Storage page in the dashboard.
     """
 
     download: typing.Optional[DownloadOptions] = pydantic.Field(default=None)

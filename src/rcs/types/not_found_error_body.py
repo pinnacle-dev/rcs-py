@@ -6,11 +6,8 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class ErrorResponse(UniversalBaseModel):
-    error: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Description of the error that occurred.
-    """
+class NotFoundErrorBody(UniversalBaseModel):
+    error: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

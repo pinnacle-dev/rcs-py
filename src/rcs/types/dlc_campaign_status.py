@@ -20,9 +20,9 @@ class DlcCampaignStatus(UniversalBaseModel):
     These errors may request additional information or point out erroneous and/or missing fields.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Id of the DLC campaign.
+    The unique identifier of the 10DLC campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
     """
 
     status: ProfileStatusEnum = pydantic.Field()

@@ -11,9 +11,9 @@ class ConversationByIdParams(UniversalBaseModel):
     Retrieve conversation information by ID.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Unique identifier of the conversation you want to retrieve.
+    Unique identifier of the conversation you want to retrieve. This identifier is a string that always begins with the prefix `conv_`, for example: `conv_1234567890`.
     """
 
     if IS_PYDANTIC_V2:

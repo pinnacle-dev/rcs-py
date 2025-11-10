@@ -29,11 +29,11 @@ class DlcCampaignWithExtendedBrandAndStatus(UniversalBaseModel):
     Brand associated with this campaign.
     """
 
-    campaign_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="campaignId")] = pydantic.Field(
+    campaign_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="campaignId")] = pydantic.Field(
         default=None
     )
     """
-    Unique identifier for the campaign.
+    Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
     """
 
     description: typing.Optional[str] = pydantic.Field(default=None)

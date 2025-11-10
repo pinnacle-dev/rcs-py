@@ -11,9 +11,9 @@ class AttachWebhookResponseWebhook(UniversalBaseModel):
     Detailed information about the attached webhook.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Unique identifier of the webhook within the account.
+    Unique identifier of the webhook within the account. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
     """
 
     name: str = pydantic.Field()

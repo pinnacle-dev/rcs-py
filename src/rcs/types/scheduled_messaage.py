@@ -10,9 +10,9 @@ from .scheduled_send_response_config import ScheduledSendResponseConfig
 
 
 class ScheduledMessaage(UniversalBaseModel):
-    schedule_id: typing_extensions.Annotated[int, FieldMetadata(alias="scheduleId")] = pydantic.Field()
+    schedule_id: typing_extensions.Annotated[str, FieldMetadata(alias="scheduleId")] = pydantic.Field()
     """
-    Unique identifier for the scheduled send.
+    Unique identifier for the scheduled send. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`.
     """
 
     config: ScheduledSendResponseConfig = pydantic.Field()

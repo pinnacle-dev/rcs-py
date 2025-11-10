@@ -14,9 +14,9 @@ class DetachedWebhookInfo(UniversalBaseModel):
     Confirmation message.
     """
 
-    webhook_id: typing_extensions.Annotated[int, FieldMetadata(alias="webhookId")] = pydantic.Field()
+    webhook_id: typing_extensions.Annotated[str, FieldMetadata(alias="webhookId")] = pydantic.Field()
     """
-    ID of the detached webhook.
+    Unique identifier of the webhook within the account. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
     """
 
     phone_number: typing_extensions.Annotated[str, FieldMetadata(alias="phoneNumber")] = pydantic.Field()

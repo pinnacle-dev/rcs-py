@@ -104,7 +104,7 @@ class BrandsClient:
         description: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
-        id: typing.Optional[int] = OMIT,
+        id: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         sector: typing.Optional[CompanySectorEnum] = OMIT,
         type: typing.Optional[CompanyTypeEnum] = OMIT,
@@ -134,8 +134,9 @@ class BrandsClient:
         email : typing.Optional[str]
             Main contact email address for the brand.
 
-        id : typing.Optional[int]
-            Brand ID - include only when updating an existing brand, omit to create a new one.
+        id : typing.Optional[str]
+            The unique identifier of the brand you want to update.
+            <br><br> This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
         name : typing.Optional[str]
             Legal name of the brand as registered.
@@ -176,7 +177,7 @@ class BrandsClient:
             description="A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
             ein="88-1234567",
             email="founders@trypinnacle.app",
-            id=1,
+            id="b_1234567890",
             name="Pinnacle",
             sector="TECHNOLOGY",
             type="PRIVATE_PROFIT",
@@ -201,7 +202,7 @@ class BrandsClient:
 
     def get(
         self,
-        id: int,
+        id: str,
         *,
         hide_ein: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -211,8 +212,9 @@ class BrandsClient:
 
         Parameters
         ----------
-        id : int
-            ID of an existing brand in your account that you want to retrieve.
+        id : str
+            The unique identifier of the brand you want to retrieve from your account.
+            <br><br> This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
         hide_ein : typing.Optional[bool]
             Optional flag to mask the Employer Identification Number in the response for security purposes.<br>
@@ -235,22 +237,21 @@ class BrandsClient:
             api_key="YOUR_API_KEY",
         )
         client.brands.get(
-            id=1,
+            id="b_1234567890",
         )
         """
         _response = self._raw_client.get(id, hide_ein=hide_ein, request_options=request_options)
         return _response.data
 
-    def submit(self, brand_id: int, *, request_options: typing.Optional[RequestOptions] = None) -> SubmissionResults:
+    def submit(self, brand_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SubmissionResults:
         """
         Submit your brand for review and approval by the compliance team.
 
         Parameters
         ----------
-        brand_id : int
-            The unique identifier of the brand you want to submit for review. <br>
-
-            Must correspond to an existing brand in your account that is ready for submission.
+        brand_id : str
+            The unique identifier of the brand you want to submit for review. <br><br>
+            This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for submission.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -268,7 +269,7 @@ class BrandsClient:
             api_key="YOUR_API_KEY",
         )
         client.brands.submit(
-            brand_id=1,
+            brand_id="b_1234567890",
         )
         """
         _response = self._raw_client.submit(brand_id, request_options=request_options)
@@ -371,16 +372,16 @@ class BrandsClient:
         )
         return _response.data
 
-    def vet(self, brand_id: int, *, request_options: typing.Optional[RequestOptions] = None) -> VettingResults:
+    def vet(self, brand_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> VettingResults:
         """
         Submit a brand for external vetting verification to enhance your brand's trust score and improved message delivery rates.
 
         Parameters
         ----------
-        brand_id : int
+        brand_id : str
             The unique identifier of the brand to vet. <br>
 
-            The brand must be already registered before it can be vetted.
+            This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for vetting.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -398,7 +399,7 @@ class BrandsClient:
             api_key="YOUR_API_KEY",
         )
         client.brands.vet(
-            brand_id=1,
+            brand_id="b_1234567890",
         )
         """
         _response = self._raw_client.vet(brand_id, request_options=request_options)
@@ -496,7 +497,7 @@ class AsyncBrandsClient:
         description: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
-        id: typing.Optional[int] = OMIT,
+        id: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         sector: typing.Optional[CompanySectorEnum] = OMIT,
         type: typing.Optional[CompanyTypeEnum] = OMIT,
@@ -526,8 +527,9 @@ class AsyncBrandsClient:
         email : typing.Optional[str]
             Main contact email address for the brand.
 
-        id : typing.Optional[int]
-            Brand ID - include only when updating an existing brand, omit to create a new one.
+        id : typing.Optional[str]
+            The unique identifier of the brand you want to update.
+            <br><br> This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
         name : typing.Optional[str]
             Legal name of the brand as registered.
@@ -573,7 +575,7 @@ class AsyncBrandsClient:
                 description="A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
                 ein="88-1234567",
                 email="founders@trypinnacle.app",
-                id=1,
+                id="b_1234567890",
                 name="Pinnacle",
                 sector="TECHNOLOGY",
                 type="PRIVATE_PROFIT",
@@ -601,7 +603,7 @@ class AsyncBrandsClient:
 
     async def get(
         self,
-        id: int,
+        id: str,
         *,
         hide_ein: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -611,8 +613,9 @@ class AsyncBrandsClient:
 
         Parameters
         ----------
-        id : int
-            ID of an existing brand in your account that you want to retrieve.
+        id : str
+            The unique identifier of the brand you want to retrieve from your account.
+            <br><br> This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
         hide_ein : typing.Optional[bool]
             Optional flag to mask the Employer Identification Number in the response for security purposes.<br>
@@ -640,7 +643,7 @@ class AsyncBrandsClient:
 
         async def main() -> None:
             await client.brands.get(
-                id=1,
+                id="b_1234567890",
             )
 
 
@@ -650,17 +653,16 @@ class AsyncBrandsClient:
         return _response.data
 
     async def submit(
-        self, brand_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, brand_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> SubmissionResults:
         """
         Submit your brand for review and approval by the compliance team.
 
         Parameters
         ----------
-        brand_id : int
-            The unique identifier of the brand you want to submit for review. <br>
-
-            Must correspond to an existing brand in your account that is ready for submission.
+        brand_id : str
+            The unique identifier of the brand you want to submit for review. <br><br>
+            This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for submission.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -683,7 +685,7 @@ class AsyncBrandsClient:
 
         async def main() -> None:
             await client.brands.submit(
-                brand_id=1,
+                brand_id="b_1234567890",
             )
 
 
@@ -797,16 +799,16 @@ class AsyncBrandsClient:
         )
         return _response.data
 
-    async def vet(self, brand_id: int, *, request_options: typing.Optional[RequestOptions] = None) -> VettingResults:
+    async def vet(self, brand_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> VettingResults:
         """
         Submit a brand for external vetting verification to enhance your brand's trust score and improved message delivery rates.
 
         Parameters
         ----------
-        brand_id : int
+        brand_id : str
             The unique identifier of the brand to vet. <br>
 
-            The brand must be already registered before it can be vetted.
+            This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for vetting.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -829,7 +831,7 @@ class AsyncBrandsClient:
 
         async def main() -> None:
             await client.brands.vet(
-                brand_id=1,
+                brand_id="b_1234567890",
             )
 
 

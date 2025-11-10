@@ -131,7 +131,7 @@ class RawFileClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def refresh(
-        self, *, uris: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self, *, urls: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[typing.List[RefreshedFile]]:
         """
         Refresh expiring presigned URLs for Pinnacle-hosted files to extend their access time.
@@ -142,14 +142,8 @@ class RawFileClient:
 
         Parameters
         ----------
-        uris : typing.Sequence[str]
-            Array of file URIs to refresh for extended access. <br>
-
-            Accepted formats:
-            - **Full presigned URLs**: `https://server.trypinnacle.app/storage/v1/object/sign/...`
-            - **Short URIs**: `{BUCKET}/${TEAM_ID}/...` (e.g., `vault/3/document.pdf`)
-
-            Invalid or external URLs will be returned unchanged in the response.
+        urls : typing.Sequence[str]
+            Array of file URLs to refresh for extended access. Provided URLs must be presigned URLs (i.e. `https://server.trypinnacle.app/storage/v1/object/sign/...`). Invalid or external URLs will be returned unchanged in the response.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -163,7 +157,7 @@ class RawFileClient:
             "tools/files/refresh",
             method="POST",
             json={
-                "uris": uris,
+                "urls": urls,
             },
             headers={
                 "content-type": "application/json",
@@ -330,7 +324,7 @@ class AsyncRawFileClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def refresh(
-        self, *, uris: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self, *, urls: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[typing.List[RefreshedFile]]:
         """
         Refresh expiring presigned URLs for Pinnacle-hosted files to extend their access time.
@@ -341,14 +335,8 @@ class AsyncRawFileClient:
 
         Parameters
         ----------
-        uris : typing.Sequence[str]
-            Array of file URIs to refresh for extended access. <br>
-
-            Accepted formats:
-            - **Full presigned URLs**: `https://server.trypinnacle.app/storage/v1/object/sign/...`
-            - **Short URIs**: `{BUCKET}/${TEAM_ID}/...` (e.g., `vault/3/document.pdf`)
-
-            Invalid or external URLs will be returned unchanged in the response.
+        urls : typing.Sequence[str]
+            Array of file URLs to refresh for extended access. Provided URLs must be presigned URLs (i.e. `https://server.trypinnacle.app/storage/v1/object/sign/...`). Invalid or external URLs will be returned unchanged in the response.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -362,7 +350,7 @@ class AsyncRawFileClient:
             "tools/files/refresh",
             method="POST",
             json={
-                "uris": uris,
+                "urls": urls,
             },
             headers={
                 "content-type": "application/json",

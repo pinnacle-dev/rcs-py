@@ -9,9 +9,9 @@ from ..core.serialization import FieldMetadata
 
 
 class SentMmsDetails(UniversalBaseModel):
-    message_ids: typing_extensions.Annotated[typing.List[int], FieldMetadata(alias="messageIds")] = pydantic.Field()
+    message_ids: typing_extensions.Annotated[typing.List[str], FieldMetadata(alias="messageIds")] = pydantic.Field()
     """
-    Array of unique identifiers for the sent MMS messages.
+    Array of unique identifiers for the sent MMS messages. This identifiers are strings that always begin with the prefix `msg_`, for example: `msg_1234567890`.
     """
 
     segments: float = pydantic.Field()

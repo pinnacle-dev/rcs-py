@@ -81,6 +81,7 @@ class FileClient:
             size=1024,
             name="test.jpg",
             options=UploadFileOptions(
+                delete_at="2025-12-31T23:59:59Z",
                 download=DownloadOptions(
                     expires_at="2025-06-30T12:00:00.000Z",
                 ),
@@ -93,7 +94,7 @@ class FileClient:
         return _response.data
 
     def refresh(
-        self, *, uris: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self, *, urls: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[RefreshedFile]:
         """
         Refresh expiring presigned URLs for Pinnacle-hosted files to extend their access time.
@@ -104,14 +105,8 @@ class FileClient:
 
         Parameters
         ----------
-        uris : typing.Sequence[str]
-            Array of file URIs to refresh for extended access. <br>
-
-            Accepted formats:
-            - **Full presigned URLs**: `https://server.trypinnacle.app/storage/v1/object/sign/...`
-            - **Short URIs**: `{BUCKET}/${TEAM_ID}/...` (e.g., `vault/3/document.pdf`)
-
-            Invalid or external URLs will be returned unchanged in the response.
+        urls : typing.Sequence[str]
+            Array of file URLs to refresh for extended access. Provided URLs must be presigned URLs (i.e. `https://server.trypinnacle.app/storage/v1/object/sign/...`). Invalid or external URLs will be returned unchanged in the response.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -129,16 +124,15 @@ class FileClient:
             api_key="YOUR_API_KEY",
         )
         client.tools.file.refresh(
-            uris=[
+            urls=[
                 "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken",
                 "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
-                "icons/3/test.jpg",
                 "invalid/url",
                 "https://google.com",
             ],
         )
         """
-        _response = self._raw_client.refresh(uris=uris, request_options=request_options)
+        _response = self._raw_client.refresh(urls=urls, request_options=request_options)
         return _response.data
 
 
@@ -215,6 +209,7 @@ class AsyncFileClient:
                 size=1024,
                 name="test.jpg",
                 options=UploadFileOptions(
+                    delete_at="2025-12-31T23:59:59Z",
                     download=DownloadOptions(
                         expires_at="2025-06-30T12:00:00.000Z",
                     ),
@@ -230,7 +225,7 @@ class AsyncFileClient:
         return _response.data
 
     async def refresh(
-        self, *, uris: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self, *, urls: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[RefreshedFile]:
         """
         Refresh expiring presigned URLs for Pinnacle-hosted files to extend their access time.
@@ -241,14 +236,8 @@ class AsyncFileClient:
 
         Parameters
         ----------
-        uris : typing.Sequence[str]
-            Array of file URIs to refresh for extended access. <br>
-
-            Accepted formats:
-            - **Full presigned URLs**: `https://server.trypinnacle.app/storage/v1/object/sign/...`
-            - **Short URIs**: `{BUCKET}/${TEAM_ID}/...` (e.g., `vault/3/document.pdf`)
-
-            Invalid or external URLs will be returned unchanged in the response.
+        urls : typing.Sequence[str]
+            Array of file URLs to refresh for extended access. Provided URLs must be presigned URLs (i.e. `https://server.trypinnacle.app/storage/v1/object/sign/...`). Invalid or external URLs will be returned unchanged in the response.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -271,10 +260,9 @@ class AsyncFileClient:
 
         async def main() -> None:
             await client.tools.file.refresh(
-                uris=[
+                urls=[
                     "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken",
                     "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
-                    "icons/3/test.jpg",
                     "invalid/url",
                     "https://google.com",
                 ],
@@ -283,5 +271,5 @@ class AsyncFileClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.refresh(uris=uris, request_options=request_options)
+        _response = await self._raw_client.refresh(urls=urls, request_options=request_options)
         return _response.data

@@ -27,14 +27,14 @@ class GetClient:
         """
         return self._raw_client
 
-    def brand(self, brand_id: int, *, request_options: typing.Optional[RequestOptions] = None) -> BrandStatus:
+    def brand(self, brand_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> BrandStatus:
         """
         Retrieve a brand's status.
 
         Parameters
         ----------
-        brand_id : int
-            ID of the brand.
+        brand_id : str
+            The unique identifier of the brand you want to retrieve the status for. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -52,22 +52,22 @@ class GetClient:
             api_key="YOUR_API_KEY",
         )
         client.status.get.brand(
-            brand_id=28,
+            brand_id="b_1234567890",
         )
         """
         _response = self._raw_client.brand(brand_id, request_options=request_options)
         return _response.data
 
     def toll_free(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> TollFreeCampaignStatus:
         """
         Retrieve a toll-free campaign's status.
 
         Parameters
         ----------
-        campaign_id : int
-            ID of the toll-free campaign.
+        campaign_id : str
+            The unique identifier of the toll-free campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -85,20 +85,20 @@ class GetClient:
             api_key="YOUR_API_KEY",
         )
         client.status.get.toll_free(
-            campaign_id=28,
+            campaign_id="tf_1234567890",
         )
         """
         _response = self._raw_client.toll_free(campaign_id, request_options=request_options)
         return _response.data
 
-    def dlc(self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None) -> DlcCampaignStatus:
+    def dlc(self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> DlcCampaignStatus:
         """
         Retrieve a 10DLC campaign's status.
 
         Parameters
         ----------
-        campaign_id : int
-            ID of the 10DLC campaign.
+        campaign_id : str
+            The unique identifier of the 10DLC campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -116,20 +116,20 @@ class GetClient:
             api_key="YOUR_API_KEY",
         )
         client.status.get.dlc(
-            campaign_id=28,
+            campaign_id="dlc_1234567890",
         )
         """
         _response = self._raw_client.dlc(campaign_id, request_options=request_options)
         return _response.data
 
-    def rcs(self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None) -> RcsCampaignStatus:
+    def rcs(self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> RcsCampaignStatus:
         """
         Retrieve a RCS campaign's status.
 
         Parameters
         ----------
-        campaign_id : int
-            ID of the campaign.
+        campaign_id : str
+            The unique identifier of the RCS campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `rcs_`, for example: `rcs_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -147,7 +147,7 @@ class GetClient:
             api_key="YOUR_API_KEY",
         )
         client.status.get.rcs(
-            campaign_id=28,
+            campaign_id="rcs_1234567890",
         )
         """
         _response = self._raw_client.rcs(campaign_id, request_options=request_options)
@@ -204,14 +204,14 @@ class AsyncGetClient:
         """
         return self._raw_client
 
-    async def brand(self, brand_id: int, *, request_options: typing.Optional[RequestOptions] = None) -> BrandStatus:
+    async def brand(self, brand_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> BrandStatus:
         """
         Retrieve a brand's status.
 
         Parameters
         ----------
-        brand_id : int
-            ID of the brand.
+        brand_id : str
+            The unique identifier of the brand you want to retrieve the status for. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -234,7 +234,7 @@ class AsyncGetClient:
 
         async def main() -> None:
             await client.status.get.brand(
-                brand_id=28,
+                brand_id="b_1234567890",
             )
 
 
@@ -244,15 +244,15 @@ class AsyncGetClient:
         return _response.data
 
     async def toll_free(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> TollFreeCampaignStatus:
         """
         Retrieve a toll-free campaign's status.
 
         Parameters
         ----------
-        campaign_id : int
-            ID of the toll-free campaign.
+        campaign_id : str
+            The unique identifier of the toll-free campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -275,7 +275,7 @@ class AsyncGetClient:
 
         async def main() -> None:
             await client.status.get.toll_free(
-                campaign_id=28,
+                campaign_id="tf_1234567890",
             )
 
 
@@ -285,15 +285,15 @@ class AsyncGetClient:
         return _response.data
 
     async def dlc(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DlcCampaignStatus:
         """
         Retrieve a 10DLC campaign's status.
 
         Parameters
         ----------
-        campaign_id : int
-            ID of the 10DLC campaign.
+        campaign_id : str
+            The unique identifier of the 10DLC campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -316,7 +316,7 @@ class AsyncGetClient:
 
         async def main() -> None:
             await client.status.get.dlc(
-                campaign_id=28,
+                campaign_id="dlc_1234567890",
             )
 
 
@@ -326,15 +326,15 @@ class AsyncGetClient:
         return _response.data
 
     async def rcs(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RcsCampaignStatus:
         """
         Retrieve a RCS campaign's status.
 
         Parameters
         ----------
-        campaign_id : int
-            ID of the campaign.
+        campaign_id : str
+            The unique identifier of the RCS campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `rcs_`, for example: `rcs_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -357,7 +357,7 @@ class AsyncGetClient:
 
         async def main() -> None:
             await client.status.get.rcs(
-                campaign_id=28,
+                campaign_id="rcs_1234567890",
             )
 
 

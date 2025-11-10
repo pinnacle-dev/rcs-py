@@ -16,16 +16,16 @@ class Conversation(UniversalBaseModel):
     Conversation that was found.
     """
 
-    brand_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="brandId")] = pydantic.Field(
+    brand_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="brandId")] = pydantic.Field(
         default=None
     )
     """
-    Identifier for the brand associated with this conversation.
+    The unique identifier of the brand associated with this conversation. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
     """
 
     campaign: typing.Optional[CampaignQuery] = pydantic.Field(default=None)
     """
-    Campaign information if this conversation is part of a marketing campaign.
+    Campaign information if this conversation is part of a marketing campaign. This is an object that contains the campaign ID and type.
     """
 
     contact: ConversationContact = pydantic.Field()
@@ -38,9 +38,9 @@ class Conversation(UniversalBaseModel):
     ISO 8601 timestamp when the conversation was created.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Unique identifier for the conversation.
+    Unique identifier for the conversation. This identifier is a string that always begins with the prefix `conv_`, for example: `conv_1234567890`.
     """
 
     notes: str = pydantic.Field()

@@ -31,7 +31,7 @@ class RawCampaignClient:
         *,
         phones: typing.Sequence[str],
         campaign_type: MessagingProfileEnum,
-        campaign_id: int,
+        campaign_id: str,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AttachedPhoneNumberResult]:
         """
@@ -44,8 +44,15 @@ class RawCampaignClient:
 
         campaign_type : MessagingProfileEnum
 
-        campaign_id : int
-            Campaign's identifier.
+        campaign_id : str
+            Unique identifier for the campaign. <br>
+
+             - **TOLL_FREE** campaigns:
+               - Must begin with the prefix `tf_`
+               - Example: `tf_1234567890`
+             - **10DLC** campaigns:
+               - Must begin with the prefix `dlc_`
+               - Example: `dlc_1234567890`
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -105,9 +112,9 @@ class RawCampaignClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -206,9 +213,9 @@ class RawCampaignClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -250,7 +257,7 @@ class AsyncRawCampaignClient:
         *,
         phones: typing.Sequence[str],
         campaign_type: MessagingProfileEnum,
-        campaign_id: int,
+        campaign_id: str,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AttachedPhoneNumberResult]:
         """
@@ -263,8 +270,15 @@ class AsyncRawCampaignClient:
 
         campaign_type : MessagingProfileEnum
 
-        campaign_id : int
-            Campaign's identifier.
+        campaign_id : str
+            Unique identifier for the campaign. <br>
+
+             - **TOLL_FREE** campaigns:
+               - Must begin with the prefix `tf_`
+               - Example: `tf_1234567890`
+             - **10DLC** campaigns:
+               - Must begin with the prefix `dlc_`
+               - Example: `dlc_1234567890`
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -324,9 +338,9 @@ class AsyncRawCampaignClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -425,9 +439,9 @@ class AsyncRawCampaignClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

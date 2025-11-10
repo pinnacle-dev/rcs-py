@@ -34,7 +34,7 @@ class RawContactCardClient:
     def get(
         self,
         *,
-        id: int,
+        id: str,
         options: typing.Optional[GetVCardSchemaOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[VCardData]:
@@ -43,8 +43,8 @@ class RawContactCardClient:
 
         Parameters
         ----------
-        id : int
-            ID of your contact.
+        id : str
+            The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`.
 
         options : typing.Optional[GetVCardSchemaOptions]
 
@@ -123,7 +123,7 @@ class RawContactCardClient:
         self,
         *,
         photo: typing.Optional[str] = OMIT,
-        id: typing.Optional[int] = OMIT,
+        id: typing.Optional[str] = OMIT,
         formatted_name: typing.Optional[str] = OMIT,
         name: typing.Optional[VCardName] = OMIT,
         nickname: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -149,8 +149,8 @@ class RawContactCardClient:
         photo : typing.Optional[str]
             Contact's photo
 
-        id : typing.Optional[int]
-            Unique identifier for the contact.
+        id : typing.Optional[str]
+            The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`.
 
         formatted_name : typing.Optional[str]
             Full display name for the vCard.
@@ -299,7 +299,7 @@ class AsyncRawContactCardClient:
     async def get(
         self,
         *,
-        id: int,
+        id: str,
         options: typing.Optional[GetVCardSchemaOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[VCardData]:
@@ -308,8 +308,8 @@ class AsyncRawContactCardClient:
 
         Parameters
         ----------
-        id : int
-            ID of your contact.
+        id : str
+            The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`.
 
         options : typing.Optional[GetVCardSchemaOptions]
 
@@ -388,7 +388,7 @@ class AsyncRawContactCardClient:
         self,
         *,
         photo: typing.Optional[str] = OMIT,
-        id: typing.Optional[int] = OMIT,
+        id: typing.Optional[str] = OMIT,
         formatted_name: typing.Optional[str] = OMIT,
         name: typing.Optional[VCardName] = OMIT,
         nickname: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -414,8 +414,8 @@ class AsyncRawContactCardClient:
         photo : typing.Optional[str]
             Contact's photo
 
-        id : typing.Optional[int]
-            Unique identifier for the contact.
+        id : typing.Optional[str]
+            The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`.
 
         formatted_name : typing.Optional[str]
             Full display name for the vCard.

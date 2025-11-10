@@ -12,11 +12,11 @@ from .upsert_toll_free_campaign_use_case import UpsertTollFreeCampaignUseCase
 
 
 class TollFreeCampaign(UniversalBaseModel):
-    campaign_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="campaignId")] = pydantic.Field(
+    campaign_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="campaignId")] = pydantic.Field(
         default=None
     )
     """
-    Unique identifier for the campaign.
+    Unique identifier for the campaign. Must begin with the prefix `tf_`.
     """
 
     monthly_volume: typing_extensions.Annotated[

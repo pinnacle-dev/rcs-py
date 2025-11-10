@@ -14,11 +14,9 @@ class AttachWebhookByIdParams(UniversalBaseModel):
     Attach a webhook you’ve already created in your account to this phone number.
     """
 
-    webhook_id: typing_extensions.Annotated[int, FieldMetadata(alias="webhookId")] = pydantic.Field()
+    webhook_id: typing_extensions.Annotated[str, FieldMetadata(alias="webhookId")] = pydantic.Field()
     """
-    The unique ID of the webhook you want to attach.<br>
-    
-    Make sure this webhook is active and able to receive event notifications.
+    The unique ID of the webhook you want to attach. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
     """
 
     event: typing.Optional[WebhookEventEnum] = pydantic.Field(default=None)

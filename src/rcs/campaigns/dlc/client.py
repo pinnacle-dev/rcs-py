@@ -37,7 +37,7 @@ class DlcClient:
         self,
         *,
         additional_info: typing.Optional[str] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AutofillDlcCampaignResponse:
         """
@@ -48,8 +48,11 @@ class DlcClient:
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
 
-        campaign_id : typing.Optional[int]
-            Campaign ID.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign.
+            - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -67,8 +70,8 @@ class DlcClient:
             api_key="YOUR_API_KEY",
         )
         client.campaigns.dlc.autofill(
-            additional_info="Please autofill missing DLC campaign fields using my brand profile",
-            campaign_id=161,
+            additional_info="Please autofill missing campaign fields using my brand profile",
+            campaign_id="dlc_1234567890",
         )
         """
         _response = self._raw_client.autofill(
@@ -77,15 +80,15 @@ class DlcClient:
         return _response.data
 
     def get(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DlcCampaignWithExtendedBrandAndStatus:
         """
         Retrieve 10DLC campaign.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the 10DLC campaign.
+        campaign_id : str
+            Unique identifier of the 10DLC campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -103,22 +106,23 @@ class DlcClient:
             api_key="YOUR_API_KEY",
         )
         client.campaigns.dlc.get(
-            campaign_id=28,
+            campaign_id="dlc_1234567890",
         )
         """
         _response = self._raw_client.get(campaign_id, request_options=request_options)
         return _response.data
 
     def submit(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CampaignSubmissionResult:
         """
         Submit your 10DLC campaign for approval and activation with carriers.
 
         Parameters
         ----------
-        campaign_id : int
+        campaign_id : str
             Unique identifier of the 10DLC campaign to submit.
+            <br><br> This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -136,7 +140,7 @@ class DlcClient:
             api_key="YOUR_API_KEY",
         )
         client.campaigns.dlc.submit(
-            campaign_id=161,
+            campaign_id="dlc_1234567890",
         )
         """
         _response = self._raw_client.submit(campaign_id, request_options=request_options)
@@ -146,8 +150,8 @@ class DlcClient:
         self,
         *,
         auto_renew: typing.Optional[bool] = OMIT,
-        brand: typing.Optional[int] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        brand: typing.Optional[str] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         keywords: typing.Optional[UpsertDlcCampaignKeywords] = OMIT,
         links: typing.Optional[UpsertDlcCampaignLinks] = OMIT,
@@ -168,11 +172,11 @@ class DlcClient:
         auto_renew : typing.Optional[bool]
             Whether the campaign renews automatically.
 
-        brand : typing.Optional[int]
-            Brand id.
+        brand : typing.Optional[str]
+            Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
-        campaign_id : typing.Optional[int]
-            Unique identifier for the campaign.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         description : typing.Optional[str]
             Description of the campaign.
@@ -224,19 +228,19 @@ class DlcClient:
         )
         client.campaigns.dlc.upsert(
             auto_renew=True,
-            brand=1,
-            campaign_id=161,
+            brand="b_1234567890",
+            campaign_id="dlc_1234567890",
             keywords=UpsertDlcCampaignKeywords(
                 help=UpsertDlcCampaignHelpKeywords(
                     message="Reply HELP for assistance, STOP to opt-out",
                     values=["HELP", "INFO", "SUPPORT"],
                 ),
                 opt_in=UpsertDlcCampaignOptInKeywords(
-                    message="Welcome! You're now subscribed to Pinnacle.",
+                    message="Welcome. You are now subscribed to Pinnacle.",
                     values=["JOIN", "START", "SUBSCRIBE"],
                 ),
                 opt_out=UpsertDlcCampaignOptOutKeywords(
-                    message="You've been unsubscribed. Reply START to rejoin.",
+                    message="You have been unsubscribed. Reply START to rejoin.",
                     values=["STOP", "QUIT", "UNSUBSCRIBE"],
                 ),
             ),
@@ -280,7 +284,7 @@ class DlcClient:
     def validate(
         self,
         *,
-        campaign_id: int,
+        campaign_id: str,
         additional_info: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CampaignValidationResult:
@@ -289,8 +293,11 @@ class DlcClient:
 
         Parameters
         ----------
-        campaign_id : int
-            Campaign ID.
+        campaign_id : str
+            Unique identifier for the campaign.
+            - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
@@ -312,7 +319,7 @@ class DlcClient:
         )
         client.campaigns.dlc.validate(
             additional_info="Please validate this DLC campaign for 10DLC compliance",
-            campaign_id=161,
+            campaign_id="dlc_1234567890",
         )
         """
         _response = self._raw_client.validate(
@@ -340,7 +347,7 @@ class AsyncDlcClient:
         self,
         *,
         additional_info: typing.Optional[str] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AutofillDlcCampaignResponse:
         """
@@ -351,8 +358,11 @@ class AsyncDlcClient:
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
 
-        campaign_id : typing.Optional[int]
-            Campaign ID.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign.
+            - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -375,8 +385,8 @@ class AsyncDlcClient:
 
         async def main() -> None:
             await client.campaigns.dlc.autofill(
-                additional_info="Please autofill missing DLC campaign fields using my brand profile",
-                campaign_id=161,
+                additional_info="Please autofill missing campaign fields using my brand profile",
+                campaign_id="dlc_1234567890",
             )
 
 
@@ -388,15 +398,15 @@ class AsyncDlcClient:
         return _response.data
 
     async def get(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DlcCampaignWithExtendedBrandAndStatus:
         """
         Retrieve 10DLC campaign.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the 10DLC campaign.
+        campaign_id : str
+            Unique identifier of the 10DLC campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -419,7 +429,7 @@ class AsyncDlcClient:
 
         async def main() -> None:
             await client.campaigns.dlc.get(
-                campaign_id=28,
+                campaign_id="dlc_1234567890",
             )
 
 
@@ -429,15 +439,16 @@ class AsyncDlcClient:
         return _response.data
 
     async def submit(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CampaignSubmissionResult:
         """
         Submit your 10DLC campaign for approval and activation with carriers.
 
         Parameters
         ----------
-        campaign_id : int
+        campaign_id : str
             Unique identifier of the 10DLC campaign to submit.
+            <br><br> This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -460,7 +471,7 @@ class AsyncDlcClient:
 
         async def main() -> None:
             await client.campaigns.dlc.submit(
-                campaign_id=161,
+                campaign_id="dlc_1234567890",
             )
 
 
@@ -473,8 +484,8 @@ class AsyncDlcClient:
         self,
         *,
         auto_renew: typing.Optional[bool] = OMIT,
-        brand: typing.Optional[int] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        brand: typing.Optional[str] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         keywords: typing.Optional[UpsertDlcCampaignKeywords] = OMIT,
         links: typing.Optional[UpsertDlcCampaignLinks] = OMIT,
@@ -495,11 +506,11 @@ class AsyncDlcClient:
         auto_renew : typing.Optional[bool]
             Whether the campaign renews automatically.
 
-        brand : typing.Optional[int]
-            Brand id.
+        brand : typing.Optional[str]
+            Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
-        campaign_id : typing.Optional[int]
-            Unique identifier for the campaign.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         description : typing.Optional[str]
             Description of the campaign.
@@ -556,19 +567,19 @@ class AsyncDlcClient:
         async def main() -> None:
             await client.campaigns.dlc.upsert(
                 auto_renew=True,
-                brand=1,
-                campaign_id=161,
+                brand="b_1234567890",
+                campaign_id="dlc_1234567890",
                 keywords=UpsertDlcCampaignKeywords(
                     help=UpsertDlcCampaignHelpKeywords(
                         message="Reply HELP for assistance, STOP to opt-out",
                         values=["HELP", "INFO", "SUPPORT"],
                     ),
                     opt_in=UpsertDlcCampaignOptInKeywords(
-                        message="Welcome! You're now subscribed to Pinnacle.",
+                        message="Welcome. You are now subscribed to Pinnacle.",
                         values=["JOIN", "START", "SUBSCRIBE"],
                     ),
                     opt_out=UpsertDlcCampaignOptOutKeywords(
-                        message="You've been unsubscribed. Reply START to rejoin.",
+                        message="You have been unsubscribed. Reply START to rejoin.",
                         values=["STOP", "QUIT", "UNSUBSCRIBE"],
                     ),
                 ),
@@ -617,7 +628,7 @@ class AsyncDlcClient:
     async def validate(
         self,
         *,
-        campaign_id: int,
+        campaign_id: str,
         additional_info: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CampaignValidationResult:
@@ -626,8 +637,11 @@ class AsyncDlcClient:
 
         Parameters
         ----------
-        campaign_id : int
-            Campaign ID.
+        campaign_id : str
+            Unique identifier for the campaign.
+            - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
@@ -654,7 +668,7 @@ class AsyncDlcClient:
         async def main() -> None:
             await client.campaigns.dlc.validate(
                 additional_info="Please validate this DLC campaign for 10DLC compliance",
-                campaign_id=161,
+                campaign_id="dlc_1234567890",
             )
 
 

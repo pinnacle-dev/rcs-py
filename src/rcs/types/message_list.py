@@ -6,19 +6,27 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .conversation import Conversation
+from .message_with_reaction import MessageWithReaction
 
 
-class RetrievedConversations(UniversalBaseModel):
-    count: int = pydantic.Field()
+class MessageList(UniversalBaseModel):
     """
-    Total number of conversations matching the filter.
+    Paginated list of messages in a conversation.
     """
 
-    conversations: typing.List[Conversation]
+    messages: typing.List[MessageWithReaction] = pydantic.Field()
+    """
+    Array of messages in the conversation.
+    """
+
     has_more: typing_extensions.Annotated[bool, FieldMetadata(alias="hasMore")] = pydantic.Field()
     """
-    Indicates if more conversations are available beyond the current page.
+    Indicates if more messages are available beyond the current page.
+    """
+
+    count: int = pydantic.Field()
+    """
+    Total number of messages in the conversation.
     """
 
     if IS_PYDANTIC_V2:

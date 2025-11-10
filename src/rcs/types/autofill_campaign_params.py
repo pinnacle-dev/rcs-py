@@ -16,11 +16,14 @@ class AutofillCampaignParams(UniversalBaseModel):
     Any additional information you want to provide.
     """
 
-    campaign_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="campaignId")] = pydantic.Field(
+    campaign_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="campaignId")] = pydantic.Field(
         default=None
     )
     """
-    Campaign ID.
+    Unique identifier for the campaign.
+    - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+    - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+    - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
     """
 
     if IS_PYDANTIC_V2:

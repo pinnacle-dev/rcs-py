@@ -36,7 +36,7 @@ class TollFreeClient:
         self,
         *,
         additional_info: typing.Optional[str] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TollFreeAutofillResponse:
         """
@@ -47,8 +47,11 @@ class TollFreeClient:
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
 
-        campaign_id : typing.Optional[int]
-            Campaign ID.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign.
+            - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -66,8 +69,8 @@ class TollFreeClient:
             api_key="YOUR_API_KEY",
         )
         client.campaigns.toll_free.autofill(
-            additional_info="Please autofill missing DLC campaign fields using my brand profile",
-            campaign_id=161,
+            additional_info="Please autofill missing campaign fields using my brand profile",
+            campaign_id="dlc_1234567890",
         )
         """
         _response = self._raw_client.autofill(
@@ -76,15 +79,15 @@ class TollFreeClient:
         return _response.data
 
     def get(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> TollFreeCampaignWithExtendedBrandAndStatus:
         """
         Retrieve Toll-Free campaign.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of toll-free campaign.
+        campaign_id : str
+            Unique identifier of toll-free campaign. Must begin with the prefix `tf_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -102,22 +105,22 @@ class TollFreeClient:
             api_key="YOUR_API_KEY",
         )
         client.campaigns.toll_free.get(
-            campaign_id=161,
+            campaign_id="tf_1234567890",
         )
         """
         _response = self._raw_client.get(campaign_id, request_options=request_options)
         return _response.data
 
     def submit(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CampaignSubmissionResult:
         """
         Submit your toll-free campaign for approval and activation with carriers.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the toll-free campaign to submit.
+        campaign_id : str
+            Unique identifier of the toll-free campaign to submit. Must begin with the prefix `tf_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -135,7 +138,7 @@ class TollFreeClient:
             api_key="YOUR_API_KEY",
         )
         client.campaigns.toll_free.submit(
-            campaign_id=161,
+            campaign_id="tf_1234567890",
         )
         """
         _response = self._raw_client.submit(campaign_id, request_options=request_options)
@@ -144,8 +147,8 @@ class TollFreeClient:
     def upsert(
         self,
         *,
-        brand: typing.Optional[int] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        brand: typing.Optional[str] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         monthly_volume: typing.Optional[MessageVolumeEnum] = OMIT,
         name: typing.Optional[str] = OMIT,
         opt_in: typing.Optional[UpsertTollFreeSchemaOptIn] = OMIT,
@@ -160,11 +163,11 @@ class TollFreeClient:
 
         Parameters
         ----------
-        brand : typing.Optional[int]
-            Brand id.
+        brand : typing.Optional[str]
+            Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
-        campaign_id : typing.Optional[int]
-            Unique identifier for the campaign.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
 
         monthly_volume : typing.Optional[MessageVolumeEnum]
 
@@ -200,8 +203,8 @@ class TollFreeClient:
             api_key="YOUR_API_KEY",
         )
         client.campaigns.toll_free.upsert(
-            brand=2,
-            campaign_id=161,
+            brand="b_1234567890",
+            campaign_id="tf_1234567890",
             monthly_volume="1,000",
             name="Pinnacle",
             opt_in=UpsertTollFreeSchemaOptIn(
@@ -209,7 +212,7 @@ class TollFreeClient:
                 url="https://www.pinnacle.sh/",
                 workflow_description="Visit https://www.pinnacle.sh/",
             ),
-            production_message_content="Join Pinnacle's workshop tomorrow and send your first RCS!",
+            production_message_content="Join the Pinnacle workshop tomorrow and send your first RCS!",
             use_case=UpsertTollFreeSchemaUseCase(
                 summary="Alerts clients about any Pinnacle hosted workshops.",
                 value="WORKSHOP_ALERTS",
@@ -231,7 +234,7 @@ class TollFreeClient:
     def validate(
         self,
         *,
-        campaign_id: int,
+        campaign_id: str,
         additional_info: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CampaignValidationResult:
@@ -240,8 +243,11 @@ class TollFreeClient:
 
         Parameters
         ----------
-        campaign_id : int
-            Campaign ID.
+        campaign_id : str
+            Unique identifier for the campaign.
+            - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
@@ -263,7 +269,7 @@ class TollFreeClient:
         )
         client.campaigns.toll_free.validate(
             additional_info="Please validate this DLC campaign for 10DLC compliance",
-            campaign_id=161,
+            campaign_id="dlc_1234567890",
         )
         """
         _response = self._raw_client.validate(
@@ -291,7 +297,7 @@ class AsyncTollFreeClient:
         self,
         *,
         additional_info: typing.Optional[str] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TollFreeAutofillResponse:
         """
@@ -302,8 +308,11 @@ class AsyncTollFreeClient:
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
 
-        campaign_id : typing.Optional[int]
-            Campaign ID.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign.
+            - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -326,8 +335,8 @@ class AsyncTollFreeClient:
 
         async def main() -> None:
             await client.campaigns.toll_free.autofill(
-                additional_info="Please autofill missing DLC campaign fields using my brand profile",
-                campaign_id=161,
+                additional_info="Please autofill missing campaign fields using my brand profile",
+                campaign_id="dlc_1234567890",
             )
 
 
@@ -339,15 +348,15 @@ class AsyncTollFreeClient:
         return _response.data
 
     async def get(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> TollFreeCampaignWithExtendedBrandAndStatus:
         """
         Retrieve Toll-Free campaign.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of toll-free campaign.
+        campaign_id : str
+            Unique identifier of toll-free campaign. Must begin with the prefix `tf_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -370,7 +379,7 @@ class AsyncTollFreeClient:
 
         async def main() -> None:
             await client.campaigns.toll_free.get(
-                campaign_id=161,
+                campaign_id="tf_1234567890",
             )
 
 
@@ -380,15 +389,15 @@ class AsyncTollFreeClient:
         return _response.data
 
     async def submit(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CampaignSubmissionResult:
         """
         Submit your toll-free campaign for approval and activation with carriers.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the toll-free campaign to submit.
+        campaign_id : str
+            Unique identifier of the toll-free campaign to submit. Must begin with the prefix `tf_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -411,7 +420,7 @@ class AsyncTollFreeClient:
 
         async def main() -> None:
             await client.campaigns.toll_free.submit(
-                campaign_id=161,
+                campaign_id="tf_1234567890",
             )
 
 
@@ -423,8 +432,8 @@ class AsyncTollFreeClient:
     async def upsert(
         self,
         *,
-        brand: typing.Optional[int] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        brand: typing.Optional[str] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         monthly_volume: typing.Optional[MessageVolumeEnum] = OMIT,
         name: typing.Optional[str] = OMIT,
         opt_in: typing.Optional[UpsertTollFreeSchemaOptIn] = OMIT,
@@ -439,11 +448,11 @@ class AsyncTollFreeClient:
 
         Parameters
         ----------
-        brand : typing.Optional[int]
-            Brand id.
+        brand : typing.Optional[str]
+            Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
-        campaign_id : typing.Optional[int]
-            Unique identifier for the campaign.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
 
         monthly_volume : typing.Optional[MessageVolumeEnum]
 
@@ -484,8 +493,8 @@ class AsyncTollFreeClient:
 
         async def main() -> None:
             await client.campaigns.toll_free.upsert(
-                brand=2,
-                campaign_id=161,
+                brand="b_1234567890",
+                campaign_id="tf_1234567890",
                 monthly_volume="1,000",
                 name="Pinnacle",
                 opt_in=UpsertTollFreeSchemaOptIn(
@@ -493,7 +502,7 @@ class AsyncTollFreeClient:
                     url="https://www.pinnacle.sh/",
                     workflow_description="Visit https://www.pinnacle.sh/",
                 ),
-                production_message_content="Join Pinnacle's workshop tomorrow and send your first RCS!",
+                production_message_content="Join the Pinnacle workshop tomorrow and send your first RCS!",
                 use_case=UpsertTollFreeSchemaUseCase(
                     summary="Alerts clients about any Pinnacle hosted workshops.",
                     value="WORKSHOP_ALERTS",
@@ -518,7 +527,7 @@ class AsyncTollFreeClient:
     async def validate(
         self,
         *,
-        campaign_id: int,
+        campaign_id: str,
         additional_info: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CampaignValidationResult:
@@ -527,8 +536,11 @@ class AsyncTollFreeClient:
 
         Parameters
         ----------
-        campaign_id : int
-            Campaign ID.
+        campaign_id : str
+            Unique identifier for the campaign.
+            - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
@@ -555,7 +567,7 @@ class AsyncTollFreeClient:
         async def main() -> None:
             await client.campaigns.toll_free.validate(
                 additional_info="Please validate this DLC campaign for 10DLC compliance",
-                campaign_id=161,
+                campaign_id="dlc_1234567890",
             )
 
 

@@ -131,23 +131,27 @@ class RawRcsClient:
 
         ## Overview
         During development and testing, RCS agents can only send messages to whitelisted phone numbers.
-        Use this endpoint to add test devices to your agent's whitelist before sending test messages.
+        Use this endpoint to whitelist specific phone numbers to send and receive messages from the test agent.
 
         ## Verification Process
         After whitelisting a number, you'll need to complete verification:
 
-        1. Check the test device for an "RBM Tester Management" request
-        2. Accept the request on the device
-        3. Enter the 4-digit verification code in the Pinnacle dashboard at:
+        1. Check the test device for message from "RBM Tester Management"
+        2. Click the "Make me a tester" button
+        3. Enter the separate 4-digit verification SMS code in the Pinnacle dashboard at:
            ```
            https://app.pinnacle.sh/dashboard/brands/{brandId}?campaignId={campaignId}&campaignType=RCS
            ```
 
+         > **⚠️ Important: Re-whitelisting Numbers**
+        >
+        > If you whitelist a number that's already whitelisted, you'll receive a new message from "RBM Tester Management". **You must click the "Make me a tester" button again to continue sending and receiving messages.**
+
         > **Important Notes**
         >
-        > - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number
-        > - **AT&T limitation:** Whitelisting may currently fail for AT&T numbers
-        > - **Verification required:** The whitelist request isn't complete until you verify the device.
+        > - **Verification required:** Messages cannot be sent nor received until you have clicked the "Make me a tester" button on the test device.
+        > - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number.
+        > - **Network limitations:** Whitelisting may be temporarily unavailable for some carriers but are usually restored shortly.
 
         Parameters
         ----------
@@ -214,9 +218,9 @@ class RawRcsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -341,9 +345,9 @@ class RawRcsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -485,23 +489,27 @@ class AsyncRawRcsClient:
 
         ## Overview
         During development and testing, RCS agents can only send messages to whitelisted phone numbers.
-        Use this endpoint to add test devices to your agent's whitelist before sending test messages.
+        Use this endpoint to whitelist specific phone numbers to send and receive messages from the test agent.
 
         ## Verification Process
         After whitelisting a number, you'll need to complete verification:
 
-        1. Check the test device for an "RBM Tester Management" request
-        2. Accept the request on the device
-        3. Enter the 4-digit verification code in the Pinnacle dashboard at:
+        1. Check the test device for message from "RBM Tester Management"
+        2. Click the "Make me a tester" button
+        3. Enter the separate 4-digit verification SMS code in the Pinnacle dashboard at:
            ```
            https://app.pinnacle.sh/dashboard/brands/{brandId}?campaignId={campaignId}&campaignType=RCS
            ```
 
+         > **⚠️ Important: Re-whitelisting Numbers**
+        >
+        > If you whitelist a number that's already whitelisted, you'll receive a new message from "RBM Tester Management". **You must click the "Make me a tester" button again to continue sending and receiving messages.**
+
         > **Important Notes**
         >
-        > - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number
-        > - **AT&T limitation:** Whitelisting may currently fail for AT&T numbers
-        > - **Verification required:** The whitelist request isn't complete until you verify the device.
+        > - **Verification required:** Messages cannot be sent nor received until you have clicked the "Make me a tester" button on the test device.
+        > - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number.
+        > - **Network limitations:** Whitelisting may be temporarily unavailable for some carriers but are usually restored shortly.
 
         Parameters
         ----------
@@ -568,9 +576,9 @@ class AsyncRawRcsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -695,9 +703,9 @@ class AsyncRawRcsClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

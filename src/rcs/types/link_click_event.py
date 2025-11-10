@@ -92,11 +92,6 @@ class LinkClickEvent(UniversalBaseModel):
     Google Click Identifier.
     """
 
-    id: int = pydantic.Field()
-    """
-    Unique identifier for the click event.
-    """
-
     ip_address: typing.Optional[str] = pydantic.Field(default=None)
     """
     IP address of the visitor (may be anonymized).
@@ -120,11 +115,6 @@ class LinkClickEvent(UniversalBaseModel):
     latitude: typing.Optional[float] = pydantic.Field(default=None)
     """
     Geographic latitude.
-    """
-
-    link_id: int = pydantic.Field()
-    """
-    ID of your shortened URL.
     """
 
     longitude: typing.Optional[float] = pydantic.Field(default=None)

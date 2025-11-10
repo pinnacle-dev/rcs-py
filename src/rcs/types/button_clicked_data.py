@@ -19,11 +19,11 @@ class ButtonClickedData(UniversalBaseModel):
     Information about the button that was clicked.
     """
 
-    message_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="messageId")] = pydantic.Field(
+    message_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="messageId")] = pydantic.Field(
         default=None
     )
     """
-    ID of the message this button was attached to, or null if not available. To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
+    ID of the message this button was sent in, or null if not available. To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
     """
 
     if IS_PYDANTIC_V2:

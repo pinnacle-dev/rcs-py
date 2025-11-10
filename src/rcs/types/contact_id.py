@@ -7,9 +7,9 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class ContactId(UniversalBaseModel):
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Unique ID of the created contact.
+    Unique ID of the created contact. This identifier is a string that always begins with the prefix `co_`, for example: `co_1234567890`.
     """
 
     if IS_PYDANTIC_V2:

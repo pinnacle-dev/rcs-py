@@ -15,9 +15,9 @@ from .vcard_phone import VcardPhone
 
 
 class Vcard(UniversalBaseModel):
-    id: typing.Optional[int] = pydantic.Field(default=None)
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Unique identifier for the contact.
+    The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`.
     """
 
     formatted_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="formattedName")] = (

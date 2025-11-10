@@ -9,14 +9,14 @@ from ..core.serialization import FieldMetadata
 
 
 class ReactionResult(UniversalBaseModel):
-    message_id: typing_extensions.Annotated[int, FieldMetadata(alias="messageId")] = pydantic.Field()
+    message_id: typing_extensions.Annotated[str, FieldMetadata(alias="messageId")] = pydantic.Field()
     """
-    ID of the message.
+    Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
     """
 
-    reaction_message_id: typing_extensions.Annotated[int, FieldMetadata(alias="reactionMessageId")] = pydantic.Field()
+    reaction_message_id: typing_extensions.Annotated[str, FieldMetadata(alias="reactionMessageId")] = pydantic.Field()
     """
-    Unique identifier for the reaction.
+    Unique identifier of the message with the reaction. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
     """
 
     if IS_PYDANTIC_V2:

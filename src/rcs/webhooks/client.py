@@ -45,7 +45,7 @@ class WebhooksClient:
         WebhookResult
             Returns all webhooks matching the search criteria. <br>
 
-            Results are sorted by ID and duplicates are removed.
+            Results are sorted by ID and duplicates are removed. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
 
         Examples
         --------
@@ -101,7 +101,7 @@ class AsyncWebhooksClient:
         WebhookResult
             Returns all webhooks matching the search criteria. <br>
 
-            Results are sorted by ID and duplicates are removed.
+            Results are sorted by ID and duplicates are removed. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
 
         Examples
         --------

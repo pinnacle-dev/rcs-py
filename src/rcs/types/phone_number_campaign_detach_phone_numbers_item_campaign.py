@@ -12,9 +12,9 @@ class PhoneNumberCampaignDetachPhoneNumbersItemCampaign(UniversalBaseModel):
     Campaign that the phone is now detached from.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Id of the campaign.
+    Id of the campaign. For `TOLL_FREE` campaigns, it will begin with the prefix `tf_`, for example: `tf_1234567890`. For `10DLC` campaigns, it will begin with the prefix `dlc_`, for example: `dlc_1234567890`.
     """
 
     name: str = pydantic.Field()

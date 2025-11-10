@@ -43,11 +43,11 @@ class ExtendedRcsCampaign(UniversalBaseModel):
     Indicates whether the brand has provided an attestation.
     """
 
-    campaign_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="campaignId")] = pydantic.Field(
+    campaign_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="campaignId")] = pydantic.Field(
         default=None
     )
     """
-    Unique identifier for the campaign.
+    Unique identifier for the campaign. This identifier is a string that always begins with the prefix `rcs_`, for example: `rcs_1234567890`.
     """
 
     expected_agent_responses: typing_extensions.Annotated[

@@ -17,9 +17,9 @@ class BrandStatus(UniversalBaseModel):
     List of errors that occurred.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Id of the brand.
+    The unique identifier of the brand. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
     """
 
     status: BrandStatusEnum = pydantic.Field()

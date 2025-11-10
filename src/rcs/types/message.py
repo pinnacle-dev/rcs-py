@@ -37,9 +37,9 @@ class Message(UniversalBaseModel):
     Null indicates no errors.
     """
 
-    id: int = pydantic.Field()
+    id: str = pydantic.Field()
     """
-    Unique identifier of the message.
+    Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
     """
 
     method: MessageMethodEnum

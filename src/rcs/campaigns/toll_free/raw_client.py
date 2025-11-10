@@ -35,7 +35,7 @@ class RawTollFreeClient:
         self,
         *,
         additional_info: typing.Optional[str] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TollFreeAutofillResponse]:
         """
@@ -46,8 +46,11 @@ class RawTollFreeClient:
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
 
-        campaign_id : typing.Optional[int]
-            Campaign ID.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign.
+            - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -119,15 +122,15 @@ class RawTollFreeClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[TollFreeCampaignWithExtendedBrandAndStatus]:
         """
         Retrieve Toll-Free campaign.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of toll-free campaign.
+        campaign_id : str
+            Unique identifier of toll-free campaign. Must begin with the prefix `tf_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -178,9 +181,9 @@ class RawTollFreeClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -202,15 +205,15 @@ class RawTollFreeClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def submit(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CampaignSubmissionResult]:
         """
         Submit your toll-free campaign for approval and activation with carriers.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the toll-free campaign to submit.
+        campaign_id : str
+            Unique identifier of the toll-free campaign to submit. Must begin with the prefix `tf_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -261,9 +264,9 @@ class RawTollFreeClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -287,8 +290,8 @@ class RawTollFreeClient:
     def upsert(
         self,
         *,
-        brand: typing.Optional[int] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        brand: typing.Optional[str] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         monthly_volume: typing.Optional[MessageVolumeEnum] = OMIT,
         name: typing.Optional[str] = OMIT,
         opt_in: typing.Optional[UpsertTollFreeSchemaOptIn] = OMIT,
@@ -303,11 +306,11 @@ class RawTollFreeClient:
 
         Parameters
         ----------
-        brand : typing.Optional[int]
-            Brand id.
+        brand : typing.Optional[str]
+            Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
-        campaign_id : typing.Optional[int]
-            Unique identifier for the campaign.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
 
         monthly_volume : typing.Optional[MessageVolumeEnum]
 
@@ -389,9 +392,9 @@ class RawTollFreeClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -415,7 +418,7 @@ class RawTollFreeClient:
     def validate(
         self,
         *,
-        campaign_id: int,
+        campaign_id: str,
         additional_info: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CampaignValidationResult]:
@@ -424,8 +427,11 @@ class RawTollFreeClient:
 
         Parameters
         ----------
-        campaign_id : int
-            Campaign ID.
+        campaign_id : str
+            Unique identifier for the campaign.
+            - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
@@ -508,7 +514,7 @@ class AsyncRawTollFreeClient:
         self,
         *,
         additional_info: typing.Optional[str] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TollFreeAutofillResponse]:
         """
@@ -519,8 +525,11 @@ class AsyncRawTollFreeClient:
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
 
-        campaign_id : typing.Optional[int]
-            Campaign ID.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign.
+            - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -592,15 +601,15 @@ class AsyncRawTollFreeClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[TollFreeCampaignWithExtendedBrandAndStatus]:
         """
         Retrieve Toll-Free campaign.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of toll-free campaign.
+        campaign_id : str
+            Unique identifier of toll-free campaign. Must begin with the prefix `tf_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -651,9 +660,9 @@ class AsyncRawTollFreeClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -675,15 +684,15 @@ class AsyncRawTollFreeClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def submit(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CampaignSubmissionResult]:
         """
         Submit your toll-free campaign for approval and activation with carriers.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the toll-free campaign to submit.
+        campaign_id : str
+            Unique identifier of the toll-free campaign to submit. Must begin with the prefix `tf_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -734,9 +743,9 @@ class AsyncRawTollFreeClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -760,8 +769,8 @@ class AsyncRawTollFreeClient:
     async def upsert(
         self,
         *,
-        brand: typing.Optional[int] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        brand: typing.Optional[str] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         monthly_volume: typing.Optional[MessageVolumeEnum] = OMIT,
         name: typing.Optional[str] = OMIT,
         opt_in: typing.Optional[UpsertTollFreeSchemaOptIn] = OMIT,
@@ -776,11 +785,11 @@ class AsyncRawTollFreeClient:
 
         Parameters
         ----------
-        brand : typing.Optional[int]
-            Brand id.
+        brand : typing.Optional[str]
+            Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
-        campaign_id : typing.Optional[int]
-            Unique identifier for the campaign.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
 
         monthly_volume : typing.Optional[MessageVolumeEnum]
 
@@ -862,9 +871,9 @@ class AsyncRawTollFreeClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -888,7 +897,7 @@ class AsyncRawTollFreeClient:
     async def validate(
         self,
         *,
-        campaign_id: int,
+        campaign_id: str,
         additional_info: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CampaignValidationResult]:
@@ -897,8 +906,11 @@ class AsyncRawTollFreeClient:
 
         Parameters
         ----------
-        campaign_id : int
-            Campaign ID.
+        campaign_id : str
+            Unique identifier for the campaign.
+            - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         additional_info : typing.Optional[str]
             Any additional information you want to provide.

@@ -16,9 +16,12 @@ class ValidateCampaignParams(UniversalBaseModel):
     Any additional information you want to provide.
     """
 
-    campaign_id: typing_extensions.Annotated[int, FieldMetadata(alias="campaignId")] = pydantic.Field()
+    campaign_id: typing_extensions.Annotated[str, FieldMetadata(alias="campaignId")] = pydantic.Field()
     """
-    Campaign ID.
+    Unique identifier for the campaign.
+    - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+    - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+    - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)  
     """
 
     if IS_PYDANTIC_V2:

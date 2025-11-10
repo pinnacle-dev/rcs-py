@@ -9,9 +9,9 @@ from ..core.serialization import FieldMetadata
 
 
 class VcardResource(UniversalBaseModel):
-    id: typing.Optional[int] = pydantic.Field(default=None)
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Contact's id
+    The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`.
     """
 
     download_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="downloadUrl")] = (

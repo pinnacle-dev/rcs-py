@@ -31,7 +31,7 @@ class ContactsClient:
     def get(
         self,
         *,
-        id: typing.Optional[int] = None,
+        id: typing.Optional[str] = None,
         phone_number: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Contact:
@@ -40,7 +40,7 @@ class ContactsClient:
 
         Parameters
         ----------
-        id : typing.Optional[int]
+        id : typing.Optional[str]
             Unique identifier of a specific contact you want to retrieve. <br>
 
             Either this parameter or `phoneNumber` must be provided, but not both.
@@ -63,7 +63,9 @@ class ContactsClient:
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
-        client.contacts.get()
+        client.contacts.get(
+            id="co_1234567890",
+        )
         """
         _response = self._raw_client.get(id=id, phone_number=phone_number, request_options=request_options)
         return _response.data
@@ -130,7 +132,7 @@ class ContactsClient:
     def update(
         self,
         *,
-        id: int,
+        id: str,
         description: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
@@ -142,8 +144,8 @@ class ContactsClient:
 
         Parameters
         ----------
-        id : int
-            ID of the contact you want to update.
+        id : str
+            ID of the contact you want to update. This identifier is a string that always begins with the prefix `co_`, for example: `co_1234567890`.
 
         description : typing.Optional[str]
             New notes or details for your contact.
@@ -177,7 +179,7 @@ class ContactsClient:
             email="alvaroopedtech@pinnacle.sh",
             name="Retired Bestie",
             tags=["friend"],
-            id=137,
+            id="co_1234567890",
         )
         """
         _response = self._raw_client.update(
@@ -204,7 +206,7 @@ class AsyncContactsClient:
     async def get(
         self,
         *,
-        id: typing.Optional[int] = None,
+        id: typing.Optional[str] = None,
         phone_number: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Contact:
@@ -213,7 +215,7 @@ class AsyncContactsClient:
 
         Parameters
         ----------
-        id : typing.Optional[int]
+        id : typing.Optional[str]
             Unique identifier of a specific contact you want to retrieve. <br>
 
             Either this parameter or `phoneNumber` must be provided, but not both.
@@ -241,7 +243,9 @@ class AsyncContactsClient:
 
 
         async def main() -> None:
-            await client.contacts.get()
+            await client.contacts.get(
+                id="co_1234567890",
+            )
 
 
         asyncio.run(main())
@@ -319,7 +323,7 @@ class AsyncContactsClient:
     async def update(
         self,
         *,
-        id: int,
+        id: str,
         description: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
@@ -331,8 +335,8 @@ class AsyncContactsClient:
 
         Parameters
         ----------
-        id : int
-            ID of the contact you want to update.
+        id : str
+            ID of the contact you want to update. This identifier is a string that always begins with the prefix `co_`, for example: `co_1234567890`.
 
         description : typing.Optional[str]
             New notes or details for your contact.
@@ -371,7 +375,7 @@ class AsyncContactsClient:
                 email="alvaroopedtech@pinnacle.sh",
                 name="Retired Bestie",
                 tags=["friend"],
-                id=137,
+                id="co_1234567890",
             )
 
 

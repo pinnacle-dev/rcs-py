@@ -144,7 +144,7 @@ client.brands.upsert(
     description="A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
     ein="88-1234567",
     email="founders@trypinnacle.app",
-    id=1,
+    id="b_1234567890",
     name="Pinnacle",
     sector="TECHNOLOGY",
     type="PRIVATE_PROFIT",
@@ -213,7 +213,10 @@ client.brands.upsert(
 <dl>
 <dd>
 
-**id:** `typing.Optional[int]` — Brand ID - include only when updating an existing brand, omit to create a new one.
+**id:** `typing.Optional[str]` 
+
+The unique identifier of the brand you want to update.
+<br><br> This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
     
 </dd>
 </dl>
@@ -298,7 +301,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.brands.get(
-    id=1,
+    id="b_1234567890",
 )
 
 ```
@@ -315,7 +318,10 @@ client.brands.get(
 <dl>
 <dd>
 
-**id:** `int` — ID of an existing brand in your account that you want to retrieve.
+**id:** `str` 
+
+The unique identifier of the brand you want to retrieve from your account.
+<br><br> This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
     
 </dd>
 </dl>
@@ -380,7 +386,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.brands.submit(
-    brand_id=1,
+    brand_id="b_1234567890",
 )
 
 ```
@@ -397,11 +403,10 @@ client.brands.submit(
 <dl>
 <dd>
 
-**brand_id:** `int` 
+**brand_id:** `str` 
 
-The unique identifier of the brand you want to submit for review. <br>
-
-Must correspond to an existing brand in your account that is ready for submission.
+The unique identifier of the brand you want to submit for review. <br><br>
+This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for submission.
     
 </dd>
 </dl>
@@ -611,7 +616,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.brands.vet(
-    brand_id=1,
+    brand_id="b_1234567890",
 )
 
 ```
@@ -628,11 +633,11 @@ client.brands.vet(
 <dl>
 <dd>
 
-**brand_id:** `int` 
+**brand_id:** `str` 
 
 The unique identifier of the brand to vet. <br>
 
-The brand must be already registered before it can be vetted.
+This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for vetting.
     
 </dd>
 </dl>
@@ -685,7 +690,9 @@ from rcs import Pinnacle
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.contacts.get()
+client.contacts.get(
+    id="co_1234567890",
+)
 
 ```
 </dd>
@@ -701,7 +708,7 @@ client.contacts.get()
 <dl>
 <dd>
 
-**id:** `typing.Optional[int]` 
+**id:** `typing.Optional[str]` 
 
 Unique identifier of a specific contact you want to retrieve. <br>
 
@@ -872,7 +879,7 @@ client.contacts.update(
     email="alvaroopedtech@pinnacle.sh",
     name="Retired Bestie",
     tags=["friend"],
-    id=137,
+    id="co_1234567890",
 )
 
 ```
@@ -889,7 +896,7 @@ client.contacts.update(
 <dl>
 <dd>
 
-**id:** `int` — ID of the contact you want to update.
+**id:** `str` — ID of the contact you want to update. This identifier is a string that always begins with the prefix `co_`, for example: `co_1234567890`.
     
 </dd>
 </dl>
@@ -976,7 +983,7 @@ client = Pinnacle(
 )
 client.conversations.get(
     request=ConversationByIdParams(
-        id=1,
+        id="conv_1234567890",
     ),
 )
 
@@ -1047,8 +1054,8 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.conversations.list(
-    brand_id=101,
-    campaign_id=136,
+    brand_id="b_1234567890",
+    campaign_id="tf_1234567890",
     campaign_type="TOLL_FREE",
     page_index=0,
     page_size=20,
@@ -1078,7 +1085,7 @@ client.conversations.list(
 <dl>
 <dd>
 
-**brand_id:** `typing.Optional[int]` — The unique identifier of the brand to filter conversations.
+**brand_id:** `typing.Optional[str]` — The unique identifier of the brand to filter conversations. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
     
 </dd>
 </dl>
@@ -1086,7 +1093,12 @@ client.conversations.list(
 <dl>
 <dd>
 
-**campaign_id:** `typing.Optional[int]` — The unique identifier of the campaign to filter conversations.
+**campaign_id:** `typing.Optional[str]` 
+
+The unique identifier of the campaign to filter conversations. This identifier is a string that begins with the prefix: 
+- TOLL_FREE: `tf_` (e.g., `tf_1234567890`)
+- 10DLC: `dlc_` (e.g., `dlc_1234567890`)
+- RCS: `rcs_` (e.g., `rcs_1234567890`)
     
 </dd>
 </dl>
@@ -1171,7 +1183,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.conversations.update(
-    id=123,
+    id="conv_1234567890",
     notes="Follow-up completed. Customer satisfied with resolution.",
 )
 
@@ -1189,7 +1201,7 @@ client.conversations.update(
 <dl>
 <dd>
 
-**id:** `int` — The unique identifier of the conversation to update.
+**id:** `str` — The unique identifier of the conversation to update. This identifier is a string that always begins with the prefix `conv_`, for example: `conv_1234567890`.
     
 </dd>
 </dl>
@@ -1198,6 +1210,150 @@ client.conversations.update(
 <dd>
 
 **notes:** `str` — New notes or comments for the conversation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conversations.<a href="src/rcs/conversations/client.py">list_messages</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated and filtered list of messages for a specific conversation.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.conversations.list_messages(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Unique identifier of the conversation. This identifier is a string that always begins with the prefix `conv_`, for example: `conv_1234567890`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_index:** `typing.Optional[int]` — Zero-based index for pagination.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of messages to return per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_order:** `typing.Optional[ConversationsListMessagesRequestSortOrder]` 
+
+Sort order for messages. <br>
+
+- `asc`: Oldest messages first
+- `desc`: Newest messages first (default)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ConversationsListMessagesRequestDirection]` 
+
+Filter messages by direction. <br>
+
+- `INBOUND`: Messages received from contacts
+- `OUTBOUND`: Messages sent to contacts
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[ConversationsListMessagesRequestStatus]` — Filter messages by delivery status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[ConversationsListMessagesRequestType]` — Filter messages by protocol type.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**date_from:** `typing.Optional[dt.datetime]` — Filter messages sent on or after this date (ISO 8601 format).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**date_to:** `typing.Optional[dt.datetime]` — Filter messages sent on or before this date (ISO 8601 format).
     
 </dd>
 </dl>
@@ -1251,7 +1407,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.messages.get(
-    id=1240,
+    id="msg_1234567890",
 )
 
 ```
@@ -1268,7 +1424,7 @@ client.messages.get(
 <dl>
 <dd>
 
-**id:** `int` — Unique identifier of the message.
+**id:** `str` — Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
     
 </dd>
 </dl>
@@ -1322,7 +1478,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.messages.react(
-    message_id=1410,
+    message_id="msg_1234567890",
     options=ReactMessageOptions(
         force=True,
     ),
@@ -1343,7 +1499,7 @@ client.messages.react(
 <dl>
 <dd>
 
-**message_id:** `int` — Unique identifier of the message.
+**message_id:** `str` — Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
     
 </dd>
 </dl>
@@ -1776,23 +1932,27 @@ Whitelist a phone number for testing with your test RCS agent.
 
 ## Overview
 During development and testing, RCS agents can only send messages to whitelisted phone numbers.
-Use this endpoint to add test devices to your agent's whitelist before sending test messages.
+Use this endpoint to whitelist specific phone numbers to send and receive messages from the test agent.
 
 ## Verification Process
 After whitelisting a number, you'll need to complete verification:
 
-1. Check the test device for an "RBM Tester Management" request
-2. Accept the request on the device
-3. Enter the 4-digit verification code in the Pinnacle dashboard at:
+1. Check the test device for message from "RBM Tester Management"
+2. Click the "Make me a tester" button
+3. Enter the separate 4-digit verification SMS code in the Pinnacle dashboard at:
    ```
    https://app.pinnacle.sh/dashboard/brands/{brandId}?campaignId={campaignId}&campaignType=RCS
    ```
 
+ > **⚠️ Important: Re-whitelisting Numbers**
+>
+> If you whitelist a number that's already whitelisted, you'll receive a new message from "RBM Tester Management". **You must click the "Make me a tester" button again to continue sending and receiving messages.**
+
 > **Important Notes**
 >
-> - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number
-> - **AT&T limitation:** Whitelisting may currently fail for AT&T numbers
-> - **Verification required:** The whitelist request isn't complete until you verify the device.
+> - **Verification required:** Messages cannot be sent nor received until you have clicked the "Make me a tester" button on the test device.
+> - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number.
+> - **Network limitations:** Whitelisting may be temporarily unavailable for some carriers but are usually restored shortly.
 </dd>
 </dl>
 </dd>
@@ -2069,8 +2229,8 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.campaigns.dlc.autofill(
-    additional_info="Please autofill missing DLC campaign fields using my brand profile",
-    campaign_id=161,
+    additional_info="Please autofill missing campaign fields using my brand profile",
+    campaign_id="dlc_1234567890",
 )
 
 ```
@@ -2095,7 +2255,12 @@ client.campaigns.dlc.autofill(
 <dl>
 <dd>
 
-**campaign_id:** `typing.Optional[int]` — Campaign ID.
+**campaign_id:** `typing.Optional[str]` 
+
+Unique identifier for the campaign.
+- When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+- When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+- When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
     
 </dd>
 </dl>
@@ -2148,7 +2313,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.campaigns.dlc.get(
-    campaign_id=28,
+    campaign_id="dlc_1234567890",
 )
 
 ```
@@ -2165,7 +2330,7 @@ client.campaigns.dlc.get(
 <dl>
 <dd>
 
-**campaign_id:** `int` — Unique identifier of the 10DLC campaign.
+**campaign_id:** `str` — Unique identifier of the 10DLC campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
     
 </dd>
 </dl>
@@ -2218,7 +2383,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.campaigns.dlc.submit(
-    campaign_id=161,
+    campaign_id="dlc_1234567890",
 )
 
 ```
@@ -2235,7 +2400,10 @@ client.campaigns.dlc.submit(
 <dl>
 <dd>
 
-**campaign_id:** `int` — Unique identifier of the 10DLC campaign to submit.
+**campaign_id:** `str` 
+
+Unique identifier of the 10DLC campaign to submit.
+<br><br> This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
     
 </dd>
 </dl>
@@ -2300,19 +2468,19 @@ client = Pinnacle(
 )
 client.campaigns.dlc.upsert(
     auto_renew=True,
-    brand=1,
-    campaign_id=161,
+    brand="b_1234567890",
+    campaign_id="dlc_1234567890",
     keywords=UpsertDlcCampaignKeywords(
         help=UpsertDlcCampaignHelpKeywords(
             message="Reply HELP for assistance, STOP to opt-out",
             values=["HELP", "INFO", "SUPPORT"],
         ),
         opt_in=UpsertDlcCampaignOptInKeywords(
-            message="Welcome! You're now subscribed to Pinnacle.",
+            message="Welcome. You are now subscribed to Pinnacle.",
             values=["JOIN", "START", "SUBSCRIBE"],
         ),
         opt_out=UpsertDlcCampaignOptOutKeywords(
-            message="You've been unsubscribed. Reply START to rejoin.",
+            message="You have been unsubscribed. Reply START to rejoin.",
             values=["STOP", "QUIT", "UNSUBSCRIBE"],
         ),
     ),
@@ -2359,7 +2527,7 @@ client.campaigns.dlc.upsert(
 <dl>
 <dd>
 
-**brand:** `typing.Optional[int]` — Brand id.
+**brand:** `typing.Optional[str]` — Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
     
 </dd>
 </dl>
@@ -2367,7 +2535,7 @@ client.campaigns.dlc.upsert(
 <dl>
 <dd>
 
-**campaign_id:** `typing.Optional[int]` — Unique identifier for the campaign.
+**campaign_id:** `typing.Optional[str]` — Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
     
 </dd>
 </dl>
@@ -2485,7 +2653,7 @@ client = Pinnacle(
 )
 client.campaigns.dlc.validate(
     additional_info="Please validate this DLC campaign for 10DLC compliance",
-    campaign_id=161,
+    campaign_id="dlc_1234567890",
 )
 
 ```
@@ -2502,7 +2670,12 @@ client.campaigns.dlc.validate(
 <dl>
 <dd>
 
-**campaign_id:** `int` — Campaign ID.
+**campaign_id:** `str` 
+
+Unique identifier for the campaign.
+- When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+- When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+- When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)  
     
 </dd>
 </dl>
@@ -2564,8 +2737,8 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.campaigns.toll_free.autofill(
-    additional_info="Please autofill missing DLC campaign fields using my brand profile",
-    campaign_id=161,
+    additional_info="Please autofill missing campaign fields using my brand profile",
+    campaign_id="dlc_1234567890",
 )
 
 ```
@@ -2590,7 +2763,12 @@ client.campaigns.toll_free.autofill(
 <dl>
 <dd>
 
-**campaign_id:** `typing.Optional[int]` — Campaign ID.
+**campaign_id:** `typing.Optional[str]` 
+
+Unique identifier for the campaign.
+- When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+- When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+- When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
     
 </dd>
 </dl>
@@ -2643,7 +2821,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.campaigns.toll_free.get(
-    campaign_id=161,
+    campaign_id="tf_1234567890",
 )
 
 ```
@@ -2660,7 +2838,7 @@ client.campaigns.toll_free.get(
 <dl>
 <dd>
 
-**campaign_id:** `int` — Unique identifier of toll-free campaign.
+**campaign_id:** `str` — Unique identifier of toll-free campaign. Must begin with the prefix `tf_`.
     
 </dd>
 </dl>
@@ -2713,7 +2891,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.campaigns.toll_free.submit(
-    campaign_id=161,
+    campaign_id="tf_1234567890",
 )
 
 ```
@@ -2730,7 +2908,7 @@ client.campaigns.toll_free.submit(
 <dl>
 <dd>
 
-**campaign_id:** `int` — Unique identifier of the toll-free campaign to submit.
+**campaign_id:** `str` — Unique identifier of the toll-free campaign to submit. Must begin with the prefix `tf_`.
     
 </dd>
 </dl>
@@ -2789,8 +2967,8 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.campaigns.toll_free.upsert(
-    brand=2,
-    campaign_id=161,
+    brand="b_1234567890",
+    campaign_id="tf_1234567890",
     monthly_volume="1,000",
     name="Pinnacle",
     opt_in=UpsertTollFreeSchemaOptIn(
@@ -2798,7 +2976,7 @@ client.campaigns.toll_free.upsert(
         url="https://www.pinnacle.sh/",
         workflow_description="Visit https://www.pinnacle.sh/",
     ),
-    production_message_content="Join Pinnacle's workshop tomorrow and send your first RCS!",
+    production_message_content="Join the Pinnacle workshop tomorrow and send your first RCS!",
     use_case=UpsertTollFreeSchemaUseCase(
         summary="Alerts clients about any Pinnacle hosted workshops.",
         value="WORKSHOP_ALERTS",
@@ -2819,7 +2997,7 @@ client.campaigns.toll_free.upsert(
 <dl>
 <dd>
 
-**brand:** `typing.Optional[int]` — Brand id.
+**brand:** `typing.Optional[str]` — Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
     
 </dd>
 </dl>
@@ -2827,7 +3005,7 @@ client.campaigns.toll_free.upsert(
 <dl>
 <dd>
 
-**campaign_id:** `typing.Optional[int]` — Unique identifier for the campaign.
+**campaign_id:** `typing.Optional[str]` — Unique identifier for the campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
     
 </dd>
 </dl>
@@ -2921,7 +3099,7 @@ client = Pinnacle(
 )
 client.campaigns.toll_free.validate(
     additional_info="Please validate this DLC campaign for 10DLC compliance",
-    campaign_id=161,
+    campaign_id="dlc_1234567890",
 )
 
 ```
@@ -2938,7 +3116,12 @@ client.campaigns.toll_free.validate(
 <dl>
 <dd>
 
-**campaign_id:** `int` — Campaign ID.
+**campaign_id:** `str` 
+
+Unique identifier for the campaign.
+- When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+- When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+- When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)  
     
 </dd>
 </dl>
@@ -3000,8 +3183,8 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.campaigns.rcs.autofill(
-    additional_info="Please autofill missing DLC campaign fields using my brand profile",
-    campaign_id=161,
+    additional_info="Please autofill missing campaign fields using my brand profile",
+    campaign_id="dlc_1234567890",
 )
 
 ```
@@ -3026,7 +3209,12 @@ client.campaigns.rcs.autofill(
 <dl>
 <dd>
 
-**campaign_id:** `typing.Optional[int]` — Campaign ID.
+**campaign_id:** `typing.Optional[str]` 
+
+Unique identifier for the campaign.
+- When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+- When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+- When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
     
 </dd>
 </dl>
@@ -3079,7 +3267,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.campaigns.rcs.get(
-    campaign_id=161,
+    campaign_id="rcs_1234567890",
 )
 
 ```
@@ -3096,7 +3284,7 @@ client.campaigns.rcs.get(
 <dl>
 <dd>
 
-**campaign_id:** `int` — Unique identifier of the RCS campaign.
+**campaign_id:** `str` — Unique identifier of the RCS campaign. Must begin with the prefix `rcs_`.
     
 </dd>
 </dl>
@@ -3149,7 +3337,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.campaigns.rcs.submit(
-    campaign_id=161,
+    campaign_id="rcs_1234567890",
 )
 
 ```
@@ -3166,7 +3354,7 @@ client.campaigns.rcs.submit(
 <dl>
 <dd>
 
-**campaign_id:** `int` — Unique identifier of the RCS campaign to retrieve.
+**campaign_id:** `str` — Unique identifier of the RCS campaign to retrieve. Must begin with the prefix `rcs_`.
     
 </dd>
 </dl>
@@ -3257,7 +3445,8 @@ client.campaigns.rcs.upsert(
         ],
     ),
     brand_verification_url="https://www.pinnacle.sh/articles-of-incorporation.pdf",
-    brand=2,
+    brand="b_1234567890",
+    campaign_id="rcs_1234567890",
     expected_agent_responses=[
         "Here are the things I can help you with.",
         "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -3312,7 +3501,7 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**brand:** `typing.Optional[int]` — Unique identifier for the brand.
+**brand:** `typing.Optional[str]` — Unique identifier for the brand.
     
 </dd>
 </dl>
@@ -3320,7 +3509,7 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**campaign_id:** `typing.Optional[int]` — Unique identifier for the campaign.
+**campaign_id:** `typing.Optional[str]` — Unique identifier for the campaign.
     
 </dd>
 </dl>
@@ -3414,7 +3603,7 @@ client = Pinnacle(
 )
 client.campaigns.rcs.validate(
     additional_info="Please validate this DLC campaign for 10DLC compliance",
-    campaign_id=161,
+    campaign_id="dlc_1234567890",
 )
 
 ```
@@ -3431,7 +3620,12 @@ client.campaigns.rcs.validate(
 <dl>
 <dd>
 
-**campaign_id:** `int` — Campaign ID.
+**campaign_id:** `str` 
+
+Unique identifier for the campaign.
+- When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+- When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+- When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)  
     
 </dd>
 </dl>
@@ -4027,7 +4221,7 @@ client = Pinnacle(
 client.phone_numbers.webhook.attach(
     phone="%2B14155551234",
     request=AttachWebhookByIdParams(
-        webhook_id=123,
+        webhook_id="wh_1234567890",
         event="MESSAGE.STATUS",
     ),
 )
@@ -4114,7 +4308,7 @@ client = Pinnacle(
 )
 client.phone_numbers.webhook.detach(
     phone="+14155551234",
-    webhook_id=123,
+    webhook_id="wh_1234567890",
 )
 
 ```
@@ -4143,11 +4337,11 @@ Must be a phone number that you own and currently has the specified webhook atta
 <dl>
 <dd>
 
-**webhook_id:** `int` 
+**webhook_id:** `str` 
 
 The unique identifier of the webhook you want to detach from the phone number. <br>
 
-This must be a valid webhook ID that is currently attached to the specified phone number.
+This must be a valid webhook ID that is currently attached to the specified phone number. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
     
 </dd>
 </dl>
@@ -4203,7 +4397,7 @@ client = Pinnacle(
 client.phone_numbers.campaign.attach(
     phones=["+14155550123", "+14155559876", "+14155550111"],
     campaign_type="TOLL_FREE",
-    campaign_id=101,
+    campaign_id="tf_1234567890",
 )
 
 ```
@@ -4236,7 +4430,16 @@ client.phone_numbers.campaign.attach(
 <dl>
 <dd>
 
-**campaign_id:** `int` — Campaign's identifier.
+**campaign_id:** `str` 
+
+Unique identifier for the campaign. <br>
+
+ - **TOLL_FREE** campaigns:
+   - Must begin with the prefix `tf_`
+   - Example: `tf_1234567890`
+ - **10DLC** campaigns:
+   - Must begin with the prefix `dlc_`
+   - Example: `dlc_1234567890`
     
 </dd>
 </dl>
@@ -4360,7 +4563,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.status.get.brand(
-    brand_id=28,
+    brand_id="b_1234567890",
 )
 
 ```
@@ -4377,7 +4580,7 @@ client.status.get.brand(
 <dl>
 <dd>
 
-**brand_id:** `int` — ID of the brand.
+**brand_id:** `str` — The unique identifier of the brand you want to retrieve the status for. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
     
 </dd>
 </dl>
@@ -4430,7 +4633,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.status.get.toll_free(
-    campaign_id=28,
+    campaign_id="tf_1234567890",
 )
 
 ```
@@ -4447,7 +4650,7 @@ client.status.get.toll_free(
 <dl>
 <dd>
 
-**campaign_id:** `int` — ID of the toll-free campaign.
+**campaign_id:** `str` — The unique identifier of the toll-free campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
     
 </dd>
 </dl>
@@ -4500,7 +4703,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.status.get.dlc(
-    campaign_id=28,
+    campaign_id="dlc_1234567890",
 )
 
 ```
@@ -4517,7 +4720,7 @@ client.status.get.dlc(
 <dl>
 <dd>
 
-**campaign_id:** `int` — ID of the 10DLC campaign.
+**campaign_id:** `str` — The unique identifier of the 10DLC campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
     
 </dd>
 </dl>
@@ -4570,7 +4773,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.status.get.rcs(
-    campaign_id=28,
+    campaign_id="rcs_1234567890",
 )
 
 ```
@@ -4587,7 +4790,7 @@ client.status.get.rcs(
 <dl>
 <dd>
 
-**campaign_id:** `int` — ID of the campaign.
+**campaign_id:** `str` — The unique identifier of the RCS campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `rcs_`, for example: `rcs_1234567890`.
     
 </dd>
 </dl>
@@ -4965,6 +5168,7 @@ client.tools.file.upload(
     size=1024,
     name="test.jpg",
     options=UploadFileOptions(
+        delete_at="2025-12-31T23:59:59Z",
         download=DownloadOptions(
             expires_at="2025-06-30T12:00:00.000Z",
         ),
@@ -5074,10 +5278,9 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.tools.file.refresh(
-    uris=[
+    urls=[
         "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken",
         "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
-        "icons/3/test.jpg",
         "invalid/url",
         "https://google.com",
     ],
@@ -5097,15 +5300,7 @@ client.tools.file.refresh(
 <dl>
 <dd>
 
-**uris:** `typing.Sequence[str]` 
-
-Array of file URIs to refresh for extended access. <br>
-
-Accepted formats:
-- **Full presigned URLs**: `https://server.trypinnacle.app/storage/v1/object/sign/...`
-- **Short URIs**: `{BUCKET}/${TEAM_ID}/...` (e.g., `vault/3/document.pdf`)
-
-Invalid or external URLs will be returned unchanged in the response.
+**urls:** `typing.Sequence[str]` — Array of file URLs to refresh for extended access. Provided URLs must be presigned URLs (i.e. `https://server.trypinnacle.app/storage/v1/object/sign/...`). Invalid or external URLs will be returned unchanged in the response.
     
 </dd>
 </dl>
@@ -5159,7 +5354,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.tools.contact_card.get(
-    id=33,
+    id="cc_1234567890",
 )
 
 ```
@@ -5176,7 +5371,7 @@ client.tools.contact_card.get(
 <dl>
 <dd>
 
-**id:** `int` — ID of your contact.
+**id:** `str` — The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`.
     
 </dd>
 </dl>
@@ -5245,7 +5440,7 @@ client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.tools.contact_card.upsert(
-    id=34,
+    id="cc_1234567890",
     formatted_name="Jane Smith",
     name=VCardName(
         family_name="Smith",
@@ -5319,7 +5514,7 @@ client.tools.contact_card.upsert(
 <dl>
 <dd>
 
-**id:** `typing.Optional[int]` — Unique identifier for the contact.
+**id:** `typing.Optional[str]` — The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`.
     
 </dd>
 </dl>

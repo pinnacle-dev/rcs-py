@@ -36,7 +36,7 @@ class RawDlcClient:
         self,
         *,
         additional_info: typing.Optional[str] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AutofillDlcCampaignResponse]:
         """
@@ -47,8 +47,11 @@ class RawDlcClient:
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
 
-        campaign_id : typing.Optional[int]
-            Campaign ID.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign.
+            - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -120,15 +123,15 @@ class RawDlcClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[DlcCampaignWithExtendedBrandAndStatus]:
         """
         Retrieve 10DLC campaign.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the 10DLC campaign.
+        campaign_id : str
+            Unique identifier of the 10DLC campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -179,9 +182,9 @@ class RawDlcClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -203,15 +206,16 @@ class RawDlcClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def submit(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CampaignSubmissionResult]:
         """
         Submit your 10DLC campaign for approval and activation with carriers.
 
         Parameters
         ----------
-        campaign_id : int
+        campaign_id : str
             Unique identifier of the 10DLC campaign to submit.
+            <br><br> This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -262,9 +266,9 @@ class RawDlcClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -289,8 +293,8 @@ class RawDlcClient:
         self,
         *,
         auto_renew: typing.Optional[bool] = OMIT,
-        brand: typing.Optional[int] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        brand: typing.Optional[str] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         keywords: typing.Optional[UpsertDlcCampaignKeywords] = OMIT,
         links: typing.Optional[UpsertDlcCampaignLinks] = OMIT,
@@ -311,11 +315,11 @@ class RawDlcClient:
         auto_renew : typing.Optional[bool]
             Whether the campaign renews automatically.
 
-        brand : typing.Optional[int]
-            Brand id.
+        brand : typing.Optional[str]
+            Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
-        campaign_id : typing.Optional[int]
-            Unique identifier for the campaign.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         description : typing.Optional[str]
             Description of the campaign.
@@ -415,9 +419,9 @@ class RawDlcClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -441,7 +445,7 @@ class RawDlcClient:
     def validate(
         self,
         *,
-        campaign_id: int,
+        campaign_id: str,
         additional_info: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CampaignValidationResult]:
@@ -450,8 +454,11 @@ class RawDlcClient:
 
         Parameters
         ----------
-        campaign_id : int
-            Campaign ID.
+        campaign_id : str
+            Unique identifier for the campaign.
+            - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
@@ -534,7 +541,7 @@ class AsyncRawDlcClient:
         self,
         *,
         additional_info: typing.Optional[str] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AutofillDlcCampaignResponse]:
         """
@@ -545,8 +552,11 @@ class AsyncRawDlcClient:
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
 
-        campaign_id : typing.Optional[int]
-            Campaign ID.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign.
+            - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -618,15 +628,15 @@ class AsyncRawDlcClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[DlcCampaignWithExtendedBrandAndStatus]:
         """
         Retrieve 10DLC campaign.
 
         Parameters
         ----------
-        campaign_id : int
-            Unique identifier of the 10DLC campaign.
+        campaign_id : str
+            Unique identifier of the 10DLC campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -677,9 +687,9 @@ class AsyncRawDlcClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -701,15 +711,16 @@ class AsyncRawDlcClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def submit(
-        self, campaign_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self, campaign_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CampaignSubmissionResult]:
         """
         Submit your 10DLC campaign for approval and activation with carriers.
 
         Parameters
         ----------
-        campaign_id : int
+        campaign_id : str
             Unique identifier of the 10DLC campaign to submit.
+            <br><br> This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -760,9 +771,9 @@ class AsyncRawDlcClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -787,8 +798,8 @@ class AsyncRawDlcClient:
         self,
         *,
         auto_renew: typing.Optional[bool] = OMIT,
-        brand: typing.Optional[int] = OMIT,
-        campaign_id: typing.Optional[int] = OMIT,
+        brand: typing.Optional[str] = OMIT,
+        campaign_id: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         keywords: typing.Optional[UpsertDlcCampaignKeywords] = OMIT,
         links: typing.Optional[UpsertDlcCampaignLinks] = OMIT,
@@ -809,11 +820,11 @@ class AsyncRawDlcClient:
         auto_renew : typing.Optional[bool]
             Whether the campaign renews automatically.
 
-        brand : typing.Optional[int]
-            Brand id.
+        brand : typing.Optional[str]
+            Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
-        campaign_id : typing.Optional[int]
-            Unique identifier for the campaign.
+        campaign_id : typing.Optional[str]
+            Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         description : typing.Optional[str]
             Description of the campaign.
@@ -913,9 +924,9 @@ class AsyncRawDlcClient:
                 raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        Error,
+                        typing.Optional[typing.Any],
                         parse_obj_as(
-                            type_=Error,  # type: ignore
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -939,7 +950,7 @@ class AsyncRawDlcClient:
     async def validate(
         self,
         *,
-        campaign_id: int,
+        campaign_id: str,
         additional_info: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CampaignValidationResult]:
@@ -948,8 +959,11 @@ class AsyncRawDlcClient:
 
         Parameters
         ----------
-        campaign_id : int
-            Campaign ID.
+        campaign_id : str
+            Unique identifier for the campaign.
+            - When validating 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+            - When validating toll-free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+            - When validating RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
 
         additional_info : typing.Optional[str]
             Any additional information you want to provide.
