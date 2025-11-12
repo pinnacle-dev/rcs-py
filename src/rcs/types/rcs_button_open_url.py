@@ -3,7 +3,10 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
+from .rcs_button_open_url_webview_mode import RcsButtonOpenUrlWebviewMode
 
 
 class RcsButtonOpenUrl(UniversalBaseModel):
@@ -11,9 +14,18 @@ class RcsButtonOpenUrl(UniversalBaseModel):
     Button that opens a URL when tapped by the recipient.
     """
 
-    metadata: typing.Optional[str] = pydantic.Field(default=None)
+    webview_mode: typing_extensions.Annotated[
+        typing.Optional[RcsButtonOpenUrlWebviewMode], FieldMetadata(alias="webviewMode")
+    ] = pydantic.Field(default=None)
     """
-    Optional additional data to attach to this button.
+    Controls how the URL is displayed when the button is tapped.
+    
+    **Default behavior:** If not specified, the URL opens in the device's default browser. If you're sending deeplinks, you should use this mode as it will open the deeplink in the native app if it is installed.
+    
+    **Available modes in order of size:**
+    - `HALF` — Half-screen webview overlay
+    - `TALL` — Tall webview overlay
+    - `FULL` — Full-screen webview
     """
 
     payload: str = pydantic.Field()
@@ -24,6 +36,11 @@ class RcsButtonOpenUrl(UniversalBaseModel):
     title: str = pydantic.Field()
     """
     Display text for the button.
+    """
+
+    metadata: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Optional additional data to attach to this button.
     """
 
     if IS_PYDANTIC_V2:

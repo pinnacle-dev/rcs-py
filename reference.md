@@ -4107,6 +4107,115 @@ client.messages.rcs.send(
 </dl>
 </details>
 
+<details><summary><code>client.messages.rcs.<a href="src/rcs/messages/rcs/client.py">send_typing</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a typing indicator from an RCS agent to a recipient.
+
+This endpoint allows RCS agents to display a typing indicator to recipients. The indicator is a message bubble with animated typing dots like this: <img src="https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/ios-typing-indicator.png" alt="Typing Indicator" style="display: inline; height: 1.5em; vertical-align: middle; margin: 0 4px;" />
+
+**Use Case:** Typing indicators are especially useful for providing feedback to users while the agent is thinking or generating a response that may take some time, creating a more engaging conversational experience.
+
+**Expiration:** Typing indicators automatically expire after around 20 seconds or when the agent sends a message, whichever comes first.
+
+**Frequency:** You can send typing indicators as many times as needed, though only one will be displayed at a time. Sending multiple typing indicators will extend the duration of the current indicator.
+
+> **Note:** Typing indicators are best-effort hints, not delivery-guaranteed state. The platform is allowed to coalesce or drop them, and the client UI decides when to show/hide.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+from rcs.messages.rcs import SendTypingIndicatorSchemaOptions
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.messages.rcs.send_typing(
+    agent_id="agent_pinnacle",
+    to="+14154746461",
+    options=SendTypingIndicatorSchemaOptions(
+        test_mode=False,
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+
+The unique identifier of the RCS agent sending the typing indicator. <br>
+
+Format: `agent_` followed by alphanumeric characters (e.g., `agent_pinnacle`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**to:** `str` 
+
+The recipient's phone number in E.164 format. <br>
+
+Must include country code with a leading plus sign (e.g., `+14155551234`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**options:** `typing.Optional[SendTypingIndicatorSchemaOptions]` — Configure how your typing indicator is sent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.messages.rcs.<a href="src/rcs/messages/rcs/client.py">validate</a>(...)</code></summary>
 <dl>
 <dd>

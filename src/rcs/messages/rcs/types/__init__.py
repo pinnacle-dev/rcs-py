@@ -7,7 +7,11 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .rcs_send_response import RcsSendResponse
-_dynamic_imports: typing.Dict[str, str] = {"RcsSendResponse": ".rcs_send_response"}
+    from .send_typing_indicator_schema_options import SendTypingIndicatorSchemaOptions
+_dynamic_imports: typing.Dict[str, str] = {
+    "RcsSendResponse": ".rcs_send_response",
+    "SendTypingIndicatorSchemaOptions": ".send_typing_indicator_schema_options",
+}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -29,4 +33,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["RcsSendResponse"]
+__all__ = ["RcsSendResponse", "SendTypingIndicatorSchemaOptions"]

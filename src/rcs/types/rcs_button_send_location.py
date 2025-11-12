@@ -14,6 +14,13 @@ class RcsButtonSendLocation(UniversalBaseModel):
     Button that shares a specific location with the recipient when tapped.
     """
 
+    name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Optional name or label for the location that will be displayed in the map app (e.g., "Central Park", "Home Office").
+    
+    If not provided, the button title will be used as the location name.
+    """
+
     lat_long: typing_extensions.Annotated[RcsButtonSendLocationLatLong, FieldMetadata(alias="latLong")] = (
         pydantic.Field()
     )
@@ -21,14 +28,14 @@ class RcsButtonSendLocation(UniversalBaseModel):
     Geographic coordinates of the location to share.
     """
 
-    metadata: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Optional additional data to attach to this button.
-    """
-
     title: str = pydantic.Field()
     """
     Display text for the button.
+    """
+
+    metadata: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Optional additional data to attach to this button.
     """
 
     if IS_PYDANTIC_V2:

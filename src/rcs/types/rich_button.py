@@ -8,14 +8,18 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .rcs_button_open_url_webview_mode import RcsButtonOpenUrlWebviewMode
 from .rcs_button_send_location_lat_long import RcsButtonSendLocationLatLong
 
 
 class RichButton_OpenUrl(UniversalBaseModel):
     type: typing.Literal["openUrl"] = "openUrl"
-    metadata: typing.Optional[str] = None
+    webview_mode: typing_extensions.Annotated[
+        typing.Optional[RcsButtonOpenUrlWebviewMode], FieldMetadata(alias="webviewMode")
+    ] = None
     payload: str
     title: str
+    metadata: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -95,9 +99,10 @@ class RichButton_ScheduleEvent(UniversalBaseModel):
 
 class RichButton_SendLocation(UniversalBaseModel):
     type: typing.Literal["sendLocation"] = "sendLocation"
+    name: typing.Optional[str] = None
     lat_long: typing_extensions.Annotated[RcsButtonSendLocationLatLong, FieldMetadata(alias="latLong")]
-    metadata: typing.Optional[str] = None
     title: str
+    metadata: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

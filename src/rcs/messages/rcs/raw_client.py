@@ -19,7 +19,9 @@ from ...types.error import Error
 from ...types.rcs_validate_content import RcsValidateContent
 from ...types.rcs_validation_result import RcsValidationResult
 from ...types.rich_message import RichMessage
+from ...types.send_typing_indicator_response import SendTypingIndicatorResponse
 from .types.rcs_send_response import RcsSendResponse
+from .types.send_typing_indicator_schema_options import SendTypingIndicatorSchemaOptions
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -95,6 +97,136 @@ class RawRcsClient:
                 )
             if _response.status_code == 402:
                 raise PaymentRequiredError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 501:
+                raise NotImplementedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def send_typing(
+        self,
+        *,
+        agent_id: str,
+        to: str,
+        options: typing.Optional[SendTypingIndicatorSchemaOptions] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[SendTypingIndicatorResponse]:
+        """
+        Send a typing indicator from an RCS agent to a recipient.
+
+        This endpoint allows RCS agents to display a typing indicator to recipients. The indicator is a message bubble with animated typing dots like this: <img src="https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/ios-typing-indicator.png" alt="Typing Indicator" style="display: inline; height: 1.5em; vertical-align: middle; margin: 0 4px;" />
+
+        **Use Case:** Typing indicators are especially useful for providing feedback to users while the agent is thinking or generating a response that may take some time, creating a more engaging conversational experience.
+
+        **Expiration:** Typing indicators automatically expire after around 20 seconds or when the agent sends a message, whichever comes first.
+
+        **Frequency:** You can send typing indicators as many times as needed, though only one will be displayed at a time. Sending multiple typing indicators will extend the duration of the current indicator.
+
+        > **Note:** Typing indicators are best-effort hints, not delivery-guaranteed state. The platform is allowed to coalesce or drop them, and the client UI decides when to show/hide.
+
+        Parameters
+        ----------
+        agent_id : str
+            The unique identifier of the RCS agent sending the typing indicator. <br>
+
+            Format: `agent_` followed by alphanumeric characters (e.g., `agent_pinnacle`).
+
+        to : str
+            The recipient's phone number in E.164 format. <br>
+
+            Must include country code with a leading plus sign (e.g., `+14155551234`).
+
+        options : typing.Optional[SendTypingIndicatorSchemaOptions]
+            Configure how your typing indicator is sent.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[SendTypingIndicatorResponse]
+            Successfully sent the typing indicator.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "messages/typing",
+            method="POST",
+            json={
+                "agentId": agent_id,
+                "to": to,
+                "options": convert_and_respect_annotation_metadata(
+                    object_=options, annotation=SendTypingIndicatorSchemaOptions, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SendTypingIndicatorResponse,
+                    parse_obj_as(
+                        type_=SendTypingIndicatorResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         Error,
@@ -291,6 +423,136 @@ class AsyncRawRcsClient:
                 )
             if _response.status_code == 402:
                 raise PaymentRequiredError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 501:
+                raise NotImplementedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def send_typing(
+        self,
+        *,
+        agent_id: str,
+        to: str,
+        options: typing.Optional[SendTypingIndicatorSchemaOptions] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[SendTypingIndicatorResponse]:
+        """
+        Send a typing indicator from an RCS agent to a recipient.
+
+        This endpoint allows RCS agents to display a typing indicator to recipients. The indicator is a message bubble with animated typing dots like this: <img src="https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/ios-typing-indicator.png" alt="Typing Indicator" style="display: inline; height: 1.5em; vertical-align: middle; margin: 0 4px;" />
+
+        **Use Case:** Typing indicators are especially useful for providing feedback to users while the agent is thinking or generating a response that may take some time, creating a more engaging conversational experience.
+
+        **Expiration:** Typing indicators automatically expire after around 20 seconds or when the agent sends a message, whichever comes first.
+
+        **Frequency:** You can send typing indicators as many times as needed, though only one will be displayed at a time. Sending multiple typing indicators will extend the duration of the current indicator.
+
+        > **Note:** Typing indicators are best-effort hints, not delivery-guaranteed state. The platform is allowed to coalesce or drop them, and the client UI decides when to show/hide.
+
+        Parameters
+        ----------
+        agent_id : str
+            The unique identifier of the RCS agent sending the typing indicator. <br>
+
+            Format: `agent_` followed by alphanumeric characters (e.g., `agent_pinnacle`).
+
+        to : str
+            The recipient's phone number in E.164 format. <br>
+
+            Must include country code with a leading plus sign (e.g., `+14155551234`).
+
+        options : typing.Optional[SendTypingIndicatorSchemaOptions]
+            Configure how your typing indicator is sent.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[SendTypingIndicatorResponse]
+            Successfully sent the typing indicator.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "messages/typing",
+            method="POST",
+            json={
+                "agentId": agent_id,
+                "to": to,
+                "options": convert_and_respect_annotation_metadata(
+                    object_=options, annotation=SendTypingIndicatorSchemaOptions, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SendTypingIndicatorResponse,
+                    parse_obj_as(
+                        type_=SendTypingIndicatorResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         Error,

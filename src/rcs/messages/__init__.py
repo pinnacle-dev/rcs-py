@@ -9,7 +9,7 @@ if typing.TYPE_CHECKING:
     from .types import ReactMessageOptions
     from . import mms, rcs, sms
     from .mms import MmsSendResponse, SendMmsOptions
-    from .rcs import RcsSendResponse
+    from .rcs import RcsSendResponse, SendTypingIndicatorSchemaOptions
     from .sms import SendSmsOptions, SmsSendResponse
 _dynamic_imports: typing.Dict[str, str] = {
     "MmsSendResponse": ".mms",
@@ -17,6 +17,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ReactMessageOptions": ".types",
     "SendMmsOptions": ".mms",
     "SendSmsOptions": ".sms",
+    "SendTypingIndicatorSchemaOptions": ".rcs",
     "SmsSendResponse": ".sms",
     "mms": ".",
     "rcs": ".",
@@ -49,6 +50,7 @@ __all__ = [
     "ReactMessageOptions",
     "SendMmsOptions",
     "SendSmsOptions",
+    "SendTypingIndicatorSchemaOptions",
     "SmsSendResponse",
     "mms",
     "rcs",

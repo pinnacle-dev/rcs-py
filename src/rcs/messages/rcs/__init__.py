@@ -6,8 +6,8 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import RcsSendResponse
-_dynamic_imports: typing.Dict[str, str] = {"RcsSendResponse": ".types"}
+    from .types import RcsSendResponse, SendTypingIndicatorSchemaOptions
+_dynamic_imports: typing.Dict[str, str] = {"RcsSendResponse": ".types", "SendTypingIndicatorSchemaOptions": ".types"}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -29,4 +29,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["RcsSendResponse"]
+__all__ = ["RcsSendResponse", "SendTypingIndicatorSchemaOptions"]

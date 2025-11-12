@@ -118,6 +118,7 @@ if typing.TYPE_CHECKING:
     from .optional_brand_info import OptionalBrandInfo
     from .optional_contact import OptionalContact
     from .optional_contacts import OptionalContacts
+    from .options import Options
     from .phone import Phone
     from .phone_capabilities import PhoneCapabilities
     from .phone_enum import PhoneEnum
@@ -146,6 +147,7 @@ if typing.TYPE_CHECKING:
     from .rcs_base_options import RcsBaseOptions
     from .rcs_button_call import RcsButtonCall
     from .rcs_button_open_url import RcsButtonOpenUrl
+    from .rcs_button_open_url_webview_mode import RcsButtonOpenUrlWebviewMode
     from .rcs_button_request_user_location import RcsButtonRequestUserLocation
     from .rcs_button_schedule_event import RcsButtonScheduleEvent
     from .rcs_button_send_location import RcsButtonSendLocation
@@ -205,8 +207,13 @@ if typing.TYPE_CHECKING:
     from .rich_text_message import RichTextMessage
     from .scheduled_messaage import ScheduledMessaage
     from .scheduled_send_response_config import ScheduledSendResponseConfig
+    from .send_rcs_card_options import SendRcsCardOptions
+    from .send_rcs_card_options_standalone_card import SendRcsCardOptionsStandaloneCard
+    from .send_rcs_card_options_standalone_card_image_alignment import SendRcsCardOptionsStandaloneCardImageAlignment
+    from .send_rcs_card_options_standalone_card_orientation import SendRcsCardOptionsStandaloneCardOrientation
     from .send_sms_response_segments import SendSmsResponseSegments
     from .send_sms_response_segments_encoding import SendSmsResponseSegmentsEncoding
+    from .send_typing_indicator_response import SendTypingIndicatorResponse
     from .sender import Sender
     from .sent_mms_details import SentMmsDetails
     from .sent_rcs_details import SentRcsDetails
@@ -374,6 +381,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OptionalBrandInfo": ".optional_brand_info",
     "OptionalContact": ".optional_contact",
     "OptionalContacts": ".optional_contacts",
+    "Options": ".options",
     "Phone": ".phone",
     "PhoneCapabilities": ".phone_capabilities",
     "PhoneEnum": ".phone_enum",
@@ -398,6 +406,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsBaseOptions": ".rcs_base_options",
     "RcsButtonCall": ".rcs_button_call",
     "RcsButtonOpenUrl": ".rcs_button_open_url",
+    "RcsButtonOpenUrlWebviewMode": ".rcs_button_open_url_webview_mode",
     "RcsButtonRequestUserLocation": ".rcs_button_request_user_location",
     "RcsButtonScheduleEvent": ".rcs_button_schedule_event",
     "RcsButtonSendLocation": ".rcs_button_send_location",
@@ -455,8 +464,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RichTextMessage": ".rich_text_message",
     "ScheduledMessaage": ".scheduled_messaage",
     "ScheduledSendResponseConfig": ".scheduled_send_response_config",
+    "SendRcsCardOptions": ".send_rcs_card_options",
+    "SendRcsCardOptionsStandaloneCard": ".send_rcs_card_options_standalone_card",
+    "SendRcsCardOptionsStandaloneCardImageAlignment": ".send_rcs_card_options_standalone_card_image_alignment",
+    "SendRcsCardOptionsStandaloneCardOrientation": ".send_rcs_card_options_standalone_card_orientation",
     "SendSmsResponseSegments": ".send_sms_response_segments",
     "SendSmsResponseSegmentsEncoding": ".send_sms_response_segments_encoding",
+    "SendTypingIndicatorResponse": ".send_typing_indicator_response",
     "Sender": ".sender",
     "SentMmsDetails": ".sent_mms_details",
     "SentRcsDetails": ".sent_rcs_details",
@@ -646,6 +660,7 @@ __all__ = [
     "OptionalBrandInfo",
     "OptionalContact",
     "OptionalContacts",
+    "Options",
     "Phone",
     "PhoneCapabilities",
     "PhoneEnum",
@@ -670,6 +685,7 @@ __all__ = [
     "RcsBaseOptions",
     "RcsButtonCall",
     "RcsButtonOpenUrl",
+    "RcsButtonOpenUrlWebviewMode",
     "RcsButtonRequestUserLocation",
     "RcsButtonScheduleEvent",
     "RcsButtonSendLocation",
@@ -727,8 +743,13 @@ __all__ = [
     "RichTextMessage",
     "ScheduledMessaage",
     "ScheduledSendResponseConfig",
+    "SendRcsCardOptions",
+    "SendRcsCardOptionsStandaloneCard",
+    "SendRcsCardOptionsStandaloneCardImageAlignment",
+    "SendRcsCardOptionsStandaloneCardOrientation",
     "SendSmsResponseSegments",
     "SendSmsResponseSegmentsEncoding",
+    "SendTypingIndicatorResponse",
     "Sender",
     "SentMmsDetails",
     "SentRcsDetails",
