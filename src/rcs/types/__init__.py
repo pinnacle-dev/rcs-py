@@ -19,6 +19,8 @@ if typing.TYPE_CHECKING:
     from .attach_webhook_params import AttachWebhookParams
     from .attach_webhook_response_webhook import AttachWebhookResponseWebhook
     from .attached_phone_number_result import AttachedPhoneNumberResult
+    from .audience_count_only import AudienceCountOnly
+    from .audience_with_pagination import AudienceWithPagination
     from .autofill_campaign_params import AutofillCampaignParams
     from .autofill_dlc_campaign_response import AutofillDlcCampaignResponse
     from .autofill_dlc_response_keywords import AutofillDlcResponseKeywords
@@ -59,6 +61,7 @@ if typing.TYPE_CHECKING:
     from .conversation_sender import ConversationSender
     from .create_and_attach_webhook_by_url_params import CreateAndAttachWebhookByUrlParams
     from .create_url_options import CreateUrlOptions
+    from .delete_audience_response import DeleteAudienceResponse
     from .detached_phone_number_result import DetachedPhoneNumberResult
     from .detached_webhook_info import DetachedWebhookInfo
     from .detailed_phone_number_enum import DetailedPhoneNumberEnum
@@ -119,6 +122,7 @@ if typing.TYPE_CHECKING:
     from .optional_contact import OptionalContact
     from .optional_contacts import OptionalContacts
     from .options import Options
+    from .pagination import Pagination
     from .phone import Phone
     from .phone_capabilities import PhoneCapabilities
     from .phone_enum import PhoneEnum
@@ -282,6 +286,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AttachWebhookParams": ".attach_webhook_params",
     "AttachWebhookResponseWebhook": ".attach_webhook_response_webhook",
     "AttachedPhoneNumberResult": ".attached_phone_number_result",
+    "AudienceCountOnly": ".audience_count_only",
+    "AudienceWithPagination": ".audience_with_pagination",
     "AutofillCampaignParams": ".autofill_campaign_params",
     "AutofillDlcCampaignResponse": ".autofill_dlc_campaign_response",
     "AutofillDlcResponseKeywords": ".autofill_dlc_response_keywords",
@@ -322,6 +328,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConversationSender": ".conversation_sender",
     "CreateAndAttachWebhookByUrlParams": ".create_and_attach_webhook_by_url_params",
     "CreateUrlOptions": ".create_url_options",
+    "DeleteAudienceResponse": ".delete_audience_response",
     "DetachedPhoneNumberResult": ".detached_phone_number_result",
     "DetachedWebhookInfo": ".detached_webhook_info",
     "DetailedPhoneNumberEnum": ".detailed_phone_number_enum",
@@ -382,6 +389,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OptionalContact": ".optional_contact",
     "OptionalContacts": ".optional_contacts",
     "Options": ".options",
+    "Pagination": ".pagination",
     "Phone": ".phone",
     "PhoneCapabilities": ".phone_capabilities",
     "PhoneEnum": ".phone_enum",
@@ -561,6 +569,8 @@ __all__ = [
     "AttachWebhookParams",
     "AttachWebhookResponseWebhook",
     "AttachedPhoneNumberResult",
+    "AudienceCountOnly",
+    "AudienceWithPagination",
     "AutofillCampaignParams",
     "AutofillDlcCampaignResponse",
     "AutofillDlcResponseKeywords",
@@ -601,6 +611,7 @@ __all__ = [
     "ConversationSender",
     "CreateAndAttachWebhookByUrlParams",
     "CreateUrlOptions",
+    "DeleteAudienceResponse",
     "DetachedPhoneNumberResult",
     "DetachedWebhookInfo",
     "DetailedPhoneNumberEnum",
@@ -661,6 +672,7 @@ __all__ = [
     "OptionalContact",
     "OptionalContacts",
     "Options",
+    "Pagination",
     "Phone",
     "PhoneCapabilities",
     "PhoneEnum",

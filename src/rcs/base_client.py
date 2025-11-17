@@ -9,6 +9,7 @@ from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .environment import PinnacleEnvironment
 
 if typing.TYPE_CHECKING:
+    from .audiences.client import AsyncAudiencesClient, AudiencesClient
     from .brands.client import AsyncBrandsClient, BrandsClient
     from .campaigns.client import AsyncCampaignsClient, CampaignsClient
     from .contacts.client import AsyncContactsClient, ContactsClient
@@ -87,6 +88,7 @@ class PinnacleBase:
             timeout=_defaulted_timeout,
         )
         self._brands: typing.Optional[BrandsClient] = None
+        self._audiences: typing.Optional[AudiencesClient] = None
         self._contacts: typing.Optional[ContactsClient] = None
         self._conversations: typing.Optional[ConversationsClient] = None
         self._messages: typing.Optional[MessagesClient] = None
@@ -104,6 +106,14 @@ class PinnacleBase:
 
             self._brands = BrandsClient(client_wrapper=self._client_wrapper)
         return self._brands
+
+    @property
+    def audiences(self):
+        if self._audiences is None:
+            from .audiences.client import AudiencesClient  # noqa: E402
+
+            self._audiences = AudiencesClient(client_wrapper=self._client_wrapper)
+        return self._audiences
 
     @property
     def contacts(self):
@@ -244,6 +254,7 @@ class AsyncPinnacleBase:
             timeout=_defaulted_timeout,
         )
         self._brands: typing.Optional[AsyncBrandsClient] = None
+        self._audiences: typing.Optional[AsyncAudiencesClient] = None
         self._contacts: typing.Optional[AsyncContactsClient] = None
         self._conversations: typing.Optional[AsyncConversationsClient] = None
         self._messages: typing.Optional[AsyncMessagesClient] = None
@@ -261,6 +272,14 @@ class AsyncPinnacleBase:
 
             self._brands = AsyncBrandsClient(client_wrapper=self._client_wrapper)
         return self._brands
+
+    @property
+    def audiences(self):
+        if self._audiences is None:
+            from .audiences.client import AsyncAudiencesClient  # noqa: E402
+
+            self._audiences = AsyncAudiencesClient(client_wrapper=self._client_wrapper)
+        return self._audiences
 
     @property
     def contacts(self):
