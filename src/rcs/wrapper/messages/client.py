@@ -1,7 +1,6 @@
 import os
-from typing import Dict, Any, Optional, List, Union, TypedDict
+from typing import Dict, Any, Optional, Union, TypedDict
 import json
-import typing
 from ...messages.client import MessagesClient, AsyncMessagesClient
 from ...errors.unauthorized_error import UnauthorizedError
 from ...errors.bad_request_error import BadRequestError
