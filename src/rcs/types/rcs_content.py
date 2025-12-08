@@ -4,6 +4,6 @@ import typing
 
 from .rcs_cards_content import RcsCardsContent
 from .rcs_media_content import RcsMediaContent
-from .rcs_text_content import RcsTextContent
+from .rich_text import RichText
 
-RcsContent = typing.Union[RcsTextContent, RcsMediaContent, RcsCardsContent]
+RcsContent = typing.Union[RichText, RcsMediaContent, RcsCardsContent]

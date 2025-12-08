@@ -2,7 +2,7 @@
 
 import typing
 
-from ....types.scheduled_messaage import ScheduledMessaage
+from ....types.scheduled_message import ScheduledMessage
 from ....types.sent_mms_details import SentMmsDetails
 
-MmsSendResponse = typing.Union[SentMmsDetails, ScheduledMessaage]
+SendMmsResponse = typing.Union[SentMmsDetails, ScheduledMessage]

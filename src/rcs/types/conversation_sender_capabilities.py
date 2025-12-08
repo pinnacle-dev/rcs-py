@@ -9,7 +9,7 @@ from ..core.serialization import FieldMetadata
 from .phone_capabilities import PhoneCapabilities
 
 
-class Phone(UniversalBaseModel):
+class ConversationSenderCapabilities(UniversalBaseModel):
     """
     Information about a phone number sender in a conversation.
     """

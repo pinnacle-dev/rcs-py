@@ -9,7 +9,7 @@ from ...types.rcs_validation_result import RcsValidationResult
 from ...types.rich_message import RichMessage
 from ...types.send_typing_indicator_response import SendTypingIndicatorResponse
 from .raw_client import AsyncRawRcsClient, RawRcsClient
-from .types.rcs_send_response import RcsSendResponse
+from .types.send_rich_message_response import SendRichMessageResponse
 from .types.send_typing_indicator_schema_options import SendTypingIndicatorSchemaOptions
 
 # this is used as the default value for optional parameters
@@ -31,7 +31,9 @@ class RcsClient:
         """
         return self._raw_client
 
-    def send(self, *, request: RichMessage, request_options: typing.Optional[RequestOptions] = None) -> RcsSendResponse:
+    def send(
+        self, *, request: RichMessage, request_options: typing.Optional[RequestOptions] = None
+    ) -> SendRichMessageResponse:
         """
         Send a RCS message immediately or schedule it for future delivery. <br>
 
@@ -46,7 +48,7 @@ class RcsClient:
 
         Returns
         -------
-        RcsSendResponse
+        SendRichMessageResponse
             Successfully sent or scheduled the message.
 
             Use our [/messages/:id](./get) endpoint to track your message.
@@ -160,13 +162,13 @@ class RcsClient:
 
         Examples
         --------
-        from rcs import Pinnacle, RcsTextContent, RichButton_OpenUrl
+        from rcs import Pinnacle, RichButton_OpenUrl, RichText
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.messages.rcs.validate(
-            request=RcsTextContent(
+            request=RichText(
                 quick_replies=[
                     RichButton_OpenUrl(
                         payload="payload",
@@ -198,7 +200,7 @@ class AsyncRcsClient:
 
     async def send(
         self, *, request: RichMessage, request_options: typing.Optional[RequestOptions] = None
-    ) -> RcsSendResponse:
+    ) -> SendRichMessageResponse:
         """
         Send a RCS message immediately or schedule it for future delivery. <br>
 
@@ -213,7 +215,7 @@ class AsyncRcsClient:
 
         Returns
         -------
-        RcsSendResponse
+        SendRichMessageResponse
             Successfully sent or scheduled the message.
 
             Use our [/messages/:id](./get) endpoint to track your message.
@@ -345,7 +347,7 @@ class AsyncRcsClient:
         --------
         import asyncio
 
-        from rcs import AsyncPinnacle, RcsTextContent, RichButton_OpenUrl
+        from rcs import AsyncPinnacle, RichButton_OpenUrl, RichText
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -354,7 +356,7 @@ class AsyncRcsClient:
 
         async def main() -> None:
             await client.messages.rcs.validate(
-                request=RcsTextContent(
+                request=RichText(
                     quick_replies=[
                         RichButton_OpenUrl(
                             payload="payload",

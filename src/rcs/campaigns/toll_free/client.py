@@ -9,7 +9,7 @@ from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.message_volume_enum import MessageVolumeEnum
 from ...types.toll_free_campaign_with_extended_brand_and_status import TollFreeCampaignWithExtendedBrandAndStatus
 from .raw_client import AsyncRawTollFreeClient, RawTollFreeClient
-from .types.toll_free_autofill_response import TollFreeAutofillResponse
+from .types.autofill_toll_free_response import AutofillTollFreeResponse
 from .types.upsert_toll_free_schema_opt_in import UpsertTollFreeSchemaOptIn
 from .types.upsert_toll_free_schema_use_case import UpsertTollFreeSchemaUseCase
 
@@ -38,7 +38,7 @@ class TollFreeClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> TollFreeAutofillResponse:
+    ) -> AutofillTollFreeResponse:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -58,7 +58,7 @@ class TollFreeClient:
 
         Returns
         -------
-        TollFreeAutofillResponse
+        AutofillTollFreeResponse
             Returns autofilled toll-free information.
 
         Examples
@@ -299,7 +299,7 @@ class AsyncTollFreeClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> TollFreeAutofillResponse:
+    ) -> AutofillTollFreeResponse:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -319,7 +319,7 @@ class AsyncTollFreeClient:
 
         Returns
         -------
-        TollFreeAutofillResponse
+        AutofillTollFreeResponse
             Returns autofilled toll-free information.
 
         Examples

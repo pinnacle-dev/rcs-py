@@ -8,7 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 
 
-class SentRcsDetails(UniversalBaseModel):
+class SentRichMessage(UniversalBaseModel):
     message_id: typing_extensions.Annotated[str, FieldMetadata(alias="messageId")] = pydantic.Field()
     """
     Unique identifier for the sent RCS message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.

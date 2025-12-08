@@ -6,9 +6,9 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import TollFreeAutofillResponse, UpsertTollFreeSchemaOptIn, UpsertTollFreeSchemaUseCase
+    from .types import AutofillTollFreeResponse, UpsertTollFreeSchemaOptIn, UpsertTollFreeSchemaUseCase
 _dynamic_imports: typing.Dict[str, str] = {
-    "TollFreeAutofillResponse": ".types",
+    "AutofillTollFreeResponse": ".types",
     "UpsertTollFreeSchemaOptIn": ".types",
     "UpsertTollFreeSchemaUseCase": ".types",
 }
@@ -33,4 +33,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["TollFreeAutofillResponse", "UpsertTollFreeSchemaOptIn", "UpsertTollFreeSchemaUseCase"]
+__all__ = ["AutofillTollFreeResponse", "UpsertTollFreeSchemaOptIn", "UpsertTollFreeSchemaUseCase"]

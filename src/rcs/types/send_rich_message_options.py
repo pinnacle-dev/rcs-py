@@ -10,7 +10,7 @@ from .message_schedule import MessageSchedule
 from .tracking import Tracking
 
 
-class RcsBaseOptions(UniversalBaseModel):
+class SendRichMessageOptions(UniversalBaseModel):
     """
     Configure how your RCS message is sent and tracked.
     """

@@ -6,6 +6,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.cancel_scheduled_message_response import CancelScheduledMessageResponse
 from ..types.message import Message
 from ..types.reaction_result import ReactionResult
 from .raw_client import AsyncRawMessagesClient, RawMessagesClient
@@ -119,6 +120,44 @@ class MessagesClient:
         _response = self._raw_client.react(
             message_id=message_id, options=options, reaction=reaction, request_options=request_options
         )
+        return _response.data
+
+    def cancel_scheduled(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> CancelScheduledMessageResponse:
+        """
+        Cancel a previously scheduled message before it is sent.
+
+        Use the `scheduleId` returned from a scheduled send request (SMS, MMS, or RCS) to cancel the message.
+        Once cancelled, the scheduled message will stop being sent.
+
+        > **Note:** You cannot cancel a message that has already been sent.
+
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the scheduled message. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CancelScheduledMessageResponse
+            Successfully cancelled the scheduled message.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.messages.cancel_scheduled(
+            id="msg_sched_1234567890",
+        )
+        """
+        _response = self._raw_client.cancel_scheduled(id, request_options=request_options)
         return _response.data
 
     @property
@@ -262,6 +301,52 @@ class AsyncMessagesClient:
         _response = await self._raw_client.react(
             message_id=message_id, options=options, reaction=reaction, request_options=request_options
         )
+        return _response.data
+
+    async def cancel_scheduled(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> CancelScheduledMessageResponse:
+        """
+        Cancel a previously scheduled message before it is sent.
+
+        Use the `scheduleId` returned from a scheduled send request (SMS, MMS, or RCS) to cancel the message.
+        Once cancelled, the scheduled message will stop being sent.
+
+        > **Note:** You cannot cancel a message that has already been sent.
+
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the scheduled message. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CancelScheduledMessageResponse
+            Successfully cancelled the scheduled message.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.messages.cancel_scheduled(
+                id="msg_sched_1234567890",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.cancel_scheduled(id, request_options=request_options)
         return _response.data
 
     @property

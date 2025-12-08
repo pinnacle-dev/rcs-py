@@ -7,7 +7,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....types.toll_free_campaign import TollFreeCampaign
 
 
-class TollFreeAutofillResponse(TollFreeCampaign):
+class AutofillTollFreeResponse(TollFreeCampaign):
     brand: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

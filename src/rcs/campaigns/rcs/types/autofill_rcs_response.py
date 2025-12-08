@@ -7,7 +7,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....types.rcs_campaign import RcsCampaign
 
 
-class RcsAutofillResponse(RcsCampaign):
+class AutofillRcsResponse(RcsCampaign):
     brand: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

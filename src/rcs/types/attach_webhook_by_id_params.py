@@ -19,14 +19,7 @@ class AttachWebhookByIdParams(UniversalBaseModel):
     The unique ID of the webhook you want to attach. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
     """
 
-    event: typing.Optional[WebhookEventEnum] = pydantic.Field(default=None)
-    """
-    Select the event type that will trigger this webhook. <br>
-    
-    Set to null if you want to listen to all event types for this phone number. <br>
-    
-    Defaults to null.
-    """
+    event: typing.Optional[WebhookEventEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

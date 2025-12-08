@@ -5,4 +5,4 @@ import typing
 from ...types.audience_count_only import AudienceCountOnly
 from ...types.audience_with_pagination import AudienceWithPagination
 
-AudiencesGetResponse = typing.Union[AudienceWithPagination, AudienceCountOnly]
+GetAudiencesResponse = typing.Union[AudienceWithPagination, AudienceCountOnly]

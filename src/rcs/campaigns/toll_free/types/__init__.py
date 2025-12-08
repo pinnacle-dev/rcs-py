@@ -6,11 +6,11 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .toll_free_autofill_response import TollFreeAutofillResponse
+    from .autofill_toll_free_response import AutofillTollFreeResponse
     from .upsert_toll_free_schema_opt_in import UpsertTollFreeSchemaOptIn
     from .upsert_toll_free_schema_use_case import UpsertTollFreeSchemaUseCase
 _dynamic_imports: typing.Dict[str, str] = {
-    "TollFreeAutofillResponse": ".toll_free_autofill_response",
+    "AutofillTollFreeResponse": ".autofill_toll_free_response",
     "UpsertTollFreeSchemaOptIn": ".upsert_toll_free_schema_opt_in",
     "UpsertTollFreeSchemaUseCase": ".upsert_toll_free_schema_use_case",
 }
@@ -35,4 +35,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["TollFreeAutofillResponse", "UpsertTollFreeSchemaOptIn", "UpsertTollFreeSchemaUseCase"]
+__all__ = ["AutofillTollFreeResponse", "UpsertTollFreeSchemaOptIn", "UpsertTollFreeSchemaUseCase"]

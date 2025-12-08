@@ -19,6 +19,11 @@ class RcsValidationResult(UniversalBaseModel):
     Cost per message.
     """
 
+    segments: int = pydantic.Field()
+    """
+    Total number of segments used across the message.
+    """
+
     unsupported_files: typing_extensions.Annotated[typing.List[str], FieldMetadata(alias="unsupportedFiles")] = (
         pydantic.Field()
     )

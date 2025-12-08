@@ -8,13 +8,14 @@ from .send_rcs_card_options_standalone_card_image_alignment import SendRcsCardOp
 from .send_rcs_card_options_standalone_card_orientation import SendRcsCardOptionsStandaloneCardOrientation
 
 
-class SendRcsCardOptionsStandaloneCard(UniversalBaseModel):
+class RichStandaloneCardOptions(UniversalBaseModel):
     """
     Configure standalone card layout options for enhanced visual presentation.
 
     > **⚠️ Important Restriction**
     >
-    > This option is **only valid for single card messages**. Using it with multiple cards will cause the request to fail with a validation error.
+    > This option is **only valid for single card messages** with static media. Using it with multiple cards will cause the request to fail with a validation error.
+    > GIFs and videos are not supported and will be rendered as vertical cards.
     """
 
     orientation: typing.Optional[SendRcsCardOptionsStandaloneCardOrientation] = pydantic.Field(default=None)

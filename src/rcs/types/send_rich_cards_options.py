@@ -4,18 +4,19 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .options import Options
-from .send_rcs_card_options_standalone_card import SendRcsCardOptionsStandaloneCard
+from .rich_standalone_card_options import RichStandaloneCardOptions
+from .send_rich_message_options import SendRichMessageOptions
 
 
-class SendRcsCardOptions(Options):
-    standalone_card: typing.Optional[SendRcsCardOptionsStandaloneCard] = pydantic.Field(default=None)
+class SendRichCardsOptions(SendRichMessageOptions):
+    standalone_card: typing.Optional[RichStandaloneCardOptions] = pydantic.Field(default=None)
     """
     Configure standalone card layout options for enhanced visual presentation.
     
     > **⚠️ Important Restriction**
     >
-    > This option is **only valid for single card messages**. Using it with multiple cards will cause the request to fail with a validation error.
+    > This option is **only valid for single card messages** with static media. Using it with multiple cards will cause the request to fail with a validation error.
+    > GIFs and videos are not supported and will be rendered as vertical cards.
     """
 
     if IS_PYDANTIC_V2:

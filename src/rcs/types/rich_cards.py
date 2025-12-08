@@ -6,18 +6,18 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .rcs_cards_cards_item import RcsCardsCardsItem
 from .rich_button import RichButton
+from .rich_card import RichCard
 
 
-class RcsCards(UniversalBaseModel):
+class RichCards(UniversalBaseModel):
     """
     Message containing cards, each with its own title, subtitle, and/or buttons. Quick replies can also be added. <br>
 
     See (supported file types)[https://app.pinnacle.sh/supported-file-types?type=RCS-CARD].
     """
 
-    cards: typing.List[RcsCardsCardsItem] = pydantic.Field()
+    cards: typing.List[RichCard] = pydantic.Field()
     """
     Collection of cards attached to the message.
     """

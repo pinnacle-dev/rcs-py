@@ -6,12 +6,12 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
-from .rcs_cards import RcsCards
-from .send_rcs_card_options import SendRcsCardOptions
+from .rich_cards import RichCards
+from .send_rich_cards_options import SendRichCardsOptions
 
 
-class RichCardsMessage(RcsCards):
-    options: typing.Optional[SendRcsCardOptions] = None
+class RichCardsMessage(RichCards):
+    options: typing.Optional[SendRichCardsOptions] = None
     from_: typing_extensions.Annotated[str, FieldMetadata(alias="from")] = pydantic.Field()
     """
     Your RCS agent ID which must be prefixed with 'agent_'.

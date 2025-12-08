@@ -3,12 +3,15 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .base_rich_message import BaseRichMessage
-from .rich_text import RichText
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class RichTextMessage(BaseRichMessage, RichText):
+class CancelScheduledMessageResponse(UniversalBaseModel):
+    success: bool = pydantic.Field()
+    """
+    Indicates whether the scheduled message was successfully cancelled.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

@@ -5,4 +5,4 @@ import typing
 from ...types.advanced_phone_information import AdvancedPhoneInformation
 from ...types.basic_phone_information import BasicPhoneInformation
 
-PhoneNumbersGetResponse = typing.Union[BasicPhoneInformation, AdvancedPhoneInformation]
+GetPhoneNumbersResponse = typing.Union[BasicPhoneInformation, AdvancedPhoneInformation]

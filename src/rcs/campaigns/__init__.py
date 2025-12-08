@@ -17,23 +17,23 @@ if typing.TYPE_CHECKING:
         UpsertDlcCampaignUseCase,
     )
     from .rcs import (
+        AutofillRcsResponse,
         RcsAgentEmail,
         RcsAgentPhone,
         RcsAgentWebsite,
-        RcsAutofillResponse,
         UpsertRcsAgent,
         UpsertRcsLinks,
         UpsertRcsOptIn,
         UpsertRcsOptOut,
         UpsertRcsUseCase,
     )
-    from .toll_free import TollFreeAutofillResponse, UpsertTollFreeSchemaOptIn, UpsertTollFreeSchemaUseCase
+    from .toll_free import AutofillTollFreeResponse, UpsertTollFreeSchemaOptIn, UpsertTollFreeSchemaUseCase
 _dynamic_imports: typing.Dict[str, str] = {
+    "AutofillRcsResponse": ".rcs",
+    "AutofillTollFreeResponse": ".toll_free",
     "RcsAgentEmail": ".rcs",
     "RcsAgentPhone": ".rcs",
     "RcsAgentWebsite": ".rcs",
-    "RcsAutofillResponse": ".rcs",
-    "TollFreeAutofillResponse": ".toll_free",
     "UpsertDlcCampaignHelpKeywords": ".dlc",
     "UpsertDlcCampaignKeywords": ".dlc",
     "UpsertDlcCampaignLinks": ".dlc",
@@ -74,11 +74,11 @@ def __dir__():
 
 
 __all__ = [
+    "AutofillRcsResponse",
+    "AutofillTollFreeResponse",
     "RcsAgentEmail",
     "RcsAgentPhone",
     "RcsAgentWebsite",
-    "RcsAutofillResponse",
-    "TollFreeAutofillResponse",
     "UpsertDlcCampaignHelpKeywords",
     "UpsertDlcCampaignKeywords",
     "UpsertDlcCampaignLinks",

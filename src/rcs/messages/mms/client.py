@@ -6,8 +6,8 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.mms_validation_result import MmsValidationResult
 from .raw_client import AsyncRawMmsClient, RawMmsClient
-from .types.mms_send_response import MmsSendResponse
 from .types.send_mms_options import SendMmsOptions
+from .types.send_mms_response import SendMmsResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -37,7 +37,7 @@ class MmsClient:
         to: str,
         options: typing.Optional[SendMmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> MmsSendResponse:
+    ) -> SendMmsResponse:
         """
         Send a MMS immediately or schedule it for future delivery.
 
@@ -65,7 +65,7 @@ class MmsClient:
 
         Returns
         -------
-        MmsSendResponse
+        SendMmsResponse
             Successfully sent or scheduled the message. <br>
 
             Each message part can be tracked independently using its unique message ID. Use our [/messages/:id](./get) endpoint to track your messages.
@@ -168,7 +168,7 @@ class AsyncMmsClient:
         to: str,
         options: typing.Optional[SendMmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> MmsSendResponse:
+    ) -> SendMmsResponse:
         """
         Send a MMS immediately or schedule it for future delivery.
 
@@ -196,7 +196,7 @@ class AsyncMmsClient:
 
         Returns
         -------
-        MmsSendResponse
+        SendMmsResponse
             Successfully sent or scheduled the message. <br>
 
             Each message part can be tracked independently using its unique message ID. Use our [/messages/:id](./get) endpoint to track your messages.

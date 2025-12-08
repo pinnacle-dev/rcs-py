@@ -6,18 +6,24 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .scheduled_send_response_config import ScheduledSendResponseConfig
+from .rich_button import RichButton
 
 
-class ScheduledMessaage(UniversalBaseModel):
-    schedule_id: typing_extensions.Annotated[str, FieldMetadata(alias="scheduleId")] = pydantic.Field()
+class RichText(UniversalBaseModel):
     """
-    Unique identifier for the scheduled send. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`.
+    Message containing longer text content with optional quick reply buttons.
     """
 
-    config: ScheduledSendResponseConfig = pydantic.Field()
+    quick_replies: typing_extensions.Annotated[typing.List[RichButton], FieldMetadata(alias="quickReplies")] = (
+        pydantic.Field()
+    )
     """
-    Configuration for the scheduled message.
+    List of interactive quick reply buttons in the message.
+    """
+
+    text: str = pydantic.Field()
+    """
+    Text content of the RCS message.
     """
 
     if IS_PYDANTIC_V2:

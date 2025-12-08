@@ -7,14 +7,14 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .rich_button import RichButton
 
 
-class RcsCardsCardsItem(UniversalBaseModel):
+class RichCard(UniversalBaseModel):
     """
     Individual card containing title, optional media, and action buttons.
     """
 
     buttons: typing.List[RichButton] = pydantic.Field()
     """
-    Action buttons attached to the card.
+    While buttons resemble quick replies, they remain on screen after being clicked and are card-specific.
     """
 
     media: typing.Optional[str] = pydantic.Field(default=None)

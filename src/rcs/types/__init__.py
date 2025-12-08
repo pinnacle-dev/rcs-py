@@ -14,7 +14,6 @@ if typing.TYPE_CHECKING:
     from .advanced_phone_information_location_country import AdvancedPhoneInformationLocationCountry
     from .advanced_phone_information_type import AdvancedPhoneInformationType
     from .advanced_phone_information_type_recommendation import AdvancedPhoneInformationTypeRecommendation
-    from .agent import Agent
     from .attach_webhook_by_id_params import AttachWebhookByIdParams
     from .attach_webhook_params import AttachWebhookParams
     from .attach_webhook_response_webhook import AttachWebhookResponseWebhook
@@ -31,6 +30,7 @@ if typing.TYPE_CHECKING:
     from .autofill_dlc_response_options import AutofillDlcResponseOptions
     from .autofill_dlc_response_use_case import AutofillDlcResponseUseCase
     from .bad_request_error_body import BadRequestErrorBody
+    from .base_rich_message import BaseRichMessage
     from .basic_phone_information import BasicPhoneInformation
     from .basic_phone_information_contact import BasicPhoneInformationContact
     from .basic_phone_information_location import BasicPhoneInformationLocation
@@ -48,6 +48,7 @@ if typing.TYPE_CHECKING:
     from .campaign_submission_result import CampaignSubmissionResult
     from .campaign_validation_response_errors_item import CampaignValidationResponseErrorsItem
     from .campaign_validation_result import CampaignValidationResult
+    from .cancel_scheduled_message_response import CancelScheduledMessageResponse
     from .company_sector_enum import CompanySectorEnum
     from .company_type_enum import CompanyTypeEnum
     from .configured_webhook import ConfiguredWebhook
@@ -59,6 +60,8 @@ if typing.TYPE_CHECKING:
     from .conversation_contact import ConversationContact
     from .conversation_list import ConversationList
     from .conversation_sender import ConversationSender
+    from .conversation_sender_agent_id import ConversationSenderAgentId
+    from .conversation_sender_capabilities import ConversationSenderCapabilities
     from .create_and_attach_webhook_by_url_params import CreateAndAttachWebhookByUrlParams
     from .create_url_options import CreateUrlOptions
     from .delete_audience_response import DeleteAudienceResponse
@@ -121,9 +124,7 @@ if typing.TYPE_CHECKING:
     from .optional_brand_info import OptionalBrandInfo
     from .optional_contact import OptionalContact
     from .optional_contacts import OptionalContacts
-    from .options import Options
     from .pagination import Pagination
-    from .phone import Phone
     from .phone_capabilities import PhoneCapabilities
     from .phone_enum import PhoneEnum
     from .phone_feature_enum import PhoneFeatureEnum
@@ -147,8 +148,6 @@ if typing.TYPE_CHECKING:
     from .pinnacle_url_config import PinnacleUrlConfig
     from .profile_status_enum import ProfileStatusEnum
     from .purchased_number import PurchasedNumber
-    from .rcs_base import RcsBase
-    from .rcs_base_options import RcsBaseOptions
     from .rcs_button_call import RcsButtonCall
     from .rcs_button_open_url import RcsButtonOpenUrl
     from .rcs_button_open_url_webview_mode import RcsButtonOpenUrlWebviewMode
@@ -181,15 +180,12 @@ if typing.TYPE_CHECKING:
     from .rcs_capability import RcsCapability
     from .rcs_capability_actions import RcsCapabilityActions
     from .rcs_capability_cards import RcsCapabilityCards
-    from .rcs_cards import RcsCards
-    from .rcs_cards_cards_item import RcsCardsCardsItem
     from .rcs_cards_content import RcsCardsContent
     from .rcs_cards_content_cards_item import RcsCardsContentCardsItem
     from .rcs_content import RcsContent
     from .rcs_link_result import RcsLinkResult
     from .rcs_media_content import RcsMediaContent
     from .rcs_media_details_content import RcsMediaDetailsContent
-    from .rcs_text_content import RcsTextContent
     from .rcs_validate_content import RcsValidateContent
     from .rcs_validate_content_media import RcsValidateContentMedia
     from .rcs_validation_result import RcsValidationResult
@@ -205,22 +201,26 @@ if typing.TYPE_CHECKING:
         RichButton_SendLocation,
         RichButton_Trigger,
     )
+    from .rich_card import RichCard
+    from .rich_cards import RichCards
     from .rich_cards_message import RichCardsMessage
     from .rich_media_message import RichMediaMessage
     from .rich_message import RichMessage
+    from .rich_standalone_card_options import RichStandaloneCardOptions
+    from .rich_text import RichText
     from .rich_text_message import RichTextMessage
-    from .scheduled_messaage import ScheduledMessaage
+    from .scheduled_message import ScheduledMessage
     from .scheduled_send_response_config import ScheduledSendResponseConfig
-    from .send_rcs_card_options import SendRcsCardOptions
-    from .send_rcs_card_options_standalone_card import SendRcsCardOptionsStandaloneCard
     from .send_rcs_card_options_standalone_card_image_alignment import SendRcsCardOptionsStandaloneCardImageAlignment
     from .send_rcs_card_options_standalone_card_orientation import SendRcsCardOptionsStandaloneCardOrientation
+    from .send_rich_cards_options import SendRichCardsOptions
+    from .send_rich_message_options import SendRichMessageOptions
     from .send_sms_response_segments import SendSmsResponseSegments
     from .send_sms_response_segments_encoding import SendSmsResponseSegmentsEncoding
     from .send_typing_indicator_response import SendTypingIndicatorResponse
     from .sender import Sender
     from .sent_mms_details import SentMmsDetails
-    from .sent_rcs_details import SentRcsDetails
+    from .sent_rich_message import SentRichMessage
     from .sent_sms_details import SentSmsDetails
     from .shortened_url import ShortenedUrl
     from .shortened_url_with_click_data import ShortenedUrlWithClickData
@@ -281,7 +281,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdvancedPhoneInformationLocationCountry": ".advanced_phone_information_location_country",
     "AdvancedPhoneInformationType": ".advanced_phone_information_type",
     "AdvancedPhoneInformationTypeRecommendation": ".advanced_phone_information_type_recommendation",
-    "Agent": ".agent",
     "AttachWebhookByIdParams": ".attach_webhook_by_id_params",
     "AttachWebhookParams": ".attach_webhook_params",
     "AttachWebhookResponseWebhook": ".attach_webhook_response_webhook",
@@ -298,6 +297,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AutofillDlcResponseOptions": ".autofill_dlc_response_options",
     "AutofillDlcResponseUseCase": ".autofill_dlc_response_use_case",
     "BadRequestErrorBody": ".bad_request_error_body",
+    "BaseRichMessage": ".base_rich_message",
     "BasicPhoneInformation": ".basic_phone_information",
     "BasicPhoneInformationContact": ".basic_phone_information_contact",
     "BasicPhoneInformationLocation": ".basic_phone_information_location",
@@ -315,6 +315,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CampaignSubmissionResult": ".campaign_submission_result",
     "CampaignValidationResponseErrorsItem": ".campaign_validation_response_errors_item",
     "CampaignValidationResult": ".campaign_validation_result",
+    "CancelScheduledMessageResponse": ".cancel_scheduled_message_response",
     "CompanySectorEnum": ".company_sector_enum",
     "CompanyTypeEnum": ".company_type_enum",
     "ConfiguredWebhook": ".configured_webhook",
@@ -326,6 +327,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConversationContact": ".conversation_contact",
     "ConversationList": ".conversation_list",
     "ConversationSender": ".conversation_sender",
+    "ConversationSenderAgentId": ".conversation_sender_agent_id",
+    "ConversationSenderCapabilities": ".conversation_sender_capabilities",
     "CreateAndAttachWebhookByUrlParams": ".create_and_attach_webhook_by_url_params",
     "CreateUrlOptions": ".create_url_options",
     "DeleteAudienceResponse": ".delete_audience_response",
@@ -388,9 +391,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OptionalBrandInfo": ".optional_brand_info",
     "OptionalContact": ".optional_contact",
     "OptionalContacts": ".optional_contacts",
-    "Options": ".options",
     "Pagination": ".pagination",
-    "Phone": ".phone",
     "PhoneCapabilities": ".phone_capabilities",
     "PhoneEnum": ".phone_enum",
     "PhoneFeatureEnum": ".phone_feature_enum",
@@ -410,8 +411,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PinnacleUrlConfig": ".pinnacle_url_config",
     "ProfileStatusEnum": ".profile_status_enum",
     "PurchasedNumber": ".purchased_number",
-    "RcsBase": ".rcs_base",
-    "RcsBaseOptions": ".rcs_base_options",
     "RcsButtonCall": ".rcs_button_call",
     "RcsButtonOpenUrl": ".rcs_button_open_url",
     "RcsButtonOpenUrlWebviewMode": ".rcs_button_open_url_webview_mode",
@@ -444,15 +443,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsCapability": ".rcs_capability",
     "RcsCapabilityActions": ".rcs_capability_actions",
     "RcsCapabilityCards": ".rcs_capability_cards",
-    "RcsCards": ".rcs_cards",
-    "RcsCardsCardsItem": ".rcs_cards_cards_item",
     "RcsCardsContent": ".rcs_cards_content",
     "RcsCardsContentCardsItem": ".rcs_cards_content_cards_item",
     "RcsContent": ".rcs_content",
     "RcsLinkResult": ".rcs_link_result",
     "RcsMediaContent": ".rcs_media_content",
     "RcsMediaDetailsContent": ".rcs_media_details_content",
-    "RcsTextContent": ".rcs_text_content",
     "RcsValidateContent": ".rcs_validate_content",
     "RcsValidateContentMedia": ".rcs_validate_content_media",
     "RcsValidationResult": ".rcs_validation_result",
@@ -466,22 +462,26 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RichButton_ScheduleEvent": ".rich_button",
     "RichButton_SendLocation": ".rich_button",
     "RichButton_Trigger": ".rich_button",
+    "RichCard": ".rich_card",
+    "RichCards": ".rich_cards",
     "RichCardsMessage": ".rich_cards_message",
     "RichMediaMessage": ".rich_media_message",
     "RichMessage": ".rich_message",
+    "RichStandaloneCardOptions": ".rich_standalone_card_options",
+    "RichText": ".rich_text",
     "RichTextMessage": ".rich_text_message",
-    "ScheduledMessaage": ".scheduled_messaage",
+    "ScheduledMessage": ".scheduled_message",
     "ScheduledSendResponseConfig": ".scheduled_send_response_config",
-    "SendRcsCardOptions": ".send_rcs_card_options",
-    "SendRcsCardOptionsStandaloneCard": ".send_rcs_card_options_standalone_card",
     "SendRcsCardOptionsStandaloneCardImageAlignment": ".send_rcs_card_options_standalone_card_image_alignment",
     "SendRcsCardOptionsStandaloneCardOrientation": ".send_rcs_card_options_standalone_card_orientation",
+    "SendRichCardsOptions": ".send_rich_cards_options",
+    "SendRichMessageOptions": ".send_rich_message_options",
     "SendSmsResponseSegments": ".send_sms_response_segments",
     "SendSmsResponseSegmentsEncoding": ".send_sms_response_segments_encoding",
     "SendTypingIndicatorResponse": ".send_typing_indicator_response",
     "Sender": ".sender",
     "SentMmsDetails": ".sent_mms_details",
-    "SentRcsDetails": ".sent_rcs_details",
+    "SentRichMessage": ".sent_rich_message",
     "SentSmsDetails": ".sent_sms_details",
     "ShortenedUrl": ".shortened_url",
     "ShortenedUrlWithClickData": ".shortened_url_with_click_data",
@@ -564,7 +564,6 @@ __all__ = [
     "AdvancedPhoneInformationLocationCountry",
     "AdvancedPhoneInformationType",
     "AdvancedPhoneInformationTypeRecommendation",
-    "Agent",
     "AttachWebhookByIdParams",
     "AttachWebhookParams",
     "AttachWebhookResponseWebhook",
@@ -581,6 +580,7 @@ __all__ = [
     "AutofillDlcResponseOptions",
     "AutofillDlcResponseUseCase",
     "BadRequestErrorBody",
+    "BaseRichMessage",
     "BasicPhoneInformation",
     "BasicPhoneInformationContact",
     "BasicPhoneInformationLocation",
@@ -598,6 +598,7 @@ __all__ = [
     "CampaignSubmissionResult",
     "CampaignValidationResponseErrorsItem",
     "CampaignValidationResult",
+    "CancelScheduledMessageResponse",
     "CompanySectorEnum",
     "CompanyTypeEnum",
     "ConfiguredWebhook",
@@ -609,6 +610,8 @@ __all__ = [
     "ConversationContact",
     "ConversationList",
     "ConversationSender",
+    "ConversationSenderAgentId",
+    "ConversationSenderCapabilities",
     "CreateAndAttachWebhookByUrlParams",
     "CreateUrlOptions",
     "DeleteAudienceResponse",
@@ -671,9 +674,7 @@ __all__ = [
     "OptionalBrandInfo",
     "OptionalContact",
     "OptionalContacts",
-    "Options",
     "Pagination",
-    "Phone",
     "PhoneCapabilities",
     "PhoneEnum",
     "PhoneFeatureEnum",
@@ -693,8 +694,6 @@ __all__ = [
     "PinnacleUrlConfig",
     "ProfileStatusEnum",
     "PurchasedNumber",
-    "RcsBase",
-    "RcsBaseOptions",
     "RcsButtonCall",
     "RcsButtonOpenUrl",
     "RcsButtonOpenUrlWebviewMode",
@@ -727,15 +726,12 @@ __all__ = [
     "RcsCapability",
     "RcsCapabilityActions",
     "RcsCapabilityCards",
-    "RcsCards",
-    "RcsCardsCardsItem",
     "RcsCardsContent",
     "RcsCardsContentCardsItem",
     "RcsContent",
     "RcsLinkResult",
     "RcsMediaContent",
     "RcsMediaDetailsContent",
-    "RcsTextContent",
     "RcsValidateContent",
     "RcsValidateContentMedia",
     "RcsValidationResult",
@@ -749,22 +745,26 @@ __all__ = [
     "RichButton_ScheduleEvent",
     "RichButton_SendLocation",
     "RichButton_Trigger",
+    "RichCard",
+    "RichCards",
     "RichCardsMessage",
     "RichMediaMessage",
     "RichMessage",
+    "RichStandaloneCardOptions",
+    "RichText",
     "RichTextMessage",
-    "ScheduledMessaage",
+    "ScheduledMessage",
     "ScheduledSendResponseConfig",
-    "SendRcsCardOptions",
-    "SendRcsCardOptionsStandaloneCard",
     "SendRcsCardOptionsStandaloneCardImageAlignment",
     "SendRcsCardOptionsStandaloneCardOrientation",
+    "SendRichCardsOptions",
+    "SendRichMessageOptions",
     "SendSmsResponseSegments",
     "SendSmsResponseSegmentsEncoding",
     "SendTypingIndicatorResponse",
     "Sender",
     "SentMmsDetails",
-    "SentRcsDetails",
+    "SentRichMessage",
     "SentSmsDetails",
     "ShortenedUrl",
     "ShortenedUrlWithClickData",

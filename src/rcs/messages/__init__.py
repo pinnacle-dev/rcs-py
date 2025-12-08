@@ -8,17 +8,17 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .types import ReactMessageOptions
     from . import mms, rcs, sms
-    from .mms import MmsSendResponse, SendMmsOptions
-    from .rcs import RcsSendResponse, SendTypingIndicatorSchemaOptions
-    from .sms import SendSmsOptions, SmsSendResponse
+    from .mms import SendMmsOptions, SendMmsResponse
+    from .rcs import SendRichMessageResponse, SendTypingIndicatorSchemaOptions
+    from .sms import SendSmsOptions, SendSmsResponse
 _dynamic_imports: typing.Dict[str, str] = {
-    "MmsSendResponse": ".mms",
-    "RcsSendResponse": ".rcs",
     "ReactMessageOptions": ".types",
     "SendMmsOptions": ".mms",
+    "SendMmsResponse": ".mms",
+    "SendRichMessageResponse": ".rcs",
     "SendSmsOptions": ".sms",
+    "SendSmsResponse": ".sms",
     "SendTypingIndicatorSchemaOptions": ".rcs",
-    "SmsSendResponse": ".sms",
     "mms": ".",
     "rcs": ".",
     "sms": ".",
@@ -45,13 +45,13 @@ def __dir__():
 
 
 __all__ = [
-    "MmsSendResponse",
-    "RcsSendResponse",
     "ReactMessageOptions",
     "SendMmsOptions",
+    "SendMmsResponse",
+    "SendRichMessageResponse",
     "SendSmsOptions",
+    "SendSmsResponse",
     "SendTypingIndicatorSchemaOptions",
-    "SmsSendResponse",
     "mms",
     "rcs",
     "sms",

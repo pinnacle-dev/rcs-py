@@ -20,7 +20,7 @@ from ...types.rcs_validate_content import RcsValidateContent
 from ...types.rcs_validation_result import RcsValidationResult
 from ...types.rich_message import RichMessage
 from ...types.send_typing_indicator_response import SendTypingIndicatorResponse
-from .types.rcs_send_response import RcsSendResponse
+from .types.send_rich_message_response import SendRichMessageResponse
 from .types.send_typing_indicator_schema_options import SendTypingIndicatorSchemaOptions
 
 # this is used as the default value for optional parameters
@@ -33,7 +33,7 @@ class RawRcsClient:
 
     def send(
         self, *, request: RichMessage, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[RcsSendResponse]:
+    ) -> HttpResponse[SendRichMessageResponse]:
         """
         Send a RCS message immediately or schedule it for future delivery. <br>
 
@@ -48,7 +48,7 @@ class RawRcsClient:
 
         Returns
         -------
-        HttpResponse[RcsSendResponse]
+        HttpResponse[SendRichMessageResponse]
             Successfully sent or scheduled the message.
 
             Use our [/messages/:id](./get) endpoint to track your message.
@@ -66,9 +66,9 @@ class RawRcsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RcsSendResponse,
+                    SendRichMessageResponse,
                     parse_obj_as(
-                        type_=RcsSendResponse,  # type: ignore
+                        type_=SendRichMessageResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -359,7 +359,7 @@ class AsyncRawRcsClient:
 
     async def send(
         self, *, request: RichMessage, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[RcsSendResponse]:
+    ) -> AsyncHttpResponse[SendRichMessageResponse]:
         """
         Send a RCS message immediately or schedule it for future delivery. <br>
 
@@ -374,7 +374,7 @@ class AsyncRawRcsClient:
 
         Returns
         -------
-        AsyncHttpResponse[RcsSendResponse]
+        AsyncHttpResponse[SendRichMessageResponse]
             Successfully sent or scheduled the message.
 
             Use our [/messages/:id](./get) endpoint to track your message.
@@ -392,9 +392,9 @@ class AsyncRawRcsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RcsSendResponse,
+                    SendRichMessageResponse,
                     parse_obj_as(
-                        type_=RcsSendResponse,  # type: ignore
+                        type_=SendRichMessageResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

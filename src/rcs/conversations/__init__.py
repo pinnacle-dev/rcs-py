@@ -7,16 +7,16 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        ConversationsListMessagesRequestDirection,
-        ConversationsListMessagesRequestSortOrder,
-        ConversationsListMessagesRequestStatus,
-        ConversationsListMessagesRequestType,
+        ListMessagesConversationsRequestDirection,
+        ListMessagesConversationsRequestSortOrder,
+        ListMessagesConversationsRequestStatus,
+        ListMessagesConversationsRequestType,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "ConversationsListMessagesRequestDirection": ".types",
-    "ConversationsListMessagesRequestSortOrder": ".types",
-    "ConversationsListMessagesRequestStatus": ".types",
-    "ConversationsListMessagesRequestType": ".types",
+    "ListMessagesConversationsRequestDirection": ".types",
+    "ListMessagesConversationsRequestSortOrder": ".types",
+    "ListMessagesConversationsRequestStatus": ".types",
+    "ListMessagesConversationsRequestType": ".types",
 }
 
 
@@ -40,8 +40,8 @@ def __dir__():
 
 
 __all__ = [
-    "ConversationsListMessagesRequestDirection",
-    "ConversationsListMessagesRequestSortOrder",
-    "ConversationsListMessagesRequestStatus",
-    "ConversationsListMessagesRequestType",
+    "ListMessagesConversationsRequestDirection",
+    "ListMessagesConversationsRequestSortOrder",
+    "ListMessagesConversationsRequestStatus",
+    "ListMessagesConversationsRequestType",
 ]

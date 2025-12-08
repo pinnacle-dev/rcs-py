@@ -15,7 +15,7 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.audience_count_only import AudienceCountOnly
 from ..types.delete_audience_response import DeleteAudienceResponse
 from ..types.error import Error
-from .types.audiences_get_response import AudiencesGetResponse
+from .types.get_audiences_response import GetAudiencesResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -32,7 +32,7 @@ class RawAudiencesClient:
         page: typing.Optional[int] = None,
         limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[AudiencesGetResponse]:
+    ) -> HttpResponse[GetAudiencesResponse]:
         """
         Retrieve an audience by ID with optional pagination.
 
@@ -52,7 +52,7 @@ class RawAudiencesClient:
 
         Returns
         -------
-        HttpResponse[AudiencesGetResponse]
+        HttpResponse[GetAudiencesResponse]
             Successfully retrieved audience.
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -68,9 +68,9 @@ class RawAudiencesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AudiencesGetResponse,
+                    GetAudiencesResponse,
                     parse_obj_as(
-                        type_=AudiencesGetResponse,  # type: ignore
+                        type_=GetAudiencesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -421,7 +421,7 @@ class AsyncRawAudiencesClient:
         page: typing.Optional[int] = None,
         limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[AudiencesGetResponse]:
+    ) -> AsyncHttpResponse[GetAudiencesResponse]:
         """
         Retrieve an audience by ID with optional pagination.
 
@@ -441,7 +441,7 @@ class AsyncRawAudiencesClient:
 
         Returns
         -------
-        AsyncHttpResponse[AudiencesGetResponse]
+        AsyncHttpResponse[GetAudiencesResponse]
             Successfully retrieved audience.
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -457,9 +457,9 @@ class AsyncRawAudiencesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AudiencesGetResponse,
+                    GetAudiencesResponse,
                     parse_obj_as(
-                        type_=AudiencesGetResponse,  # type: ignore
+                        type_=GetAudiencesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

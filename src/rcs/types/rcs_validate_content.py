@@ -2,8 +2,8 @@
 
 import typing
 
-from .rcs_cards import RcsCards
-from .rcs_text_content import RcsTextContent
 from .rcs_validate_content_media import RcsValidateContentMedia
+from .rich_cards import RichCards
+from .rich_text import RichText
 
-RcsValidateContent = typing.Union[RcsTextContent, RcsValidateContentMedia, RcsCards]
+RcsValidateContent = typing.Union[RichText, RcsValidateContentMedia, RichCards]

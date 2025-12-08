@@ -19,7 +19,7 @@ from ...types.campaign_submission_result import CampaignSubmissionResult
 from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.error import Error
 from ...types.extended_rcs_campaign import ExtendedRcsCampaign
-from .types.rcs_autofill_response import RcsAutofillResponse
+from .types.autofill_rcs_response import AutofillRcsResponse
 from .types.upsert_rcs_agent import UpsertRcsAgent
 from .types.upsert_rcs_links import UpsertRcsLinks
 from .types.upsert_rcs_opt_in import UpsertRcsOptIn
@@ -40,7 +40,7 @@ class RawRcsClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[RcsAutofillResponse]:
+    ) -> HttpResponse[AutofillRcsResponse]:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -60,7 +60,7 @@ class RawRcsClient:
 
         Returns
         -------
-        HttpResponse[RcsAutofillResponse]
+        HttpResponse[AutofillRcsResponse]
             Returns autofilled RCS information.
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -79,9 +79,9 @@ class RawRcsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RcsAutofillResponse,
+                    AutofillRcsResponse,
                     parse_obj_as(
-                        type_=RcsAutofillResponse,  # type: ignore
+                        type_=AutofillRcsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -547,7 +547,7 @@ class AsyncRawRcsClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[RcsAutofillResponse]:
+    ) -> AsyncHttpResponse[AutofillRcsResponse]:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -567,7 +567,7 @@ class AsyncRawRcsClient:
 
         Returns
         -------
-        AsyncHttpResponse[RcsAutofillResponse]
+        AsyncHttpResponse[AutofillRcsResponse]
             Returns autofilled RCS information.
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -586,9 +586,9 @@ class AsyncRawRcsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RcsAutofillResponse,
+                    AutofillRcsResponse,
                     parse_obj_as(
-                        type_=RcsAutofillResponse,  # type: ignore
+                        type_=AutofillRcsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

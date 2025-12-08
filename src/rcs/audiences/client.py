@@ -9,7 +9,7 @@ from ..core.request_options import RequestOptions
 from ..types.audience_count_only import AudienceCountOnly
 from ..types.delete_audience_response import DeleteAudienceResponse
 from .raw_client import AsyncRawAudiencesClient, RawAudiencesClient
-from .types.audiences_get_response import AudiencesGetResponse
+from .types.get_audiences_response import GetAudiencesResponse
 
 if typing.TYPE_CHECKING:
     from .contacts.client import AsyncContactsClient, ContactsClient
@@ -41,7 +41,7 @@ class AudiencesClient:
         page: typing.Optional[int] = None,
         limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AudiencesGetResponse:
+    ) -> GetAudiencesResponse:
         """
         Retrieve an audience by ID with optional pagination.
 
@@ -61,7 +61,7 @@ class AudiencesClient:
 
         Returns
         -------
-        AudiencesGetResponse
+        GetAudiencesResponse
             Successfully retrieved audience.
 
         Examples
@@ -239,7 +239,7 @@ class AsyncAudiencesClient:
         page: typing.Optional[int] = None,
         limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AudiencesGetResponse:
+    ) -> GetAudiencesResponse:
         """
         Retrieve an audience by ID with optional pagination.
 
@@ -259,7 +259,7 @@ class AsyncAudiencesClient:
 
         Returns
         -------
-        AudiencesGetResponse
+        GetAudiencesResponse
             Successfully retrieved audience.
 
         Examples

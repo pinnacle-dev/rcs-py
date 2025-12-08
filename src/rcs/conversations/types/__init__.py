@@ -6,15 +6,15 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .conversations_list_messages_request_direction import ConversationsListMessagesRequestDirection
-    from .conversations_list_messages_request_sort_order import ConversationsListMessagesRequestSortOrder
-    from .conversations_list_messages_request_status import ConversationsListMessagesRequestStatus
-    from .conversations_list_messages_request_type import ConversationsListMessagesRequestType
+    from .list_messages_conversations_request_direction import ListMessagesConversationsRequestDirection
+    from .list_messages_conversations_request_sort_order import ListMessagesConversationsRequestSortOrder
+    from .list_messages_conversations_request_status import ListMessagesConversationsRequestStatus
+    from .list_messages_conversations_request_type import ListMessagesConversationsRequestType
 _dynamic_imports: typing.Dict[str, str] = {
-    "ConversationsListMessagesRequestDirection": ".conversations_list_messages_request_direction",
-    "ConversationsListMessagesRequestSortOrder": ".conversations_list_messages_request_sort_order",
-    "ConversationsListMessagesRequestStatus": ".conversations_list_messages_request_status",
-    "ConversationsListMessagesRequestType": ".conversations_list_messages_request_type",
+    "ListMessagesConversationsRequestDirection": ".list_messages_conversations_request_direction",
+    "ListMessagesConversationsRequestSortOrder": ".list_messages_conversations_request_sort_order",
+    "ListMessagesConversationsRequestStatus": ".list_messages_conversations_request_status",
+    "ListMessagesConversationsRequestType": ".list_messages_conversations_request_type",
 }
 
 
@@ -38,8 +38,8 @@ def __dir__():
 
 
 __all__ = [
-    "ConversationsListMessagesRequestDirection",
-    "ConversationsListMessagesRequestSortOrder",
-    "ConversationsListMessagesRequestStatus",
-    "ConversationsListMessagesRequestType",
+    "ListMessagesConversationsRequestDirection",
+    "ListMessagesConversationsRequestSortOrder",
+    "ListMessagesConversationsRequestStatus",
+    "ListMessagesConversationsRequestType",
 ]

@@ -8,7 +8,7 @@ from ...types.campaign_submission_result import CampaignSubmissionResult
 from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.extended_rcs_campaign import ExtendedRcsCampaign
 from .raw_client import AsyncRawRcsClient, RawRcsClient
-from .types.rcs_autofill_response import RcsAutofillResponse
+from .types.autofill_rcs_response import AutofillRcsResponse
 from .types.upsert_rcs_agent import UpsertRcsAgent
 from .types.upsert_rcs_links import UpsertRcsLinks
 from .types.upsert_rcs_opt_in import UpsertRcsOptIn
@@ -40,7 +40,7 @@ class RcsClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> RcsAutofillResponse:
+    ) -> AutofillRcsResponse:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -60,7 +60,7 @@ class RcsClient:
 
         Returns
         -------
-        RcsAutofillResponse
+        AutofillRcsResponse
             Returns autofilled RCS information.
 
         Examples
@@ -352,7 +352,7 @@ class AsyncRcsClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> RcsAutofillResponse:
+    ) -> AutofillRcsResponse:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -372,7 +372,7 @@ class AsyncRcsClient:
 
         Returns
         -------
-        RcsAutofillResponse
+        AutofillRcsResponse
             Returns autofilled RCS information.
 
         Examples

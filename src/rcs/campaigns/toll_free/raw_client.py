@@ -19,7 +19,7 @@ from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.error import Error
 from ...types.message_volume_enum import MessageVolumeEnum
 from ...types.toll_free_campaign_with_extended_brand_and_status import TollFreeCampaignWithExtendedBrandAndStatus
-from .types.toll_free_autofill_response import TollFreeAutofillResponse
+from .types.autofill_toll_free_response import AutofillTollFreeResponse
 from .types.upsert_toll_free_schema_opt_in import UpsertTollFreeSchemaOptIn
 from .types.upsert_toll_free_schema_use_case import UpsertTollFreeSchemaUseCase
 
@@ -37,7 +37,7 @@ class RawTollFreeClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[TollFreeAutofillResponse]:
+    ) -> HttpResponse[AutofillTollFreeResponse]:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -57,7 +57,7 @@ class RawTollFreeClient:
 
         Returns
         -------
-        HttpResponse[TollFreeAutofillResponse]
+        HttpResponse[AutofillTollFreeResponse]
             Returns autofilled toll-free information.
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -76,9 +76,9 @@ class RawTollFreeClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    TollFreeAutofillResponse,
+                    AutofillTollFreeResponse,
                     parse_obj_as(
-                        type_=TollFreeAutofillResponse,  # type: ignore
+                        type_=AutofillTollFreeResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -516,7 +516,7 @@ class AsyncRawTollFreeClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[TollFreeAutofillResponse]:
+    ) -> AsyncHttpResponse[AutofillTollFreeResponse]:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -536,7 +536,7 @@ class AsyncRawTollFreeClient:
 
         Returns
         -------
-        AsyncHttpResponse[TollFreeAutofillResponse]
+        AsyncHttpResponse[AutofillTollFreeResponse]
             Returns autofilled toll-free information.
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -555,9 +555,9 @@ class AsyncRawTollFreeClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    TollFreeAutofillResponse,
+                    AutofillTollFreeResponse,
                     parse_obj_as(
-                        type_=TollFreeAutofillResponse,  # type: ignore
+                        type_=AutofillTollFreeResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -2,7 +2,7 @@
 
 import typing
 
-from .agent import Agent
-from .phone import Phone
+from .conversation_sender_agent_id import ConversationSenderAgentId
+from .conversation_sender_capabilities import ConversationSenderCapabilities
 
-ConversationSender = typing.Union[Phone, Agent]
+ConversationSender = typing.Union[ConversationSenderCapabilities, ConversationSenderAgentId]

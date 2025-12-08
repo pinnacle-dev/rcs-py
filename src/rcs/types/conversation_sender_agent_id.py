@@ -8,7 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 
 
-class Agent(UniversalBaseModel):
+class ConversationSenderAgentId(UniversalBaseModel):
     """
     Information about an RCS agent sender in a conversation.
     """

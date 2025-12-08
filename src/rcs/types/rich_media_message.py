@@ -6,11 +6,11 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
-from .rcs_base import RcsBase
+from .base_rich_message import BaseRichMessage
 from .rich_button import RichButton
 
 
-class RichMediaMessage(RcsBase):
+class RichMediaMessage(BaseRichMessage):
     media: str = pydantic.Field()
     """
     Media file URLs to send. <br>

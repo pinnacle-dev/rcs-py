@@ -6,16 +6,16 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .rcs_base_options import RcsBaseOptions
+from .send_rich_message_options import SendRichMessageOptions
 
 
-class RcsBase(UniversalBaseModel):
+class BaseRichMessage(UniversalBaseModel):
     from_: typing_extensions.Annotated[str, FieldMetadata(alias="from")] = pydantic.Field()
     """
     Your RCS agent ID which must be prefixed with 'agent_'.
     """
 
-    options: typing.Optional[RcsBaseOptions] = pydantic.Field(default=None)
+    options: typing.Optional[SendRichMessageOptions] = pydantic.Field(default=None)
     """
     Configure how your RCS message is sent and tracked.
     """

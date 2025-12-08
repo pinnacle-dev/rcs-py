@@ -8,8 +8,8 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .types import (
         EnhancedContactInfo,
+        GetPhoneNumbersResponse,
         PhoneDetailsSchemaLevel,
-        PhoneNumbersGetResponse,
         RetrievePhoneNumberDetailsOptions,
         SearchPhoneNumberByDigits,
         SearchPhoneNumberByLocation,
@@ -18,8 +18,8 @@ if typing.TYPE_CHECKING:
     from . import campaign, webhook
 _dynamic_imports: typing.Dict[str, str] = {
     "EnhancedContactInfo": ".types",
+    "GetPhoneNumbersResponse": ".types",
     "PhoneDetailsSchemaLevel": ".types",
-    "PhoneNumbersGetResponse": ".types",
     "RetrievePhoneNumberDetailsOptions": ".types",
     "SearchPhoneNumberByDigits": ".types",
     "SearchPhoneNumberByLocation": ".types",
@@ -50,8 +50,8 @@ def __dir__():
 
 __all__ = [
     "EnhancedContactInfo",
+    "GetPhoneNumbersResponse",
     "PhoneDetailsSchemaLevel",
-    "PhoneNumbersGetResponse",
     "RetrievePhoneNumberDetailsOptions",
     "SearchPhoneNumberByDigits",
     "SearchPhoneNumberByLocation",

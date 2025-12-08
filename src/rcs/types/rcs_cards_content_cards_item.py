@@ -15,7 +15,7 @@ class RcsCardsContentCardsItem(UniversalBaseModel):
 
     buttons: typing.List[RichButton] = pydantic.Field()
     """
-    Action buttons attached to the card.
+    While buttons resemble quick replies, they remain on screen after being clicked and are card-specific.
     """
 
     media: typing.Optional[RcsMediaDetailsContent] = None

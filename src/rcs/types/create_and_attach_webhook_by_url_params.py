@@ -24,14 +24,7 @@ class CreateAndAttachWebhookByUrlParams(UniversalBaseModel):
     Ensure this URL is publicly accessible and ready to handle incoming webhook calls.
     """
 
-    event: typing.Optional[WebhookEventEnum] = pydantic.Field(default=None)
-    """
-    Select the event type that will trigger this webhook. <br>
-    
-    Set to null if you want to listen to all event types for this phone number. <br>
-    
-    Defaults to null.
-    """
+    event: typing.Optional[WebhookEventEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

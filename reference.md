@@ -1639,7 +1639,7 @@ client.conversations.list_messages(
 <dl>
 <dd>
 
-**sort_order:** `typing.Optional[ConversationsListMessagesRequestSortOrder]` 
+**sort_order:** `typing.Optional[ListMessagesConversationsRequestSortOrder]` 
 
 Sort order for messages. <br>
 
@@ -1652,7 +1652,7 @@ Sort order for messages. <br>
 <dl>
 <dd>
 
-**direction:** `typing.Optional[ConversationsListMessagesRequestDirection]` 
+**direction:** `typing.Optional[ListMessagesConversationsRequestDirection]` 
 
 Filter messages by direction. <br>
 
@@ -1665,7 +1665,7 @@ Filter messages by direction. <br>
 <dl>
 <dd>
 
-**status:** `typing.Optional[ConversationsListMessagesRequestStatus]` — Filter messages by delivery status.
+**status:** `typing.Optional[ListMessagesConversationsRequestStatus]` — Filter messages by delivery status.
     
 </dd>
 </dl>
@@ -1673,7 +1673,7 @@ Filter messages by direction. <br>
 <dl>
 <dd>
 
-**type:** `typing.Optional[ConversationsListMessagesRequestType]` — Filter messages by protocol type.
+**type:** `typing.Optional[ListMessagesConversationsRequestType]` — Filter messages by protocol type.
     
 </dd>
 </dl>
@@ -1856,6 +1856,81 @@ client.messages.react(
 Unicode emoji to add. <br>
 
 Use `null` to remove existing reaction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.<a href="src/rcs/messages/client.py">cancel_scheduled</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel a previously scheduled message before it is sent.
+
+Use the `scheduleId` returned from a scheduled send request (SMS, MMS, or RCS) to cancel the message.
+Once cancelled, the scheduled message will stop being sent.
+
+> **Note:** You cannot cancel a message that has already been sent.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.messages.cancel_scheduled(
+    id="msg_sched_1234567890",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Unique identifier of the scheduled message. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`.
     
 </dd>
 </dl>
@@ -4745,13 +4820,13 @@ Validate RCS message content without sending it.
 <dd>
 
 ```python
-from rcs import Pinnacle, RcsTextContent, RichButton_OpenUrl
+from rcs import Pinnacle, RichButton_OpenUrl, RichText
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.messages.rcs.validate(
-    request=RcsTextContent(
+    request=RichText(
         quick_replies=[
             RichButton_OpenUrl(
                 payload="payload",

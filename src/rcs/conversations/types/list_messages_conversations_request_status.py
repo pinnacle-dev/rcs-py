@@ -2,6 +2,6 @@
 
 import typing
 
-ConversationsListMessagesRequestStatus = typing.Union[
+ListMessagesConversationsRequestStatus = typing.Union[
     typing.Literal["PENDING", "SENT", "SEND_FAILED", "DELIVERED", "DELIVERY_FAILED", "RECEIVED", "READ"], typing.Any
 ]
