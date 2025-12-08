@@ -14,7 +14,7 @@ from ...core.pydantic_utilities import parse_obj_as
 
 class PinnacleRequest(TypedDict):
     headers: Dict[str, Any]
-    body: str
+    body: Union[str, bytes]
 
 
 def _validate_webhook_secret(
