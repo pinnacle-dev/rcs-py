@@ -122,7 +122,7 @@ class MessagesClient:
         )
         return _response.data
 
-    def cancel_scheduled(
+    def cancel(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CancelScheduledMessageResponse:
         """
@@ -153,11 +153,11 @@ class MessagesClient:
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
-        client.messages.cancel_scheduled(
+        client.messages.cancel(
             id="msg_sched_1234567890",
         )
         """
-        _response = self._raw_client.cancel_scheduled(id, request_options=request_options)
+        _response = self._raw_client.cancel(id, request_options=request_options)
         return _response.data
 
     @property
@@ -303,7 +303,7 @@ class AsyncMessagesClient:
         )
         return _response.data
 
-    async def cancel_scheduled(
+    async def cancel(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CancelScheduledMessageResponse:
         """
@@ -339,14 +339,14 @@ class AsyncMessagesClient:
 
 
         async def main() -> None:
-            await client.messages.cancel_scheduled(
+            await client.messages.cancel(
                 id="msg_sched_1234567890",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.cancel_scheduled(id, request_options=request_options)
+        _response = await self._raw_client.cancel(id, request_options=request_options)
         return _response.data
 
     @property

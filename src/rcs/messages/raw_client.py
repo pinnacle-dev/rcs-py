@@ -239,7 +239,7 @@ class RawMessagesClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def cancel_scheduled(
+    def cancel(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CancelScheduledMessageResponse]:
         """
@@ -543,7 +543,7 @@ class AsyncRawMessagesClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def cancel_scheduled(
+    async def cancel(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CancelScheduledMessageResponse]:
         """

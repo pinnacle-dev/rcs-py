@@ -1875,7 +1875,7 @@ Use `null` to remove existing reaction.
 </dl>
 </details>
 
-<details><summary><code>client.messages.<a href="src/rcs/messages/client.py">cancel_scheduled</a>(...)</code></summary>
+<details><summary><code>client.messages.<a href="src/rcs/messages/client.py">cancel</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1912,7 +1912,7 @@ from rcs import Pinnacle
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.messages.cancel_scheduled(
+client.messages.cancel(
     id="msg_sched_1234567890",
 )
 
