@@ -17,8 +17,8 @@ from ...errors.payment_required_error import PaymentRequiredError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.error import Error
 from ...types.mms_validation_result import MmsValidationResult
+from .types.mms_send_response import MmsSendResponse
 from .types.send_mms_options import SendMmsOptions
-from .types.send_mms_response import SendMmsResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -37,7 +37,7 @@ class RawMmsClient:
         to: str,
         options: typing.Optional[SendMmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[SendMmsResponse]:
+    ) -> HttpResponse[MmsSendResponse]:
         """
         Send a MMS immediately or schedule it for future delivery.
 
@@ -65,7 +65,7 @@ class RawMmsClient:
 
         Returns
         -------
-        HttpResponse[SendMmsResponse]
+        HttpResponse[MmsSendResponse]
             Successfully sent or scheduled the message. <br>
 
             Each message part can be tracked independently using its unique message ID. Use our [/messages/:id](./get) endpoint to track your messages.
@@ -91,9 +91,9 @@ class RawMmsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    SendMmsResponse,
+                    MmsSendResponse,
                     parse_obj_as(
-                        type_=SendMmsResponse,  # type: ignore
+                        type_=MmsSendResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -272,7 +272,7 @@ class AsyncRawMmsClient:
         to: str,
         options: typing.Optional[SendMmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[SendMmsResponse]:
+    ) -> AsyncHttpResponse[MmsSendResponse]:
         """
         Send a MMS immediately or schedule it for future delivery.
 
@@ -300,7 +300,7 @@ class AsyncRawMmsClient:
 
         Returns
         -------
-        AsyncHttpResponse[SendMmsResponse]
+        AsyncHttpResponse[MmsSendResponse]
             Successfully sent or scheduled the message. <br>
 
             Each message part can be tracked independently using its unique message ID. Use our [/messages/:id](./get) endpoint to track your messages.
@@ -326,9 +326,9 @@ class AsyncRawMmsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    SendMmsResponse,
+                    MmsSendResponse,
                     parse_obj_as(
-                        type_=SendMmsResponse,  # type: ignore
+                        type_=MmsSendResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

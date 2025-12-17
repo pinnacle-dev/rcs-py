@@ -6,13 +6,23 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .autofill_toll_free_response import AutofillTollFreeResponse
-    from .upsert_toll_free_schema_opt_in import UpsertTollFreeSchemaOptIn
-    from .upsert_toll_free_schema_use_case import UpsertTollFreeSchemaUseCase
+    from .toll_free_autofill_response import TollFreeAutofillResponse
+    from .toll_free_campaign_help_keywords import TollFreeCampaignHelpKeywords
+    from .toll_free_campaign_keywords import TollFreeCampaignKeywords
+    from .toll_free_campaign_links import TollFreeCampaignLinks
+    from .toll_free_campaign_opt_in import TollFreeCampaignOptIn
+    from .toll_free_campaign_opt_in_keywords import TollFreeCampaignOptInKeywords
+    from .toll_free_campaign_options import TollFreeCampaignOptions
+    from .toll_free_campaign_use_case import TollFreeCampaignUseCase
 _dynamic_imports: typing.Dict[str, str] = {
-    "AutofillTollFreeResponse": ".autofill_toll_free_response",
-    "UpsertTollFreeSchemaOptIn": ".upsert_toll_free_schema_opt_in",
-    "UpsertTollFreeSchemaUseCase": ".upsert_toll_free_schema_use_case",
+    "TollFreeAutofillResponse": ".toll_free_autofill_response",
+    "TollFreeCampaignHelpKeywords": ".toll_free_campaign_help_keywords",
+    "TollFreeCampaignKeywords": ".toll_free_campaign_keywords",
+    "TollFreeCampaignLinks": ".toll_free_campaign_links",
+    "TollFreeCampaignOptIn": ".toll_free_campaign_opt_in",
+    "TollFreeCampaignOptInKeywords": ".toll_free_campaign_opt_in_keywords",
+    "TollFreeCampaignOptions": ".toll_free_campaign_options",
+    "TollFreeCampaignUseCase": ".toll_free_campaign_use_case",
 }
 
 
@@ -35,4 +45,13 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["AutofillTollFreeResponse", "UpsertTollFreeSchemaOptIn", "UpsertTollFreeSchemaUseCase"]
+__all__ = [
+    "TollFreeAutofillResponse",
+    "TollFreeCampaignHelpKeywords",
+    "TollFreeCampaignKeywords",
+    "TollFreeCampaignLinks",
+    "TollFreeCampaignOptIn",
+    "TollFreeCampaignOptInKeywords",
+    "TollFreeCampaignOptions",
+    "TollFreeCampaignUseCase",
+]

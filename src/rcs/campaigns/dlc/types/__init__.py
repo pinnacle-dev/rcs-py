@@ -6,21 +6,21 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .upsert_dlc_campaign_help_keywords import UpsertDlcCampaignHelpKeywords
-    from .upsert_dlc_campaign_keywords import UpsertDlcCampaignKeywords
-    from .upsert_dlc_campaign_links import UpsertDlcCampaignLinks
-    from .upsert_dlc_campaign_opt_in_keywords import UpsertDlcCampaignOptInKeywords
-    from .upsert_dlc_campaign_opt_out_keywords import UpsertDlcCampaignOptOutKeywords
-    from .upsert_dlc_campaign_options import UpsertDlcCampaignOptions
-    from .upsert_dlc_campaign_use_case import UpsertDlcCampaignUseCase
+    from .dlc_campaign_help_keywords import DlcCampaignHelpKeywords
+    from .dlc_campaign_keywords import DlcCampaignKeywords
+    from .dlc_campaign_links import DlcCampaignLinks
+    from .dlc_campaign_opt_in_keywords import DlcCampaignOptInKeywords
+    from .dlc_campaign_opt_out_keywords import DlcCampaignOptOutKeywords
+    from .dlc_campaign_options import DlcCampaignOptions
+    from .dlc_campaign_use_case import DlcCampaignUseCase
 _dynamic_imports: typing.Dict[str, str] = {
-    "UpsertDlcCampaignHelpKeywords": ".upsert_dlc_campaign_help_keywords",
-    "UpsertDlcCampaignKeywords": ".upsert_dlc_campaign_keywords",
-    "UpsertDlcCampaignLinks": ".upsert_dlc_campaign_links",
-    "UpsertDlcCampaignOptInKeywords": ".upsert_dlc_campaign_opt_in_keywords",
-    "UpsertDlcCampaignOptOutKeywords": ".upsert_dlc_campaign_opt_out_keywords",
-    "UpsertDlcCampaignOptions": ".upsert_dlc_campaign_options",
-    "UpsertDlcCampaignUseCase": ".upsert_dlc_campaign_use_case",
+    "DlcCampaignHelpKeywords": ".dlc_campaign_help_keywords",
+    "DlcCampaignKeywords": ".dlc_campaign_keywords",
+    "DlcCampaignLinks": ".dlc_campaign_links",
+    "DlcCampaignOptInKeywords": ".dlc_campaign_opt_in_keywords",
+    "DlcCampaignOptOutKeywords": ".dlc_campaign_opt_out_keywords",
+    "DlcCampaignOptions": ".dlc_campaign_options",
+    "DlcCampaignUseCase": ".dlc_campaign_use_case",
 }
 
 
@@ -44,11 +44,11 @@ def __dir__():
 
 
 __all__ = [
-    "UpsertDlcCampaignHelpKeywords",
-    "UpsertDlcCampaignKeywords",
-    "UpsertDlcCampaignLinks",
-    "UpsertDlcCampaignOptInKeywords",
-    "UpsertDlcCampaignOptOutKeywords",
-    "UpsertDlcCampaignOptions",
-    "UpsertDlcCampaignUseCase",
+    "DlcCampaignHelpKeywords",
+    "DlcCampaignKeywords",
+    "DlcCampaignLinks",
+    "DlcCampaignOptInKeywords",
+    "DlcCampaignOptOutKeywords",
+    "DlcCampaignOptions",
+    "DlcCampaignUseCase",
 ]

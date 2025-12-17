@@ -19,12 +19,13 @@ from ...types.campaign_submission_result import CampaignSubmissionResult
 from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.error import Error
 from ...types.extended_rcs_campaign import ExtendedRcsCampaign
-from .types.autofill_rcs_response import AutofillRcsResponse
-from .types.upsert_rcs_agent import UpsertRcsAgent
-from .types.upsert_rcs_links import UpsertRcsLinks
-from .types.upsert_rcs_opt_in import UpsertRcsOptIn
-from .types.upsert_rcs_opt_out import UpsertRcsOptOut
-from .types.upsert_rcs_use_case import UpsertRcsUseCase
+from ...types.rcs_messaging_type_enum import RcsMessagingTypeEnum
+from .types.rcs_agent import RcsAgent
+from .types.rcs_autofill_response import RcsAutofillResponse
+from .types.rcs_campaign_keywords import RcsCampaignKeywords
+from .types.rcs_campaign_traffic import RcsCampaignTraffic
+from .types.rcs_links import RcsLinks
+from .types.rcs_use_case import RcsUseCase
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -40,7 +41,7 @@ class RawRcsClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[AutofillRcsResponse]:
+    ) -> HttpResponse[RcsAutofillResponse]:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -60,7 +61,7 @@ class RawRcsClient:
 
         Returns
         -------
-        HttpResponse[AutofillRcsResponse]
+        HttpResponse[RcsAutofillResponse]
             Returns autofilled RCS information.
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -79,9 +80,9 @@ class RawRcsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AutofillRcsResponse,
+                    RcsAutofillResponse,
                     parse_obj_as(
-                        type_=AutofillRcsResponse,  # type: ignore
+                        type_=RcsAutofillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -304,15 +305,22 @@ class RawRcsClient:
     def upsert(
         self,
         *,
-        agent: typing.Optional[UpsertRcsAgent] = OMIT,
-        brand_verification_url: typing.Optional[str] = OMIT,
+        agent: typing.Optional[RcsAgent] = OMIT,
         brand: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
-        links: typing.Optional[UpsertRcsLinks] = OMIT,
-        opt_in: typing.Optional[UpsertRcsOptIn] = OMIT,
-        opt_out: typing.Optional[UpsertRcsOptOut] = OMIT,
-        use_case: typing.Optional[UpsertRcsUseCase] = OMIT,
+        links: typing.Optional[RcsLinks] = OMIT,
+        use_case: typing.Optional[RcsUseCase] = OMIT,
+        opt_in_terms_and_conditions: typing.Optional[str] = OMIT,
+        messaging_type: typing.Optional[RcsMessagingTypeEnum] = OMIT,
+        carrier_description: typing.Optional[str] = OMIT,
+        keywords: typing.Optional[RcsCampaignKeywords] = OMIT,
+        traffic: typing.Optional[RcsCampaignTraffic] = OMIT,
+        agent_triggers: typing.Optional[str] = OMIT,
+        interaction_description: typing.Optional[str] = OMIT,
+        is_conversational: typing.Optional[bool] = OMIT,
+        cta_language: typing.Optional[str] = OMIT,
+        demo_trigger: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ExtendedRcsCampaign]:
         """
@@ -322,11 +330,8 @@ class RawRcsClient:
 
         Parameters
         ----------
-        agent : typing.Optional[UpsertRcsAgent]
+        agent : typing.Optional[RcsAgent]
             Create an agent for the campaign.
-
-        brand_verification_url : typing.Optional[str]
-            Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
 
         brand : typing.Optional[str]
             Unique identifier for the brand.
@@ -337,17 +342,41 @@ class RawRcsClient:
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
             List of what the agent might say to users (1-5 required).
 
-        links : typing.Optional[UpsertRcsLinks]
+        links : typing.Optional[RcsLinks]
             Legal documentation links.
 
-        opt_in : typing.Optional[UpsertRcsOptIn]
-            Opt-in configuration.
-
-        opt_out : typing.Optional[UpsertRcsOptOut]
-            Opt-out configuration.
-
-        use_case : typing.Optional[UpsertRcsUseCase]
+        use_case : typing.Optional[RcsUseCase]
             Use case classification for the campaign.
+
+        opt_in_terms_and_conditions : typing.Optional[str]
+            Details on how opt-in is acquired. If it is done through a website or app, provide the link.
+
+        messaging_type : typing.Optional[RcsMessagingTypeEnum]
+
+        carrier_description : typing.Optional[str]
+            Description of the agent's purpose, shown to carriers for approval.
+
+        keywords : typing.Optional[RcsCampaignKeywords]
+
+        traffic : typing.Optional[RcsCampaignTraffic]
+
+        agent_triggers : typing.Optional[str]
+            Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers.
+
+        interaction_description : typing.Optional[str]
+            Description of all agent interactions.
+
+        is_conversational : typing.Optional[bool]
+            Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user.
+
+        cta_language : typing.Optional[str]
+            Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. The text should meet the US CTIA requirements and is usually in the following format: <br>
+
+            [Program description of the company sending the messages and what type of messages are being sent]. Msg&data rates may apply. [Message frequency: How frequently messages are sent]. [Privacy statement or link to privacy policy]. [Link to full mobile
+            T&Cs page].
+
+        demo_trigger : typing.Optional[str]
+            Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -361,25 +390,28 @@ class RawRcsClient:
             "campaigns/rcs",
             method="POST",
             json={
-                "agent": convert_and_respect_annotation_metadata(
-                    object_=agent, annotation=UpsertRcsAgent, direction="write"
-                ),
-                "brandVerificationUrl": brand_verification_url,
+                "agent": convert_and_respect_annotation_metadata(object_=agent, annotation=RcsAgent, direction="write"),
                 "brand": brand,
                 "campaignId": campaign_id,
                 "expectedAgentResponses": expected_agent_responses,
-                "links": convert_and_respect_annotation_metadata(
-                    object_=links, annotation=UpsertRcsLinks, direction="write"
-                ),
-                "optIn": convert_and_respect_annotation_metadata(
-                    object_=opt_in, annotation=UpsertRcsOptIn, direction="write"
-                ),
-                "optOut": convert_and_respect_annotation_metadata(
-                    object_=opt_out, annotation=UpsertRcsOptOut, direction="write"
-                ),
+                "links": convert_and_respect_annotation_metadata(object_=links, annotation=RcsLinks, direction="write"),
                 "useCase": convert_and_respect_annotation_metadata(
-                    object_=use_case, annotation=UpsertRcsUseCase, direction="write"
+                    object_=use_case, annotation=RcsUseCase, direction="write"
                 ),
+                "optInTermsAndConditions": opt_in_terms_and_conditions,
+                "messagingType": messaging_type,
+                "carrierDescription": carrier_description,
+                "keywords": convert_and_respect_annotation_metadata(
+                    object_=keywords, annotation=RcsCampaignKeywords, direction="write"
+                ),
+                "traffic": convert_and_respect_annotation_metadata(
+                    object_=traffic, annotation=RcsCampaignTraffic, direction="write"
+                ),
+                "agentTriggers": agent_triggers,
+                "interactionDescription": interaction_description,
+                "isConversational": is_conversational,
+                "ctaLanguage": cta_language,
+                "demoTrigger": demo_trigger,
             },
             headers={
                 "content-type": "application/json",
@@ -547,7 +579,7 @@ class AsyncRawRcsClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[AutofillRcsResponse]:
+    ) -> AsyncHttpResponse[RcsAutofillResponse]:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -567,7 +599,7 @@ class AsyncRawRcsClient:
 
         Returns
         -------
-        AsyncHttpResponse[AutofillRcsResponse]
+        AsyncHttpResponse[RcsAutofillResponse]
             Returns autofilled RCS information.
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -586,9 +618,9 @@ class AsyncRawRcsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AutofillRcsResponse,
+                    RcsAutofillResponse,
                     parse_obj_as(
-                        type_=AutofillRcsResponse,  # type: ignore
+                        type_=RcsAutofillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -811,15 +843,22 @@ class AsyncRawRcsClient:
     async def upsert(
         self,
         *,
-        agent: typing.Optional[UpsertRcsAgent] = OMIT,
-        brand_verification_url: typing.Optional[str] = OMIT,
+        agent: typing.Optional[RcsAgent] = OMIT,
         brand: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
-        links: typing.Optional[UpsertRcsLinks] = OMIT,
-        opt_in: typing.Optional[UpsertRcsOptIn] = OMIT,
-        opt_out: typing.Optional[UpsertRcsOptOut] = OMIT,
-        use_case: typing.Optional[UpsertRcsUseCase] = OMIT,
+        links: typing.Optional[RcsLinks] = OMIT,
+        use_case: typing.Optional[RcsUseCase] = OMIT,
+        opt_in_terms_and_conditions: typing.Optional[str] = OMIT,
+        messaging_type: typing.Optional[RcsMessagingTypeEnum] = OMIT,
+        carrier_description: typing.Optional[str] = OMIT,
+        keywords: typing.Optional[RcsCampaignKeywords] = OMIT,
+        traffic: typing.Optional[RcsCampaignTraffic] = OMIT,
+        agent_triggers: typing.Optional[str] = OMIT,
+        interaction_description: typing.Optional[str] = OMIT,
+        is_conversational: typing.Optional[bool] = OMIT,
+        cta_language: typing.Optional[str] = OMIT,
+        demo_trigger: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ExtendedRcsCampaign]:
         """
@@ -829,11 +868,8 @@ class AsyncRawRcsClient:
 
         Parameters
         ----------
-        agent : typing.Optional[UpsertRcsAgent]
+        agent : typing.Optional[RcsAgent]
             Create an agent for the campaign.
-
-        brand_verification_url : typing.Optional[str]
-            Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
 
         brand : typing.Optional[str]
             Unique identifier for the brand.
@@ -844,17 +880,41 @@ class AsyncRawRcsClient:
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
             List of what the agent might say to users (1-5 required).
 
-        links : typing.Optional[UpsertRcsLinks]
+        links : typing.Optional[RcsLinks]
             Legal documentation links.
 
-        opt_in : typing.Optional[UpsertRcsOptIn]
-            Opt-in configuration.
-
-        opt_out : typing.Optional[UpsertRcsOptOut]
-            Opt-out configuration.
-
-        use_case : typing.Optional[UpsertRcsUseCase]
+        use_case : typing.Optional[RcsUseCase]
             Use case classification for the campaign.
+
+        opt_in_terms_and_conditions : typing.Optional[str]
+            Details on how opt-in is acquired. If it is done through a website or app, provide the link.
+
+        messaging_type : typing.Optional[RcsMessagingTypeEnum]
+
+        carrier_description : typing.Optional[str]
+            Description of the agent's purpose, shown to carriers for approval.
+
+        keywords : typing.Optional[RcsCampaignKeywords]
+
+        traffic : typing.Optional[RcsCampaignTraffic]
+
+        agent_triggers : typing.Optional[str]
+            Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers.
+
+        interaction_description : typing.Optional[str]
+            Description of all agent interactions.
+
+        is_conversational : typing.Optional[bool]
+            Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user.
+
+        cta_language : typing.Optional[str]
+            Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. The text should meet the US CTIA requirements and is usually in the following format: <br>
+
+            [Program description of the company sending the messages and what type of messages are being sent]. Msg&data rates may apply. [Message frequency: How frequently messages are sent]. [Privacy statement or link to privacy policy]. [Link to full mobile
+            T&Cs page].
+
+        demo_trigger : typing.Optional[str]
+            Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -868,25 +928,28 @@ class AsyncRawRcsClient:
             "campaigns/rcs",
             method="POST",
             json={
-                "agent": convert_and_respect_annotation_metadata(
-                    object_=agent, annotation=UpsertRcsAgent, direction="write"
-                ),
-                "brandVerificationUrl": brand_verification_url,
+                "agent": convert_and_respect_annotation_metadata(object_=agent, annotation=RcsAgent, direction="write"),
                 "brand": brand,
                 "campaignId": campaign_id,
                 "expectedAgentResponses": expected_agent_responses,
-                "links": convert_and_respect_annotation_metadata(
-                    object_=links, annotation=UpsertRcsLinks, direction="write"
-                ),
-                "optIn": convert_and_respect_annotation_metadata(
-                    object_=opt_in, annotation=UpsertRcsOptIn, direction="write"
-                ),
-                "optOut": convert_and_respect_annotation_metadata(
-                    object_=opt_out, annotation=UpsertRcsOptOut, direction="write"
-                ),
+                "links": convert_and_respect_annotation_metadata(object_=links, annotation=RcsLinks, direction="write"),
                 "useCase": convert_and_respect_annotation_metadata(
-                    object_=use_case, annotation=UpsertRcsUseCase, direction="write"
+                    object_=use_case, annotation=RcsUseCase, direction="write"
                 ),
+                "optInTermsAndConditions": opt_in_terms_and_conditions,
+                "messagingType": messaging_type,
+                "carrierDescription": carrier_description,
+                "keywords": convert_and_respect_annotation_metadata(
+                    object_=keywords, annotation=RcsCampaignKeywords, direction="write"
+                ),
+                "traffic": convert_and_respect_annotation_metadata(
+                    object_=traffic, annotation=RcsCampaignTraffic, direction="write"
+                ),
+                "agentTriggers": agent_triggers,
+                "interactionDescription": interaction_description,
+                "isConversational": is_conversational,
+                "ctaLanguage": cta_language,
+                "demoTrigger": demo_trigger,
             },
             headers={
                 "content-type": "application/json",

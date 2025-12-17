@@ -14,7 +14,7 @@ class RcsCampaignSchemaExtraUseCase(UniversalBaseModel):
 
     behavior: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Summary of the use case.
+    Detailed summary of what the brand is and how this agent will be used.
     """
 
     value: typing.Optional[RcsCampaignUseCaseEnum] = None

@@ -148,6 +148,7 @@ client.brands.upsert(
     name="Pinnacle",
     sector="TECHNOLOGY",
     type="PRIVATE_PROFIT",
+    entity_type="LLC",
     website="https://www.pinnacle.sh",
 )
 
@@ -241,6 +242,14 @@ The unique identifier of the brand you want to update.
 <dd>
 
 **type:** `typing.Optional[CompanyTypeEnum]` — Legal structure of the brand.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entity_type:** `typing.Optional[CompanyEntityTypeEnum]` — Legal entity type of the brand.
     
 </dd>
 </dl>
@@ -474,6 +483,7 @@ client.brands.validate(
     name="Pinnacle",
     sector="TECHNOLOGY",
     type="PRIVATE_PROFIT",
+    entity_type="LLC",
     website="https://www.pinnacle.sh",
 )
 
@@ -540,6 +550,14 @@ client.brands.validate(
 <dd>
 
 **type:** `CompanyTypeEnum` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entity_type:** `CompanyEntityTypeEnum` — Legal entity type of the brand.
     
 </dd>
 </dl>
@@ -1639,7 +1657,7 @@ client.conversations.list_messages(
 <dl>
 <dd>
 
-**sort_order:** `typing.Optional[ListMessagesConversationsRequestSortOrder]` 
+**sort_order:** `typing.Optional[ConversationsListMessagesRequestSortOrder]` 
 
 Sort order for messages. <br>
 
@@ -1652,7 +1670,7 @@ Sort order for messages. <br>
 <dl>
 <dd>
 
-**direction:** `typing.Optional[ListMessagesConversationsRequestDirection]` 
+**direction:** `typing.Optional[ConversationsListMessagesRequestDirection]` 
 
 Filter messages by direction. <br>
 
@@ -1665,7 +1683,7 @@ Filter messages by direction. <br>
 <dl>
 <dd>
 
-**status:** `typing.Optional[ListMessagesConversationsRequestStatus]` — Filter messages by delivery status.
+**status:** `typing.Optional[ConversationsListMessagesRequestStatus]` — Filter messages by delivery status.
     
 </dd>
 </dl>
@@ -1673,7 +1691,7 @@ Filter messages by direction. <br>
 <dl>
 <dd>
 
-**type:** `typing.Optional[ListMessagesConversationsRequestType]` — Filter messages by protocol type.
+**type:** `typing.Optional[ConversationsListMessagesRequestType]` — Filter messages by protocol type.
     
 </dd>
 </dl>
@@ -3031,13 +3049,13 @@ Omit campaignId to create a campaign.
 ```python
 from rcs import Pinnacle
 from rcs.campaigns.dlc import (
-    UpsertDlcCampaignHelpKeywords,
-    UpsertDlcCampaignKeywords,
-    UpsertDlcCampaignLinks,
-    UpsertDlcCampaignOptInKeywords,
-    UpsertDlcCampaignOptions,
-    UpsertDlcCampaignOptOutKeywords,
-    UpsertDlcCampaignUseCase,
+    DlcCampaignHelpKeywords,
+    DlcCampaignKeywords,
+    DlcCampaignLinks,
+    DlcCampaignOptInKeywords,
+    DlcCampaignOptions,
+    DlcCampaignOptOutKeywords,
+    DlcCampaignUseCase,
 )
 
 client = Pinnacle(
@@ -3047,27 +3065,27 @@ client.campaigns.dlc.upsert(
     auto_renew=True,
     brand="b_1234567890",
     campaign_id="dlc_1234567890",
-    keywords=UpsertDlcCampaignKeywords(
-        help=UpsertDlcCampaignHelpKeywords(
+    keywords=DlcCampaignKeywords(
+        help=DlcCampaignHelpKeywords(
             message="Reply HELP for assistance, STOP to opt-out",
             values=["HELP", "INFO", "SUPPORT"],
         ),
-        opt_in=UpsertDlcCampaignOptInKeywords(
+        opt_in=DlcCampaignOptInKeywords(
             message="Welcome. You are now subscribed to Pinnacle.",
             values=["JOIN", "START", "SUBSCRIBE"],
         ),
-        opt_out=UpsertDlcCampaignOptOutKeywords(
+        opt_out=DlcCampaignOptOutKeywords(
             message="You have been unsubscribed. Reply START to rejoin.",
             values=["STOP", "QUIT", "UNSUBSCRIBE"],
         ),
     ),
-    links=UpsertDlcCampaignLinks(
+    links=DlcCampaignLinks(
         privacy_policy="https://www.pinnacle.sh/privacy",
         terms_of_service="https://www.pinnacle.sh/terms",
     ),
     message_flow="Customer initiates -> Automated response -> Agent follow-up if needed",
     name="Account Notifications",
-    options=UpsertDlcCampaignOptions(
+    options=DlcCampaignOptions(
         affiliate_marketing=False,
         age_gated=False,
         direct_lending=False,
@@ -3076,7 +3094,7 @@ client.campaigns.dlc.upsert(
         number_pooling=False,
     ),
     sample_messages=["Security alert: Unusual login detected from new device."],
-    use_case=UpsertDlcCampaignUseCase(
+    use_case=DlcCampaignUseCase(
         sub=["FRAUD_ALERT"],
         value="ACCOUNT_NOTIFICATION",
     ),
@@ -3128,7 +3146,7 @@ client.campaigns.dlc.upsert(
 <dl>
 <dd>
 
-**keywords:** `typing.Optional[UpsertDlcCampaignKeywords]` — Keyword response configuration.
+**keywords:** `typing.Optional[DlcCampaignKeywords]` — Keyword response configuration.
     
 </dd>
 </dl>
@@ -3136,7 +3154,7 @@ client.campaigns.dlc.upsert(
 <dl>
 <dd>
 
-**links:** `typing.Optional[UpsertDlcCampaignLinks]` — Legal documentation links.
+**links:** `typing.Optional[DlcCampaignLinks]` — Legal documentation links.
     
 </dd>
 </dl>
@@ -3160,7 +3178,7 @@ client.campaigns.dlc.upsert(
 <dl>
 <dd>
 
-**options:** `typing.Optional[UpsertDlcCampaignOptions]` — Campaign configuration options.
+**options:** `typing.Optional[DlcCampaignOptions]` — Campaign configuration options.
     
 </dd>
 </dl>
@@ -3176,7 +3194,7 @@ client.campaigns.dlc.upsert(
 <dl>
 <dd>
 
-**use_case:** `typing.Optional[UpsertDlcCampaignUseCase]` — Use case for the campaign.
+**use_case:** `typing.Optional[DlcCampaignUseCase]` — Use case for the campaign.
     
 </dd>
 </dl>
@@ -3536,8 +3554,13 @@ Omit campaignId to create a campaign.
 ```python
 from rcs import Pinnacle
 from rcs.campaigns.toll_free import (
-    UpsertTollFreeSchemaOptIn,
-    UpsertTollFreeSchemaUseCase,
+    TollFreeCampaignHelpKeywords,
+    TollFreeCampaignKeywords,
+    TollFreeCampaignLinks,
+    TollFreeCampaignOptIn,
+    TollFreeCampaignOptInKeywords,
+    TollFreeCampaignOptions,
+    TollFreeCampaignUseCase,
 )
 
 client = Pinnacle(
@@ -3546,15 +3569,31 @@ client = Pinnacle(
 client.campaigns.toll_free.upsert(
     brand="b_1234567890",
     campaign_id="tf_1234567890",
+    keywords=TollFreeCampaignKeywords(
+        help=TollFreeCampaignHelpKeywords(
+            message="Email founders@trypinnacle.app for support.",
+        ),
+        opt_in=TollFreeCampaignOptInKeywords(
+            message="Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+            keywords=["START", "SUBSCRIBE"],
+        ),
+    ),
+    links=TollFreeCampaignLinks(
+        privacy_policy="https://www.pinnacle.sh/privacy",
+        terms_of_service="https://www.pinnacle.sh/terms",
+    ),
     monthly_volume="1,000",
     name="Pinnacle",
-    opt_in=UpsertTollFreeSchemaOptIn(
+    opt_in=TollFreeCampaignOptIn(
         method="DIGITAL",
         url="https://www.pinnacle.sh/",
         workflow_description="Visit https://www.pinnacle.sh/",
     ),
+    options=TollFreeCampaignOptions(
+        age_gated=False,
+    ),
     production_message_content="Join the Pinnacle workshop tomorrow and send your first RCS!",
-    use_case=UpsertTollFreeSchemaUseCase(
+    use_case=TollFreeCampaignUseCase(
         summary="Alerts clients about any Pinnacle hosted workshops.",
         value="WORKSHOP_ALERTS",
     ),
@@ -3590,6 +3629,22 @@ client.campaigns.toll_free.upsert(
 <dl>
 <dd>
 
+**keywords:** `typing.Optional[TollFreeCampaignKeywords]` — Keyword response configuration.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**links:** `typing.Optional[TollFreeCampaignLinks]` — Legal documentation links.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **monthly_volume:** `typing.Optional[MessageVolumeEnum]` 
     
 </dd>
@@ -3606,7 +3661,15 @@ client.campaigns.toll_free.upsert(
 <dl>
 <dd>
 
-**opt_in:** `typing.Optional[UpsertTollFreeSchemaOptIn]` — Opt-in keyword settings.
+**opt_in:** `typing.Optional[TollFreeCampaignOptIn]` — Opt-in keyword settings.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**options:** `typing.Optional[TollFreeCampaignOptions]` — Campaign configuration options.
     
 </dd>
 </dl>
@@ -3622,7 +3685,7 @@ client.campaigns.toll_free.upsert(
 <dl>
 <dd>
 
-**use_case:** `typing.Optional[UpsertTollFreeSchemaUseCase]` — Use case classification for the campaign.
+**use_case:** `typing.Optional[TollFreeCampaignUseCase]` — Use case classification for the campaign.
     
 </dd>
 </dl>
@@ -3982,32 +4045,35 @@ Omit campaignId to create a campaign.
 ```python
 from rcs import Pinnacle
 from rcs.campaigns.rcs import (
+    RcsAgent,
     RcsAgentEmail,
     RcsAgentPhone,
     RcsAgentWebsite,
-    UpsertRcsAgent,
-    UpsertRcsLinks,
-    UpsertRcsOptIn,
-    UpsertRcsOptOut,
-    UpsertRcsUseCase,
+    RcsCampaignHelpKeywords,
+    RcsCampaignKeywords,
+    RcsCampaignOptInKeywords,
+    RcsCampaignOptOutKeywords,
+    RcsCampaignTraffic,
+    RcsLinks,
+    RcsUseCase,
 )
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.campaigns.rcs.upsert(
-    agent=UpsertRcsAgent(
+    agent=RcsAgent(
         color="#000000",
-        description="Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
+        description="Experience the power of RCS messaging with interactive demos. Test rich features like carousels, suggested replies, and media sharing. Get started with our developer-friendly APIs.",
         emails=[
             RcsAgentEmail(
                 email="founders@trypinnacle.app",
                 label="Email Us",
             )
         ],
-        hero_url="https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
-        icon_url="https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
-        name="Pinnacle Software Development",
+        hero_url="https://pncl.to/D6pDSqGxqgfbCfQmw4gXdnlHu4uSB4",
+        icon_url="https://pncl.to/mq_tdIDenRb5eYpJiM8-3THCaUBrZP",
+        name="Pinnacle - RCS Demo",
         phones=[
             RcsAgentPhone(
                 label="Contact us directly",
@@ -4021,7 +4087,6 @@ client.campaigns.rcs.upsert(
             )
         ],
     ),
-    brand_verification_url="https://www.pinnacle.sh/articles-of-incorporation.pdf",
     brand="b_1234567890",
     campaign_id="rcs_1234567890",
     expected_agent_responses=[
@@ -4030,22 +4095,40 @@ client.campaigns.rcs.upsert(
         "Here are the available times to connect with a representative tomorrow.",
         "Your appointment has been scheduled.",
     ],
-    links=UpsertRcsLinks(
+    links=RcsLinks(
         privacy_policy="https://www.trypinnacle.app/privacy",
         terms_of_service="https://www.trypinnacle.app/terms",
     ),
-    opt_in=UpsertRcsOptIn(
-        method="WEBSITE",
-        terms_and_conditions="Would you like to subscribe to Pinnacle?",
-    ),
-    opt_out=UpsertRcsOptOut(
-        description="Reply STOP to opt-out anytime.",
-        keywords=["STOP", "UNSUBSCRIBE", "END"],
-    ),
-    use_case=UpsertRcsUseCase(
-        behavior="Acts as a customer service representative.",
+    use_case=RcsUseCase(
+        behavior="Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an “onboarding guide” for new customers and a “best-practices coach” for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\nThe agent delivers a mix of operational updates and educational content (2–6 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
         value="OTHER",
     ),
+    opt_in_terms_and_conditions="We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
+    messaging_type="MULTI_USE",
+    carrier_description="Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+    keywords=RcsCampaignKeywords(
+        help=RcsCampaignHelpKeywords(
+            message="Email founders@trypinnacle.app for support.",
+            keywords=["HELP", "SUPPORT"],
+        ),
+        opt_in=RcsCampaignOptInKeywords(
+            message="Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle - RCS Demo and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+            keywords=["START", "SUBSCRIBE"],
+        ),
+        opt_out=RcsCampaignOptOutKeywords(
+            message="You've been unsubscribed from Pinnacle - RCS Demo and will no longer receive notifications. If you ever change your mind, reply START or SUBSCRIBE to rejoin anytime.",
+            keywords=["STOP", "UNSUBSCRIBE", "END"],
+        ),
+    ),
+    traffic=RcsCampaignTraffic(
+        monthly_website=10000,
+        monthly_rcs_estimate=10000,
+    ),
+    agent_triggers="The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
+    interaction_description="The agent's primary interaction will be customer service — helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
+    is_conversational=True,
+    cta_language="By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
+    demo_trigger='Text "START" to trigger the flow.',
 )
 
 ```
@@ -4062,15 +4145,7 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**agent:** `typing.Optional[UpsertRcsAgent]` — Create an agent for the campaign.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**brand_verification_url:** `typing.Optional[str]` — Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
+**agent:** `typing.Optional[RcsAgent]` — Create an agent for the campaign.
     
 </dd>
 </dl>
@@ -4102,7 +4177,7 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**links:** `typing.Optional[UpsertRcsLinks]` — Legal documentation links.
+**links:** `typing.Optional[RcsLinks]` — Legal documentation links.
     
 </dd>
 </dl>
@@ -4110,7 +4185,7 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**opt_in:** `typing.Optional[UpsertRcsOptIn]` — Opt-in configuration.
+**use_case:** `typing.Optional[RcsUseCase]` — Use case classification for the campaign.
     
 </dd>
 </dl>
@@ -4118,7 +4193,7 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**opt_out:** `typing.Optional[UpsertRcsOptOut]` — Opt-out configuration.
+**opt_in_terms_and_conditions:** `typing.Optional[str]` — Details on how opt-in is acquired. If it is done through a website or app, provide the link.
     
 </dd>
 </dl>
@@ -4126,7 +4201,76 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**use_case:** `typing.Optional[UpsertRcsUseCase]` — Use case classification for the campaign.
+**messaging_type:** `typing.Optional[RcsMessagingTypeEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**carrier_description:** `typing.Optional[str]` — Description of the agent's purpose, shown to carriers for approval.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**keywords:** `typing.Optional[RcsCampaignKeywords]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**traffic:** `typing.Optional[RcsCampaignTraffic]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_triggers:** `typing.Optional[str]` — Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**interaction_description:** `typing.Optional[str]` — Description of all agent interactions.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_conversational:** `typing.Optional[bool]` — Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cta_language:** `typing.Optional[str]` 
+
+Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. The text should meet the US CTIA requirements and is usually in the following format: <br>
+
+[Program description of the company sending the messages and what type of messages are being sent]. Msg&data rates may apply. [Message frequency: How frequently messages are sent]. [Privacy statement or link to privacy policy]. [Link to full mobile
+T&Cs page].
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**demo_trigger:** `typing.Optional[str]` — Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user.
     
 </dd>
 </dl>

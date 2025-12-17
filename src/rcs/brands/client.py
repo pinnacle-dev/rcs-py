@@ -4,6 +4,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.company_entity_type_enum import CompanyEntityTypeEnum
 from ..types.company_sector_enum import CompanySectorEnum
 from ..types.company_type_enum import CompanyTypeEnum
 from ..types.extended_brand import ExtendedBrand
@@ -108,6 +109,7 @@ class BrandsClient:
         name: typing.Optional[str] = OMIT,
         sector: typing.Optional[CompanySectorEnum] = OMIT,
         type: typing.Optional[CompanyTypeEnum] = OMIT,
+        entity_type: typing.Optional[CompanyEntityTypeEnum] = OMIT,
         website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ExtendedBrand:
@@ -147,6 +149,9 @@ class BrandsClient:
         type : typing.Optional[CompanyTypeEnum]
             Legal structure of the brand.
 
+        entity_type : typing.Optional[CompanyEntityTypeEnum]
+            Legal entity type of the brand.
+
         website : typing.Optional[str]
             Brand website URL.
 
@@ -181,6 +186,7 @@ class BrandsClient:
             name="Pinnacle",
             sector="TECHNOLOGY",
             type="PRIVATE_PROFIT",
+            entity_type="LLC",
             website="https://www.pinnacle.sh",
         )
         """
@@ -195,6 +201,7 @@ class BrandsClient:
             name=name,
             sector=sector,
             type=type,
+            entity_type=entity_type,
             website=website,
             request_options=request_options,
         )
@@ -285,6 +292,7 @@ class BrandsClient:
         name: str,
         sector: CompanySectorEnum,
         type: CompanyTypeEnum,
+        entity_type: CompanyEntityTypeEnum,
         website: str,
         dba: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
@@ -313,6 +321,9 @@ class BrandsClient:
         sector : CompanySectorEnum
 
         type : CompanyTypeEnum
+
+        entity_type : CompanyEntityTypeEnum
+            Legal entity type of the brand.
 
         website : str
             Brand website URL.
@@ -354,6 +365,7 @@ class BrandsClient:
             name="Pinnacle",
             sector="TECHNOLOGY",
             type="PRIVATE_PROFIT",
+            entity_type="LLC",
             website="https://www.pinnacle.sh",
         )
         """
@@ -365,6 +377,7 @@ class BrandsClient:
             name=name,
             sector=sector,
             type=type,
+            entity_type=entity_type,
             website=website,
             dba=dba,
             ein=ein,
@@ -501,6 +514,7 @@ class AsyncBrandsClient:
         name: typing.Optional[str] = OMIT,
         sector: typing.Optional[CompanySectorEnum] = OMIT,
         type: typing.Optional[CompanyTypeEnum] = OMIT,
+        entity_type: typing.Optional[CompanyEntityTypeEnum] = OMIT,
         website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ExtendedBrand:
@@ -539,6 +553,9 @@ class AsyncBrandsClient:
 
         type : typing.Optional[CompanyTypeEnum]
             Legal structure of the brand.
+
+        entity_type : typing.Optional[CompanyEntityTypeEnum]
+            Legal entity type of the brand.
 
         website : typing.Optional[str]
             Brand website URL.
@@ -579,6 +596,7 @@ class AsyncBrandsClient:
                 name="Pinnacle",
                 sector="TECHNOLOGY",
                 type="PRIVATE_PROFIT",
+                entity_type="LLC",
                 website="https://www.pinnacle.sh",
             )
 
@@ -596,6 +614,7 @@ class AsyncBrandsClient:
             name=name,
             sector=sector,
             type=type,
+            entity_type=entity_type,
             website=website,
             request_options=request_options,
         )
@@ -704,6 +723,7 @@ class AsyncBrandsClient:
         name: str,
         sector: CompanySectorEnum,
         type: CompanyTypeEnum,
+        entity_type: CompanyEntityTypeEnum,
         website: str,
         dba: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
@@ -732,6 +752,9 @@ class AsyncBrandsClient:
         sector : CompanySectorEnum
 
         type : CompanyTypeEnum
+
+        entity_type : CompanyEntityTypeEnum
+            Legal entity type of the brand.
 
         website : str
             Brand website URL.
@@ -778,6 +801,7 @@ class AsyncBrandsClient:
                 name="Pinnacle",
                 sector="TECHNOLOGY",
                 type="PRIVATE_PROFIT",
+                entity_type="LLC",
                 website="https://www.pinnacle.sh",
             )
 
@@ -792,6 +816,7 @@ class AsyncBrandsClient:
             name=name,
             sector=sector,
             type=type,
+            entity_type=entity_type,
             website=website,
             dba=dba,
             ein=ein,

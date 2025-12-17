@@ -9,9 +9,12 @@ from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.message_volume_enum import MessageVolumeEnum
 from ...types.toll_free_campaign_with_extended_brand_and_status import TollFreeCampaignWithExtendedBrandAndStatus
 from .raw_client import AsyncRawTollFreeClient, RawTollFreeClient
-from .types.autofill_toll_free_response import AutofillTollFreeResponse
-from .types.upsert_toll_free_schema_opt_in import UpsertTollFreeSchemaOptIn
-from .types.upsert_toll_free_schema_use_case import UpsertTollFreeSchemaUseCase
+from .types.toll_free_autofill_response import TollFreeAutofillResponse
+from .types.toll_free_campaign_keywords import TollFreeCampaignKeywords
+from .types.toll_free_campaign_links import TollFreeCampaignLinks
+from .types.toll_free_campaign_opt_in import TollFreeCampaignOptIn
+from .types.toll_free_campaign_options import TollFreeCampaignOptions
+from .types.toll_free_campaign_use_case import TollFreeCampaignUseCase
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -38,7 +41,7 @@ class TollFreeClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AutofillTollFreeResponse:
+    ) -> TollFreeAutofillResponse:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -58,7 +61,7 @@ class TollFreeClient:
 
         Returns
         -------
-        AutofillTollFreeResponse
+        TollFreeAutofillResponse
             Returns autofilled toll-free information.
 
         Examples
@@ -149,11 +152,14 @@ class TollFreeClient:
         *,
         brand: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
+        keywords: typing.Optional[TollFreeCampaignKeywords] = OMIT,
+        links: typing.Optional[TollFreeCampaignLinks] = OMIT,
         monthly_volume: typing.Optional[MessageVolumeEnum] = OMIT,
         name: typing.Optional[str] = OMIT,
-        opt_in: typing.Optional[UpsertTollFreeSchemaOptIn] = OMIT,
+        opt_in: typing.Optional[TollFreeCampaignOptIn] = OMIT,
+        options: typing.Optional[TollFreeCampaignOptions] = OMIT,
         production_message_content: typing.Optional[str] = OMIT,
-        use_case: typing.Optional[UpsertTollFreeSchemaUseCase] = OMIT,
+        use_case: typing.Optional[TollFreeCampaignUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TollFreeCampaignWithExtendedBrandAndStatus:
         """
@@ -169,18 +175,27 @@ class TollFreeClient:
         campaign_id : typing.Optional[str]
             Unique identifier for the campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
 
+        keywords : typing.Optional[TollFreeCampaignKeywords]
+            Keyword response configuration.
+
+        links : typing.Optional[TollFreeCampaignLinks]
+            Legal documentation links.
+
         monthly_volume : typing.Optional[MessageVolumeEnum]
 
         name : typing.Optional[str]
             Display name of the campaign.
 
-        opt_in : typing.Optional[UpsertTollFreeSchemaOptIn]
+        opt_in : typing.Optional[TollFreeCampaignOptIn]
             Opt-in keyword settings.
+
+        options : typing.Optional[TollFreeCampaignOptions]
+            Campaign configuration options.
 
         production_message_content : typing.Optional[str]
             Explain message that would be sent.
 
-        use_case : typing.Optional[UpsertTollFreeSchemaUseCase]
+        use_case : typing.Optional[TollFreeCampaignUseCase]
             Use case classification for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -195,8 +210,13 @@ class TollFreeClient:
         --------
         from rcs import Pinnacle
         from rcs.campaigns.toll_free import (
-            UpsertTollFreeSchemaOptIn,
-            UpsertTollFreeSchemaUseCase,
+            TollFreeCampaignHelpKeywords,
+            TollFreeCampaignKeywords,
+            TollFreeCampaignLinks,
+            TollFreeCampaignOptIn,
+            TollFreeCampaignOptInKeywords,
+            TollFreeCampaignOptions,
+            TollFreeCampaignUseCase,
         )
 
         client = Pinnacle(
@@ -205,15 +225,31 @@ class TollFreeClient:
         client.campaigns.toll_free.upsert(
             brand="b_1234567890",
             campaign_id="tf_1234567890",
+            keywords=TollFreeCampaignKeywords(
+                help=TollFreeCampaignHelpKeywords(
+                    message="Email founders@trypinnacle.app for support.",
+                ),
+                opt_in=TollFreeCampaignOptInKeywords(
+                    message="Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords=["START", "SUBSCRIBE"],
+                ),
+            ),
+            links=TollFreeCampaignLinks(
+                privacy_policy="https://www.pinnacle.sh/privacy",
+                terms_of_service="https://www.pinnacle.sh/terms",
+            ),
             monthly_volume="1,000",
             name="Pinnacle",
-            opt_in=UpsertTollFreeSchemaOptIn(
+            opt_in=TollFreeCampaignOptIn(
                 method="DIGITAL",
                 url="https://www.pinnacle.sh/",
                 workflow_description="Visit https://www.pinnacle.sh/",
             ),
+            options=TollFreeCampaignOptions(
+                age_gated=False,
+            ),
             production_message_content="Join the Pinnacle workshop tomorrow and send your first RCS!",
-            use_case=UpsertTollFreeSchemaUseCase(
+            use_case=TollFreeCampaignUseCase(
                 summary="Alerts clients about any Pinnacle hosted workshops.",
                 value="WORKSHOP_ALERTS",
             ),
@@ -222,9 +258,12 @@ class TollFreeClient:
         _response = self._raw_client.upsert(
             brand=brand,
             campaign_id=campaign_id,
+            keywords=keywords,
+            links=links,
             monthly_volume=monthly_volume,
             name=name,
             opt_in=opt_in,
+            options=options,
             production_message_content=production_message_content,
             use_case=use_case,
             request_options=request_options,
@@ -299,7 +338,7 @@ class AsyncTollFreeClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AutofillTollFreeResponse:
+    ) -> TollFreeAutofillResponse:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -319,7 +358,7 @@ class AsyncTollFreeClient:
 
         Returns
         -------
-        AutofillTollFreeResponse
+        TollFreeAutofillResponse
             Returns autofilled toll-free information.
 
         Examples
@@ -434,11 +473,14 @@ class AsyncTollFreeClient:
         *,
         brand: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
+        keywords: typing.Optional[TollFreeCampaignKeywords] = OMIT,
+        links: typing.Optional[TollFreeCampaignLinks] = OMIT,
         monthly_volume: typing.Optional[MessageVolumeEnum] = OMIT,
         name: typing.Optional[str] = OMIT,
-        opt_in: typing.Optional[UpsertTollFreeSchemaOptIn] = OMIT,
+        opt_in: typing.Optional[TollFreeCampaignOptIn] = OMIT,
+        options: typing.Optional[TollFreeCampaignOptions] = OMIT,
         production_message_content: typing.Optional[str] = OMIT,
-        use_case: typing.Optional[UpsertTollFreeSchemaUseCase] = OMIT,
+        use_case: typing.Optional[TollFreeCampaignUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TollFreeCampaignWithExtendedBrandAndStatus:
         """
@@ -454,18 +496,27 @@ class AsyncTollFreeClient:
         campaign_id : typing.Optional[str]
             Unique identifier for the campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
 
+        keywords : typing.Optional[TollFreeCampaignKeywords]
+            Keyword response configuration.
+
+        links : typing.Optional[TollFreeCampaignLinks]
+            Legal documentation links.
+
         monthly_volume : typing.Optional[MessageVolumeEnum]
 
         name : typing.Optional[str]
             Display name of the campaign.
 
-        opt_in : typing.Optional[UpsertTollFreeSchemaOptIn]
+        opt_in : typing.Optional[TollFreeCampaignOptIn]
             Opt-in keyword settings.
+
+        options : typing.Optional[TollFreeCampaignOptions]
+            Campaign configuration options.
 
         production_message_content : typing.Optional[str]
             Explain message that would be sent.
 
-        use_case : typing.Optional[UpsertTollFreeSchemaUseCase]
+        use_case : typing.Optional[TollFreeCampaignUseCase]
             Use case classification for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -482,8 +533,13 @@ class AsyncTollFreeClient:
 
         from rcs import AsyncPinnacle
         from rcs.campaigns.toll_free import (
-            UpsertTollFreeSchemaOptIn,
-            UpsertTollFreeSchemaUseCase,
+            TollFreeCampaignHelpKeywords,
+            TollFreeCampaignKeywords,
+            TollFreeCampaignLinks,
+            TollFreeCampaignOptIn,
+            TollFreeCampaignOptInKeywords,
+            TollFreeCampaignOptions,
+            TollFreeCampaignUseCase,
         )
 
         client = AsyncPinnacle(
@@ -495,15 +551,31 @@ class AsyncTollFreeClient:
             await client.campaigns.toll_free.upsert(
                 brand="b_1234567890",
                 campaign_id="tf_1234567890",
+                keywords=TollFreeCampaignKeywords(
+                    help=TollFreeCampaignHelpKeywords(
+                        message="Email founders@trypinnacle.app for support.",
+                    ),
+                    opt_in=TollFreeCampaignOptInKeywords(
+                        message="Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                        keywords=["START", "SUBSCRIBE"],
+                    ),
+                ),
+                links=TollFreeCampaignLinks(
+                    privacy_policy="https://www.pinnacle.sh/privacy",
+                    terms_of_service="https://www.pinnacle.sh/terms",
+                ),
                 monthly_volume="1,000",
                 name="Pinnacle",
-                opt_in=UpsertTollFreeSchemaOptIn(
+                opt_in=TollFreeCampaignOptIn(
                     method="DIGITAL",
                     url="https://www.pinnacle.sh/",
                     workflow_description="Visit https://www.pinnacle.sh/",
                 ),
+                options=TollFreeCampaignOptions(
+                    age_gated=False,
+                ),
                 production_message_content="Join the Pinnacle workshop tomorrow and send your first RCS!",
-                use_case=UpsertTollFreeSchemaUseCase(
+                use_case=TollFreeCampaignUseCase(
                     summary="Alerts clients about any Pinnacle hosted workshops.",
                     value="WORKSHOP_ALERTS",
                 ),
@@ -515,9 +587,12 @@ class AsyncTollFreeClient:
         _response = await self._raw_client.upsert(
             brand=brand,
             campaign_id=campaign_id,
+            keywords=keywords,
+            links=links,
             monthly_volume=monthly_volume,
             name=name,
             opt_in=opt_in,
+            options=options,
             production_message_content=production_message_content,
             use_case=use_case,
             request_options=request_options,

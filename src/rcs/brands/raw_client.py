@@ -16,6 +16,7 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.not_implemented_error import NotImplementedError
 from ..errors.payment_required_error import PaymentRequiredError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.company_entity_type_enum import CompanyEntityTypeEnum
 from ..types.company_sector_enum import CompanySectorEnum
 from ..types.company_type_enum import CompanyTypeEnum
 from ..types.error import Error
@@ -148,6 +149,7 @@ class RawBrandsClient:
         name: typing.Optional[str] = OMIT,
         sector: typing.Optional[CompanySectorEnum] = OMIT,
         type: typing.Optional[CompanyTypeEnum] = OMIT,
+        entity_type: typing.Optional[CompanyEntityTypeEnum] = OMIT,
         website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ExtendedBrand]:
@@ -187,6 +189,9 @@ class RawBrandsClient:
         type : typing.Optional[CompanyTypeEnum]
             Legal structure of the brand.
 
+        entity_type : typing.Optional[CompanyEntityTypeEnum]
+            Legal entity type of the brand.
+
         website : typing.Optional[str]
             Brand website URL.
 
@@ -214,6 +219,7 @@ class RawBrandsClient:
                 "name": name,
                 "sector": sector,
                 "type": type,
+                "entityType": entity_type,
                 "website": website,
             },
             headers={
@@ -482,6 +488,7 @@ class RawBrandsClient:
         name: str,
         sector: CompanySectorEnum,
         type: CompanyTypeEnum,
+        entity_type: CompanyEntityTypeEnum,
         website: str,
         dba: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
@@ -510,6 +517,9 @@ class RawBrandsClient:
         sector : CompanySectorEnum
 
         type : CompanyTypeEnum
+
+        entity_type : CompanyEntityTypeEnum
+            Legal entity type of the brand.
 
         website : str
             Brand website URL.
@@ -543,6 +553,7 @@ class RawBrandsClient:
                 "name": name,
                 "sector": sector,
                 "type": type,
+                "entityType": entity_type,
                 "website": website,
             },
             headers={
@@ -831,6 +842,7 @@ class AsyncRawBrandsClient:
         name: typing.Optional[str] = OMIT,
         sector: typing.Optional[CompanySectorEnum] = OMIT,
         type: typing.Optional[CompanyTypeEnum] = OMIT,
+        entity_type: typing.Optional[CompanyEntityTypeEnum] = OMIT,
         website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ExtendedBrand]:
@@ -870,6 +882,9 @@ class AsyncRawBrandsClient:
         type : typing.Optional[CompanyTypeEnum]
             Legal structure of the brand.
 
+        entity_type : typing.Optional[CompanyEntityTypeEnum]
+            Legal entity type of the brand.
+
         website : typing.Optional[str]
             Brand website URL.
 
@@ -897,6 +912,7 @@ class AsyncRawBrandsClient:
                 "name": name,
                 "sector": sector,
                 "type": type,
+                "entityType": entity_type,
                 "website": website,
             },
             headers={
@@ -1165,6 +1181,7 @@ class AsyncRawBrandsClient:
         name: str,
         sector: CompanySectorEnum,
         type: CompanyTypeEnum,
+        entity_type: CompanyEntityTypeEnum,
         website: str,
         dba: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
@@ -1193,6 +1210,9 @@ class AsyncRawBrandsClient:
         sector : CompanySectorEnum
 
         type : CompanyTypeEnum
+
+        entity_type : CompanyEntityTypeEnum
+            Legal entity type of the brand.
 
         website : str
             Brand website URL.
@@ -1226,6 +1246,7 @@ class AsyncRawBrandsClient:
                 "name": name,
                 "sector": sector,
                 "type": type,
+                "entityType": entity_type,
                 "website": website,
             },
             headers={

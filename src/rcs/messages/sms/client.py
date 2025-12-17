@@ -7,7 +7,7 @@ from ...core.request_options import RequestOptions
 from ...types.sms_validation_result import SmsValidationResult
 from .raw_client import AsyncRawSmsClient, RawSmsClient
 from .types.send_sms_options import SendSmsOptions
-from .types.send_sms_response import SendSmsResponse
+from .types.sms_send_response import SmsSendResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -36,7 +36,7 @@ class SmsClient:
         to: str,
         options: typing.Optional[SendSmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SendSmsResponse:
+    ) -> SmsSendResponse:
         """
         Send a SMS message immediately or schedule it for future delivery.
 
@@ -59,7 +59,7 @@ class SmsClient:
 
         Returns
         -------
-        SendSmsResponse
+        SmsSendResponse
             Successfully sent or scheduled the message. <br>
 
             Use our [/messages/:id](./get) endpoint to track your message.
@@ -137,7 +137,7 @@ class AsyncSmsClient:
         to: str,
         options: typing.Optional[SendSmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SendSmsResponse:
+    ) -> SmsSendResponse:
         """
         Send a SMS message immediately or schedule it for future delivery.
 
@@ -160,7 +160,7 @@ class AsyncSmsClient:
 
         Returns
         -------
-        SendSmsResponse
+        SmsSendResponse
             Successfully sent or scheduled the message. <br>
 
             Use our [/messages/:id](./get) endpoint to track your message.

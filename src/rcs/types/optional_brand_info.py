@@ -3,7 +3,10 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
+from .company_entity_type_enum import CompanyEntityTypeEnum
 from .company_sector_enum import CompanySectorEnum
 from .company_type_enum import CompanyTypeEnum
 from .optional_contacts import OptionalContacts
@@ -43,6 +46,13 @@ class OptionalBrandInfo(UniversalBaseModel):
 
     sector: typing.Optional[CompanySectorEnum] = None
     type: typing.Optional[CompanyTypeEnum] = None
+    entity_type: typing_extensions.Annotated[
+        typing.Optional[CompanyEntityTypeEnum], FieldMetadata(alias="entityType")
+    ] = pydantic.Field(default=None)
+    """
+    Legal entity type of the brand.
+    """
+
     website: typing.Optional[str] = pydantic.Field(default=None)
     """
     Brand website URL.

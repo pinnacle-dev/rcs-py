@@ -6,11 +6,25 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import AutofillTollFreeResponse, UpsertTollFreeSchemaOptIn, UpsertTollFreeSchemaUseCase
+    from .types import (
+        TollFreeAutofillResponse,
+        TollFreeCampaignHelpKeywords,
+        TollFreeCampaignKeywords,
+        TollFreeCampaignLinks,
+        TollFreeCampaignOptIn,
+        TollFreeCampaignOptInKeywords,
+        TollFreeCampaignOptions,
+        TollFreeCampaignUseCase,
+    )
 _dynamic_imports: typing.Dict[str, str] = {
-    "AutofillTollFreeResponse": ".types",
-    "UpsertTollFreeSchemaOptIn": ".types",
-    "UpsertTollFreeSchemaUseCase": ".types",
+    "TollFreeAutofillResponse": ".types",
+    "TollFreeCampaignHelpKeywords": ".types",
+    "TollFreeCampaignKeywords": ".types",
+    "TollFreeCampaignLinks": ".types",
+    "TollFreeCampaignOptIn": ".types",
+    "TollFreeCampaignOptInKeywords": ".types",
+    "TollFreeCampaignOptions": ".types",
+    "TollFreeCampaignUseCase": ".types",
 }
 
 
@@ -33,4 +47,13 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["AutofillTollFreeResponse", "UpsertTollFreeSchemaOptIn", "UpsertTollFreeSchemaUseCase"]
+__all__ = [
+    "TollFreeAutofillResponse",
+    "TollFreeCampaignHelpKeywords",
+    "TollFreeCampaignKeywords",
+    "TollFreeCampaignLinks",
+    "TollFreeCampaignOptIn",
+    "TollFreeCampaignOptInKeywords",
+    "TollFreeCampaignOptions",
+    "TollFreeCampaignUseCase",
+]

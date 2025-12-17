@@ -19,8 +19,8 @@ from ..types.phone_enum import PhoneEnum
 from ..types.phone_feature_enum import PhoneFeatureEnum
 from ..types.phone_number_details import PhoneNumberDetails
 from ..types.purchased_number import PurchasedNumber
-from .types.get_phone_numbers_response import GetPhoneNumbersResponse
 from .types.phone_details_schema_level import PhoneDetailsSchemaLevel
+from .types.phone_numbers_get_response import PhoneNumbersGetResponse
 from .types.retrieve_phone_number_details_options import RetrievePhoneNumberDetailsOptions
 from .types.search_phone_number_by_digits import SearchPhoneNumberByDigits
 from .types.search_phone_number_by_location import SearchPhoneNumberByLocation
@@ -259,7 +259,7 @@ class RawPhoneNumbersClient:
         level: PhoneDetailsSchemaLevel,
         options: typing.Optional[RetrievePhoneNumberDetailsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[GetPhoneNumbersResponse]:
+    ) -> HttpResponse[PhoneNumbersGetResponse]:
         """
         Retrieve information about any phone number.
 
@@ -281,7 +281,7 @@ class RawPhoneNumbersClient:
 
         Returns
         -------
-        HttpResponse[GetPhoneNumbersResponse]
+        HttpResponse[PhoneNumbersGetResponse]
             Returns detailed information for the requested phone number based on the selected lookup.
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -303,9 +303,9 @@ class RawPhoneNumbersClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    GetPhoneNumbersResponse,
+                    PhoneNumbersGetResponse,
                     parse_obj_as(
-                        type_=GetPhoneNumbersResponse,  # type: ignore
+                        type_=PhoneNumbersGetResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -600,7 +600,7 @@ class AsyncRawPhoneNumbersClient:
         level: PhoneDetailsSchemaLevel,
         options: typing.Optional[RetrievePhoneNumberDetailsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[GetPhoneNumbersResponse]:
+    ) -> AsyncHttpResponse[PhoneNumbersGetResponse]:
         """
         Retrieve information about any phone number.
 
@@ -622,7 +622,7 @@ class AsyncRawPhoneNumbersClient:
 
         Returns
         -------
-        AsyncHttpResponse[GetPhoneNumbersResponse]
+        AsyncHttpResponse[PhoneNumbersGetResponse]
             Returns detailed information for the requested phone number based on the selected lookup.
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -644,9 +644,9 @@ class AsyncRawPhoneNumbersClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    GetPhoneNumbersResponse,
+                    PhoneNumbersGetResponse,
                     parse_obj_as(
-                        type_=GetPhoneNumbersResponse,  # type: ignore
+                        type_=PhoneNumbersGetResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

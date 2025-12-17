@@ -13,10 +13,10 @@ from ..types.message_list import MessageList
 from ..types.sender import Sender
 from ..types.successful_conversation_update import SuccessfulConversationUpdate
 from .raw_client import AsyncRawConversationsClient, RawConversationsClient
-from .types.list_messages_conversations_request_direction import ListMessagesConversationsRequestDirection
-from .types.list_messages_conversations_request_sort_order import ListMessagesConversationsRequestSortOrder
-from .types.list_messages_conversations_request_status import ListMessagesConversationsRequestStatus
-from .types.list_messages_conversations_request_type import ListMessagesConversationsRequestType
+from .types.conversations_list_messages_request_direction import ConversationsListMessagesRequestDirection
+from .types.conversations_list_messages_request_sort_order import ConversationsListMessagesRequestSortOrder
+from .types.conversations_list_messages_request_status import ConversationsListMessagesRequestStatus
+from .types.conversations_list_messages_request_type import ConversationsListMessagesRequestType
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -190,10 +190,10 @@ class ConversationsClient:
         *,
         page_index: typing.Optional[int] = None,
         page_size: typing.Optional[int] = None,
-        sort_order: typing.Optional[ListMessagesConversationsRequestSortOrder] = None,
-        direction: typing.Optional[ListMessagesConversationsRequestDirection] = None,
-        status: typing.Optional[ListMessagesConversationsRequestStatus] = None,
-        type: typing.Optional[ListMessagesConversationsRequestType] = None,
+        sort_order: typing.Optional[ConversationsListMessagesRequestSortOrder] = None,
+        direction: typing.Optional[ConversationsListMessagesRequestDirection] = None,
+        status: typing.Optional[ConversationsListMessagesRequestStatus] = None,
+        type: typing.Optional[ConversationsListMessagesRequestType] = None,
         date_from: typing.Optional[dt.datetime] = None,
         date_to: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -212,22 +212,22 @@ class ConversationsClient:
         page_size : typing.Optional[int]
             Number of messages to return per page.
 
-        sort_order : typing.Optional[ListMessagesConversationsRequestSortOrder]
+        sort_order : typing.Optional[ConversationsListMessagesRequestSortOrder]
             Sort order for messages. <br>
 
             - `asc`: Oldest messages first
             - `desc`: Newest messages first (default)
 
-        direction : typing.Optional[ListMessagesConversationsRequestDirection]
+        direction : typing.Optional[ConversationsListMessagesRequestDirection]
             Filter messages by direction. <br>
 
             - `INBOUND`: Messages received from contacts
             - `OUTBOUND`: Messages sent to contacts
 
-        status : typing.Optional[ListMessagesConversationsRequestStatus]
+        status : typing.Optional[ConversationsListMessagesRequestStatus]
             Filter messages by delivery status.
 
-        type : typing.Optional[ListMessagesConversationsRequestType]
+        type : typing.Optional[ConversationsListMessagesRequestType]
             Filter messages by protocol type.
 
         date_from : typing.Optional[dt.datetime]
@@ -462,10 +462,10 @@ class AsyncConversationsClient:
         *,
         page_index: typing.Optional[int] = None,
         page_size: typing.Optional[int] = None,
-        sort_order: typing.Optional[ListMessagesConversationsRequestSortOrder] = None,
-        direction: typing.Optional[ListMessagesConversationsRequestDirection] = None,
-        status: typing.Optional[ListMessagesConversationsRequestStatus] = None,
-        type: typing.Optional[ListMessagesConversationsRequestType] = None,
+        sort_order: typing.Optional[ConversationsListMessagesRequestSortOrder] = None,
+        direction: typing.Optional[ConversationsListMessagesRequestDirection] = None,
+        status: typing.Optional[ConversationsListMessagesRequestStatus] = None,
+        type: typing.Optional[ConversationsListMessagesRequestType] = None,
         date_from: typing.Optional[dt.datetime] = None,
         date_to: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -484,22 +484,22 @@ class AsyncConversationsClient:
         page_size : typing.Optional[int]
             Number of messages to return per page.
 
-        sort_order : typing.Optional[ListMessagesConversationsRequestSortOrder]
+        sort_order : typing.Optional[ConversationsListMessagesRequestSortOrder]
             Sort order for messages. <br>
 
             - `asc`: Oldest messages first
             - `desc`: Newest messages first (default)
 
-        direction : typing.Optional[ListMessagesConversationsRequestDirection]
+        direction : typing.Optional[ConversationsListMessagesRequestDirection]
             Filter messages by direction. <br>
 
             - `INBOUND`: Messages received from contacts
             - `OUTBOUND`: Messages sent to contacts
 
-        status : typing.Optional[ListMessagesConversationsRequestStatus]
+        status : typing.Optional[ConversationsListMessagesRequestStatus]
             Filter messages by delivery status.
 
-        type : typing.Optional[ListMessagesConversationsRequestType]
+        type : typing.Optional[ConversationsListMessagesRequestType]
             Filter messages by protocol type.
 
         date_from : typing.Optional[dt.datetime]

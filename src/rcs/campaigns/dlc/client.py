@@ -9,10 +9,10 @@ from ...types.campaign_submission_result import CampaignSubmissionResult
 from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.dlc_campaign_with_extended_brand_and_status import DlcCampaignWithExtendedBrandAndStatus
 from .raw_client import AsyncRawDlcClient, RawDlcClient
-from .types.upsert_dlc_campaign_keywords import UpsertDlcCampaignKeywords
-from .types.upsert_dlc_campaign_links import UpsertDlcCampaignLinks
-from .types.upsert_dlc_campaign_options import UpsertDlcCampaignOptions
-from .types.upsert_dlc_campaign_use_case import UpsertDlcCampaignUseCase
+from .types.dlc_campaign_keywords import DlcCampaignKeywords
+from .types.dlc_campaign_links import DlcCampaignLinks
+from .types.dlc_campaign_options import DlcCampaignOptions
+from .types.dlc_campaign_use_case import DlcCampaignUseCase
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -153,13 +153,13 @@ class DlcClient:
         brand: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
-        keywords: typing.Optional[UpsertDlcCampaignKeywords] = OMIT,
-        links: typing.Optional[UpsertDlcCampaignLinks] = OMIT,
+        keywords: typing.Optional[DlcCampaignKeywords] = OMIT,
+        links: typing.Optional[DlcCampaignLinks] = OMIT,
         message_flow: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        options: typing.Optional[UpsertDlcCampaignOptions] = OMIT,
+        options: typing.Optional[DlcCampaignOptions] = OMIT,
         sample_messages: typing.Optional[typing.Sequence[str]] = OMIT,
-        use_case: typing.Optional[UpsertDlcCampaignUseCase] = OMIT,
+        use_case: typing.Optional[DlcCampaignUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DlcCampaignWithExtendedBrandAndStatus:
         """
@@ -181,10 +181,10 @@ class DlcClient:
         description : typing.Optional[str]
             Description of the campaign.
 
-        keywords : typing.Optional[UpsertDlcCampaignKeywords]
+        keywords : typing.Optional[DlcCampaignKeywords]
             Keyword response configuration.
 
-        links : typing.Optional[UpsertDlcCampaignLinks]
+        links : typing.Optional[DlcCampaignLinks]
             Legal documentation links.
 
         message_flow : typing.Optional[str]
@@ -193,13 +193,13 @@ class DlcClient:
         name : typing.Optional[str]
             Display name of the campaign.
 
-        options : typing.Optional[UpsertDlcCampaignOptions]
+        options : typing.Optional[DlcCampaignOptions]
             Campaign configuration options.
 
         sample_messages : typing.Optional[typing.Sequence[str]]
             Example messages for the campaign.
 
-        use_case : typing.Optional[UpsertDlcCampaignUseCase]
+        use_case : typing.Optional[DlcCampaignUseCase]
             Use case for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -214,13 +214,13 @@ class DlcClient:
         --------
         from rcs import Pinnacle
         from rcs.campaigns.dlc import (
-            UpsertDlcCampaignHelpKeywords,
-            UpsertDlcCampaignKeywords,
-            UpsertDlcCampaignLinks,
-            UpsertDlcCampaignOptInKeywords,
-            UpsertDlcCampaignOptions,
-            UpsertDlcCampaignOptOutKeywords,
-            UpsertDlcCampaignUseCase,
+            DlcCampaignHelpKeywords,
+            DlcCampaignKeywords,
+            DlcCampaignLinks,
+            DlcCampaignOptInKeywords,
+            DlcCampaignOptions,
+            DlcCampaignOptOutKeywords,
+            DlcCampaignUseCase,
         )
 
         client = Pinnacle(
@@ -230,27 +230,27 @@ class DlcClient:
             auto_renew=True,
             brand="b_1234567890",
             campaign_id="dlc_1234567890",
-            keywords=UpsertDlcCampaignKeywords(
-                help=UpsertDlcCampaignHelpKeywords(
+            keywords=DlcCampaignKeywords(
+                help=DlcCampaignHelpKeywords(
                     message="Reply HELP for assistance, STOP to opt-out",
                     values=["HELP", "INFO", "SUPPORT"],
                 ),
-                opt_in=UpsertDlcCampaignOptInKeywords(
+                opt_in=DlcCampaignOptInKeywords(
                     message="Welcome. You are now subscribed to Pinnacle.",
                     values=["JOIN", "START", "SUBSCRIBE"],
                 ),
-                opt_out=UpsertDlcCampaignOptOutKeywords(
+                opt_out=DlcCampaignOptOutKeywords(
                     message="You have been unsubscribed. Reply START to rejoin.",
                     values=["STOP", "QUIT", "UNSUBSCRIBE"],
                 ),
             ),
-            links=UpsertDlcCampaignLinks(
+            links=DlcCampaignLinks(
                 privacy_policy="https://www.pinnacle.sh/privacy",
                 terms_of_service="https://www.pinnacle.sh/terms",
             ),
             message_flow="Customer initiates -> Automated response -> Agent follow-up if needed",
             name="Account Notifications",
-            options=UpsertDlcCampaignOptions(
+            options=DlcCampaignOptions(
                 affiliate_marketing=False,
                 age_gated=False,
                 direct_lending=False,
@@ -259,7 +259,7 @@ class DlcClient:
                 number_pooling=False,
             ),
             sample_messages=["Security alert: Unusual login detected from new device."],
-            use_case=UpsertDlcCampaignUseCase(
+            use_case=DlcCampaignUseCase(
                 sub=["FRAUD_ALERT"],
                 value="ACCOUNT_NOTIFICATION",
             ),
@@ -487,13 +487,13 @@ class AsyncDlcClient:
         brand: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
-        keywords: typing.Optional[UpsertDlcCampaignKeywords] = OMIT,
-        links: typing.Optional[UpsertDlcCampaignLinks] = OMIT,
+        keywords: typing.Optional[DlcCampaignKeywords] = OMIT,
+        links: typing.Optional[DlcCampaignLinks] = OMIT,
         message_flow: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        options: typing.Optional[UpsertDlcCampaignOptions] = OMIT,
+        options: typing.Optional[DlcCampaignOptions] = OMIT,
         sample_messages: typing.Optional[typing.Sequence[str]] = OMIT,
-        use_case: typing.Optional[UpsertDlcCampaignUseCase] = OMIT,
+        use_case: typing.Optional[DlcCampaignUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DlcCampaignWithExtendedBrandAndStatus:
         """
@@ -515,10 +515,10 @@ class AsyncDlcClient:
         description : typing.Optional[str]
             Description of the campaign.
 
-        keywords : typing.Optional[UpsertDlcCampaignKeywords]
+        keywords : typing.Optional[DlcCampaignKeywords]
             Keyword response configuration.
 
-        links : typing.Optional[UpsertDlcCampaignLinks]
+        links : typing.Optional[DlcCampaignLinks]
             Legal documentation links.
 
         message_flow : typing.Optional[str]
@@ -527,13 +527,13 @@ class AsyncDlcClient:
         name : typing.Optional[str]
             Display name of the campaign.
 
-        options : typing.Optional[UpsertDlcCampaignOptions]
+        options : typing.Optional[DlcCampaignOptions]
             Campaign configuration options.
 
         sample_messages : typing.Optional[typing.Sequence[str]]
             Example messages for the campaign.
 
-        use_case : typing.Optional[UpsertDlcCampaignUseCase]
+        use_case : typing.Optional[DlcCampaignUseCase]
             Use case for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -550,13 +550,13 @@ class AsyncDlcClient:
 
         from rcs import AsyncPinnacle
         from rcs.campaigns.dlc import (
-            UpsertDlcCampaignHelpKeywords,
-            UpsertDlcCampaignKeywords,
-            UpsertDlcCampaignLinks,
-            UpsertDlcCampaignOptInKeywords,
-            UpsertDlcCampaignOptions,
-            UpsertDlcCampaignOptOutKeywords,
-            UpsertDlcCampaignUseCase,
+            DlcCampaignHelpKeywords,
+            DlcCampaignKeywords,
+            DlcCampaignLinks,
+            DlcCampaignOptInKeywords,
+            DlcCampaignOptions,
+            DlcCampaignOptOutKeywords,
+            DlcCampaignUseCase,
         )
 
         client = AsyncPinnacle(
@@ -569,27 +569,27 @@ class AsyncDlcClient:
                 auto_renew=True,
                 brand="b_1234567890",
                 campaign_id="dlc_1234567890",
-                keywords=UpsertDlcCampaignKeywords(
-                    help=UpsertDlcCampaignHelpKeywords(
+                keywords=DlcCampaignKeywords(
+                    help=DlcCampaignHelpKeywords(
                         message="Reply HELP for assistance, STOP to opt-out",
                         values=["HELP", "INFO", "SUPPORT"],
                     ),
-                    opt_in=UpsertDlcCampaignOptInKeywords(
+                    opt_in=DlcCampaignOptInKeywords(
                         message="Welcome. You are now subscribed to Pinnacle.",
                         values=["JOIN", "START", "SUBSCRIBE"],
                     ),
-                    opt_out=UpsertDlcCampaignOptOutKeywords(
+                    opt_out=DlcCampaignOptOutKeywords(
                         message="You have been unsubscribed. Reply START to rejoin.",
                         values=["STOP", "QUIT", "UNSUBSCRIBE"],
                     ),
                 ),
-                links=UpsertDlcCampaignLinks(
+                links=DlcCampaignLinks(
                     privacy_policy="https://www.pinnacle.sh/privacy",
                     terms_of_service="https://www.pinnacle.sh/terms",
                 ),
                 message_flow="Customer initiates -> Automated response -> Agent follow-up if needed",
                 name="Account Notifications",
-                options=UpsertDlcCampaignOptions(
+                options=DlcCampaignOptions(
                     affiliate_marketing=False,
                     age_gated=False,
                     direct_lending=False,
@@ -600,7 +600,7 @@ class AsyncDlcClient:
                 sample_messages=[
                     "Security alert: Unusual login detected from new device."
                 ],
-                use_case=UpsertDlcCampaignUseCase(
+                use_case=DlcCampaignUseCase(
                     sub=["FRAUD_ALERT"],
                     value="ACCOUNT_NOTIFICATION",
                 ),

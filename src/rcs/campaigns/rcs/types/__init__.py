@@ -6,25 +6,31 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .autofill_rcs_response import AutofillRcsResponse
+    from .rcs_agent import RcsAgent
     from .rcs_agent_email import RcsAgentEmail
     from .rcs_agent_phone import RcsAgentPhone
     from .rcs_agent_website import RcsAgentWebsite
-    from .upsert_rcs_agent import UpsertRcsAgent
-    from .upsert_rcs_links import UpsertRcsLinks
-    from .upsert_rcs_opt_in import UpsertRcsOptIn
-    from .upsert_rcs_opt_out import UpsertRcsOptOut
-    from .upsert_rcs_use_case import UpsertRcsUseCase
+    from .rcs_autofill_response import RcsAutofillResponse
+    from .rcs_campaign_help_keywords import RcsCampaignHelpKeywords
+    from .rcs_campaign_keywords import RcsCampaignKeywords
+    from .rcs_campaign_opt_in_keywords import RcsCampaignOptInKeywords
+    from .rcs_campaign_opt_out_keywords import RcsCampaignOptOutKeywords
+    from .rcs_campaign_traffic import RcsCampaignTraffic
+    from .rcs_links import RcsLinks
+    from .rcs_use_case import RcsUseCase
 _dynamic_imports: typing.Dict[str, str] = {
-    "AutofillRcsResponse": ".autofill_rcs_response",
+    "RcsAgent": ".rcs_agent",
     "RcsAgentEmail": ".rcs_agent_email",
     "RcsAgentPhone": ".rcs_agent_phone",
     "RcsAgentWebsite": ".rcs_agent_website",
-    "UpsertRcsAgent": ".upsert_rcs_agent",
-    "UpsertRcsLinks": ".upsert_rcs_links",
-    "UpsertRcsOptIn": ".upsert_rcs_opt_in",
-    "UpsertRcsOptOut": ".upsert_rcs_opt_out",
-    "UpsertRcsUseCase": ".upsert_rcs_use_case",
+    "RcsAutofillResponse": ".rcs_autofill_response",
+    "RcsCampaignHelpKeywords": ".rcs_campaign_help_keywords",
+    "RcsCampaignKeywords": ".rcs_campaign_keywords",
+    "RcsCampaignOptInKeywords": ".rcs_campaign_opt_in_keywords",
+    "RcsCampaignOptOutKeywords": ".rcs_campaign_opt_out_keywords",
+    "RcsCampaignTraffic": ".rcs_campaign_traffic",
+    "RcsLinks": ".rcs_links",
+    "RcsUseCase": ".rcs_use_case",
 }
 
 
@@ -48,13 +54,16 @@ def __dir__():
 
 
 __all__ = [
-    "AutofillRcsResponse",
+    "RcsAgent",
     "RcsAgentEmail",
     "RcsAgentPhone",
     "RcsAgentWebsite",
-    "UpsertRcsAgent",
-    "UpsertRcsLinks",
-    "UpsertRcsOptIn",
-    "UpsertRcsOptOut",
-    "UpsertRcsUseCase",
+    "RcsAutofillResponse",
+    "RcsCampaignHelpKeywords",
+    "RcsCampaignKeywords",
+    "RcsCampaignOptInKeywords",
+    "RcsCampaignOptOutKeywords",
+    "RcsCampaignTraffic",
+    "RcsLinks",
+    "RcsUseCase",
 ]

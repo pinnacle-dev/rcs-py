@@ -18,7 +18,7 @@ from ...errors.unauthorized_error import UnauthorizedError
 from ...types.error import Error
 from ...types.sms_validation_result import SmsValidationResult
 from .types.send_sms_options import SendSmsOptions
-from .types.send_sms_response import SendSmsResponse
+from .types.sms_send_response import SmsSendResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -36,7 +36,7 @@ class RawSmsClient:
         to: str,
         options: typing.Optional[SendSmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[SendSmsResponse]:
+    ) -> HttpResponse[SmsSendResponse]:
         """
         Send a SMS message immediately or schedule it for future delivery.
 
@@ -59,7 +59,7 @@ class RawSmsClient:
 
         Returns
         -------
-        HttpResponse[SendSmsResponse]
+        HttpResponse[SmsSendResponse]
             Successfully sent or scheduled the message. <br>
 
             Use our [/messages/:id](./get) endpoint to track your message.
@@ -84,9 +84,9 @@ class RawSmsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    SendSmsResponse,
+                    SmsSendResponse,
                     parse_obj_as(
-                        type_=SendSmsResponse,  # type: ignore
+                        type_=SmsSendResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -254,7 +254,7 @@ class AsyncRawSmsClient:
         to: str,
         options: typing.Optional[SendSmsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[SendSmsResponse]:
+    ) -> AsyncHttpResponse[SmsSendResponse]:
         """
         Send a SMS message immediately or schedule it for future delivery.
 
@@ -277,7 +277,7 @@ class AsyncRawSmsClient:
 
         Returns
         -------
-        AsyncHttpResponse[SendSmsResponse]
+        AsyncHttpResponse[SmsSendResponse]
             Successfully sent or scheduled the message. <br>
 
             Use our [/messages/:id](./get) endpoint to track your message.
@@ -302,9 +302,9 @@ class AsyncRawSmsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    SendSmsResponse,
+                    SmsSendResponse,
                     parse_obj_as(
-                        type_=SendSmsResponse,  # type: ignore
+                        type_=SmsSendResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

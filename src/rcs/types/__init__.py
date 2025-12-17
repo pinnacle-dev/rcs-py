@@ -14,6 +14,7 @@ if typing.TYPE_CHECKING:
     from .advanced_phone_information_location_country import AdvancedPhoneInformationLocationCountry
     from .advanced_phone_information_type import AdvancedPhoneInformationType
     from .advanced_phone_information_type_recommendation import AdvancedPhoneInformationTypeRecommendation
+    from .agent import Agent
     from .attach_webhook_by_id_params import AttachWebhookByIdParams
     from .attach_webhook_params import AttachWebhookParams
     from .attach_webhook_response_webhook import AttachWebhookResponseWebhook
@@ -49,6 +50,7 @@ if typing.TYPE_CHECKING:
     from .campaign_validation_response_errors_item import CampaignValidationResponseErrorsItem
     from .campaign_validation_result import CampaignValidationResult
     from .cancel_scheduled_message_response import CancelScheduledMessageResponse
+    from .company_entity_type_enum import CompanyEntityTypeEnum
     from .company_sector_enum import CompanySectorEnum
     from .company_type_enum import CompanyTypeEnum
     from .configured_webhook import ConfiguredWebhook
@@ -60,8 +62,6 @@ if typing.TYPE_CHECKING:
     from .conversation_contact import ConversationContact
     from .conversation_list import ConversationList
     from .conversation_sender import ConversationSender
-    from .conversation_sender_agent_id import ConversationSenderAgentId
-    from .conversation_sender_capabilities import ConversationSenderCapabilities
     from .create_and_attach_webhook_by_url_params import CreateAndAttachWebhookByUrlParams
     from .create_url_options import CreateUrlOptions
     from .delete_audience_response import DeleteAudienceResponse
@@ -125,6 +125,7 @@ if typing.TYPE_CHECKING:
     from .optional_contact import OptionalContact
     from .optional_contacts import OptionalContacts
     from .pagination import Pagination
+    from .phone import Phone
     from .phone_capabilities import PhoneCapabilities
     from .phone_enum import PhoneEnum
     from .phone_feature_enum import PhoneFeatureEnum
@@ -157,7 +158,6 @@ if typing.TYPE_CHECKING:
     from .rcs_button_send_location_lat_long import RcsButtonSendLocationLatLong
     from .rcs_button_trigger import RcsButtonTrigger
     from .rcs_campaign import RcsCampaign
-    from .rcs_campaign_opt_in_method_enum import RcsCampaignOptInMethodEnum
     from .rcs_campaign_schema_agent import RcsCampaignSchemaAgent
     from .rcs_campaign_schema_agent_emails_item import RcsCampaignSchemaAgentEmailsItem
     from .rcs_campaign_schema_agent_phones_item import RcsCampaignSchemaAgentPhonesItem
@@ -166,13 +166,19 @@ if typing.TYPE_CHECKING:
     from .rcs_campaign_schema_extra_agent_emails_item import RcsCampaignSchemaExtraAgentEmailsItem
     from .rcs_campaign_schema_extra_agent_phones_item import RcsCampaignSchemaExtraAgentPhonesItem
     from .rcs_campaign_schema_extra_agent_websites_item import RcsCampaignSchemaExtraAgentWebsitesItem
+    from .rcs_campaign_schema_extra_keywords import RcsCampaignSchemaExtraKeywords
+    from .rcs_campaign_schema_extra_keywords_help import RcsCampaignSchemaExtraKeywordsHelp
+    from .rcs_campaign_schema_extra_keywords_opt_in import RcsCampaignSchemaExtraKeywordsOptIn
+    from .rcs_campaign_schema_extra_keywords_opt_out import RcsCampaignSchemaExtraKeywordsOptOut
     from .rcs_campaign_schema_extra_links import RcsCampaignSchemaExtraLinks
-    from .rcs_campaign_schema_extra_opt_in import RcsCampaignSchemaExtraOptIn
-    from .rcs_campaign_schema_extra_opt_out import RcsCampaignSchemaExtraOptOut
+    from .rcs_campaign_schema_extra_traffic import RcsCampaignSchemaExtraTraffic
     from .rcs_campaign_schema_extra_use_case import RcsCampaignSchemaExtraUseCase
+    from .rcs_campaign_schema_keywords import RcsCampaignSchemaKeywords
+    from .rcs_campaign_schema_keywords_help import RcsCampaignSchemaKeywordsHelp
+    from .rcs_campaign_schema_keywords_opt_in import RcsCampaignSchemaKeywordsOptIn
+    from .rcs_campaign_schema_keywords_opt_out import RcsCampaignSchemaKeywordsOptOut
     from .rcs_campaign_schema_links import RcsCampaignSchemaLinks
-    from .rcs_campaign_schema_opt_in import RcsCampaignSchemaOptIn
-    from .rcs_campaign_schema_opt_out import RcsCampaignSchemaOptOut
+    from .rcs_campaign_schema_traffic import RcsCampaignSchemaTraffic
     from .rcs_campaign_schema_use_case import RcsCampaignSchemaUseCase
     from .rcs_campaign_status import RcsCampaignStatus
     from .rcs_campaign_use_case_enum import RcsCampaignUseCaseEnum
@@ -186,6 +192,7 @@ if typing.TYPE_CHECKING:
     from .rcs_link_result import RcsLinkResult
     from .rcs_media_content import RcsMediaContent
     from .rcs_media_details_content import RcsMediaDetailsContent
+    from .rcs_messaging_type_enum import RcsMessagingTypeEnum
     from .rcs_validate_content import RcsValidateContent
     from .rcs_validate_content_media import RcsValidateContentMedia
     from .rcs_validation_result import RcsValidationResult
@@ -234,6 +241,13 @@ if typing.TYPE_CHECKING:
     from .submission_results import SubmissionResults
     from .successful_conversation_update import SuccessfulConversationUpdate
     from .toll_free_campaign import TollFreeCampaign
+    from .toll_free_campaign_schema_keywords import TollFreeCampaignSchemaKeywords
+    from .toll_free_campaign_schema_keywords_help import TollFreeCampaignSchemaKeywordsHelp
+    from .toll_free_campaign_schema_keywords_opt_in import TollFreeCampaignSchemaKeywordsOptIn
+    from .toll_free_campaign_schema_links import TollFreeCampaignSchemaLinks
+    from .toll_free_campaign_schema_opt_in import TollFreeCampaignSchemaOptIn
+    from .toll_free_campaign_schema_options import TollFreeCampaignSchemaOptions
+    from .toll_free_campaign_schema_use_case import TollFreeCampaignSchemaUseCase
     from .toll_free_campaign_status import TollFreeCampaignStatus
     from .toll_free_campaign_use_case_enum import TollFreeCampaignUseCaseEnum
     from .toll_free_campaign_with_extended_brand_and_status import TollFreeCampaignWithExtendedBrandAndStatus
@@ -242,8 +256,6 @@ if typing.TYPE_CHECKING:
     from .updated_contact_id import UpdatedContactId
     from .upload_results import UploadResults
     from .upsert_contact import UpsertContact
-    from .upsert_toll_free_campaign_opt_in import UpsertTollFreeCampaignOptIn
-    from .upsert_toll_free_campaign_use_case import UpsertTollFreeCampaignUseCase
     from .user_event import UserEvent
     from .user_event_conversation import UserEventConversation
     from .v_card_address_schema_type_item import VCardAddressSchemaTypeItem
@@ -281,6 +293,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdvancedPhoneInformationLocationCountry": ".advanced_phone_information_location_country",
     "AdvancedPhoneInformationType": ".advanced_phone_information_type",
     "AdvancedPhoneInformationTypeRecommendation": ".advanced_phone_information_type_recommendation",
+    "Agent": ".agent",
     "AttachWebhookByIdParams": ".attach_webhook_by_id_params",
     "AttachWebhookParams": ".attach_webhook_params",
     "AttachWebhookResponseWebhook": ".attach_webhook_response_webhook",
@@ -316,6 +329,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CampaignValidationResponseErrorsItem": ".campaign_validation_response_errors_item",
     "CampaignValidationResult": ".campaign_validation_result",
     "CancelScheduledMessageResponse": ".cancel_scheduled_message_response",
+    "CompanyEntityTypeEnum": ".company_entity_type_enum",
     "CompanySectorEnum": ".company_sector_enum",
     "CompanyTypeEnum": ".company_type_enum",
     "ConfiguredWebhook": ".configured_webhook",
@@ -327,8 +341,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConversationContact": ".conversation_contact",
     "ConversationList": ".conversation_list",
     "ConversationSender": ".conversation_sender",
-    "ConversationSenderAgentId": ".conversation_sender_agent_id",
-    "ConversationSenderCapabilities": ".conversation_sender_capabilities",
     "CreateAndAttachWebhookByUrlParams": ".create_and_attach_webhook_by_url_params",
     "CreateUrlOptions": ".create_url_options",
     "DeleteAudienceResponse": ".delete_audience_response",
@@ -392,6 +404,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OptionalContact": ".optional_contact",
     "OptionalContacts": ".optional_contacts",
     "Pagination": ".pagination",
+    "Phone": ".phone",
     "PhoneCapabilities": ".phone_capabilities",
     "PhoneEnum": ".phone_enum",
     "PhoneFeatureEnum": ".phone_feature_enum",
@@ -420,7 +433,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsButtonSendLocationLatLong": ".rcs_button_send_location_lat_long",
     "RcsButtonTrigger": ".rcs_button_trigger",
     "RcsCampaign": ".rcs_campaign",
-    "RcsCampaignOptInMethodEnum": ".rcs_campaign_opt_in_method_enum",
     "RcsCampaignSchemaAgent": ".rcs_campaign_schema_agent",
     "RcsCampaignSchemaAgentEmailsItem": ".rcs_campaign_schema_agent_emails_item",
     "RcsCampaignSchemaAgentPhonesItem": ".rcs_campaign_schema_agent_phones_item",
@@ -429,13 +441,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsCampaignSchemaExtraAgentEmailsItem": ".rcs_campaign_schema_extra_agent_emails_item",
     "RcsCampaignSchemaExtraAgentPhonesItem": ".rcs_campaign_schema_extra_agent_phones_item",
     "RcsCampaignSchemaExtraAgentWebsitesItem": ".rcs_campaign_schema_extra_agent_websites_item",
+    "RcsCampaignSchemaExtraKeywords": ".rcs_campaign_schema_extra_keywords",
+    "RcsCampaignSchemaExtraKeywordsHelp": ".rcs_campaign_schema_extra_keywords_help",
+    "RcsCampaignSchemaExtraKeywordsOptIn": ".rcs_campaign_schema_extra_keywords_opt_in",
+    "RcsCampaignSchemaExtraKeywordsOptOut": ".rcs_campaign_schema_extra_keywords_opt_out",
     "RcsCampaignSchemaExtraLinks": ".rcs_campaign_schema_extra_links",
-    "RcsCampaignSchemaExtraOptIn": ".rcs_campaign_schema_extra_opt_in",
-    "RcsCampaignSchemaExtraOptOut": ".rcs_campaign_schema_extra_opt_out",
+    "RcsCampaignSchemaExtraTraffic": ".rcs_campaign_schema_extra_traffic",
     "RcsCampaignSchemaExtraUseCase": ".rcs_campaign_schema_extra_use_case",
+    "RcsCampaignSchemaKeywords": ".rcs_campaign_schema_keywords",
+    "RcsCampaignSchemaKeywordsHelp": ".rcs_campaign_schema_keywords_help",
+    "RcsCampaignSchemaKeywordsOptIn": ".rcs_campaign_schema_keywords_opt_in",
+    "RcsCampaignSchemaKeywordsOptOut": ".rcs_campaign_schema_keywords_opt_out",
     "RcsCampaignSchemaLinks": ".rcs_campaign_schema_links",
-    "RcsCampaignSchemaOptIn": ".rcs_campaign_schema_opt_in",
-    "RcsCampaignSchemaOptOut": ".rcs_campaign_schema_opt_out",
+    "RcsCampaignSchemaTraffic": ".rcs_campaign_schema_traffic",
     "RcsCampaignSchemaUseCase": ".rcs_campaign_schema_use_case",
     "RcsCampaignStatus": ".rcs_campaign_status",
     "RcsCampaignUseCaseEnum": ".rcs_campaign_use_case_enum",
@@ -449,6 +467,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsLinkResult": ".rcs_link_result",
     "RcsMediaContent": ".rcs_media_content",
     "RcsMediaDetailsContent": ".rcs_media_details_content",
+    "RcsMessagingTypeEnum": ".rcs_messaging_type_enum",
     "RcsValidateContent": ".rcs_validate_content",
     "RcsValidateContentMedia": ".rcs_validate_content_media",
     "RcsValidationResult": ".rcs_validation_result",
@@ -495,6 +514,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SubmissionResults": ".submission_results",
     "SuccessfulConversationUpdate": ".successful_conversation_update",
     "TollFreeCampaign": ".toll_free_campaign",
+    "TollFreeCampaignSchemaKeywords": ".toll_free_campaign_schema_keywords",
+    "TollFreeCampaignSchemaKeywordsHelp": ".toll_free_campaign_schema_keywords_help",
+    "TollFreeCampaignSchemaKeywordsOptIn": ".toll_free_campaign_schema_keywords_opt_in",
+    "TollFreeCampaignSchemaLinks": ".toll_free_campaign_schema_links",
+    "TollFreeCampaignSchemaOptIn": ".toll_free_campaign_schema_opt_in",
+    "TollFreeCampaignSchemaOptions": ".toll_free_campaign_schema_options",
+    "TollFreeCampaignSchemaUseCase": ".toll_free_campaign_schema_use_case",
     "TollFreeCampaignStatus": ".toll_free_campaign_status",
     "TollFreeCampaignUseCaseEnum": ".toll_free_campaign_use_case_enum",
     "TollFreeCampaignWithExtendedBrandAndStatus": ".toll_free_campaign_with_extended_brand_and_status",
@@ -503,8 +529,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatedContactId": ".updated_contact_id",
     "UploadResults": ".upload_results",
     "UpsertContact": ".upsert_contact",
-    "UpsertTollFreeCampaignOptIn": ".upsert_toll_free_campaign_opt_in",
-    "UpsertTollFreeCampaignUseCase": ".upsert_toll_free_campaign_use_case",
     "UserEvent": ".user_event",
     "UserEventConversation": ".user_event_conversation",
     "VCardAddressSchemaTypeItem": ".v_card_address_schema_type_item",
@@ -564,6 +588,7 @@ __all__ = [
     "AdvancedPhoneInformationLocationCountry",
     "AdvancedPhoneInformationType",
     "AdvancedPhoneInformationTypeRecommendation",
+    "Agent",
     "AttachWebhookByIdParams",
     "AttachWebhookParams",
     "AttachWebhookResponseWebhook",
@@ -599,6 +624,7 @@ __all__ = [
     "CampaignValidationResponseErrorsItem",
     "CampaignValidationResult",
     "CancelScheduledMessageResponse",
+    "CompanyEntityTypeEnum",
     "CompanySectorEnum",
     "CompanyTypeEnum",
     "ConfiguredWebhook",
@@ -610,8 +636,6 @@ __all__ = [
     "ConversationContact",
     "ConversationList",
     "ConversationSender",
-    "ConversationSenderAgentId",
-    "ConversationSenderCapabilities",
     "CreateAndAttachWebhookByUrlParams",
     "CreateUrlOptions",
     "DeleteAudienceResponse",
@@ -675,6 +699,7 @@ __all__ = [
     "OptionalContact",
     "OptionalContacts",
     "Pagination",
+    "Phone",
     "PhoneCapabilities",
     "PhoneEnum",
     "PhoneFeatureEnum",
@@ -703,7 +728,6 @@ __all__ = [
     "RcsButtonSendLocationLatLong",
     "RcsButtonTrigger",
     "RcsCampaign",
-    "RcsCampaignOptInMethodEnum",
     "RcsCampaignSchemaAgent",
     "RcsCampaignSchemaAgentEmailsItem",
     "RcsCampaignSchemaAgentPhonesItem",
@@ -712,13 +736,19 @@ __all__ = [
     "RcsCampaignSchemaExtraAgentEmailsItem",
     "RcsCampaignSchemaExtraAgentPhonesItem",
     "RcsCampaignSchemaExtraAgentWebsitesItem",
+    "RcsCampaignSchemaExtraKeywords",
+    "RcsCampaignSchemaExtraKeywordsHelp",
+    "RcsCampaignSchemaExtraKeywordsOptIn",
+    "RcsCampaignSchemaExtraKeywordsOptOut",
     "RcsCampaignSchemaExtraLinks",
-    "RcsCampaignSchemaExtraOptIn",
-    "RcsCampaignSchemaExtraOptOut",
+    "RcsCampaignSchemaExtraTraffic",
     "RcsCampaignSchemaExtraUseCase",
+    "RcsCampaignSchemaKeywords",
+    "RcsCampaignSchemaKeywordsHelp",
+    "RcsCampaignSchemaKeywordsOptIn",
+    "RcsCampaignSchemaKeywordsOptOut",
     "RcsCampaignSchemaLinks",
-    "RcsCampaignSchemaOptIn",
-    "RcsCampaignSchemaOptOut",
+    "RcsCampaignSchemaTraffic",
     "RcsCampaignSchemaUseCase",
     "RcsCampaignStatus",
     "RcsCampaignUseCaseEnum",
@@ -732,6 +762,7 @@ __all__ = [
     "RcsLinkResult",
     "RcsMediaContent",
     "RcsMediaDetailsContent",
+    "RcsMessagingTypeEnum",
     "RcsValidateContent",
     "RcsValidateContentMedia",
     "RcsValidationResult",
@@ -778,6 +809,13 @@ __all__ = [
     "SubmissionResults",
     "SuccessfulConversationUpdate",
     "TollFreeCampaign",
+    "TollFreeCampaignSchemaKeywords",
+    "TollFreeCampaignSchemaKeywordsHelp",
+    "TollFreeCampaignSchemaKeywordsOptIn",
+    "TollFreeCampaignSchemaLinks",
+    "TollFreeCampaignSchemaOptIn",
+    "TollFreeCampaignSchemaOptions",
+    "TollFreeCampaignSchemaUseCase",
     "TollFreeCampaignStatus",
     "TollFreeCampaignUseCaseEnum",
     "TollFreeCampaignWithExtendedBrandAndStatus",
@@ -786,8 +824,6 @@ __all__ = [
     "UpdatedContactId",
     "UploadResults",
     "UpsertContact",
-    "UpsertTollFreeCampaignOptIn",
-    "UpsertTollFreeCampaignUseCase",
     "UserEvent",
     "UserEventConversation",
     "VCardAddressSchemaTypeItem",

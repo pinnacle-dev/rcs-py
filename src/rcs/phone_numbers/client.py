@@ -11,8 +11,8 @@ from ..types.phone_feature_enum import PhoneFeatureEnum
 from ..types.phone_number_details import PhoneNumberDetails
 from ..types.purchased_number import PurchasedNumber
 from .raw_client import AsyncRawPhoneNumbersClient, RawPhoneNumbersClient
-from .types.get_phone_numbers_response import GetPhoneNumbersResponse
 from .types.phone_details_schema_level import PhoneDetailsSchemaLevel
+from .types.phone_numbers_get_response import PhoneNumbersGetResponse
 from .types.retrieve_phone_number_details_options import RetrievePhoneNumberDetailsOptions
 from .types.search_phone_number_by_digits import SearchPhoneNumberByDigits
 from .types.search_phone_number_by_location import SearchPhoneNumberByLocation
@@ -168,7 +168,7 @@ class PhoneNumbersClient:
         level: PhoneDetailsSchemaLevel,
         options: typing.Optional[RetrievePhoneNumberDetailsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetPhoneNumbersResponse:
+    ) -> PhoneNumbersGetResponse:
         """
         Retrieve information about any phone number.
 
@@ -190,7 +190,7 @@ class PhoneNumbersClient:
 
         Returns
         -------
-        GetPhoneNumbersResponse
+        PhoneNumbersGetResponse
             Returns detailed information for the requested phone number based on the selected lookup.
 
         Examples
@@ -394,7 +394,7 @@ class AsyncPhoneNumbersClient:
         level: PhoneDetailsSchemaLevel,
         options: typing.Optional[RetrievePhoneNumberDetailsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetPhoneNumbersResponse:
+    ) -> PhoneNumbersGetResponse:
         """
         Retrieve information about any phone number.
 
@@ -416,7 +416,7 @@ class AsyncPhoneNumbersClient:
 
         Returns
         -------
-        GetPhoneNumbersResponse
+        PhoneNumbersGetResponse
             Returns detailed information for the requested phone number based on the selected lookup.
 
         Examples

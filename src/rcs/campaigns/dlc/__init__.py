@@ -7,22 +7,22 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        UpsertDlcCampaignHelpKeywords,
-        UpsertDlcCampaignKeywords,
-        UpsertDlcCampaignLinks,
-        UpsertDlcCampaignOptInKeywords,
-        UpsertDlcCampaignOptOutKeywords,
-        UpsertDlcCampaignOptions,
-        UpsertDlcCampaignUseCase,
+        DlcCampaignHelpKeywords,
+        DlcCampaignKeywords,
+        DlcCampaignLinks,
+        DlcCampaignOptInKeywords,
+        DlcCampaignOptOutKeywords,
+        DlcCampaignOptions,
+        DlcCampaignUseCase,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "UpsertDlcCampaignHelpKeywords": ".types",
-    "UpsertDlcCampaignKeywords": ".types",
-    "UpsertDlcCampaignLinks": ".types",
-    "UpsertDlcCampaignOptInKeywords": ".types",
-    "UpsertDlcCampaignOptOutKeywords": ".types",
-    "UpsertDlcCampaignOptions": ".types",
-    "UpsertDlcCampaignUseCase": ".types",
+    "DlcCampaignHelpKeywords": ".types",
+    "DlcCampaignKeywords": ".types",
+    "DlcCampaignLinks": ".types",
+    "DlcCampaignOptInKeywords": ".types",
+    "DlcCampaignOptOutKeywords": ".types",
+    "DlcCampaignOptions": ".types",
+    "DlcCampaignUseCase": ".types",
 }
 
 
@@ -46,11 +46,11 @@ def __dir__():
 
 
 __all__ = [
-    "UpsertDlcCampaignHelpKeywords",
-    "UpsertDlcCampaignKeywords",
-    "UpsertDlcCampaignLinks",
-    "UpsertDlcCampaignOptInKeywords",
-    "UpsertDlcCampaignOptOutKeywords",
-    "UpsertDlcCampaignOptions",
-    "UpsertDlcCampaignUseCase",
+    "DlcCampaignHelpKeywords",
+    "DlcCampaignKeywords",
+    "DlcCampaignLinks",
+    "DlcCampaignOptInKeywords",
+    "DlcCampaignOptOutKeywords",
+    "DlcCampaignOptions",
+    "DlcCampaignUseCase",
 ]

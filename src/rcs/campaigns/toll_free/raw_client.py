@@ -19,9 +19,12 @@ from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.error import Error
 from ...types.message_volume_enum import MessageVolumeEnum
 from ...types.toll_free_campaign_with_extended_brand_and_status import TollFreeCampaignWithExtendedBrandAndStatus
-from .types.autofill_toll_free_response import AutofillTollFreeResponse
-from .types.upsert_toll_free_schema_opt_in import UpsertTollFreeSchemaOptIn
-from .types.upsert_toll_free_schema_use_case import UpsertTollFreeSchemaUseCase
+from .types.toll_free_autofill_response import TollFreeAutofillResponse
+from .types.toll_free_campaign_keywords import TollFreeCampaignKeywords
+from .types.toll_free_campaign_links import TollFreeCampaignLinks
+from .types.toll_free_campaign_opt_in import TollFreeCampaignOptIn
+from .types.toll_free_campaign_options import TollFreeCampaignOptions
+from .types.toll_free_campaign_use_case import TollFreeCampaignUseCase
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -37,7 +40,7 @@ class RawTollFreeClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[AutofillTollFreeResponse]:
+    ) -> HttpResponse[TollFreeAutofillResponse]:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -57,7 +60,7 @@ class RawTollFreeClient:
 
         Returns
         -------
-        HttpResponse[AutofillTollFreeResponse]
+        HttpResponse[TollFreeAutofillResponse]
             Returns autofilled toll-free information.
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -76,9 +79,9 @@ class RawTollFreeClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AutofillTollFreeResponse,
+                    TollFreeAutofillResponse,
                     parse_obj_as(
-                        type_=AutofillTollFreeResponse,  # type: ignore
+                        type_=TollFreeAutofillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -292,11 +295,14 @@ class RawTollFreeClient:
         *,
         brand: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
+        keywords: typing.Optional[TollFreeCampaignKeywords] = OMIT,
+        links: typing.Optional[TollFreeCampaignLinks] = OMIT,
         monthly_volume: typing.Optional[MessageVolumeEnum] = OMIT,
         name: typing.Optional[str] = OMIT,
-        opt_in: typing.Optional[UpsertTollFreeSchemaOptIn] = OMIT,
+        opt_in: typing.Optional[TollFreeCampaignOptIn] = OMIT,
+        options: typing.Optional[TollFreeCampaignOptions] = OMIT,
         production_message_content: typing.Optional[str] = OMIT,
-        use_case: typing.Optional[UpsertTollFreeSchemaUseCase] = OMIT,
+        use_case: typing.Optional[TollFreeCampaignUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TollFreeCampaignWithExtendedBrandAndStatus]:
         """
@@ -312,18 +318,27 @@ class RawTollFreeClient:
         campaign_id : typing.Optional[str]
             Unique identifier for the campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
 
+        keywords : typing.Optional[TollFreeCampaignKeywords]
+            Keyword response configuration.
+
+        links : typing.Optional[TollFreeCampaignLinks]
+            Legal documentation links.
+
         monthly_volume : typing.Optional[MessageVolumeEnum]
 
         name : typing.Optional[str]
             Display name of the campaign.
 
-        opt_in : typing.Optional[UpsertTollFreeSchemaOptIn]
+        opt_in : typing.Optional[TollFreeCampaignOptIn]
             Opt-in keyword settings.
+
+        options : typing.Optional[TollFreeCampaignOptions]
+            Campaign configuration options.
 
         production_message_content : typing.Optional[str]
             Explain message that would be sent.
 
-        use_case : typing.Optional[UpsertTollFreeSchemaUseCase]
+        use_case : typing.Optional[TollFreeCampaignUseCase]
             Use case classification for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -340,14 +355,23 @@ class RawTollFreeClient:
             json={
                 "brand": brand,
                 "campaignId": campaign_id,
+                "keywords": convert_and_respect_annotation_metadata(
+                    object_=keywords, annotation=TollFreeCampaignKeywords, direction="write"
+                ),
+                "links": convert_and_respect_annotation_metadata(
+                    object_=links, annotation=TollFreeCampaignLinks, direction="write"
+                ),
                 "monthlyVolume": monthly_volume,
                 "name": name,
                 "optIn": convert_and_respect_annotation_metadata(
-                    object_=opt_in, annotation=UpsertTollFreeSchemaOptIn, direction="write"
+                    object_=opt_in, annotation=TollFreeCampaignOptIn, direction="write"
+                ),
+                "options": convert_and_respect_annotation_metadata(
+                    object_=options, annotation=TollFreeCampaignOptions, direction="write"
                 ),
                 "productionMessageContent": production_message_content,
                 "useCase": convert_and_respect_annotation_metadata(
-                    object_=use_case, annotation=UpsertTollFreeSchemaUseCase, direction="write"
+                    object_=use_case, annotation=TollFreeCampaignUseCase, direction="write"
                 ),
             },
             headers={
@@ -516,7 +540,7 @@ class AsyncRawTollFreeClient:
         additional_info: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[AutofillTollFreeResponse]:
+    ) -> AsyncHttpResponse[TollFreeAutofillResponse]:
         """
         Generate campaign details based off existing campaign and the brand it's connected to.
 
@@ -536,7 +560,7 @@ class AsyncRawTollFreeClient:
 
         Returns
         -------
-        AsyncHttpResponse[AutofillTollFreeResponse]
+        AsyncHttpResponse[TollFreeAutofillResponse]
             Returns autofilled toll-free information.
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -555,9 +579,9 @@ class AsyncRawTollFreeClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AutofillTollFreeResponse,
+                    TollFreeAutofillResponse,
                     parse_obj_as(
-                        type_=AutofillTollFreeResponse,  # type: ignore
+                        type_=TollFreeAutofillResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -771,11 +795,14 @@ class AsyncRawTollFreeClient:
         *,
         brand: typing.Optional[str] = OMIT,
         campaign_id: typing.Optional[str] = OMIT,
+        keywords: typing.Optional[TollFreeCampaignKeywords] = OMIT,
+        links: typing.Optional[TollFreeCampaignLinks] = OMIT,
         monthly_volume: typing.Optional[MessageVolumeEnum] = OMIT,
         name: typing.Optional[str] = OMIT,
-        opt_in: typing.Optional[UpsertTollFreeSchemaOptIn] = OMIT,
+        opt_in: typing.Optional[TollFreeCampaignOptIn] = OMIT,
+        options: typing.Optional[TollFreeCampaignOptions] = OMIT,
         production_message_content: typing.Optional[str] = OMIT,
-        use_case: typing.Optional[UpsertTollFreeSchemaUseCase] = OMIT,
+        use_case: typing.Optional[TollFreeCampaignUseCase] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TollFreeCampaignWithExtendedBrandAndStatus]:
         """
@@ -791,18 +818,27 @@ class AsyncRawTollFreeClient:
         campaign_id : typing.Optional[str]
             Unique identifier for the campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
 
+        keywords : typing.Optional[TollFreeCampaignKeywords]
+            Keyword response configuration.
+
+        links : typing.Optional[TollFreeCampaignLinks]
+            Legal documentation links.
+
         monthly_volume : typing.Optional[MessageVolumeEnum]
 
         name : typing.Optional[str]
             Display name of the campaign.
 
-        opt_in : typing.Optional[UpsertTollFreeSchemaOptIn]
+        opt_in : typing.Optional[TollFreeCampaignOptIn]
             Opt-in keyword settings.
+
+        options : typing.Optional[TollFreeCampaignOptions]
+            Campaign configuration options.
 
         production_message_content : typing.Optional[str]
             Explain message that would be sent.
 
-        use_case : typing.Optional[UpsertTollFreeSchemaUseCase]
+        use_case : typing.Optional[TollFreeCampaignUseCase]
             Use case classification for the campaign.
 
         request_options : typing.Optional[RequestOptions]
@@ -819,14 +855,23 @@ class AsyncRawTollFreeClient:
             json={
                 "brand": brand,
                 "campaignId": campaign_id,
+                "keywords": convert_and_respect_annotation_metadata(
+                    object_=keywords, annotation=TollFreeCampaignKeywords, direction="write"
+                ),
+                "links": convert_and_respect_annotation_metadata(
+                    object_=links, annotation=TollFreeCampaignLinks, direction="write"
+                ),
                 "monthlyVolume": monthly_volume,
                 "name": name,
                 "optIn": convert_and_respect_annotation_metadata(
-                    object_=opt_in, annotation=UpsertTollFreeSchemaOptIn, direction="write"
+                    object_=opt_in, annotation=TollFreeCampaignOptIn, direction="write"
+                ),
+                "options": convert_and_respect_annotation_metadata(
+                    object_=options, annotation=TollFreeCampaignOptions, direction="write"
                 ),
                 "productionMessageContent": production_message_content,
                 "useCase": convert_and_respect_annotation_metadata(
-                    object_=use_case, annotation=UpsertTollFreeSchemaUseCase, direction="write"
+                    object_=use_case, annotation=TollFreeCampaignUseCase, direction="write"
                 ),
             },
             headers={

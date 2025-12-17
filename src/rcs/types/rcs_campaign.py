@@ -7,10 +7,11 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .rcs_campaign_schema_agent import RcsCampaignSchemaAgent
+from .rcs_campaign_schema_keywords import RcsCampaignSchemaKeywords
 from .rcs_campaign_schema_links import RcsCampaignSchemaLinks
-from .rcs_campaign_schema_opt_in import RcsCampaignSchemaOptIn
-from .rcs_campaign_schema_opt_out import RcsCampaignSchemaOptOut
+from .rcs_campaign_schema_traffic import RcsCampaignSchemaTraffic
 from .rcs_campaign_schema_use_case import RcsCampaignSchemaUseCase
+from .rcs_messaging_type_enum import RcsMessagingTypeEnum
 
 
 class RcsCampaign(UniversalBaseModel):
@@ -26,13 +27,6 @@ class RcsCampaign(UniversalBaseModel):
     Unique identifier for the campaign.
     """
 
-    brand_verification_url: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="brandVerificationUrl")
-    ] = pydantic.Field(default=None)
-    """
-    Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website.
-    """
-
     expected_agent_responses: typing_extensions.Annotated[
         typing.Optional[typing.List[str]], FieldMetadata(alias="expectedAgentResponses")
     ] = pydantic.Field(default=None)
@@ -45,25 +39,68 @@ class RcsCampaign(UniversalBaseModel):
     Legal documentation links.
     """
 
-    opt_in: typing_extensions.Annotated[typing.Optional[RcsCampaignSchemaOptIn], FieldMetadata(alias="optIn")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Opt-in configuration.
-    """
-
-    opt_out: typing_extensions.Annotated[typing.Optional[RcsCampaignSchemaOptOut], FieldMetadata(alias="optOut")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Opt-out configuration.
-    """
-
     use_case: typing_extensions.Annotated[typing.Optional[RcsCampaignSchemaUseCase], FieldMetadata(alias="useCase")] = (
         pydantic.Field(default=None)
     )
     """
     Use case classification for the campaign.
+    """
+
+    opt_in_terms_and_conditions: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="optInTermsAndConditions")
+    ] = pydantic.Field(default=None)
+    """
+    Details on how opt-in is acquired. If it is done through a website or app, provide the link.
+    """
+
+    messaging_type: typing_extensions.Annotated[
+        typing.Optional[RcsMessagingTypeEnum], FieldMetadata(alias="messagingType")
+    ] = None
+    carrier_description: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="carrierDescription")
+    ] = pydantic.Field(default=None)
+    """
+    Description of the agent's purpose, shown to carriers for approval.
+    """
+
+    keywords: typing.Optional[RcsCampaignSchemaKeywords] = None
+    traffic: typing.Optional[RcsCampaignSchemaTraffic] = None
+    agent_triggers: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="agentTriggers")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers.
+    """
+
+    interaction_description: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="interactionDescription")
+    ] = pydantic.Field(default=None)
+    """
+    Description of all agent interactions.
+    """
+
+    is_conversational: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isConversational")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user.
+    """
+
+    cta_language: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ctaLanguage")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. The text should meet the US CTIA requirements and is usually in the following format: <br>
+    
+    [Program description of the company sending the messages and what type of messages are being sent]. Msg&data rates may apply. [Message frequency: How frequently messages are sent]. [Privacy statement or link to privacy policy]. [Link to full mobile
+    T&Cs page].
+    """
+
+    demo_trigger: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="demoTrigger")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user.
     """
 
     if IS_PYDANTIC_V2:
