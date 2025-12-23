@@ -6,15 +6,16 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..types.cancel_scheduled_message_response import CancelScheduledMessageResponse
 from ..types.message import Message
 from ..types.reaction_result import ReactionResult
 from .raw_client import AsyncRawMessagesClient, RawMessagesClient
 from .types.react_message_options import ReactMessageOptions
 
 if typing.TYPE_CHECKING:
+    from .blast.client import AsyncBlastClient, BlastClient
     from .mms.client import AsyncMmsClient, MmsClient
     from .rcs.client import AsyncRcsClient, RcsClient
+    from .schedule.client import AsyncScheduleClient, ScheduleClient
     from .sms.client import AsyncSmsClient, SmsClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -27,6 +28,8 @@ class MessagesClient:
         self._sms: typing.Optional[SmsClient] = None
         self._mms: typing.Optional[MmsClient] = None
         self._rcs: typing.Optional[RcsClient] = None
+        self._blast: typing.Optional[BlastClient] = None
+        self._schedule: typing.Optional[ScheduleClient] = None
 
     @property
     def with_raw_response(self) -> RawMessagesClient:
@@ -122,44 +125,6 @@ class MessagesClient:
         )
         return _response.data
 
-    def cancel(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> CancelScheduledMessageResponse:
-        """
-        Cancel a previously scheduled message before it is sent.
-
-        Use the `scheduleId` returned from a scheduled send request (SMS, MMS, or RCS) to cancel the message.
-        Once cancelled, the scheduled message will stop being sent.
-
-        > **Note:** You cannot cancel a message that has already been sent.
-
-        Parameters
-        ----------
-        id : str
-            Unique identifier of the scheduled message. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        CancelScheduledMessageResponse
-            Successfully cancelled the scheduled message.
-
-        Examples
-        --------
-        from rcs import Pinnacle
-
-        client = Pinnacle(
-            api_key="YOUR_API_KEY",
-        )
-        client.messages.cancel(
-            id="msg_sched_1234567890",
-        )
-        """
-        _response = self._raw_client.cancel(id, request_options=request_options)
-        return _response.data
-
     @property
     def sms(self):
         if self._sms is None:
@@ -184,6 +149,22 @@ class MessagesClient:
             self._rcs = RcsClient(client_wrapper=self._client_wrapper)
         return self._rcs
 
+    @property
+    def blast(self):
+        if self._blast is None:
+            from .blast.client import BlastClient  # noqa: E402
+
+            self._blast = BlastClient(client_wrapper=self._client_wrapper)
+        return self._blast
+
+    @property
+    def schedule(self):
+        if self._schedule is None:
+            from .schedule.client import ScheduleClient  # noqa: E402
+
+            self._schedule = ScheduleClient(client_wrapper=self._client_wrapper)
+        return self._schedule
+
 
 class AsyncMessagesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -192,6 +173,8 @@ class AsyncMessagesClient:
         self._sms: typing.Optional[AsyncSmsClient] = None
         self._mms: typing.Optional[AsyncMmsClient] = None
         self._rcs: typing.Optional[AsyncRcsClient] = None
+        self._blast: typing.Optional[AsyncBlastClient] = None
+        self._schedule: typing.Optional[AsyncScheduleClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawMessagesClient:
@@ -303,52 +286,6 @@ class AsyncMessagesClient:
         )
         return _response.data
 
-    async def cancel(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> CancelScheduledMessageResponse:
-        """
-        Cancel a previously scheduled message before it is sent.
-
-        Use the `scheduleId` returned from a scheduled send request (SMS, MMS, or RCS) to cancel the message.
-        Once cancelled, the scheduled message will stop being sent.
-
-        > **Note:** You cannot cancel a message that has already been sent.
-
-        Parameters
-        ----------
-        id : str
-            Unique identifier of the scheduled message. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        CancelScheduledMessageResponse
-            Successfully cancelled the scheduled message.
-
-        Examples
-        --------
-        import asyncio
-
-        from rcs import AsyncPinnacle
-
-        client = AsyncPinnacle(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.messages.cancel(
-                id="msg_sched_1234567890",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.cancel(id, request_options=request_options)
-        return _response.data
-
     @property
     def sms(self):
         if self._sms is None:
@@ -372,3 +309,19 @@ class AsyncMessagesClient:
 
             self._rcs = AsyncRcsClient(client_wrapper=self._client_wrapper)
         return self._rcs
+
+    @property
+    def blast(self):
+        if self._blast is None:
+            from .blast.client import AsyncBlastClient  # noqa: E402
+
+            self._blast = AsyncBlastClient(client_wrapper=self._client_wrapper)
+        return self._blast
+
+    @property
+    def schedule(self):
+        if self._schedule is None:
+            from .schedule.client import AsyncScheduleClient  # noqa: E402
+
+            self._schedule = AsyncScheduleClient(client_wrapper=self._client_wrapper)
+        return self._schedule

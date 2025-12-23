@@ -3,5 +3,6 @@
 import typing
 
 MessageStatusEnum = typing.Union[
-    typing.Literal["PENDING", "SENT", "SEND_FAILED", "DELIVERED", "DELIVERY_FAILED", "RECEIVED", "READ"], typing.Any
+    typing.Literal["QUEUED", "PENDING", "SENT", "SEND_FAILED", "DELIVERED", "DELIVERY_FAILED", "RECEIVED", "READ"],
+    typing.Any,
 ]

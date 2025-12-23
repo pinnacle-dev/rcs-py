@@ -8,6 +8,8 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .dlc_with_extended_brand_and_status_keywords import DlcWithExtendedBrandAndStatusKeywords
 from .dlc_with_extended_brand_and_status_links import DlcWithExtendedBrandAndStatusLinks
+from .dlc_with_extended_brand_and_status_mno_brand_tier import DlcWithExtendedBrandAndStatusMnoBrandTier
+from .dlc_with_extended_brand_and_status_mno_tcr_tier import DlcWithExtendedBrandAndStatusMnoTcrTier
 from .dlc_with_extended_brand_and_status_options import DlcWithExtendedBrandAndStatusOptions
 from .dlc_with_extended_brand_and_status_use_case import DlcWithExtendedBrandAndStatusUseCase
 from .extended_brand import ExtendedBrand
@@ -93,6 +95,24 @@ class DlcCampaignWithExtendedBrandAndStatus(UniversalBaseModel):
     ] = pydantic.Field(default=None)
     """
     Use case for the campaign.
+    """
+
+    mno_brand_tier: typing_extensions.Annotated[
+        typing.Optional[DlcWithExtendedBrandAndStatusMnoBrandTier], FieldMetadata(alias="mnoBrandTier")
+    ] = pydantic.Field(default=None)
+    """
+    The MNO brand tier for T-Mobile rate limits. Tiers range from `TOP` (highest) to `LOW` (lowest), based on your brand's vetting score.
+    
+    See [SMS Rate Limits](/guides/messages/rate-limits) for details.
+    """
+
+    mno_tcr_tier: typing_extensions.Annotated[
+        typing.Optional[DlcWithExtendedBrandAndStatusMnoTcrTier], FieldMetadata(alias="mnoTcrTier")
+    ] = pydantic.Field(default=None)
+    """
+    The MNO TCR message class for AT&T, Verizon, and other carriers. Classes `A`-`G` are standard (based on vetting score), while `T`, `N`, and `S` are for special use cases.
+    
+    See [SMS Rate Limits](/guides/messages/rate-limits) for details.
     """
 
     if IS_PYDANTIC_V2:

@@ -1893,81 +1893,6 @@ Use `null` to remove existing reaction.
 </dl>
 </details>
 
-<details><summary><code>client.messages.<a href="src/rcs/messages/client.py">cancel</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Cancel a previously scheduled message before it is sent.
-
-Use the `scheduleId` returned from a scheduled send request (SMS, MMS, or RCS) to cancel the message.
-Once cancelled, the scheduled message will stop being sent.
-
-> **Note:** You cannot cancel a message that has already been sent.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from rcs import Pinnacle
-
-client = Pinnacle(
-    api_key="YOUR_API_KEY",
-)
-client.messages.cancel(
-    id="msg_sched_1234567890",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — Unique identifier of the scheduled message. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## PhoneNumbers
 <details><summary><code>client.phone_numbers.<a href="src/rcs/phone_numbers/client.py">search</a>(...)</code></summary>
 <dl>
@@ -4996,6 +4921,432 @@ client.messages.rcs.validate(
 <dd>
 
 **request:** `RcsValidateContent` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Messages Blast
+<details><summary><code>client.messages.blast.<a href="src/rcs/messages/blast/client.py">sms</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send an SMS message to all contacts in an audience. <br>
+
+Messages are distributed evenly across the provided sender phone numbers. <br>
+
+Use the optional `schedule` parameter in `options` to schedule the blast for future delivery. When scheduled, the response will contain a `scheduleId` instead of blast details.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle, SmsContent
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.messages.blast.sms(
+    audience_id="aud_abc123",
+    senders=["+14155164736", "+14155164737"],
+    message=SmsContent(
+        text="Hello from Pinnacle!",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**audience_id:** `str` 
+
+The audience ID to send the blast to. This identifier is a string that always begins with the prefix `aud_`, for example: `aud_abc123`. <br>
+
+You can create an audience via [the dashboard](https://app.pinnacle.sh/dashboard/audiences) or [API](/api-reference/audiences/create).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**senders:** `typing.Sequence[str]` 
+
+Array of phone numbers to send from in E.164 format. <br>
+
+Messages will be distributed evenly across these senders.
+
+> **Note:** Sandbox numbers cannot be used for blasts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**message:** `SmsContent` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**options:** `typing.Optional[BlastSmsOptions]` — Additional settings to customize SMS blast delivery.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.blast.<a href="src/rcs/messages/blast/client.py">mms</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send an MMS message to all contacts in an audience. <br>
+
+Messages are distributed evenly across the provided sender phone numbers. <br>
+
+Use the optional `schedule` parameter in `options` to schedule the blast for future delivery. When scheduled, the response will contain a `scheduleId` instead of blast details.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import MmsContent, Pinnacle
+from rcs.messages.blast import BlastMmsOptions
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.messages.blast.mms(
+    audience_id="aud_abc123",
+    senders=["+14155164736", "+14155164737"],
+    message=MmsContent(
+        media_urls=["https://fastly.picsum.photos/id/941/300/300.jpg"],
+        text="Check out this image!",
+    ),
+    options=BlastMmsOptions(
+        validate=True,
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**audience_id:** `str` 
+
+The audience ID to send the blast to. This identifier is a string that always begins with the prefix `aud_`, for example: `aud_abc123`. <br>
+
+You can create an audience via [the dashboard](https://app.pinnacle.sh/dashboard/audiences) or [API](/api-reference/audiences/create).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**senders:** `typing.Sequence[str]` 
+
+Array of phone numbers to send from in E.164 format. <br>
+
+Messages will be distributed evenly across these senders.
+
+> **Note:** Sandbox numbers cannot be used for blasts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**message:** `MmsContent` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**options:** `typing.Optional[BlastMmsOptions]` — Additional settings to customize MMS blast delivery.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.blast.<a href="src/rcs/messages/blast/client.py">rcs</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send an RCS message to all contacts in an audience. <br>
+
+Messages are distributed evenly across the provided RCS agents for load balancing. Requires active RCS agents and recipient devices that support RCS Business Messaging. <br>
+
+Use the optional `schedule` parameter in `options` to schedule the blast for future delivery. When scheduled, the response will contain a `scheduleId` instead of blast details.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle, RichButton_Trigger, RichText
+from rcs.messages.blast import BlastRcsOptions
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.messages.blast.rcs(
+    audience_id="aud_abc123",
+    senders=["agent_pinnacle", "agent_pinnacle2"],
+    message=RichText(
+        quick_replies=[
+            RichButton_Trigger(
+                payload="payload",
+                title="title",
+            )
+        ],
+        text="Hello from Pinnacle RCS!",
+    ),
+    options=BlastRcsOptions(
+        transcode=True,
+        validate=True,
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**audience_id:** `str` 
+
+The audience ID to send the blast to. This identifier is a string that always begins with the prefix `aud_`, for example: `aud_abc123`. <br>
+
+You can create an audience via [the dashboard](https://app.pinnacle.sh/dashboard/audiences) or [API](/api-reference/audiences/create).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**senders:** `typing.Sequence[str]` 
+
+Array of RCS agent IDs to send from. Each must be prefixed with `agent_`. <br>
+
+Messages will be evenly distributed across these agents.
+
+> **Note:** Test agents cannot be used for blasts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**message:** `RcsValidateContent` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**options:** `typing.Optional[BlastRcsOptions]` — Configure how your RCS blast is sent and tracked.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Messages Schedule
+<details><summary><code>client.messages.schedule.<a href="src/rcs/messages/schedule/client.py">cancel</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel a scheduled message or blast. <br>
+
+Works for both individual scheduled messages and scheduled blasts. Use the `scheduleId` returned when the message or blast was scheduled.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.messages.schedule.cancel(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Unique identifier of the scheduled message. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`.
     
 </dd>
 </dl>

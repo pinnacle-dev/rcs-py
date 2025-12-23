@@ -6,10 +6,14 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class CancelScheduledMessageResponse(UniversalBaseModel):
+class ScheduleCancelResult(UniversalBaseModel):
+    """
+    Response returned when a scheduled message or blast is cancelled.
+    """
+
     success: bool = pydantic.Field()
     """
-    Indicates whether the scheduled message was successfully cancelled.
+    Indicates whether the schedule was successfully cancelled.
     """
 
     if IS_PYDANTIC_V2:

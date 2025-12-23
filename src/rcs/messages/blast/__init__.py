@@ -6,9 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import ReactMessageOptions
-    from . import blast, mms, rcs, schedule, sms
-    from .blast import (
+    from .types import (
         BlastMmsOptions,
         BlastMmsResponse,
         BlastRcsOptions,
@@ -19,31 +17,16 @@ if typing.TYPE_CHECKING:
         BlastSmsOptions,
         BlastSmsResponse,
     )
-    from .mms import MmsSendResponse, SendMmsOptions
-    from .rcs import SendRichMessageResponse, SendTypingIndicatorSchemaOptions
-    from .sms import SendSmsOptions, SmsSendResponse
 _dynamic_imports: typing.Dict[str, str] = {
-    "BlastMmsOptions": ".blast",
-    "BlastMmsResponse": ".blast",
-    "BlastRcsOptions": ".blast",
-    "BlastRcsRequestOptionsStandaloneCard": ".blast",
-    "BlastRcsRequestOptionsStandaloneCardImageAlignment": ".blast",
-    "BlastRcsRequestOptionsStandaloneCardOrientation": ".blast",
-    "BlastRcsResponse": ".blast",
-    "BlastSmsOptions": ".blast",
-    "BlastSmsResponse": ".blast",
-    "MmsSendResponse": ".mms",
-    "ReactMessageOptions": ".types",
-    "SendMmsOptions": ".mms",
-    "SendRichMessageResponse": ".rcs",
-    "SendSmsOptions": ".sms",
-    "SendTypingIndicatorSchemaOptions": ".rcs",
-    "SmsSendResponse": ".sms",
-    "blast": ".",
-    "mms": ".",
-    "rcs": ".",
-    "schedule": ".",
-    "sms": ".",
+    "BlastMmsOptions": ".types",
+    "BlastMmsResponse": ".types",
+    "BlastRcsOptions": ".types",
+    "BlastRcsRequestOptionsStandaloneCard": ".types",
+    "BlastRcsRequestOptionsStandaloneCardImageAlignment": ".types",
+    "BlastRcsRequestOptionsStandaloneCardOrientation": ".types",
+    "BlastRcsResponse": ".types",
+    "BlastSmsOptions": ".types",
+    "BlastSmsResponse": ".types",
 }
 
 
@@ -76,16 +59,4 @@ __all__ = [
     "BlastRcsResponse",
     "BlastSmsOptions",
     "BlastSmsResponse",
-    "MmsSendResponse",
-    "ReactMessageOptions",
-    "SendMmsOptions",
-    "SendRichMessageResponse",
-    "SendSmsOptions",
-    "SendTypingIndicatorSchemaOptions",
-    "SmsSendResponse",
-    "blast",
-    "mms",
-    "rcs",
-    "schedule",
-    "sms",
 ]
