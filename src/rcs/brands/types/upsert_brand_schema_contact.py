@@ -6,29 +6,29 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class BrandContact(UniversalBaseModel):
+class UpsertBrandSchemaContact(UniversalBaseModel):
     """
-    Contact information for the primary brand representative.
+    Contact information for the brand.
     """
 
-    email: str = pydantic.Field()
+    email: typing.Optional[str] = pydantic.Field(default=None)
     """
     Email address of the contact person.
     """
 
-    name: str = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Full name of the contact person.
     """
 
-    phone: str = pydantic.Field()
+    phone: typing.Optional[str] = pydantic.Field(default=None)
     """
     Phone number of the contact person in E.164 format.
     """
 
-    title: str = pydantic.Field()
+    title: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Job title or position of the contact person.
+    Job title of the contact person.
     """
 
     if IS_PYDANTIC_V2:

@@ -23,12 +23,15 @@ from ..types.error import Error
 from ..types.extended_brand import ExtendedBrand
 from ..types.extended_brand_with_vetting import ExtendedBrandWithVetting
 from ..types.optional_brand_info import OptionalBrandInfo
+from ..types.optional_contacts import OptionalContacts
 from ..types.submission_results import SubmissionResults
-from ..types.upsert_contact import UpsertContact
 from ..types.validation_results import ValidationResults
 from ..types.vetting_results import VettingResults
 from .types.autofill_brand_options import AutofillBrandOptions
-from .types.brand_contact import BrandContact
+from .types.upsert_brand_schema_contact import UpsertBrandSchemaContact
+from .types.upsert_brand_schema_entity_type import UpsertBrandSchemaEntityType
+from .types.upsert_brand_schema_sector import UpsertBrandSchemaSector
+from .types.upsert_brand_schema_type import UpsertBrandSchemaType
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -140,16 +143,16 @@ class RawBrandsClient:
         self,
         *,
         address: typing.Optional[str] = OMIT,
-        contact: typing.Optional[UpsertContact] = OMIT,
+        contact: typing.Optional[UpsertBrandSchemaContact] = OMIT,
         dba: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         id: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        sector: typing.Optional[CompanySectorEnum] = OMIT,
-        type: typing.Optional[CompanyTypeEnum] = OMIT,
-        entity_type: typing.Optional[CompanyEntityTypeEnum] = OMIT,
+        sector: typing.Optional[UpsertBrandSchemaSector] = OMIT,
+        type: typing.Optional[UpsertBrandSchemaType] = OMIT,
+        entity_type: typing.Optional[UpsertBrandSchemaEntityType] = OMIT,
         website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ExtendedBrand]:
@@ -161,7 +164,7 @@ class RawBrandsClient:
         address : typing.Optional[str]
             Primary brand address where the company is located.
 
-        contact : typing.Optional[UpsertContact]
+        contact : typing.Optional[UpsertBrandSchemaContact]
             Contact information for the brand.
 
         dba : typing.Optional[str]
@@ -183,13 +186,13 @@ class RawBrandsClient:
         name : typing.Optional[str]
             Legal name of the brand as registered.
 
-        sector : typing.Optional[CompanySectorEnum]
+        sector : typing.Optional[UpsertBrandSchemaSector]
             Industry the brand operates in.
 
-        type : typing.Optional[CompanyTypeEnum]
+        type : typing.Optional[UpsertBrandSchemaType]
             Legal structure of the brand.
 
-        entity_type : typing.Optional[CompanyEntityTypeEnum]
+        entity_type : typing.Optional[UpsertBrandSchemaEntityType]
             Legal entity type of the brand.
 
         website : typing.Optional[str]
@@ -209,7 +212,7 @@ class RawBrandsClient:
             json={
                 "address": address,
                 "contact": convert_and_respect_annotation_metadata(
-                    object_=contact, annotation=typing.Optional[UpsertContact], direction="write"
+                    object_=contact, annotation=typing.Optional[UpsertBrandSchemaContact], direction="write"
                 ),
                 "dba": dba,
                 "description": description,
@@ -481,17 +484,17 @@ class RawBrandsClient:
     def validate(
         self,
         *,
-        address: str,
-        contact: BrandContact,
-        description: str,
-        email: str,
-        name: str,
-        sector: CompanySectorEnum,
-        type: CompanyTypeEnum,
-        entity_type: CompanyEntityTypeEnum,
-        website: str,
+        address: typing.Optional[str] = OMIT,
+        contact: typing.Optional[OptionalContacts] = OMIT,
         dba: typing.Optional[str] = OMIT,
+        description: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
+        email: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        sector: typing.Optional[CompanySectorEnum] = OMIT,
+        type: typing.Optional[CompanyTypeEnum] = OMIT,
+        entity_type: typing.Optional[CompanyEntityTypeEnum] = OMIT,
+        website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ValidationResults]:
         """
@@ -499,36 +502,35 @@ class RawBrandsClient:
 
         Parameters
         ----------
-        address : str
-            Primary brand address where the brand is located.
+        address : typing.Optional[str]
+            Primary brand address where this brand is located.
 
-        contact : BrandContact
-            Contact information for the primary brand representative.
-
-        description : str
-            Brief description of what the brand does.
-
-        email : str
-            Main contact email address for the brand.
-
-        name : str
-            Legal name of the brand as registered.
-
-        sector : CompanySectorEnum
-
-        type : CompanyTypeEnum
-
-        entity_type : CompanyEntityTypeEnum
-            Legal entity type of the brand.
-
-        website : str
-            Brand website URL.
+        contact : typing.Optional[OptionalContacts]
 
         dba : typing.Optional[str]
-            "Doing Business As" name - the public name the brand operates under.
+            "Doing Business As" name - the public name this brand operates under.
+
+        description : typing.Optional[str]
+            Brief description of what this brand does.
 
         ein : typing.Optional[str]
             Employer Identification Number (EIN) assigned by the IRS.
+
+        email : typing.Optional[str]
+            Main contact email address for this brand.
+
+        name : typing.Optional[str]
+            Legal name of the brand as registered.
+
+        sector : typing.Optional[CompanySectorEnum]
+
+        type : typing.Optional[CompanyTypeEnum]
+
+        entity_type : typing.Optional[CompanyEntityTypeEnum]
+            Legal entity type of the brand.
+
+        website : typing.Optional[str]
+            Brand website URL.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -544,7 +546,7 @@ class RawBrandsClient:
             json={
                 "address": address,
                 "contact": convert_and_respect_annotation_metadata(
-                    object_=contact, annotation=BrandContact, direction="write"
+                    object_=contact, annotation=OptionalContacts, direction="write"
                 ),
                 "dba": dba,
                 "description": description,
@@ -833,16 +835,16 @@ class AsyncRawBrandsClient:
         self,
         *,
         address: typing.Optional[str] = OMIT,
-        contact: typing.Optional[UpsertContact] = OMIT,
+        contact: typing.Optional[UpsertBrandSchemaContact] = OMIT,
         dba: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         id: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        sector: typing.Optional[CompanySectorEnum] = OMIT,
-        type: typing.Optional[CompanyTypeEnum] = OMIT,
-        entity_type: typing.Optional[CompanyEntityTypeEnum] = OMIT,
+        sector: typing.Optional[UpsertBrandSchemaSector] = OMIT,
+        type: typing.Optional[UpsertBrandSchemaType] = OMIT,
+        entity_type: typing.Optional[UpsertBrandSchemaEntityType] = OMIT,
         website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ExtendedBrand]:
@@ -854,7 +856,7 @@ class AsyncRawBrandsClient:
         address : typing.Optional[str]
             Primary brand address where the company is located.
 
-        contact : typing.Optional[UpsertContact]
+        contact : typing.Optional[UpsertBrandSchemaContact]
             Contact information for the brand.
 
         dba : typing.Optional[str]
@@ -876,13 +878,13 @@ class AsyncRawBrandsClient:
         name : typing.Optional[str]
             Legal name of the brand as registered.
 
-        sector : typing.Optional[CompanySectorEnum]
+        sector : typing.Optional[UpsertBrandSchemaSector]
             Industry the brand operates in.
 
-        type : typing.Optional[CompanyTypeEnum]
+        type : typing.Optional[UpsertBrandSchemaType]
             Legal structure of the brand.
 
-        entity_type : typing.Optional[CompanyEntityTypeEnum]
+        entity_type : typing.Optional[UpsertBrandSchemaEntityType]
             Legal entity type of the brand.
 
         website : typing.Optional[str]
@@ -902,7 +904,7 @@ class AsyncRawBrandsClient:
             json={
                 "address": address,
                 "contact": convert_and_respect_annotation_metadata(
-                    object_=contact, annotation=typing.Optional[UpsertContact], direction="write"
+                    object_=contact, annotation=typing.Optional[UpsertBrandSchemaContact], direction="write"
                 ),
                 "dba": dba,
                 "description": description,
@@ -1174,17 +1176,17 @@ class AsyncRawBrandsClient:
     async def validate(
         self,
         *,
-        address: str,
-        contact: BrandContact,
-        description: str,
-        email: str,
-        name: str,
-        sector: CompanySectorEnum,
-        type: CompanyTypeEnum,
-        entity_type: CompanyEntityTypeEnum,
-        website: str,
+        address: typing.Optional[str] = OMIT,
+        contact: typing.Optional[OptionalContacts] = OMIT,
         dba: typing.Optional[str] = OMIT,
+        description: typing.Optional[str] = OMIT,
         ein: typing.Optional[str] = OMIT,
+        email: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        sector: typing.Optional[CompanySectorEnum] = OMIT,
+        type: typing.Optional[CompanyTypeEnum] = OMIT,
+        entity_type: typing.Optional[CompanyEntityTypeEnum] = OMIT,
+        website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ValidationResults]:
         """
@@ -1192,36 +1194,35 @@ class AsyncRawBrandsClient:
 
         Parameters
         ----------
-        address : str
-            Primary brand address where the brand is located.
+        address : typing.Optional[str]
+            Primary brand address where this brand is located.
 
-        contact : BrandContact
-            Contact information for the primary brand representative.
-
-        description : str
-            Brief description of what the brand does.
-
-        email : str
-            Main contact email address for the brand.
-
-        name : str
-            Legal name of the brand as registered.
-
-        sector : CompanySectorEnum
-
-        type : CompanyTypeEnum
-
-        entity_type : CompanyEntityTypeEnum
-            Legal entity type of the brand.
-
-        website : str
-            Brand website URL.
+        contact : typing.Optional[OptionalContacts]
 
         dba : typing.Optional[str]
-            "Doing Business As" name - the public name the brand operates under.
+            "Doing Business As" name - the public name this brand operates under.
+
+        description : typing.Optional[str]
+            Brief description of what this brand does.
 
         ein : typing.Optional[str]
             Employer Identification Number (EIN) assigned by the IRS.
+
+        email : typing.Optional[str]
+            Main contact email address for this brand.
+
+        name : typing.Optional[str]
+            Legal name of the brand as registered.
+
+        sector : typing.Optional[CompanySectorEnum]
+
+        type : typing.Optional[CompanyTypeEnum]
+
+        entity_type : typing.Optional[CompanyEntityTypeEnum]
+            Legal entity type of the brand.
+
+        website : typing.Optional[str]
+            Brand website URL.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1237,7 +1238,7 @@ class AsyncRawBrandsClient:
             json={
                 "address": address,
                 "contact": convert_and_respect_annotation_metadata(
-                    object_=contact, annotation=BrandContact, direction="write"
+                    object_=contact, annotation=OptionalContacts, direction="write"
                 ),
                 "dba": dba,
                 "description": description,

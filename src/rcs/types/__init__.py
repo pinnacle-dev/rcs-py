@@ -260,7 +260,6 @@ if typing.TYPE_CHECKING:
     from .tracking import Tracking
     from .updated_contact_id import UpdatedContactId
     from .upload_results import UploadResults
-    from .upsert_contact import UpsertContact
     from .user_event import UserEvent
     from .user_event_conversation import UserEventConversation
     from .v_card_address_schema_type_item import VCardAddressSchemaTypeItem
@@ -538,7 +537,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Tracking": ".tracking",
     "UpdatedContactId": ".updated_contact_id",
     "UploadResults": ".upload_results",
-    "UpsertContact": ".upsert_contact",
     "UserEvent": ".user_event",
     "UserEventConversation": ".user_event_conversation",
     "VCardAddressSchemaTypeItem": ".v_card_address_schema_type_item",
@@ -838,7 +836,6 @@ __all__ = [
     "Tracking",
     "UpdatedContactId",
     "UploadResults",
-    "UpsertContact",
     "UserEvent",
     "UserEventConversation",
     "VCardAddressSchemaTypeItem",

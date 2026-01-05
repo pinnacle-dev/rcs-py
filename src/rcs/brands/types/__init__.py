@@ -7,10 +7,16 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .autofill_brand_options import AutofillBrandOptions
-    from .brand_contact import BrandContact
+    from .upsert_brand_schema_contact import UpsertBrandSchemaContact
+    from .upsert_brand_schema_entity_type import UpsertBrandSchemaEntityType
+    from .upsert_brand_schema_sector import UpsertBrandSchemaSector
+    from .upsert_brand_schema_type import UpsertBrandSchemaType
 _dynamic_imports: typing.Dict[str, str] = {
     "AutofillBrandOptions": ".autofill_brand_options",
-    "BrandContact": ".brand_contact",
+    "UpsertBrandSchemaContact": ".upsert_brand_schema_contact",
+    "UpsertBrandSchemaEntityType": ".upsert_brand_schema_entity_type",
+    "UpsertBrandSchemaSector": ".upsert_brand_schema_sector",
+    "UpsertBrandSchemaType": ".upsert_brand_schema_type",
 }
 
 
@@ -33,4 +39,10 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["AutofillBrandOptions", "BrandContact"]
+__all__ = [
+    "AutofillBrandOptions",
+    "UpsertBrandSchemaContact",
+    "UpsertBrandSchemaEntityType",
+    "UpsertBrandSchemaSector",
+    "UpsertBrandSchemaType",
+]

@@ -127,14 +127,15 @@ Create a new brand or update an existing brand by with the provided information.
 <dd>
 
 ```python
-from rcs import Pinnacle, UpsertContact
+from rcs import Pinnacle
+from rcs.brands import UpsertBrandSchemaContact
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.brands.upsert(
     address="500 Folsom St, San Francisco, CA 94105",
-    contact=UpsertContact(
+    contact=UpsertBrandSchemaContact(
         email="michael.chen@trypinnacle.app",
         name="Michael Chen",
         phone="+14155551234",
@@ -174,7 +175,7 @@ client.brands.upsert(
 <dl>
 <dd>
 
-**contact:** `typing.Optional[UpsertContact]` — Contact information for the brand.
+**contact:** `typing.Optional[UpsertBrandSchemaContact]` — Contact information for the brand.
     
 </dd>
 </dl>
@@ -233,7 +234,7 @@ The unique identifier of the brand you want to update.
 <dl>
 <dd>
 
-**sector:** `typing.Optional[CompanySectorEnum]` — Industry the brand operates in.
+**sector:** `typing.Optional[UpsertBrandSchemaSector]` — Industry the brand operates in.
     
 </dd>
 </dl>
@@ -241,7 +242,7 @@ The unique identifier of the brand you want to update.
 <dl>
 <dd>
 
-**type:** `typing.Optional[CompanyTypeEnum]` — Legal structure of the brand.
+**type:** `typing.Optional[UpsertBrandSchemaType]` — Legal structure of the brand.
     
 </dd>
 </dl>
@@ -249,7 +250,7 @@ The unique identifier of the brand you want to update.
 <dl>
 <dd>
 
-**entity_type:** `typing.Optional[CompanyEntityTypeEnum]` — Legal entity type of the brand.
+**entity_type:** `typing.Optional[UpsertBrandSchemaEntityType]` — Legal entity type of the brand.
     
 </dd>
 </dl>
@@ -463,29 +464,11 @@ Validate your brand information for compliance and correctness before submission
 
 ```python
 from rcs import Pinnacle
-from rcs.brands import BrandContact
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
-client.brands.validate(
-    address="500 Folsom St, San Francisco, CA 94105",
-    contact=BrandContact(
-        email="michael.chen@trypinnacle.app",
-        name="Michael Chen",
-        phone="+14155551234",
-        title="Customer Support Representative",
-    ),
-    dba="Pinnacle Messaging",
-    description="Pinnacle is an SMS, MMS, and RCS API for scaling conversations with customers you value.",
-    ein="88-1234567",
-    email="founders@trypinnacle.app",
-    name="Pinnacle",
-    sector="TECHNOLOGY",
-    type="PRIVATE_PROFIT",
-    entity_type="LLC",
-    website="https://www.pinnacle.sh",
-)
+client.brands.validate()
 
 ```
 </dd>
@@ -501,7 +484,7 @@ client.brands.validate(
 <dl>
 <dd>
 
-**address:** `str` — Primary brand address where the brand is located.
+**address:** `typing.Optional[str]` — Primary brand address where this brand is located.
     
 </dd>
 </dl>
@@ -509,7 +492,7 @@ client.brands.validate(
 <dl>
 <dd>
 
-**contact:** `BrandContact` — Contact information for the primary brand representative.
+**contact:** `typing.Optional[OptionalContacts]` 
     
 </dd>
 </dl>
@@ -517,7 +500,7 @@ client.brands.validate(
 <dl>
 <dd>
 
-**description:** `str` — Brief description of what the brand does.
+**dba:** `typing.Optional[str]` — "Doing Business As" name - the public name this brand operates under.
     
 </dd>
 </dl>
@@ -525,55 +508,7 @@ client.brands.validate(
 <dl>
 <dd>
 
-**email:** `str` — Main contact email address for the brand.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `str` — Legal name of the brand as registered.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**sector:** `CompanySectorEnum` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**type:** `CompanyTypeEnum` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entity_type:** `CompanyEntityTypeEnum` — Legal entity type of the brand.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**website:** `str` — Brand website URL.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**dba:** `typing.Optional[str]` — "Doing Business As" name - the public name the brand operates under.
+**description:** `typing.Optional[str]` — Brief description of what this brand does.
     
 </dd>
 </dl>
@@ -582,6 +517,54 @@ client.brands.validate(
 <dd>
 
 **ein:** `typing.Optional[str]` — Employer Identification Number (EIN) assigned by the IRS.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email:** `typing.Optional[str]` — Main contact email address for this brand.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Legal name of the brand as registered.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sector:** `typing.Optional[CompanySectorEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[CompanyTypeEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entity_type:** `typing.Optional[CompanyEntityTypeEnum]` — Legal entity type of the brand.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**website:** `typing.Optional[str]` — Brand website URL.
     
 </dd>
 </dl>

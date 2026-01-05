@@ -255,7 +255,6 @@ if typing.TYPE_CHECKING:
         Tracking,
         UpdatedContactId,
         UploadResults,
-        UpsertContact,
         UserEvent,
         UserEventConversation,
         VCardAddressSchemaTypeItem,
@@ -307,7 +306,13 @@ if typing.TYPE_CHECKING:
         webhooks,
     )
     from .audiences import AudiencesGetResponse
-    from .brands import AutofillBrandOptions, BrandContact
+    from .brands import (
+        AutofillBrandOptions,
+        UpsertBrandSchemaContact,
+        UpsertBrandSchemaEntityType,
+        UpsertBrandSchemaSector,
+        UpsertBrandSchemaType,
+    )
     from .client import AsyncPinnacle, Pinnacle
     from .conversations import (
         ConversationsListMessagesRequestDirection,
@@ -363,7 +368,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BasicPhoneInformationLocation": ".types",
     "BasicPhoneInformationLocationCountry": ".types",
     "BlastDetails": ".types",
-    "BrandContact": ".brands",
     "BrandStatus": ".types",
     "BrandStatusEnum": ".types",
     "ButtonClicked": ".types",
@@ -600,7 +604,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UnauthorizedError": ".errors",
     "UpdatedContactId": ".types",
     "UploadResults": ".types",
-    "UpsertContact": ".types",
+    "UpsertBrandSchemaContact": ".brands",
+    "UpsertBrandSchemaEntityType": ".brands",
+    "UpsertBrandSchemaSector": ".brands",
+    "UpsertBrandSchemaType": ".brands",
     "UserEvent": ".types",
     "UserEventConversation": ".types",
     "VCardAddressSchemaTypeItem": ".types",
@@ -699,7 +706,6 @@ __all__ = [
     "BasicPhoneInformationLocation",
     "BasicPhoneInformationLocationCountry",
     "BlastDetails",
-    "BrandContact",
     "BrandStatus",
     "BrandStatusEnum",
     "ButtonClicked",
@@ -936,7 +942,10 @@ __all__ = [
     "UnauthorizedError",
     "UpdatedContactId",
     "UploadResults",
-    "UpsertContact",
+    "UpsertBrandSchemaContact",
+    "UpsertBrandSchemaEntityType",
+    "UpsertBrandSchemaSector",
+    "UpsertBrandSchemaType",
     "UserEvent",
     "UserEventConversation",
     "VCardAddressSchemaTypeItem",
