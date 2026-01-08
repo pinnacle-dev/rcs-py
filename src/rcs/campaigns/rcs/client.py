@@ -183,7 +183,8 @@ class RcsClient:
             Unique identifier for the campaign.
 
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
-            List of what the agent might say to users (1-5 required).
+            List of what the agent might say to users. <br><br>
+            **Limit:** 1 to 5
 
         links : typing.Optional[RcsLinks]
             Legal documentation links.
@@ -576,7 +577,8 @@ class AsyncRcsClient:
             Unique identifier for the campaign.
 
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
-            List of what the agent might say to users (1-5 required).
+            List of what the agent might say to users. <br><br>
+            **Limit:** 1 to 5
 
         links : typing.Optional[RcsLinks]
             Legal documentation links.

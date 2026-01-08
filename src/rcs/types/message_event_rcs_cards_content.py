@@ -30,14 +30,16 @@ class MessageEventRcsCardsContent(UniversalBaseModel):
 
     cards: typing.List[MessageEventRcsCardsContentCardsItem] = pydantic.Field()
     """
-    Collection of cards attached to the message.
+    Collection of cards attached to the message. <br><br>
+    **Limit:** 1 to 10
     """
 
     quick_replies: typing_extensions.Annotated[typing.List[RichButton], FieldMetadata(alias="quickReplies")] = (
         pydantic.Field()
     )
     """
-    List of interactive quick reply buttons in the message.
+    List of interactive quick reply buttons in the message. <br><br>
+    **Limit:** 10 max
     """
 
     if IS_PYDANTIC_V2:

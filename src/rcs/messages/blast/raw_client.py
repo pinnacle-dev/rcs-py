@@ -62,6 +62,8 @@ class RawBlastClient:
 
             > **Note:** Sandbox numbers cannot be used for blasts.
 
+            **Limit:** 1 min
+
         message : SmsContent
 
         options : typing.Optional[BlastSmsOptions]
@@ -186,6 +188,8 @@ class RawBlastClient:
 
             > **Note:** Sandbox numbers cannot be used for blasts.
 
+            **Limit:** 1 min
+
         message : MmsContent
 
         options : typing.Optional[BlastMmsOptions]
@@ -309,6 +313,8 @@ class RawBlastClient:
             Messages will be evenly distributed across these agents.
 
             > **Note:** Test agents cannot be used for blasts.
+
+            **Limit:** 1 min
 
         message : RcsValidateContent
 
@@ -439,6 +445,8 @@ class AsyncRawBlastClient:
 
             > **Note:** Sandbox numbers cannot be used for blasts.
 
+            **Limit:** 1 min
+
         message : SmsContent
 
         options : typing.Optional[BlastSmsOptions]
@@ -563,6 +571,8 @@ class AsyncRawBlastClient:
 
             > **Note:** Sandbox numbers cannot be used for blasts.
 
+            **Limit:** 1 min
+
         message : MmsContent
 
         options : typing.Optional[BlastMmsOptions]
@@ -686,6 +696,8 @@ class AsyncRawBlastClient:
             Messages will be evenly distributed across these agents.
 
             > **Note:** Test agents cannot be used for blasts.
+
+            **Limit:** 1 min
 
         message : RcsValidateContent
 

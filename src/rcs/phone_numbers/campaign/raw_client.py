@@ -40,7 +40,8 @@ class RawCampaignClient:
         Parameters
         ----------
         phones : typing.Sequence[str]
-            List of phone number (E.164 format).
+            List of phone number (E.164 format). <br><br>
+            **Limit:** 1 to 10
 
         campaign_type : MessagingProfileEnum
 
@@ -155,7 +156,8 @@ class RawCampaignClient:
         Parameters
         ----------
         phones : typing.Sequence[str]
-            List of phone numbers (E.164 format).
+            List of phone numbers (E.164 format). <br><br>
+            **Limit:** 1 to 10
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -266,7 +268,8 @@ class AsyncRawCampaignClient:
         Parameters
         ----------
         phones : typing.Sequence[str]
-            List of phone number (E.164 format).
+            List of phone number (E.164 format). <br><br>
+            **Limit:** 1 to 10
 
         campaign_type : MessagingProfileEnum
 
@@ -381,7 +384,8 @@ class AsyncRawCampaignClient:
         Parameters
         ----------
         phones : typing.Sequence[str]
-            List of phone numbers (E.164 format).
+            List of phone numbers (E.164 format). <br><br>
+            **Limit:** 1 to 10
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -15,7 +15,8 @@ class MessageEventRcsCardsContentCardsItem(UniversalBaseModel):
 
     buttons: typing.List[RichButton] = pydantic.Field()
     """
-    Action buttons attached to the card.
+    Action buttons attached to the card. <br><br>
+    **Limit:** 4 max
     """
 
     media: typing.Optional[RcsMediaDetailsContent] = None

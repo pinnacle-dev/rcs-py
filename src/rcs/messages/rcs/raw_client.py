@@ -189,7 +189,7 @@ class RawRcsClient:
             Successfully sent the typing indicator.
         """
         _response = self._client_wrapper.httpx_client.request(
-            "messages/typing",
+            "messages/send/typing",
             method="POST",
             json={
                 "agentId": agent_id,
@@ -515,7 +515,7 @@ class AsyncRawRcsClient:
             Successfully sent the typing indicator.
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "messages/typing",
+            "messages/send/typing",
             method="POST",
             json={
                 "agentId": agent_id,

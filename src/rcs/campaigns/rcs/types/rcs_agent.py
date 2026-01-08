@@ -32,7 +32,8 @@ class RcsAgent(UniversalBaseModel):
 
     emails: typing.Optional[typing.List[RcsAgentEmail]] = pydantic.Field(default=None)
     """
-    List of emails (1-3 required).
+    List of emails. <br><br>
+    **Limit:** 1 to 3
     """
 
     hero_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="heroUrl")] = pydantic.Field(
@@ -58,12 +59,14 @@ class RcsAgent(UniversalBaseModel):
 
     phones: typing.Optional[typing.List[RcsAgentPhone]] = pydantic.Field(default=None)
     """
-    List of phone numbers (1-3 required).
+    List of phone numbers. <br><br>
+    **Limit:** 1 to 3
     """
 
     websites: typing.Optional[typing.List[RcsAgentWebsite]] = pydantic.Field(default=None)
     """
-    List of urls (1-3 required).
+    List of urls. <br><br>
+    **Limit:** 1 to 3
     """
 
     if IS_PYDANTIC_V2:

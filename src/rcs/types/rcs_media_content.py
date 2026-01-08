@@ -22,7 +22,8 @@ class RcsMediaContent(UniversalBaseModel):
         pydantic.Field()
     )
     """
-    List of interactive quick reply buttons in the message.
+    List of interactive quick reply buttons in the message. <br><br>
+    **Limit:** 10 max
     """
 
     if IS_PYDANTIC_V2:

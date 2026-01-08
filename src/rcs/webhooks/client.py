@@ -35,7 +35,8 @@ class WebhooksClient:
         Parameters
         ----------
         identifiers : typing.Sequence[str]
-            List of URLs or phone numbers in E.164 format that the webhook is attached to.
+            List of URLs or phone numbers in E.164 format that the webhook is attached to. <br><br>
+            **Limit:** 1 min
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -91,7 +92,8 @@ class AsyncWebhooksClient:
         Parameters
         ----------
         identifiers : typing.Sequence[str]
-            List of URLs or phone numbers in E.164 format that the webhook is attached to.
+            List of URLs or phone numbers in E.164 format that the webhook is attached to. <br><br>
+            **Limit:** 1 min
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

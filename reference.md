@@ -2233,7 +2233,10 @@ client.rcs.get_capabilities(
 <dl>
 <dd>
 
-**phone_numbers:** `typing.Sequence[str]` — List of phone numbers to check RCS capabilities for (E.164 format)
+**phone_numbers:** `typing.Sequence[str]` 
+
+List of phone numbers to check RCS capabilities for (E.164 format). <br><br>
+**Limit:** 1 min
     
 </dd>
 </dl>
@@ -2512,7 +2515,10 @@ client.webhooks.get(
 <dl>
 <dd>
 
-**identifiers:** `typing.Sequence[str]` — List of URLs or phone numbers in E.164 format that the webhook is attached to.
+**identifiers:** `typing.Sequence[str]` 
+
+List of URLs or phone numbers in E.164 format that the webhook is attached to. <br><br>
+**Limit:** 1 min
     
 </dd>
 </dl>
@@ -2595,7 +2601,10 @@ client.audiences.contacts.remove(
 <dl>
 <dd>
 
-**contacts:** `typing.Sequence[str]` — Array of phone numbers (E.164 format) or contact IDs (minimum 1 item).
+**contacts:** `typing.Sequence[str]` 
+
+Array of phone numbers (E.164 format) or contact IDs. <br><br>
+**Limit:** 1 min
     
 </dd>
 </dl>
@@ -2678,7 +2687,10 @@ client.audiences.contacts.add(
 <dl>
 <dd>
 
-**contacts:** `typing.Sequence[str]` — Array of phone numbers (E.164 format) or contact IDs (minimum 1 item).
+**contacts:** `typing.Sequence[str]` 
+
+Array of phone numbers (E.164 format) or contact IDs. <br><br>
+**Limit:** 1 min
     
 </dd>
 </dl>
@@ -3094,7 +3106,10 @@ client.campaigns.dlc.upsert(
 <dl>
 <dd>
 
-**sample_messages:** `typing.Optional[typing.Sequence[str]]` — Example messages for the campaign.
+**sample_messages:** `typing.Optional[typing.Sequence[str]]` 
+
+Example messages for the campaign. <br><br>
+**Limit:** 1 to 5
     
 </dd>
 </dl>
@@ -4077,7 +4092,10 @@ client.campaigns.rcs.upsert(
 <dl>
 <dd>
 
-**expected_agent_responses:** `typing.Optional[typing.Sequence[str]]` — List of what the agent might say to users (1-5 required).
+**expected_agent_responses:** `typing.Optional[typing.Sequence[str]]` 
+
+List of what the agent might say to users. <br><br>
+**Limit:** 1 to 5
     
 </dd>
 </dl>
@@ -5001,6 +5019,8 @@ Array of phone numbers to send from in E.164 format. <br>
 Messages will be distributed evenly across these senders.
 
 > **Note:** Sandbox numbers cannot be used for blasts.
+
+**Limit:** 1 min
     
 </dd>
 </dl>
@@ -5118,6 +5138,8 @@ Array of phone numbers to send from in E.164 format. <br>
 Messages will be distributed evenly across these senders.
 
 > **Note:** Sandbox numbers cannot be used for blasts.
+
+**Limit:** 1 min
     
 </dd>
 </dl>
@@ -5241,6 +5263,8 @@ Array of RCS agent IDs to send from. Each must be prefixed with `agent_`. <br>
 Messages will be evenly distributed across these agents.
 
 > **Note:** Test agents cannot be used for blasts.
+
+**Limit:** 1 min
     
 </dd>
 </dl>
@@ -5578,7 +5602,10 @@ client.phone_numbers.campaign.attach(
 <dl>
 <dd>
 
-**phones:** `typing.Sequence[str]` — List of phone number (E.164 format).
+**phones:** `typing.Sequence[str]` 
+
+List of phone number (E.164 format). <br><br>
+**Limit:** 1 to 10
     
 </dd>
 </dl>
@@ -5673,7 +5700,10 @@ client.phone_numbers.campaign.detach(
 <dl>
 <dd>
 
-**phones:** `typing.Sequence[str]` — List of phone numbers (E.164 format).
+**phones:** `typing.Sequence[str]` 
+
+List of phone numbers (E.164 format). <br><br>
+**Limit:** 1 to 10
     
 </dd>
 </dl>

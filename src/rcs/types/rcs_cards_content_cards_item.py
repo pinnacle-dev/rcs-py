@@ -15,7 +15,8 @@ class RcsCardsContentCardsItem(UniversalBaseModel):
 
     buttons: typing.List[RichButton] = pydantic.Field()
     """
-    While buttons resemble quick replies, they remain on screen after being clicked and are card-specific.
+    While buttons resemble quick replies, they remain on screen after being clicked and are card-specific. <br><br>
+    **Limit:** 4 max
     """
 
     media: typing.Optional[RcsMediaDetailsContent] = None

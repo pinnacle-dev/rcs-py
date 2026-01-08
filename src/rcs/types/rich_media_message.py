@@ -22,7 +22,8 @@ class RichMediaMessage(BaseRichMessage):
         pydantic.Field()
     )
     """
-    List of interactive quick reply buttons in the message.
+    List of interactive quick reply buttons in the message. <br>
+    `≤10`
     """
 
     if IS_PYDANTIC_V2:

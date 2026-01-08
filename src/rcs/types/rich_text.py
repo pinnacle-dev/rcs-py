@@ -18,7 +18,8 @@ class RichText(UniversalBaseModel):
         pydantic.Field()
     )
     """
-    List of interactive quick reply buttons in the message.
+    List of interactive quick reply buttons in the message. <br><br>
+    **Limit:** 10 max
     """
 
     text: str = pydantic.Field()

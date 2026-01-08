@@ -64,6 +64,8 @@ class BlastClient:
 
             > **Note:** Sandbox numbers cannot be used for blasts.
 
+            **Limit:** 1 min
+
         message : SmsContent
 
         options : typing.Optional[BlastSmsOptions]
@@ -129,6 +131,8 @@ class BlastClient:
             Messages will be distributed evenly across these senders.
 
             > **Note:** Sandbox numbers cannot be used for blasts.
+
+            **Limit:** 1 min
 
         message : MmsContent
 
@@ -200,6 +204,8 @@ class BlastClient:
             Messages will be evenly distributed across these agents.
 
             > **Note:** Test agents cannot be used for blasts.
+
+            **Limit:** 1 min
 
         message : RcsValidateContent
 
@@ -294,6 +300,8 @@ class AsyncBlastClient:
 
             > **Note:** Sandbox numbers cannot be used for blasts.
 
+            **Limit:** 1 min
+
         message : SmsContent
 
         options : typing.Optional[BlastSmsOptions]
@@ -367,6 +375,8 @@ class AsyncBlastClient:
             Messages will be distributed evenly across these senders.
 
             > **Note:** Sandbox numbers cannot be used for blasts.
+
+            **Limit:** 1 min
 
         message : MmsContent
 
@@ -446,6 +456,8 @@ class AsyncBlastClient:
             Messages will be evenly distributed across these agents.
 
             > **Note:** Test agents cannot be used for blasts.
+
+            **Limit:** 1 min
 
         message : RcsValidateContent
 

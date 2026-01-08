@@ -38,7 +38,8 @@ class RawRcsClient:
         Parameters
         ----------
         phone_numbers : typing.Sequence[str]
-            List of phone numbers to check RCS capabilities for (E.164 format)
+            List of phone numbers to check RCS capabilities for (E.164 format). <br><br>
+            **Limit:** 1 min
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -396,7 +397,8 @@ class AsyncRawRcsClient:
         Parameters
         ----------
         phone_numbers : typing.Sequence[str]
-            List of phone numbers to check RCS capabilities for (E.164 format)
+            List of phone numbers to check RCS capabilities for (E.164 format). <br><br>
+            **Limit:** 1 min
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

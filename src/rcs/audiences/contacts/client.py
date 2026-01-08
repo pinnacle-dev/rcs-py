@@ -41,7 +41,8 @@ class ContactsClient:
             Audience ID. This identifier is a string that always begins with the prefix `aud_`, for example: `aud_abc123`.
 
         contacts : typing.Sequence[str]
-            Array of phone numbers (E.164 format) or contact IDs (minimum 1 item).
+            Array of phone numbers (E.164 format) or contact IDs. <br><br>
+            **Limit:** 1 min
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -82,7 +83,8 @@ class ContactsClient:
             Audience ID. This identifier is a string that always begins with the prefix `aud_`, for example: `aud_abc123`.
 
         contacts : typing.Sequence[str]
-            Array of phone numbers (E.164 format) or contact IDs (minimum 1 item).
+            Array of phone numbers (E.164 format) or contact IDs. <br><br>
+            **Limit:** 1 min
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -138,7 +140,8 @@ class AsyncContactsClient:
             Audience ID. This identifier is a string that always begins with the prefix `aud_`, for example: `aud_abc123`.
 
         contacts : typing.Sequence[str]
-            Array of phone numbers (E.164 format) or contact IDs (minimum 1 item).
+            Array of phone numbers (E.164 format) or contact IDs. <br><br>
+            **Limit:** 1 min
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -187,7 +190,8 @@ class AsyncContactsClient:
             Audience ID. This identifier is a string that always begins with the prefix `aud_`, for example: `aud_abc123`.
 
         contacts : typing.Sequence[str]
-            Array of phone numbers (E.164 format) or contact IDs (minimum 1 item).
+            Array of phone numbers (E.164 format) or contact IDs. <br><br>
+            **Limit:** 1 min
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

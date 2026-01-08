@@ -340,7 +340,8 @@ class RawDlcClient:
             Campaign configuration options.
 
         sample_messages : typing.Optional[typing.Sequence[str]]
-            Example messages for the campaign.
+            Example messages for the campaign. <br><br>
+            **Limit:** 1 to 5
 
         use_case : typing.Optional[DlcCampaignUseCase]
             Use case for the campaign.
@@ -845,7 +846,8 @@ class AsyncRawDlcClient:
             Campaign configuration options.
 
         sample_messages : typing.Optional[typing.Sequence[str]]
-            Example messages for the campaign.
+            Example messages for the campaign. <br><br>
+            **Limit:** 1 to 5
 
         use_case : typing.Optional[DlcCampaignUseCase]
             Use case for the campaign.
