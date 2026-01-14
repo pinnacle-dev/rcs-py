@@ -9,9 +9,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class RcsCampaignHelpKeywords(UniversalBaseModel):
     message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website).<br>
-    
-    Recommended format: [Verb] [Contact Information] for support.
+    Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). See the [Keyword Response Messages](/guides/campaigns/rcs-compliance#keyword-response-messages) section for requirements.
     """
 
     keywords: typing.Optional[typing.List[str]] = pydantic.Field(default=None)

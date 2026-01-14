@@ -13,12 +13,12 @@ class DlcCampaignOptOutKeywords(UniversalBaseModel):
 
     message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Response message for opt-out keywords.
+    Response message for opt-out keywords. Must confirm unsubscription, provide alternative contact methods, and include opt-in instructions. See the [Opt-Out keyword requirements](/guides/campaigns/opt-in-compliance#keyword-response-messages).
     """
 
     values: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Keywords that trigger opt-out.
+    Keywords that trigger opt-out (e.g., STOP, CANCEL, UNSUBSCRIBE).
     """
 
     if IS_PYDANTIC_V2:

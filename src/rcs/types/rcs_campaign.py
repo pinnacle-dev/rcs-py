@@ -31,7 +31,7 @@ class RcsCampaign(UniversalBaseModel):
         typing.Optional[typing.List[str]], FieldMetadata(alias="expectedAgentResponses")
     ] = pydantic.Field(default=None)
     """
-    List of what the agent might say to users.
+    List of what the agent might say to users. See the [Expected Agent Responses](/guides/campaigns/rcs-compliance#expected-agent-responses) section for requirements.
     """
 
     links: typing.Optional[RcsCampaignSchemaLinks] = pydantic.Field(default=None)
@@ -50,7 +50,7 @@ class RcsCampaign(UniversalBaseModel):
         typing.Optional[str], FieldMetadata(alias="optInTermsAndConditions")
     ] = pydantic.Field(default=None)
     """
-    Details on how opt-in is acquired. If it is done through a website or app, provide the link.
+    Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Terms and Conditions](/guides/campaigns/rcs-compliance#opt-in-terms-and-conditions) section for requirements.
     """
 
     messaging_type: typing_extensions.Annotated[
@@ -60,7 +60,7 @@ class RcsCampaign(UniversalBaseModel):
         typing.Optional[str], FieldMetadata(alias="carrierDescription")
     ] = pydantic.Field(default=None)
     """
-    Description of the agent's purpose, shown to carriers for approval.
+    Description of the agent's purpose, shown to carriers for approval. See the [Carrier Description](/guides/campaigns/rcs-compliance#carrier-description) section for requirements.
     """
 
     keywords: typing.Optional[RcsCampaignSchemaKeywords] = None
@@ -69,14 +69,14 @@ class RcsCampaign(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers.
+    Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. See the [Agent Triggers](/guides/campaigns/rcs-compliance#agent-triggers) section for requirements.
     """
 
     interaction_description: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="interactionDescription")
     ] = pydantic.Field(default=None)
     """
-    Description of all agent interactions.
+    Description of all agent interactions, including primary and secondary use cases. See the [Interaction Description](/guides/campaigns/rcs-compliance#interaction-description) section for requirements.
     """
 
     is_conversational: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isConversational")] = (
@@ -90,17 +90,14 @@ class RcsCampaign(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. The text should meet the US CTIA requirements and is usually in the following format: <br>
-    
-    [Program description of the company sending the messages and what type of messages are being sent]. Msg&data rates may apply. [Message frequency: How frequently messages are sent]. [Privacy statement or link to privacy policy]. [Link to full mobile
-    T&Cs page].
+    Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. See the [CTA Language](/guides/campaigns/rcs-compliance#cta-language-opt-in-disclosure) section for requirements.
     """
 
     demo_trigger: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="demoTrigger")] = (
         pydantic.Field(default=None)
     )
     """
-    Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user.
+    Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user. See the [Demo Trigger](/guides/campaigns/rcs-compliance#demo-trigger) section for requirements.
     """
 
     if IS_PYDANTIC_V2:

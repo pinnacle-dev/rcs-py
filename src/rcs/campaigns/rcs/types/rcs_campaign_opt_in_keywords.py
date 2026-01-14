@@ -9,12 +9,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class RcsCampaignOptInKeywords(UniversalBaseModel):
     message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Message sent when a user opt-in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates).<br>
-    
-    Recommended Format:<br>
-    [Greetings]<br>
-    You are now subscribed to [Agent Name] and will receive [type of messages that the agent will send]. Feel free to contact us any time for help. <br>
-    Reply STOP to opt out and HELP for support. Message & rates may apply.
+    Message sent when a user opts in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). See the [Keyword Response Messages](/guides/campaigns/rcs-compliance#keyword-response-messages) section for requirements.
     """
 
     keywords: typing.Optional[typing.List[str]] = pydantic.Field(default=None)

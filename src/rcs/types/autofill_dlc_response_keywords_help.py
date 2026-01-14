@@ -13,7 +13,7 @@ class AutofillDlcResponseKeywordsHelp(UniversalBaseModel):
 
     message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Response message for help keywords.
+    Response message for help keywords. See the [Keyword Response Messages](/guides/campaigns/opt-in-compliance#keyword-response-messages) section for requirements.
     """
 
     values: typing.List[str] = pydantic.Field()

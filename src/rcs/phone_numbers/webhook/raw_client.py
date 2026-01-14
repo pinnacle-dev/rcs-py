@@ -51,7 +51,7 @@ class RawWebhookClient:
         HttpResponse[ConfiguredWebhook]
             Successfully updated/added webhook to the number. <br>
 
-            To detach webhooks check out [Detach Webhook](./detach-webook).
+            To detach webhooks check out [Detach Webhook](./detach-webhook).
         """
         _response = self._client_wrapper.httpx_client.request(
             f"phone-numbers/{jsonable_encoder(phone)}/attach-webhook",
@@ -266,7 +266,7 @@ class AsyncRawWebhookClient:
         AsyncHttpResponse[ConfiguredWebhook]
             Successfully updated/added webhook to the number. <br>
 
-            To detach webhooks check out [Detach Webhook](./detach-webook).
+            To detach webhooks check out [Detach Webhook](./detach-webhook).
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"phone-numbers/{jsonable_encoder(phone)}/attach-webhook",

@@ -3,22 +3,28 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
+from .opt_in_method_enum import OptInMethodEnum
 
 
-class TollFreeCampaignSchemaKeywordsOptIn(UniversalBaseModel):
+class TollFreeWithExtendedBrandAndStatusOptIn(UniversalBaseModel):
     """
     Opt-in keyword settings.
     """
 
-    message: typing.Optional[str] = pydantic.Field(default=None)
+    method: typing.Optional[OptInMethodEnum] = None
+    url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Message sent when a user opts in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). See the [Opt-In keyword requirements](/guides/campaigns/opt-in-compliance#keyword-response-messages).
+    Url to opt in.
     """
 
-    keywords: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    workflow_description: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="workflowDescription")
+    ] = pydantic.Field(default=None)
     """
-    Keywords that trigger opt-in response.
+    Explain how users find the opt-in.
     """
 
     if IS_PYDANTIC_V2:

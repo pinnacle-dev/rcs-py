@@ -9,7 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class RcsCampaignSchemaKeywordsOptOut(UniversalBaseModel):
     message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Message sent when a user opt-out. Must include brand name, acknowledge opt-out request and state user will not receive further messages. No marketing or re-engagement attempts.
+    Message sent when a user opts out. Must include brand name, acknowledge opt-out request and state user will not receive further messages. No marketing or re-engagement attempts. See the [Keyword Response Messages](/guides/campaigns/rcs-compliance#keyword-response-messages) section for requirements.
     """
 
     keywords: typing.Optional[typing.List[str]] = pydantic.Field(default=None)

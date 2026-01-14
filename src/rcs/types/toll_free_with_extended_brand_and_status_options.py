@@ -3,18 +3,21 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 
 
-class RcsCampaignSchemaKeywordsHelp(UniversalBaseModel):
-    message: typing.Optional[str] = pydantic.Field(default=None)
+class TollFreeWithExtendedBrandAndStatusOptions(UniversalBaseModel):
     """
-    Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). See the [Keyword Response Messages](/guides/campaigns/rcs-compliance#keyword-response-messages) section for requirements.
+    Campaign configuration options.
     """
 
-    keywords: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    age_gated: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="ageGated")] = pydantic.Field(
+        default=None
+    )
     """
-    Keywords that trigger help response.
+    Whether the campaign is age-gated.
     """
 
     if IS_PYDANTIC_V2:

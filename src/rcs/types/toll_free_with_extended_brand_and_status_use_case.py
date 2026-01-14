@@ -4,18 +4,20 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .toll_free_campaign_use_case_enum import TollFreeCampaignUseCaseEnum
 
 
-class RcsCampaignSchemaKeywordsHelp(UniversalBaseModel):
-    message: typing.Optional[str] = pydantic.Field(default=None)
+class TollFreeWithExtendedBrandAndStatusUseCase(UniversalBaseModel):
     """
-    Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). See the [Keyword Response Messages](/guides/campaigns/rcs-compliance#keyword-response-messages) section for requirements.
+    Use case classification for the campaign.
     """
 
-    keywords: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    summary: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Keywords that trigger help response.
+    Summary of the use case.
     """
+
+    value: typing.Optional[TollFreeCampaignUseCaseEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

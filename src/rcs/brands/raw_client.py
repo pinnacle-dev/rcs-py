@@ -157,7 +157,13 @@ class RawBrandsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ExtendedBrand]:
         """
-        Create a new brand or update an existing brand by with the provided information.
+        Create a new brand or update an existing one.
+
+        <Note>
+        **To create a new brand:** Omit `id` — one will be generated automatically.
+
+        All fields are **required** except `description` and `dba`, and will be validated when [submitted](/api-reference/brands/submit).
+        </Note>
 
         Parameters
         ----------
@@ -849,7 +855,13 @@ class AsyncRawBrandsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ExtendedBrand]:
         """
-        Create a new brand or update an existing brand by with the provided information.
+        Create a new brand or update an existing one.
+
+        <Note>
+        **To create a new brand:** Omit `id` — one will be generated automatically.
+
+        All fields are **required** except `description` and `dba`, and will be validated when [submitted](/api-reference/brands/submit).
+        </Note>
 
         Parameters
         ----------

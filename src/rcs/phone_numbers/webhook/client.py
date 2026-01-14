@@ -51,7 +51,7 @@ class WebhookClient:
         ConfiguredWebhook
             Successfully updated/added webhook to the number. <br>
 
-            To detach webhooks check out [Detach Webhook](./detach-webook).
+            To detach webhooks check out [Detach Webhook](./detach-webhook).
 
         Examples
         --------
@@ -153,7 +153,7 @@ class AsyncWebhookClient:
         ConfiguredWebhook
             Successfully updated/added webhook to the number. <br>
 
-            To detach webhooks check out [Detach Webhook](./detach-webook).
+            To detach webhooks check out [Detach Webhook](./detach-webhook).
 
         Examples
         --------

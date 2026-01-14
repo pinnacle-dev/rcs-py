@@ -13,7 +13,7 @@ class TollFreeCampaignSchemaKeywordsHelp(UniversalBaseModel):
 
     message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website).
+    Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). See the [Help keyword requirements](/guides/campaigns/opt-in-compliance#keyword-response-messages).
     """
 
     if IS_PYDANTIC_V2:

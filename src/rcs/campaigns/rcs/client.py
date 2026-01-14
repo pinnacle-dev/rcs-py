@@ -167,9 +167,15 @@ class RcsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ExtendedRcsCampaign:
         """
-        Create a new RCS campaign or updates an existing one. <br>
+        Create a new RCS campaign or update an existing one.
 
-        Omit campaignId to create a campaign.
+        <Note>
+        **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
+
+        **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+
+        All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/rcs/submit).
+        </Note>
 
         Parameters
         ----------
@@ -183,7 +189,7 @@ class RcsClient:
             Unique identifier for the campaign.
 
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
-            List of what the agent might say to users. <br><br>
+            List of what the agent might say to users. See the [Expected Agent Responses](/guides/campaigns/rcs-compliance#expected-agent-responses) section for requirements. <br><br>
             **Limit:** 1 to 5
 
         links : typing.Optional[RcsLinks]
@@ -193,34 +199,31 @@ class RcsClient:
             Use case classification for the campaign.
 
         opt_in_terms_and_conditions : typing.Optional[str]
-            Details on how opt-in is acquired. If it is done through a website or app, provide the link.
+            Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Terms and Conditions](/guides/campaigns/rcs-compliance#opt-in-terms-and-conditions) section for requirements.
 
         messaging_type : typing.Optional[RcsMessagingTypeEnum]
 
         carrier_description : typing.Optional[str]
-            Description of the agent's purpose, shown to carriers for approval.
+            Description of the agent's purpose, shown to carriers for approval. See the [Carrier Description](/guides/campaigns/rcs-compliance#carrier-description) section for requirements.
 
         keywords : typing.Optional[RcsCampaignKeywords]
 
         traffic : typing.Optional[RcsCampaignTraffic]
 
         agent_triggers : typing.Optional[str]
-            Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers.
+            Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. See the [Agent Triggers](/guides/campaigns/rcs-compliance#agent-triggers) section for requirements.
 
         interaction_description : typing.Optional[str]
-            Description of all agent interactions.
+            Description of all agent interactions, including primary and secondary use cases. See the [Interaction Description](/guides/campaigns/rcs-compliance#interaction-description) section for requirements.
 
         is_conversational : typing.Optional[bool]
             Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user.
 
         cta_language : typing.Optional[str]
-            Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. The text should meet the US CTIA requirements and is usually in the following format: <br>
-
-            [Program description of the company sending the messages and what type of messages are being sent]. Msg&data rates may apply. [Message frequency: How frequently messages are sent]. [Privacy statement or link to privacy policy]. [Link to full mobile
-            T&Cs page].
+            Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. See the [CTA Language](/guides/campaigns/rcs-compliance#cta-language-opt-in-disclosure) section for requirements.
 
         demo_trigger : typing.Optional[str]
-            Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user.
+            Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user. See the [Demo Trigger](/guides/campaigns/rcs-compliance#demo-trigger) section for requirements.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -561,9 +564,15 @@ class AsyncRcsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ExtendedRcsCampaign:
         """
-        Create a new RCS campaign or updates an existing one. <br>
+        Create a new RCS campaign or update an existing one.
 
-        Omit campaignId to create a campaign.
+        <Note>
+        **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
+
+        **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+
+        All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/rcs/submit).
+        </Note>
 
         Parameters
         ----------
@@ -577,7 +586,7 @@ class AsyncRcsClient:
             Unique identifier for the campaign.
 
         expected_agent_responses : typing.Optional[typing.Sequence[str]]
-            List of what the agent might say to users. <br><br>
+            List of what the agent might say to users. See the [Expected Agent Responses](/guides/campaigns/rcs-compliance#expected-agent-responses) section for requirements. <br><br>
             **Limit:** 1 to 5
 
         links : typing.Optional[RcsLinks]
@@ -587,34 +596,31 @@ class AsyncRcsClient:
             Use case classification for the campaign.
 
         opt_in_terms_and_conditions : typing.Optional[str]
-            Details on how opt-in is acquired. If it is done through a website or app, provide the link.
+            Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Terms and Conditions](/guides/campaigns/rcs-compliance#opt-in-terms-and-conditions) section for requirements.
 
         messaging_type : typing.Optional[RcsMessagingTypeEnum]
 
         carrier_description : typing.Optional[str]
-            Description of the agent's purpose, shown to carriers for approval.
+            Description of the agent's purpose, shown to carriers for approval. See the [Carrier Description](/guides/campaigns/rcs-compliance#carrier-description) section for requirements.
 
         keywords : typing.Optional[RcsCampaignKeywords]
 
         traffic : typing.Optional[RcsCampaignTraffic]
 
         agent_triggers : typing.Optional[str]
-            Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers.
+            Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. See the [Agent Triggers](/guides/campaigns/rcs-compliance#agent-triggers) section for requirements.
 
         interaction_description : typing.Optional[str]
-            Description of all agent interactions.
+            Description of all agent interactions, including primary and secondary use cases. See the [Interaction Description](/guides/campaigns/rcs-compliance#interaction-description) section for requirements.
 
         is_conversational : typing.Optional[bool]
             Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user.
 
         cta_language : typing.Optional[str]
-            Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. The text should meet the US CTIA requirements and is usually in the following format: <br>
-
-            [Program description of the company sending the messages and what type of messages are being sent]. Msg&data rates may apply. [Message frequency: How frequently messages are sent]. [Privacy statement or link to privacy policy]. [Link to full mobile
-            T&Cs page].
+            Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. See the [CTA Language](/guides/campaigns/rcs-compliance#cta-language-opt-in-disclosure) section for requirements.
 
         demo_trigger : typing.Optional[str]
-            Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user.
+            Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user. See the [Demo Trigger](/guides/campaigns/rcs-compliance#demo-trigger) section for requirements.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

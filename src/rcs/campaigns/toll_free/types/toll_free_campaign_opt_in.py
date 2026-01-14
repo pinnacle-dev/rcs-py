@@ -11,20 +11,20 @@ from ....types.opt_in_method_enum import OptInMethodEnum
 
 class TollFreeCampaignOptIn(UniversalBaseModel):
     """
-    Opt-in keyword settings.
+    Opt-in method and workflow.
     """
 
     method: typing.Optional[OptInMethodEnum] = None
     url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Url to opt in.
+    URL where the opt-in form or documentation can be found.
     """
 
     workflow_description: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="workflowDescription")
     ] = pydantic.Field(default=None)
     """
-    Explain how users find the opt-in.
+    Describe your opt-in workflow. See the [Opt-In Methods and Workflow](/guides/campaigns/opt-in-compliance#opt-in-methods-and-workflow) section for requirements and examples.
     """
 
     if IS_PYDANTIC_V2:

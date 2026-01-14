@@ -13,7 +13,7 @@ class TollFreeCampaignOptInKeywords(UniversalBaseModel):
 
     message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Message sent when a user opt-in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates).
+    Message sent when a user opts in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). See the [Opt-In keyword requirements](/guides/campaigns/opt-in-compliance#keyword-response-messages).
     """
 
     keywords: typing.Optional[typing.List[str]] = pydantic.Field(default=None)

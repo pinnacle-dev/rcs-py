@@ -14,7 +14,7 @@ class TollFreeCampaignSchemaUseCase(UniversalBaseModel):
 
     summary: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Summary of the use case.
+    Detailed summary of the use case explaining what messages will be sent and how users interact with the campaign. See the [Use Case Summary](/guides/campaigns/opt-in-compliance#use-case-summary) section for requirements.
     """
 
     value: typing.Optional[TollFreeCampaignUseCaseEnum] = None

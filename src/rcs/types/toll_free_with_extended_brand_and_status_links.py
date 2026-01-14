@@ -6,20 +6,26 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .webhook_event_enum import WebhookEventEnum
 
 
-class AttachWebhookByIdParams(UniversalBaseModel):
+class TollFreeWithExtendedBrandAndStatusLinks(UniversalBaseModel):
     """
-    Attach a webhook you’ve already created in your account to this phone number.
-    """
-
-    webhook_id: typing_extensions.Annotated[str, FieldMetadata(alias="webhookId")] = pydantic.Field()
-    """
-    The unique ID of the webhook you want to attach. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
+    Legal documentation links.
     """
 
-    event: typing.Optional[WebhookEventEnum] = None
+    privacy_policy: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="privacyPolicy")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Privacy policy URL.
+    """
+
+    terms_of_service: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="termsOfService")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Terms of service URL.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -6,15 +6,19 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class RcsCampaignSchemaKeywordsHelp(UniversalBaseModel):
+class TollFreeWithExtendedBrandAndStatusKeywordsOptIn(UniversalBaseModel):
+    """
+    Opt-in keyword settings.
+    """
+
     message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). See the [Keyword Response Messages](/guides/campaigns/rcs-compliance#keyword-response-messages) section for requirements.
+    Message sent when a user opt-in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates).
     """
 
     keywords: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Keywords that trigger help response.
+    Keywords that trigger opt-in response.
     """
 
     if IS_PYDANTIC_V2:

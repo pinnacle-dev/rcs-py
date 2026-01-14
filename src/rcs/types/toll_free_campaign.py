@@ -37,14 +37,14 @@ class TollFreeCampaign(UniversalBaseModel):
     ] = None
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Display name of the campaign.
+    Display name of the campaign. This is not sent to carriers for approval and is only used for your reference on the Pinnacle dashboard.
     """
 
     opt_in: typing_extensions.Annotated[typing.Optional[TollFreeCampaignSchemaOptIn], FieldMetadata(alias="optIn")] = (
         pydantic.Field(default=None)
     )
     """
-    Opt-in keyword settings.
+    Opt-in method and workflow.
     """
 
     options: typing.Optional[TollFreeCampaignSchemaOptions] = pydantic.Field(default=None)
@@ -56,7 +56,7 @@ class TollFreeCampaign(UniversalBaseModel):
         typing.Optional[str], FieldMetadata(alias="productionMessageContent")
     ] = pydantic.Field(default=None)
     """
-    Explain message that would be sent.
+    Example message(s) that would be sent in production. Should reflect the actual content users will receive. See the [Production Message Content](/guides/campaigns/opt-in-compliance#production-message-content) section for requirements.
     """
 
     use_case: typing_extensions.Annotated[

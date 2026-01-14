@@ -13,12 +13,12 @@ class DlcCampaignHelpKeywords(UniversalBaseModel):
 
     message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Response message for help keywords.
+    Response message for help keywords. Must include support contact information and standard disclosures. See the [Help keyword requirements](/guides/campaigns/opt-in-compliance#keyword-response-messages).
     """
 
     values: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Keywords that trigger help response.
+    Keywords that trigger help response (e.g., HELP, SUPPORT, INFO).
     """
 
     if IS_PYDANTIC_V2:

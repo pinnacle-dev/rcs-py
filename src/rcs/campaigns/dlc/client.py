@@ -163,9 +163,17 @@ class DlcClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DlcCampaignWithExtendedBrandAndStatus:
         """
-        Create a new 10DLC campaign or updates an existing one. <br>
+        Create a new 10DLC campaign or update an existing one.
 
-        Omit campaignId to create a campaign.
+        <Note>
+        **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
+
+        **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+
+        All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/10-dlc/submit).
+
+        **See the response for example values for each field.**
+        </Note>
 
         Parameters
         ----------
@@ -179,7 +187,9 @@ class DlcClient:
             Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         description : typing.Optional[str]
-            Description of the campaign.
+            Description of the campaign. Explain the purpose, use case, and types of messages your campaign will send.
+
+            **Example:** `This campaign allows users who have specifically opted in to interact with our chatbot for a range of automated services, including order status notifications, shipping updates, security alerts, and help desk support. Users can manage their account, receive transactional SMS prompts, and access interactive support. They may also share images, such as receipts, and receive immediate responses for support or account updates. All messages are strictly transactional or support-related, never unsolicited, and initiated only after clear user consent.`
 
         keywords : typing.Optional[DlcCampaignKeywords]
             Keyword response configuration.
@@ -188,7 +198,7 @@ class DlcClient:
             Legal documentation links.
 
         message_flow : typing.Optional[str]
-            Describe the flow of how users will opt in to this campaign.
+            Describe your opt-in workflow. See the [Opt-In Methods and Workflow](/guides/campaigns/opt-in-compliance#opt-in-methods-and-workflow) section for requirements and examples.
 
         name : typing.Optional[str]
             Display name of the campaign.
@@ -197,8 +207,7 @@ class DlcClient:
             Campaign configuration options.
 
         sample_messages : typing.Optional[typing.Sequence[str]]
-            Example messages for the campaign. <br><br>
-            **Limit:** 1 to 5
+            Example messages for the campaign. Include 1-5 messages that represent the types of messages you will send. See the [Sample Messages](/guides/campaigns/opt-in-compliance#sample-messages) section for requirements and examples.
 
         use_case : typing.Optional[DlcCampaignUseCase]
             Use case for the campaign.
@@ -230,27 +239,27 @@ class DlcClient:
         client.campaigns.dlc.upsert(
             auto_renew=True,
             brand="b_1234567890",
-            campaign_id="dlc_1234567890",
+            description="This campaign sends transactional SMS messages to customers who have opted in, including account notifications, security alerts, and customer care responses. Messages are sent when triggered by account activity such as login attempts, password changes, order updates, or support inquiries. All messages include required STOP/HELP disclosures and comply with TCPA guidelines.",
             keywords=DlcCampaignKeywords(
                 help=DlcCampaignHelpKeywords(
-                    message="Reply HELP for assistance, STOP to opt-out",
-                    values=["HELP", "INFO", "SUPPORT"],
+                    message="Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel.",
+                    values=["HELP", "SUPPORT", "INFO"],
                 ),
                 opt_in=DlcCampaignOptInKeywords(
-                    message="Welcome. You are now subscribed to Pinnacle.",
-                    values=["JOIN", "START", "SUBSCRIBE"],
+                    message="Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms Privacy: https://pinnacle.sh/privacy",
+                    values=["START", "YES", "SUBSCRIBE"],
                 ),
                 opt_out=DlcCampaignOptOutKeywords(
-                    message="You have been unsubscribed. Reply START to rejoin.",
-                    values=["STOP", "QUIT", "UNSUBSCRIBE"],
+                    message="Pinnacle Software Development Inc.: You're unsubscribed and will receive no further texts. For assistance, visit https://pinnacle.sh or call 877-389-0460. Reply START to resubscribe.",
+                    values=["STOP", "CANCEL", "UNSUBSCRIBE"],
                 ),
             ),
             links=DlcCampaignLinks(
                 privacy_policy="https://www.pinnacle.sh/privacy",
                 terms_of_service="https://www.pinnacle.sh/terms",
             ),
-            message_flow="Customer initiates -> Automated response -> Agent follow-up if needed",
-            name="Account Notifications",
+            message_flow='The user fills out a paper form during onboarding at [Address] which they learn about at our website (https://pinnacle.sh) in which they provide their phone number and sign their consent. The form includes a disclaimer: "By signing this form and providing your phone number, you agree to receive SMS Mixed - Account Notification, Customer Care, Security Alert, Delivery Notification from Pinnacle Software Development Inc. Message frequency may vary. Standard Message and Data Rates may apply. Reply STOP to opt out. Reply HELP for help. Consent is not a condition of purchase. Your mobile information will not be sold or shared with third parties for promotional or marketing purposes." Once the information is entered into the system, the user receives a confirmation SMS: "Thank you for signing up for SMS updates from Pinnacle Software Development Inc. Msg freq may vary. Std msg & data rates apply. Reply STOP to opt out, HELP for help." Link to paper form: https://www.pinnacle.sh/opt-in',
+            name="Pinnacle's Account Notifications",
             options=DlcCampaignOptions(
                 affiliate_marketing=False,
                 age_gated=False,
@@ -259,10 +268,15 @@ class DlcClient:
                 embedded_phone=False,
                 number_pooling=False,
             ),
-            sample_messages=["Security alert: Unusual login detected from new device."],
+            sample_messages=[
+                "Pinnacle Software Development Inc.: We're here to help. Visit https://pinnacle.sh or call 877-389-0460. Msg&data rates may apply. Reply STOP to cancel.",
+                "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/",
+                "Pinnacle Software Development Inc.: An update has been made to your account. Read it in the portal.",
+                "Pinnacle Software Development Inc.: We received your message. A team member will reply shortly. For immediate help call 877-389-0460. Msg&data rates may apply. Reply STOP to cancel.",
+            ],
             use_case=DlcCampaignUseCase(
-                sub=["FRAUD_ALERT"],
-                value="ACCOUNT_NOTIFICATION",
+                sub=["ACCOUNT_NOTIFICATION", "CUSTOMER_CARE", "SECURITY_ALERT"],
+                value="MIXED",
             ),
         )
         """
@@ -498,9 +512,17 @@ class AsyncDlcClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DlcCampaignWithExtendedBrandAndStatus:
         """
-        Create a new 10DLC campaign or updates an existing one. <br>
+        Create a new 10DLC campaign or update an existing one.
 
-        Omit campaignId to create a campaign.
+        <Note>
+        **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
+
+        **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+
+        All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/10-dlc/submit).
+
+        **See the response for example values for each field.**
+        </Note>
 
         Parameters
         ----------
@@ -514,7 +536,9 @@ class AsyncDlcClient:
             Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         description : typing.Optional[str]
-            Description of the campaign.
+            Description of the campaign. Explain the purpose, use case, and types of messages your campaign will send.
+
+            **Example:** `This campaign allows users who have specifically opted in to interact with our chatbot for a range of automated services, including order status notifications, shipping updates, security alerts, and help desk support. Users can manage their account, receive transactional SMS prompts, and access interactive support. They may also share images, such as receipts, and receive immediate responses for support or account updates. All messages are strictly transactional or support-related, never unsolicited, and initiated only after clear user consent.`
 
         keywords : typing.Optional[DlcCampaignKeywords]
             Keyword response configuration.
@@ -523,7 +547,7 @@ class AsyncDlcClient:
             Legal documentation links.
 
         message_flow : typing.Optional[str]
-            Describe the flow of how users will opt in to this campaign.
+            Describe your opt-in workflow. See the [Opt-In Methods and Workflow](/guides/campaigns/opt-in-compliance#opt-in-methods-and-workflow) section for requirements and examples.
 
         name : typing.Optional[str]
             Display name of the campaign.
@@ -532,8 +556,7 @@ class AsyncDlcClient:
             Campaign configuration options.
 
         sample_messages : typing.Optional[typing.Sequence[str]]
-            Example messages for the campaign. <br><br>
-            **Limit:** 1 to 5
+            Example messages for the campaign. Include 1-5 messages that represent the types of messages you will send. See the [Sample Messages](/guides/campaigns/opt-in-compliance#sample-messages) section for requirements and examples.
 
         use_case : typing.Optional[DlcCampaignUseCase]
             Use case for the campaign.
@@ -570,27 +593,27 @@ class AsyncDlcClient:
             await client.campaigns.dlc.upsert(
                 auto_renew=True,
                 brand="b_1234567890",
-                campaign_id="dlc_1234567890",
+                description="This campaign sends transactional SMS messages to customers who have opted in, including account notifications, security alerts, and customer care responses. Messages are sent when triggered by account activity such as login attempts, password changes, order updates, or support inquiries. All messages include required STOP/HELP disclosures and comply with TCPA guidelines.",
                 keywords=DlcCampaignKeywords(
                     help=DlcCampaignHelpKeywords(
-                        message="Reply HELP for assistance, STOP to opt-out",
-                        values=["HELP", "INFO", "SUPPORT"],
+                        message="Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel.",
+                        values=["HELP", "SUPPORT", "INFO"],
                     ),
                     opt_in=DlcCampaignOptInKeywords(
-                        message="Welcome. You are now subscribed to Pinnacle.",
-                        values=["JOIN", "START", "SUBSCRIBE"],
+                        message="Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms Privacy: https://pinnacle.sh/privacy",
+                        values=["START", "YES", "SUBSCRIBE"],
                     ),
                     opt_out=DlcCampaignOptOutKeywords(
-                        message="You have been unsubscribed. Reply START to rejoin.",
-                        values=["STOP", "QUIT", "UNSUBSCRIBE"],
+                        message="Pinnacle Software Development Inc.: You're unsubscribed and will receive no further texts. For assistance, visit https://pinnacle.sh or call 877-389-0460. Reply START to resubscribe.",
+                        values=["STOP", "CANCEL", "UNSUBSCRIBE"],
                     ),
                 ),
                 links=DlcCampaignLinks(
                     privacy_policy="https://www.pinnacle.sh/privacy",
                     terms_of_service="https://www.pinnacle.sh/terms",
                 ),
-                message_flow="Customer initiates -> Automated response -> Agent follow-up if needed",
-                name="Account Notifications",
+                message_flow='The user fills out a paper form during onboarding at [Address] which they learn about at our website (https://pinnacle.sh) in which they provide their phone number and sign their consent. The form includes a disclaimer: "By signing this form and providing your phone number, you agree to receive SMS Mixed - Account Notification, Customer Care, Security Alert, Delivery Notification from Pinnacle Software Development Inc. Message frequency may vary. Standard Message and Data Rates may apply. Reply STOP to opt out. Reply HELP for help. Consent is not a condition of purchase. Your mobile information will not be sold or shared with third parties for promotional or marketing purposes." Once the information is entered into the system, the user receives a confirmation SMS: "Thank you for signing up for SMS updates from Pinnacle Software Development Inc. Msg freq may vary. Std msg & data rates apply. Reply STOP to opt out, HELP for help." Link to paper form: https://www.pinnacle.sh/opt-in',
+                name="Pinnacle's Account Notifications",
                 options=DlcCampaignOptions(
                     affiliate_marketing=False,
                     age_gated=False,
@@ -600,11 +623,14 @@ class AsyncDlcClient:
                     number_pooling=False,
                 ),
                 sample_messages=[
-                    "Security alert: Unusual login detected from new device."
+                    "Pinnacle Software Development Inc.: We're here to help. Visit https://pinnacle.sh or call 877-389-0460. Msg&data rates may apply. Reply STOP to cancel.",
+                    "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/",
+                    "Pinnacle Software Development Inc.: An update has been made to your account. Read it in the portal.",
+                    "Pinnacle Software Development Inc.: We received your message. A team member will reply shortly. For immediate help call 877-389-0460. Msg&data rates may apply. Reply STOP to cancel.",
                 ],
                 use_case=DlcCampaignUseCase(
-                    sub=["FRAUD_ALERT"],
-                    value="ACCOUNT_NOTIFICATION",
+                    sub=["ACCOUNT_NOTIFICATION", "CUSTOMER_CARE", "SECURITY_ALERT"],
+                    value="MIXED",
                 ),
             )
 

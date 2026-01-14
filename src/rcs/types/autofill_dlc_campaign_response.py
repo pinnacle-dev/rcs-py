@@ -49,7 +49,7 @@ class AutofillDlcCampaignResponse(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    Describe the flow of how users will opt in to this campaign.
+    Describe the flow of how users will opt in to this campaign. See the [Opt-In Methods and Workflow](/guides/campaigns/opt-in-compliance#opt-in-methods-and-workflow) section for requirements.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)
@@ -66,7 +66,7 @@ class AutofillDlcCampaignResponse(UniversalBaseModel):
         typing.Optional[typing.List[str]], FieldMetadata(alias="sampleMessages")
     ] = pydantic.Field(default=None)
     """
-    Example messages for the campaign.
+    Example messages for the campaign. See the [Sample Messages](/guides/campaigns/opt-in-compliance#sample-messages) section for requirements.
     """
 
     use_case: typing_extensions.Annotated[

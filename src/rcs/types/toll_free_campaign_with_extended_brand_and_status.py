@@ -3,13 +3,20 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
+import typing_extensions
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 from .extended_brand import ExtendedBrand
+from .message_volume_enum import MessageVolumeEnum
 from .profile_status_enum import ProfileStatusEnum
-from .toll_free_campaign import TollFreeCampaign
+from .toll_free_with_extended_brand_and_status_keywords import TollFreeWithExtendedBrandAndStatusKeywords
+from .toll_free_with_extended_brand_and_status_links import TollFreeWithExtendedBrandAndStatusLinks
+from .toll_free_with_extended_brand_and_status_opt_in import TollFreeWithExtendedBrandAndStatusOptIn
+from .toll_free_with_extended_brand_and_status_options import TollFreeWithExtendedBrandAndStatusOptions
+from .toll_free_with_extended_brand_and_status_use_case import TollFreeWithExtendedBrandAndStatusUseCase
 
 
-class TollFreeCampaignWithExtendedBrandAndStatus(TollFreeCampaign):
+class TollFreeCampaignWithExtendedBrandAndStatus(UniversalBaseModel):
     brand: ExtendedBrand = pydantic.Field()
     """
     Brand associated with this campaign.
@@ -23,6 +30,55 @@ class TollFreeCampaignWithExtendedBrandAndStatus(TollFreeCampaign):
     `PENDING`: Currently being reviewed.<br>
     `VERIFIED`: Verified and good to go.<br>
     `VETTED`: Brand has been vetted by an external provider and has received vetting scores.
+    """
+
+    campaign_id: typing_extensions.Annotated[str, FieldMetadata(alias="campaignId")] = pydantic.Field()
+    """
+    Unique identifier for the campaign. Begins with the prefix `tf_`.
+    """
+
+    keywords: typing.Optional[TollFreeWithExtendedBrandAndStatusKeywords] = pydantic.Field(default=None)
+    """
+    Keyword response configuration.
+    """
+
+    links: typing.Optional[TollFreeWithExtendedBrandAndStatusLinks] = pydantic.Field(default=None)
+    """
+    Legal documentation links.
+    """
+
+    monthly_volume: typing_extensions.Annotated[
+        typing.Optional[MessageVolumeEnum], FieldMetadata(alias="monthlyVolume")
+    ] = None
+    name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Display name of the campaign.
+    """
+
+    opt_in: typing_extensions.Annotated[
+        typing.Optional[TollFreeWithExtendedBrandAndStatusOptIn], FieldMetadata(alias="optIn")
+    ] = pydantic.Field(default=None)
+    """
+    Opt-in keyword settings.
+    """
+
+    options: typing.Optional[TollFreeWithExtendedBrandAndStatusOptions] = pydantic.Field(default=None)
+    """
+    Campaign configuration options.
+    """
+
+    production_message_content: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="productionMessageContent")
+    ] = pydantic.Field(default=None)
+    """
+    Explain message that would be sent.
+    """
+
+    use_case: typing_extensions.Annotated[
+        typing.Optional[TollFreeWithExtendedBrandAndStatusUseCase], FieldMetadata(alias="useCase")
+    ] = pydantic.Field(default=None)
+    """
+    Use case classification for the campaign.
     """
 
     if IS_PYDANTIC_V2:

@@ -306,9 +306,17 @@ class RawDlcClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DlcCampaignWithExtendedBrandAndStatus]:
         """
-        Create a new 10DLC campaign or updates an existing one. <br>
+        Create a new 10DLC campaign or update an existing one.
 
-        Omit campaignId to create a campaign.
+        <Note>
+        **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
+
+        **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+
+        All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/10-dlc/submit).
+
+        **See the response for example values for each field.**
+        </Note>
 
         Parameters
         ----------
@@ -322,7 +330,9 @@ class RawDlcClient:
             Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         description : typing.Optional[str]
-            Description of the campaign.
+            Description of the campaign. Explain the purpose, use case, and types of messages your campaign will send.
+
+            **Example:** `This campaign allows users who have specifically opted in to interact with our chatbot for a range of automated services, including order status notifications, shipping updates, security alerts, and help desk support. Users can manage their account, receive transactional SMS prompts, and access interactive support. They may also share images, such as receipts, and receive immediate responses for support or account updates. All messages are strictly transactional or support-related, never unsolicited, and initiated only after clear user consent.`
 
         keywords : typing.Optional[DlcCampaignKeywords]
             Keyword response configuration.
@@ -331,7 +341,7 @@ class RawDlcClient:
             Legal documentation links.
 
         message_flow : typing.Optional[str]
-            Describe the flow of how users will opt in to this campaign.
+            Describe your opt-in workflow. See the [Opt-In Methods and Workflow](/guides/campaigns/opt-in-compliance#opt-in-methods-and-workflow) section for requirements and examples.
 
         name : typing.Optional[str]
             Display name of the campaign.
@@ -340,8 +350,7 @@ class RawDlcClient:
             Campaign configuration options.
 
         sample_messages : typing.Optional[typing.Sequence[str]]
-            Example messages for the campaign. <br><br>
-            **Limit:** 1 to 5
+            Example messages for the campaign. Include 1-5 messages that represent the types of messages you will send. See the [Sample Messages](/guides/campaigns/opt-in-compliance#sample-messages) section for requirements and examples.
 
         use_case : typing.Optional[DlcCampaignUseCase]
             Use case for the campaign.
@@ -812,9 +821,17 @@ class AsyncRawDlcClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DlcCampaignWithExtendedBrandAndStatus]:
         """
-        Create a new 10DLC campaign or updates an existing one. <br>
+        Create a new 10DLC campaign or update an existing one.
 
-        Omit campaignId to create a campaign.
+        <Note>
+        **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
+
+        **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+
+        All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/10-dlc/submit).
+
+        **See the response for example values for each field.**
+        </Note>
 
         Parameters
         ----------
@@ -828,7 +845,9 @@ class AsyncRawDlcClient:
             Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
         description : typing.Optional[str]
-            Description of the campaign.
+            Description of the campaign. Explain the purpose, use case, and types of messages your campaign will send.
+
+            **Example:** `This campaign allows users who have specifically opted in to interact with our chatbot for a range of automated services, including order status notifications, shipping updates, security alerts, and help desk support. Users can manage their account, receive transactional SMS prompts, and access interactive support. They may also share images, such as receipts, and receive immediate responses for support or account updates. All messages are strictly transactional or support-related, never unsolicited, and initiated only after clear user consent.`
 
         keywords : typing.Optional[DlcCampaignKeywords]
             Keyword response configuration.
@@ -837,7 +856,7 @@ class AsyncRawDlcClient:
             Legal documentation links.
 
         message_flow : typing.Optional[str]
-            Describe the flow of how users will opt in to this campaign.
+            Describe your opt-in workflow. See the [Opt-In Methods and Workflow](/guides/campaigns/opt-in-compliance#opt-in-methods-and-workflow) section for requirements and examples.
 
         name : typing.Optional[str]
             Display name of the campaign.
@@ -846,8 +865,7 @@ class AsyncRawDlcClient:
             Campaign configuration options.
 
         sample_messages : typing.Optional[typing.Sequence[str]]
-            Example messages for the campaign. <br><br>
-            **Limit:** 1 to 5
+            Example messages for the campaign. Include 1-5 messages that represent the types of messages you will send. See the [Sample Messages](/guides/campaigns/opt-in-compliance#sample-messages) section for requirements and examples.
 
         use_case : typing.Optional[DlcCampaignUseCase]
             Use case for the campaign.

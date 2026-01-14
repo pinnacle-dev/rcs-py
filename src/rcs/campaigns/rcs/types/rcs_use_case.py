@@ -14,7 +14,7 @@ class RcsUseCase(UniversalBaseModel):
 
     behavior: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Detailed summary of what the brand is and how this agent will be used.
+    Detailed summary of what the brand is and how this agent will be used. See the [Use Case Behavior](/guides/campaigns/rcs-compliance#use-case-behavior) section for requirements.
     """
 
     value: typing.Optional[RcsCampaignUseCaseEnum] = None

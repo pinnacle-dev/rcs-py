@@ -306,9 +306,17 @@ class RawTollFreeClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TollFreeCampaignWithExtendedBrandAndStatus]:
         """
-        Create a new toll-free campaign or updates an existing one.<br>
+        Create a new toll-free campaign or update an existing one.
 
-        Omit campaignId to create a campaign.
+        <Note>
+        **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
+
+        **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+
+        All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/toll-free/submit).
+
+        **See the response for example values for each field.**
+        </Note>
 
         Parameters
         ----------
@@ -327,16 +335,16 @@ class RawTollFreeClient:
         monthly_volume : typing.Optional[MessageVolumeEnum]
 
         name : typing.Optional[str]
-            Display name of the campaign.
+            Display name of the campaign. This is not sent to carriers for approval and is only used for your reference on the Pinnacle dashboard.
 
         opt_in : typing.Optional[TollFreeCampaignOptIn]
-            Opt-in keyword settings.
+            Opt-in method and workflow.
 
         options : typing.Optional[TollFreeCampaignOptions]
             Campaign configuration options.
 
         production_message_content : typing.Optional[str]
-            Explain message that would be sent.
+            Example message(s) that would be sent in production. Should reflect the actual content users will receive, including HELP/STOP disclosures. See the [Production Message Content](/guides/campaigns/opt-in-compliance#production-message-content) section for requirements.
 
         use_case : typing.Optional[TollFreeCampaignUseCase]
             Use case classification for the campaign.
@@ -806,9 +814,17 @@ class AsyncRawTollFreeClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TollFreeCampaignWithExtendedBrandAndStatus]:
         """
-        Create a new toll-free campaign or updates an existing one.<br>
+        Create a new toll-free campaign or update an existing one.
 
-        Omit campaignId to create a campaign.
+        <Note>
+        **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
+
+        **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+
+        All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/toll-free/submit).
+
+        **See the response for example values for each field.**
+        </Note>
 
         Parameters
         ----------
@@ -827,16 +843,16 @@ class AsyncRawTollFreeClient:
         monthly_volume : typing.Optional[MessageVolumeEnum]
 
         name : typing.Optional[str]
-            Display name of the campaign.
+            Display name of the campaign. This is not sent to carriers for approval and is only used for your reference on the Pinnacle dashboard.
 
         opt_in : typing.Optional[TollFreeCampaignOptIn]
-            Opt-in keyword settings.
+            Opt-in method and workflow.
 
         options : typing.Optional[TollFreeCampaignOptions]
             Campaign configuration options.
 
         production_message_content : typing.Optional[str]
-            Explain message that would be sent.
+            Example message(s) that would be sent in production. Should reflect the actual content users will receive, including HELP/STOP disclosures. See the [Production Message Content](/guides/campaigns/opt-in-compliance#production-message-content) section for requirements.
 
         use_case : typing.Optional[TollFreeCampaignUseCase]
             Use case classification for the campaign.

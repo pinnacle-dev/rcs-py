@@ -6,15 +6,14 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class RcsCampaignSchemaKeywordsHelp(UniversalBaseModel):
-    message: typing.Optional[str] = pydantic.Field(default=None)
+class TollFreeWithExtendedBrandAndStatusKeywordsHelp(UniversalBaseModel):
     """
-    Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). See the [Keyword Response Messages](/guides/campaigns/rcs-compliance#keyword-response-messages) section for requirements.
+    Help keyword settings.
     """
 
-    keywords: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Keywords that trigger help response.
+    Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website).
     """
 
     if IS_PYDANTIC_V2:

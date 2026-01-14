@@ -13,12 +13,12 @@ class DlcCampaignOptInKeywords(UniversalBaseModel):
 
     message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Response message for opt-in keywords.
+    Response message for opt-in keywords. Must include company name, subscription confirmation, message frequency, HELP/STOP instructions, and links to terms and privacy policy. See the [Opt-In keyword requirements](/guides/campaigns/opt-in-compliance#keyword-response-messages).
     """
 
     values: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Keywords that trigger opt-in.
+    Keywords that trigger opt-in (e.g., START, YES, SUBSCRIBE).
     """
 
     if IS_PYDANTIC_V2:
