@@ -22,10 +22,10 @@ class BaseClientWrapper:
 
     def get_headers(self) -> typing.Dict[str, str]:
         headers: typing.Dict[str, str] = {
-            "User-Agent": "rcs/2.0.12rc1",
+            "User-Agent": "rcs/2.0.13",
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "rcs",
-            "X-Fern-SDK-Version": "2.0.12rc1",
+            "X-Fern-SDK-Version": "2.0.13",
             **(self.get_custom_headers() or {}),
         }
         headers["PINNACLE-API-KEY"] = self.api_key
