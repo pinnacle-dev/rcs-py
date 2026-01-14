@@ -11,7 +11,7 @@ from .webhook_event_enum import WebhookEventEnum
 
 class AttachWebhookByIdParams(UniversalBaseModel):
     """
-    Attach a webhook you’ve already created in your account to this phone number.
+    Attach a webhook you've already created in your account to this phone number.
     """
 
     webhook_id: typing_extensions.Annotated[str, FieldMetadata(alias="webhookId")] = pydantic.Field()
