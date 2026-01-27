@@ -293,6 +293,7 @@ if typing.TYPE_CHECKING:
     )
     from .errors import (
         BadRequestError,
+        ForbiddenError,
         InternalServerError,
         NotFoundError,
         NotImplementedError,
@@ -430,6 +431,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExtendedBrand": ".types",
     "ExtendedBrandWithVetting": ".types",
     "ExtendedRcsCampaign": ".types",
+    "ForbiddenError": ".errors",
     "GetConversationParams": ".types",
     "GetDlcCampaignStatusResponseUpdates": ".types",
     "GetTollFreeCampaignStatusResponseUpdates": ".types",
@@ -775,6 +777,7 @@ __all__ = [
     "ExtendedBrand",
     "ExtendedBrandWithVetting",
     "ExtendedRcsCampaign",
+    "ForbiddenError",
     "GetConversationParams",
     "GetDlcCampaignStatusResponseUpdates",
     "GetTollFreeCampaignStatusResponseUpdates",
