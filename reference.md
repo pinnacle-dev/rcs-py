@@ -5235,7 +5235,7 @@ Use the optional `schedule` parameter in `options` to schedule the blast for fut
 <dd>
 
 ```python
-from rcs import Pinnacle, RichButton_Trigger, RichText
+from rcs import FallbackMessage, Pinnacle, RichButton_Trigger, RichText
 from rcs.messages.blast import BlastRcsOptions
 
 client = Pinnacle(
@@ -5252,6 +5252,10 @@ client.messages.blast.rcs(
             )
         ],
         text="Hello from Pinnacle RCS!",
+    ),
+    fallback=FallbackMessage(
+        from_="+14155164736",
+        text="Hello from Pinnacle! Reply LEARN to learn more.",
     ),
     options=BlastRcsOptions(
         transcode=True,
@@ -5302,6 +5306,14 @@ Messages will be evenly distributed across these agents.
 <dd>
 
 **message:** `RcsValidateContent` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback:** `typing.Optional[FallbackMessage]` 
     
 </dd>
 </dl>

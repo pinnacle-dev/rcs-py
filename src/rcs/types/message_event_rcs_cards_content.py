@@ -17,11 +17,6 @@ class MessageEventRcsCardsContent(UniversalBaseModel):
     See [supported file types](https://app.pinnacle.sh/supported-file-types?type=RCS-CARD).
     """
 
-    type: typing.Literal["RCS_CARDS"] = pydantic.Field(default="RCS_CARDS")
-    """
-    Message type identifier.
-    """
-
     id: str = pydantic.Field()
     """
     Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>

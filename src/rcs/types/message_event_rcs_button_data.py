@@ -3,26 +3,35 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .button_clicked_data import ButtonClickedData
+import typing_extensions
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
+from .message_event_rcs_button_data_button import MessageEventRcsButtonDataButton
 
 
-class MessageEventRcsButtonData(ButtonClickedData):
+class MessageEventRcsButtonData(UniversalBaseModel):
     """
     Button click event data received when a user clicks on an RCS button or quick reply (excluding `requestUserLocation` buttons).
 
     This event contains information about which button was clicked, how many times it's been clicked, and any payload or metadata attached to the button. Use this data to handle user interactions with your RCS messages.
     """
 
-    type: typing.Literal["RCS_BUTTON_DATA"] = pydantic.Field(default="RCS_BUTTON_DATA")
-    """
-    Message type identifier.
-    """
-
     id: str = pydantic.Field()
     """
     Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>
     To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
+    """
+
+    button: MessageEventRcsButtonDataButton = pydantic.Field()
+    """
+    Information about the button that was clicked.
+    """
+
+    message_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="messageId")] = pydantic.Field(
+        default=None
+    )
+    """
+    ID of the message this button was sent in, or null if not available. To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
     """
 
     if IS_PYDANTIC_V2:

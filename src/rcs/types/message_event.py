@@ -9,6 +9,7 @@ from ..core.serialization import FieldMetadata
 from .message_event_content import MessageEventContent
 from .message_event_conversation import MessageEventConversation
 from .message_event_direction import MessageEventDirection
+from .message_event_fallback_message import MessageEventFallbackMessage
 from .message_status_enum import MessageStatusEnum
 from .webhook_event_enum import WebhookEventEnum
 
@@ -53,6 +54,16 @@ class MessageEvent(UniversalBaseModel):
     """
 
     message: MessageEventContent
+    fallback_message: typing_extensions.Annotated[
+        typing.Optional[MessageEventFallbackMessage], FieldMetadata(alias="fallbackMessage")
+    ] = pydantic.Field(default=None)
+    """
+    Details of the fallback SMS/MMS message that was sent instead of the original RCS message.
+    
+    This field is only present when the message `status` is `FALLBACK_SENT`, indicating the original RCS message could not be delivered and a fallback message was sent instead.
+    
+    Use this information to track which fallback messages were sent and their content.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -13,11 +13,6 @@ class MessageEventMmsContent(UniversalBaseModel):
     MMS message with text and/or media files from a phone number.
     """
 
-    type: typing.Literal["MMS"] = pydantic.Field(default="MMS")
-    """
-    Message type identifier.
-    """
-
     id: str = pydantic.Field()
     """
     Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>

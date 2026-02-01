@@ -16,11 +16,6 @@ class MessageEventRcsMediaContent(UniversalBaseModel):
     See [supported file types](https://app.pinnacle.sh/supported-file-types?type=RCS-MEDIA).
     """
 
-    type: typing.Literal["RCS_MEDIA"] = pydantic.Field(default="RCS_MEDIA")
-    """
-    Message type identifier.
-    """
-
     id: str = pydantic.Field()
     """
     Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>

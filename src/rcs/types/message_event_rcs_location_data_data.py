@@ -6,20 +6,29 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class MessageEventSmsContent(UniversalBaseModel):
+class MessageEventRcsLocationDataData(UniversalBaseModel):
     """
-    SMS message containing plain text only.
-    """
-
-    id: str = pydantic.Field()
-    """
-    Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>
-    To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
+    Location data shared by the user.
     """
 
-    text: str = pydantic.Field()
+    address: str = pydantic.Field()
     """
-    Message content.
+    Address corresponding to the shared location.
+    """
+
+    latitude: float = pydantic.Field()
+    """
+    Latitude of the shared location.
+    """
+
+    longitude: float = pydantic.Field()
+    """
+    Longitude of the shared location.
+    """
+
+    text: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Text message sent with the location.
     """
 
     if IS_PYDANTIC_V2:

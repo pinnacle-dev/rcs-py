@@ -15,6 +15,7 @@ from ...errors.internal_server_error import InternalServerError
 from ...errors.payment_required_error import PaymentRequiredError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.error import Error
+from ...types.fallback_message import FallbackMessage
 from ...types.mms_content import MmsContent
 from ...types.rcs_validate_content import RcsValidateContent
 from ...types.sms_content import SmsContent
@@ -313,6 +314,7 @@ class RawBlastClient:
         audience_id: str,
         senders: typing.Sequence[str],
         message: RcsValidateContent,
+        fallback: typing.Optional[FallbackMessage] = OMIT,
         options: typing.Optional[BlastRcsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BlastRcsResponse]:
@@ -341,6 +343,8 @@ class RawBlastClient:
 
         message : RcsValidateContent
 
+        fallback : typing.Optional[FallbackMessage]
+
         options : typing.Optional[BlastRcsOptions]
             Configure how your RCS blast is sent and tracked.
 
@@ -363,6 +367,9 @@ class RawBlastClient:
                 "senders": senders,
                 "message": convert_and_respect_annotation_metadata(
                     object_=message, annotation=RcsValidateContent, direction="write"
+                ),
+                "fallback": convert_and_respect_annotation_metadata(
+                    object_=fallback, annotation=FallbackMessage, direction="write"
                 ),
                 "options": convert_and_respect_annotation_metadata(
                     object_=options, annotation=BlastRcsOptions, direction="write"
@@ -729,6 +736,7 @@ class AsyncRawBlastClient:
         audience_id: str,
         senders: typing.Sequence[str],
         message: RcsValidateContent,
+        fallback: typing.Optional[FallbackMessage] = OMIT,
         options: typing.Optional[BlastRcsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BlastRcsResponse]:
@@ -757,6 +765,8 @@ class AsyncRawBlastClient:
 
         message : RcsValidateContent
 
+        fallback : typing.Optional[FallbackMessage]
+
         options : typing.Optional[BlastRcsOptions]
             Configure how your RCS blast is sent and tracked.
 
@@ -779,6 +789,9 @@ class AsyncRawBlastClient:
                 "senders": senders,
                 "message": convert_and_respect_annotation_metadata(
                     object_=message, annotation=RcsValidateContent, direction="write"
+                ),
+                "fallback": convert_and_respect_annotation_metadata(
+                    object_=fallback, annotation=FallbackMessage, direction="write"
                 ),
                 "options": convert_and_respect_annotation_metadata(
                     object_=options, annotation=BlastRcsOptions, direction="write"

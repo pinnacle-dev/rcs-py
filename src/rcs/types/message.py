@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .fallback_message import FallbackMessage
 from .message_content import MessageContent
 from .message_method_enum import MessageMethodEnum
 from .message_protocol_enum import MessageProtocolEnum
@@ -35,6 +36,15 @@ class Message(UniversalBaseModel):
     Detailed explanation of any errors that occurred while delivering the message. <br>
     
     Null indicates no errors.
+    """
+
+    fallback: typing.Optional[FallbackMessage] = pydantic.Field(default=None)
+    """
+    The fallback SMS/MMS message configuration for this RCS message.
+    
+    Null indicates no fallback was configured for this message. Only applicable for RCS messages.
+    
+    The original RCS message with have status `FALLBACK_SENT` when the fallback message was sent instead.
     """
 
     id: str = pydantic.Field()

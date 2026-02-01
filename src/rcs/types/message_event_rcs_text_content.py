@@ -14,11 +14,6 @@ class MessageEventRcsTextContent(UniversalBaseModel):
     RCS message containing longer text content with optional quick reply buttons.
     """
 
-    type: typing.Literal["RCS_TEXT"] = pydantic.Field(default="RCS_TEXT")
-    """
-    Message type identifier.
-    """
-
     id: str = pydantic.Field()
     """
     Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>
