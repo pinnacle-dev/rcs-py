@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
+from .fallback_message import FallbackMessage
 from .rich_cards import RichCards
 from .send_rich_cards_options import SendRichCardsOptions
 
@@ -17,6 +18,7 @@ class RichCardsMessage(RichCards):
     Your RCS agent ID which must be prefixed with 'agent_'.
     """
 
+    fallback: typing.Optional[FallbackMessage] = None
     to: str = pydantic.Field()
     """
     Recipient's phone number in E.164 format.

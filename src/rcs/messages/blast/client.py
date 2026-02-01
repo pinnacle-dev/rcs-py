@@ -4,6 +4,7 @@ import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
+from ...types.fallback_message import FallbackMessage
 from ...types.mms_content import MmsContent
 from ...types.rcs_validate_content import RcsValidateContent
 from ...types.sms_content import SmsContent
@@ -181,6 +182,7 @@ class BlastClient:
         audience_id: str,
         senders: typing.Sequence[str],
         message: RcsValidateContent,
+        fallback: typing.Optional[FallbackMessage] = OMIT,
         options: typing.Optional[BlastRcsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BlastRcsResponse:
@@ -209,6 +211,8 @@ class BlastClient:
 
         message : RcsValidateContent
 
+        fallback : typing.Optional[FallbackMessage]
+
         options : typing.Optional[BlastRcsOptions]
             Configure how your RCS blast is sent and tracked.
 
@@ -225,7 +229,7 @@ class BlastClient:
 
         Examples
         --------
-        from rcs import Pinnacle, RichButton_Trigger, RichText
+        from rcs import FallbackMessage, Pinnacle, RichButton_Trigger, RichText
         from rcs.messages.blast import BlastRcsOptions
 
         client = Pinnacle(
@@ -243,6 +247,10 @@ class BlastClient:
                 ],
                 text="Hello from Pinnacle RCS!",
             ),
+            fallback=FallbackMessage(
+                from_="+14155164736",
+                text="Hello from Pinnacle! Reply LEARN to learn more.",
+            ),
             options=BlastRcsOptions(
                 transcode=True,
                 validate=True,
@@ -250,7 +258,12 @@ class BlastClient:
         )
         """
         _response = self._raw_client.rcs(
-            audience_id=audience_id, senders=senders, message=message, options=options, request_options=request_options
+            audience_id=audience_id,
+            senders=senders,
+            message=message,
+            fallback=fallback,
+            options=options,
+            request_options=request_options,
         )
         return _response.data
 
@@ -433,6 +446,7 @@ class AsyncBlastClient:
         audience_id: str,
         senders: typing.Sequence[str],
         message: RcsValidateContent,
+        fallback: typing.Optional[FallbackMessage] = OMIT,
         options: typing.Optional[BlastRcsOptions] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BlastRcsResponse:
@@ -461,6 +475,8 @@ class AsyncBlastClient:
 
         message : RcsValidateContent
 
+        fallback : typing.Optional[FallbackMessage]
+
         options : typing.Optional[BlastRcsOptions]
             Configure how your RCS blast is sent and tracked.
 
@@ -479,7 +495,7 @@ class AsyncBlastClient:
         --------
         import asyncio
 
-        from rcs import AsyncPinnacle, RichButton_Trigger, RichText
+        from rcs import AsyncPinnacle, FallbackMessage, RichButton_Trigger, RichText
         from rcs.messages.blast import BlastRcsOptions
 
         client = AsyncPinnacle(
@@ -500,6 +516,10 @@ class AsyncBlastClient:
                     ],
                     text="Hello from Pinnacle RCS!",
                 ),
+                fallback=FallbackMessage(
+                    from_="+14155164736",
+                    text="Hello from Pinnacle! Reply LEARN to learn more.",
+                ),
                 options=BlastRcsOptions(
                     transcode=True,
                     validate=True,
@@ -510,6 +530,11 @@ class AsyncBlastClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.rcs(
-            audience_id=audience_id, senders=senders, message=message, options=options, request_options=request_options
+            audience_id=audience_id,
+            senders=senders,
+            message=message,
+            fallback=fallback,
+            options=options,
+            request_options=request_options,
         )
         return _response.data

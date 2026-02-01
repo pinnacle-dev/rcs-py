@@ -87,6 +87,7 @@ if typing.TYPE_CHECKING:
     from .extended_brand import ExtendedBrand
     from .extended_brand_with_vetting import ExtendedBrandWithVetting
     from .extended_rcs_campaign import ExtendedRcsCampaign
+    from .fallback_message import FallbackMessage
     from .get_conversation_params import GetConversationParams
     from .get_dlc_campaign_status_response_updates import GetDlcCampaignStatusResponseUpdates
     from .get_toll_free_campaign_status_response_updates import GetTollFreeCampaignStatusResponseUpdates
@@ -96,14 +97,29 @@ if typing.TYPE_CHECKING:
     from .message import Message
     from .message_content import MessageContent
     from .message_event import MessageEvent
-    from .message_event_content import MessageEventContent
+    from .message_event_content import (
+        MessageEventContent,
+        MessageEventContent_Mms,
+        MessageEventContent_RcsButtonData,
+        MessageEventContent_RcsCards,
+        MessageEventContent_RcsLocationData,
+        MessageEventContent_RcsMedia,
+        MessageEventContent_RcsText,
+        MessageEventContent_Sms,
+    )
     from .message_event_conversation import MessageEventConversation
     from .message_event_direction import MessageEventDirection
+    from .message_event_fallback_message import MessageEventFallbackMessage
+    from .message_event_fallback_message_type import MessageEventFallbackMessageType
     from .message_event_mms_content import MessageEventMmsContent
     from .message_event_rcs_button_data import MessageEventRcsButtonData
+    from .message_event_rcs_button_data_button import MessageEventRcsButtonDataButton
+    from .message_event_rcs_button_data_button_raw import MessageEventRcsButtonDataButtonRaw
+    from .message_event_rcs_button_data_button_type import MessageEventRcsButtonDataButtonType
     from .message_event_rcs_cards_content import MessageEventRcsCardsContent
     from .message_event_rcs_cards_content_cards_item import MessageEventRcsCardsContentCardsItem
     from .message_event_rcs_location_data import MessageEventRcsLocationData
+    from .message_event_rcs_location_data_data import MessageEventRcsLocationDataData
     from .message_event_rcs_media_content import MessageEventRcsMediaContent
     from .message_event_rcs_text_content import MessageEventRcsTextContent
     from .message_event_sms_content import MessageEventSmsContent
@@ -379,6 +395,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExtendedBrand": ".extended_brand",
     "ExtendedBrandWithVetting": ".extended_brand_with_vetting",
     "ExtendedRcsCampaign": ".extended_rcs_campaign",
+    "FallbackMessage": ".fallback_message",
     "GetConversationParams": ".get_conversation_params",
     "GetDlcCampaignStatusResponseUpdates": ".get_dlc_campaign_status_response_updates",
     "GetTollFreeCampaignStatusResponseUpdates": ".get_toll_free_campaign_status_response_updates",
@@ -389,13 +406,26 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MessageContent": ".message_content",
     "MessageEvent": ".message_event",
     "MessageEventContent": ".message_event_content",
+    "MessageEventContent_Mms": ".message_event_content",
+    "MessageEventContent_RcsButtonData": ".message_event_content",
+    "MessageEventContent_RcsCards": ".message_event_content",
+    "MessageEventContent_RcsLocationData": ".message_event_content",
+    "MessageEventContent_RcsMedia": ".message_event_content",
+    "MessageEventContent_RcsText": ".message_event_content",
+    "MessageEventContent_Sms": ".message_event_content",
     "MessageEventConversation": ".message_event_conversation",
     "MessageEventDirection": ".message_event_direction",
+    "MessageEventFallbackMessage": ".message_event_fallback_message",
+    "MessageEventFallbackMessageType": ".message_event_fallback_message_type",
     "MessageEventMmsContent": ".message_event_mms_content",
     "MessageEventRcsButtonData": ".message_event_rcs_button_data",
+    "MessageEventRcsButtonDataButton": ".message_event_rcs_button_data_button",
+    "MessageEventRcsButtonDataButtonRaw": ".message_event_rcs_button_data_button_raw",
+    "MessageEventRcsButtonDataButtonType": ".message_event_rcs_button_data_button_type",
     "MessageEventRcsCardsContent": ".message_event_rcs_cards_content",
     "MessageEventRcsCardsContentCardsItem": ".message_event_rcs_cards_content_cards_item",
     "MessageEventRcsLocationData": ".message_event_rcs_location_data",
+    "MessageEventRcsLocationDataData": ".message_event_rcs_location_data_data",
     "MessageEventRcsMediaContent": ".message_event_rcs_media_content",
     "MessageEventRcsTextContent": ".message_event_rcs_text_content",
     "MessageEventSmsContent": ".message_event_sms_content",
@@ -685,6 +715,7 @@ __all__ = [
     "ExtendedBrand",
     "ExtendedBrandWithVetting",
     "ExtendedRcsCampaign",
+    "FallbackMessage",
     "GetConversationParams",
     "GetDlcCampaignStatusResponseUpdates",
     "GetTollFreeCampaignStatusResponseUpdates",
@@ -695,13 +726,26 @@ __all__ = [
     "MessageContent",
     "MessageEvent",
     "MessageEventContent",
+    "MessageEventContent_Mms",
+    "MessageEventContent_RcsButtonData",
+    "MessageEventContent_RcsCards",
+    "MessageEventContent_RcsLocationData",
+    "MessageEventContent_RcsMedia",
+    "MessageEventContent_RcsText",
+    "MessageEventContent_Sms",
     "MessageEventConversation",
     "MessageEventDirection",
+    "MessageEventFallbackMessage",
+    "MessageEventFallbackMessageType",
     "MessageEventMmsContent",
     "MessageEventRcsButtonData",
+    "MessageEventRcsButtonDataButton",
+    "MessageEventRcsButtonDataButtonRaw",
+    "MessageEventRcsButtonDataButtonType",
     "MessageEventRcsCardsContent",
     "MessageEventRcsCardsContentCardsItem",
     "MessageEventRcsLocationData",
+    "MessageEventRcsLocationDataData",
     "MessageEventRcsMediaContent",
     "MessageEventRcsTextContent",
     "MessageEventSmsContent",

@@ -3,26 +3,35 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from .location_share_action import LocationShareAction
+import typing_extensions
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
+from .message_event_rcs_location_data_data import MessageEventRcsLocationDataData
 
 
-class MessageEventRcsLocationData(LocationShareAction):
+class MessageEventRcsLocationData(UniversalBaseModel):
     """
     Location sharing event data received when a user responds to a `requestUserLocation` button and shares their current location.
 
     This event contains the geographic coordinates (latitude/longitude) and human-readable address of the location the user chose to share. Use this data to process location-based requests or provide location-specific services.
     """
 
-    type: typing.Literal["RCS_LOCATION_DATA"] = pydantic.Field(default="RCS_LOCATION_DATA")
-    """
-    Message type identifier.
-    """
-
     id: str = pydantic.Field()
     """
     Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>
     To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
+    """
+
+    data: MessageEventRcsLocationDataData = pydantic.Field()
+    """
+    Location data shared by the user.
+    """
+
+    message_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="messageId")] = pydantic.Field(
+        default=None
+    )
+    """
+    ID of the message this button was sent in, or null if not available. To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
     """
 
     if IS_PYDANTIC_V2:

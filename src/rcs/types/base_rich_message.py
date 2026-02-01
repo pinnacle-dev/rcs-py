@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .fallback_message import FallbackMessage
 from .send_rich_message_options import SendRichMessageOptions
 
 
@@ -15,6 +16,7 @@ class BaseRichMessage(UniversalBaseModel):
     Your RCS agent ID which must be prefixed with 'agent_'.
     """
 
+    fallback: typing.Optional[FallbackMessage] = None
     options: typing.Optional[SendRichMessageOptions] = pydantic.Field(default=None)
     """
     Configure how your RCS message is sent and tracked.
