@@ -4,5 +4,9 @@ import typing
 
 from ....types.scheduled_message import ScheduledMessage
 from ....types.sent_rich_message import SentRichMessage
+from ....types.sent_rich_message_fallback_mms import SentRichMessageFallbackMms
+from ....types.sent_rich_message_fallback_sms import SentRichMessageFallbackSms
 
-SendRichMessageResponse = typing.Union[SentRichMessage, ScheduledMessage]
+SendRichMessageResponse = typing.Union[
+    SentRichMessage, ScheduledMessage, SentRichMessageFallbackSms, SentRichMessageFallbackMms
+]

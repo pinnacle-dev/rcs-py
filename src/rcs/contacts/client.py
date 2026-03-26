@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.contact import Contact
 from ..types.contact_id import ContactId
+from ..types.list_contacts_response import ListContactsResponse
 from ..types.updated_contact_id import UpdatedContactId
 from .raw_client import AsyncRawContactsClient, RawContactsClient
 
@@ -184,6 +185,66 @@ class ContactsClient:
         """
         _response = self._raw_client.update(
             id=id, description=description, email=email, name=name, tags=tags, request_options=request_options
+        )
+        return _response.data
+
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        phone_number: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
+        is_archived: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListContactsResponse:
+        """
+        List all contacts with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        phone_number : typing.Optional[str]
+            Filter contacts by phone number (E.164 format).
+
+        name : typing.Optional[str]
+            Filter contacts by name (partial match).
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Filter contacts by tags.
+
+        is_archived : typing.Optional[bool]
+            Filter contacts by archived status.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListContactsResponse
+            Returns paginated list of contacts.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.contacts.list()
+        """
+        _response = self._raw_client.list(
+            page_index=page_index,
+            page_size=page_size,
+            phone_number=phone_number,
+            name=name,
+            tags=tags,
+            is_archived=is_archived,
+            request_options=request_options,
         )
         return _response.data
 
@@ -383,5 +444,73 @@ class AsyncContactsClient:
         """
         _response = await self._raw_client.update(
             id=id, description=description, email=email, name=name, tags=tags, request_options=request_options
+        )
+        return _response.data
+
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        phone_number: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
+        is_archived: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListContactsResponse:
+        """
+        List all contacts with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        phone_number : typing.Optional[str]
+            Filter contacts by phone number (E.164 format).
+
+        name : typing.Optional[str]
+            Filter contacts by name (partial match).
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Filter contacts by tags.
+
+        is_archived : typing.Optional[bool]
+            Filter contacts by archived status.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListContactsResponse
+            Returns paginated list of contacts.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.contacts.list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list(
+            page_index=page_index,
+            page_size=page_size,
+            phone_number=phone_number,
+            name=name,
+            tags=tags,
+            is_archived=is_archived,
+            request_options=request_options,
         )
         return _response.data

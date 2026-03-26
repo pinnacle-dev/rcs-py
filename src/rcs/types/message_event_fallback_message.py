@@ -11,22 +11,20 @@ from .message_event_fallback_message_type import MessageEventFallbackMessageType
 
 class MessageEventFallbackMessage(UniversalBaseModel):
     """
-    Details of the fallback SMS/MMS message that was sent instead of the original RCS message.
+    Details of the fallback SMS/MMS message(s) that were actually sent to the recipient instead of the original RCS message.
 
-    This field is only present when the message `status` is `FALLBACK_SENT`, indicating the original RCS message could not be delivered and a fallback message was sent instead.
-
-    Use this information to track which fallback messages were sent and their content.
+    Only present when the message `status` is `FALLBACK_SENT`. The `message.id` on this event refers to the original RCS message that could not be delivered. The `fallbackMessage.ids` contain the identifiers of the actual SMS/MMS messages that were sent.
     """
 
-    id: str = pydantic.Field()
+    ids: typing.List[str] = pydantic.Field()
     """
-    Unique identifier of the fallback message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>
-    To get the full message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
+    Unique identifiers of the actual SMS/MMS message(s) that were sent as the fallback. Each identifier always begins with the prefix `msg_`. Multiple IDs indicate the fallback was split into multiple SMS/MMS messages. <br><br>
+    These are the messages that were actually delivered to the recipient. To get their full details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
     """
 
     type: MessageEventFallbackMessageType = pydantic.Field()
     """
-    Type of the fallback message sent.
+    Delivery protocol of the fallback message that was sent.
     """
 
     from_: typing_extensions.Annotated[str, FieldMetadata(alias="from")] = pydantic.Field()

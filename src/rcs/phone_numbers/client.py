@@ -6,6 +6,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.list_phone_numbers_response import ListPhoneNumbersResponse
 from ..types.phone_enum import PhoneEnum
 from ..types.phone_feature_enum import PhoneFeatureEnum
 from ..types.phone_number_details import PhoneNumberDetails
@@ -216,6 +217,42 @@ class PhoneNumbersClient:
         )
         """
         _response = self._raw_client.get(phone=phone, level=level, options=options, request_options=request_options)
+        return _response.data
+
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListPhoneNumbersResponse:
+        """
+        List all owned phone numbers with pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListPhoneNumbersResponse
+            Returns paginated list of owned phone numbers.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.phone_numbers.list()
+        """
+        _response = self._raw_client.list(page_index=page_index, page_size=page_size, request_options=request_options)
         return _response.data
 
     @property
@@ -451,6 +488,52 @@ class AsyncPhoneNumbersClient:
         """
         _response = await self._raw_client.get(
             phone=phone, level=level, options=options, request_options=request_options
+        )
+        return _response.data
+
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListPhoneNumbersResponse:
+        """
+        List all owned phone numbers with pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListPhoneNumbersResponse
+            Returns paginated list of owned phone numbers.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.phone_numbers.list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list(
+            page_index=page_index, page_size=page_size, request_options=request_options
         )
         return _response.data
 

@@ -40,7 +40,7 @@ class BlastDetails(UniversalBaseModel):
 
     total_cost: typing_extensions.Annotated[float, FieldMetadata(alias="totalCost")] = pydantic.Field()
     """
-    Total estimated cost of the blast. Calculated by multiplying the number of segments by the number of messages by the unit cost.
+    Total cost of the blast. For RCS blasts with a fallback configured, this reflects the actual mix of RCS and SMS/MMS pricing based on each recipient's RCS capability. For more details check the [Transactions page](https://app.pinnacle.sh/dashboard/settings/billing/transactions) and the [Audiences page](https://app.pinnacle.sh/dashboard/audiences) to see blasts.
     """
 
     if IS_PYDANTIC_V2:

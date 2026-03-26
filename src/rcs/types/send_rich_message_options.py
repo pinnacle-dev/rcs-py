@@ -16,11 +16,6 @@ class SendRichMessageOptions(UniversalBaseModel):
     """
 
     schedule: typing.Optional[MessageSchedule] = None
-    test_mode: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    Send via the test agent to whitelisted test devices. Useful for development and debugging.
-    """
-
     tracking: typing.Optional[Tracking] = None
     transcode: typing.Optional[bool] = pydantic.Field(default=None)
     """

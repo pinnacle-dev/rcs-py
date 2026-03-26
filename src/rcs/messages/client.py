@@ -2,20 +2,28 @@
 
 from __future__ import annotations
 
+import datetime as dt
 import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.list_messages_response import ListMessagesResponse
 from ..types.message import Message
 from ..types.reaction_result import ReactionResult
 from .raw_client import AsyncRawMessagesClient, RawMessagesClient
+from .types.list_messages_request_direction import ListMessagesRequestDirection
+from .types.list_messages_request_method import ListMessagesRequestMethod
+from .types.list_messages_request_status import ListMessagesRequestStatus
+from .types.list_messages_request_type import ListMessagesRequestType
 from .types.react_message_options import ReactMessageOptions
 
 if typing.TYPE_CHECKING:
     from .blast.client import AsyncBlastClient, BlastClient
+    from .blasts.client import AsyncBlastsClient, BlastsClient
     from .mms.client import AsyncMmsClient, MmsClient
     from .rcs.client import AsyncRcsClient, RcsClient
     from .schedule.client import AsyncScheduleClient, ScheduleClient
+    from .schedules.client import AsyncSchedulesClient, SchedulesClient
     from .sms.client import AsyncSmsClient, SmsClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -30,6 +38,8 @@ class MessagesClient:
         self._rcs: typing.Optional[RcsClient] = None
         self._blast: typing.Optional[BlastClient] = None
         self._schedule: typing.Optional[ScheduleClient] = None
+        self._schedules: typing.Optional[SchedulesClient] = None
+        self._blasts: typing.Optional[BlastsClient] = None
 
     @property
     def with_raw_response(self) -> RawMessagesClient:
@@ -125,6 +135,88 @@ class MessagesClient:
         )
         return _response.data
 
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        direction: typing.Optional[ListMessagesRequestDirection] = OMIT,
+        status: typing.Optional[ListMessagesRequestStatus] = OMIT,
+        type: typing.Optional[ListMessagesRequestType] = OMIT,
+        method: typing.Optional[ListMessagesRequestMethod] = OMIT,
+        from_: typing.Optional[str] = OMIT,
+        to: typing.Optional[str] = OMIT,
+        content: typing.Optional[str] = OMIT,
+        date_from: typing.Optional[dt.datetime] = OMIT,
+        date_to: typing.Optional[dt.datetime] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListMessagesResponse:
+        """
+        List all messages with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        direction : typing.Optional[ListMessagesRequestDirection]
+
+        status : typing.Optional[ListMessagesRequestStatus]
+
+        type : typing.Optional[ListMessagesRequestType]
+
+        method : typing.Optional[ListMessagesRequestMethod]
+            Filter by the method used to send the message.
+
+        from_ : typing.Optional[str]
+            Filter by sender phone number (E.164 format) or agent id.
+
+        to : typing.Optional[str]
+            Filter by recipient phone number (E.164 format).
+
+        content : typing.Optional[str]
+            Search message content (partial match, case-insensitive).
+
+        date_from : typing.Optional[dt.datetime]
+            Filter messages created on or after this date (ISO 8601 format).
+
+        date_to : typing.Optional[dt.datetime]
+            Filter messages created on or before this date (ISO 8601 format).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListMessagesResponse
+            Returns paginated list of messages.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.messages.list()
+        """
+        _response = self._raw_client.list(
+            page_index=page_index,
+            page_size=page_size,
+            direction=direction,
+            status=status,
+            type=type,
+            method=method,
+            from_=from_,
+            to=to,
+            content=content,
+            date_from=date_from,
+            date_to=date_to,
+            request_options=request_options,
+        )
+        return _response.data
+
     @property
     def sms(self):
         if self._sms is None:
@@ -165,6 +257,22 @@ class MessagesClient:
             self._schedule = ScheduleClient(client_wrapper=self._client_wrapper)
         return self._schedule
 
+    @property
+    def schedules(self):
+        if self._schedules is None:
+            from .schedules.client import SchedulesClient  # noqa: E402
+
+            self._schedules = SchedulesClient(client_wrapper=self._client_wrapper)
+        return self._schedules
+
+    @property
+    def blasts(self):
+        if self._blasts is None:
+            from .blasts.client import BlastsClient  # noqa: E402
+
+            self._blasts = BlastsClient(client_wrapper=self._client_wrapper)
+        return self._blasts
+
 
 class AsyncMessagesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -175,6 +283,8 @@ class AsyncMessagesClient:
         self._rcs: typing.Optional[AsyncRcsClient] = None
         self._blast: typing.Optional[AsyncBlastClient] = None
         self._schedule: typing.Optional[AsyncScheduleClient] = None
+        self._schedules: typing.Optional[AsyncSchedulesClient] = None
+        self._blasts: typing.Optional[AsyncBlastsClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawMessagesClient:
@@ -286,6 +396,96 @@ class AsyncMessagesClient:
         )
         return _response.data
 
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        direction: typing.Optional[ListMessagesRequestDirection] = OMIT,
+        status: typing.Optional[ListMessagesRequestStatus] = OMIT,
+        type: typing.Optional[ListMessagesRequestType] = OMIT,
+        method: typing.Optional[ListMessagesRequestMethod] = OMIT,
+        from_: typing.Optional[str] = OMIT,
+        to: typing.Optional[str] = OMIT,
+        content: typing.Optional[str] = OMIT,
+        date_from: typing.Optional[dt.datetime] = OMIT,
+        date_to: typing.Optional[dt.datetime] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListMessagesResponse:
+        """
+        List all messages with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        direction : typing.Optional[ListMessagesRequestDirection]
+
+        status : typing.Optional[ListMessagesRequestStatus]
+
+        type : typing.Optional[ListMessagesRequestType]
+
+        method : typing.Optional[ListMessagesRequestMethod]
+            Filter by the method used to send the message.
+
+        from_ : typing.Optional[str]
+            Filter by sender phone number (E.164 format) or agent id.
+
+        to : typing.Optional[str]
+            Filter by recipient phone number (E.164 format).
+
+        content : typing.Optional[str]
+            Search message content (partial match, case-insensitive).
+
+        date_from : typing.Optional[dt.datetime]
+            Filter messages created on or after this date (ISO 8601 format).
+
+        date_to : typing.Optional[dt.datetime]
+            Filter messages created on or before this date (ISO 8601 format).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListMessagesResponse
+            Returns paginated list of messages.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.messages.list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list(
+            page_index=page_index,
+            page_size=page_size,
+            direction=direction,
+            status=status,
+            type=type,
+            method=method,
+            from_=from_,
+            to=to,
+            content=content,
+            date_from=date_from,
+            date_to=date_to,
+            request_options=request_options,
+        )
+        return _response.data
+
     @property
     def sms(self):
         if self._sms is None:
@@ -325,3 +525,19 @@ class AsyncMessagesClient:
 
             self._schedule = AsyncScheduleClient(client_wrapper=self._client_wrapper)
         return self._schedule
+
+    @property
+    def schedules(self):
+        if self._schedules is None:
+            from .schedules.client import AsyncSchedulesClient  # noqa: E402
+
+            self._schedules = AsyncSchedulesClient(client_wrapper=self._client_wrapper)
+        return self._schedules
+
+    @property
+    def blasts(self):
+        if self._blasts is None:
+            from .blasts.client import AsyncBlastsClient  # noqa: E402
+
+            self._blasts = AsyncBlastsClient(client_wrapper=self._client_wrapper)
+        return self._blasts

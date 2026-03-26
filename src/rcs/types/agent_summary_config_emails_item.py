@@ -6,15 +6,9 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class RcsWhitelistResponse(UniversalBaseModel):
-    """
-    Response indicating success of whitelisting operation
-    """
-
-    success: bool = pydantic.Field()
-    """
-    Whether the whitelisting operation was successful
-    """
+class AgentSummaryConfigEmailsItem(UniversalBaseModel):
+    email: typing.Optional[str] = None
+    label: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

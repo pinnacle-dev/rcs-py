@@ -13,7 +13,9 @@ from ..errors.forbidden_error import ForbiddenError
 from ..errors.internal_server_error import InternalServerError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.error import Error
+from ..types.list_webhooks_response import ListWebhooksResponse
 from ..types.webhook_result import WebhookResult
+from .types.list_webhooks_request_status import ListWebhooksRequestStatus
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -116,6 +118,100 @@ class RawWebhooksClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListWebhooksRequestStatus] = OMIT,
+        endpoint: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ListWebhooksResponse]:
+        """
+        List all webhooks with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListWebhooksRequestStatus]
+
+        endpoint : typing.Optional[str]
+            Filter webhooks by endpoint URL (partial match, case-insensitive).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ListWebhooksResponse]
+            Returns paginated list of webhooks.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "webhooks/list",
+            method="POST",
+            json={
+                "pageIndex": page_index,
+                "pageSize": page_size,
+                "status": status,
+                "endpoint": endpoint,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ListWebhooksResponse,
+                    parse_obj_as(
+                        type_=ListWebhooksResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawWebhooksClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -189,6 +285,100 @@ class AsyncRawWebhooksClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListWebhooksRequestStatus] = OMIT,
+        endpoint: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ListWebhooksResponse]:
+        """
+        List all webhooks with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListWebhooksRequestStatus]
+
+        endpoint : typing.Optional[str]
+            Filter webhooks by endpoint URL (partial match, case-insensitive).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ListWebhooksResponse]
+            Returns paginated list of webhooks.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "webhooks/list",
+            method="POST",
+            json={
+                "pageIndex": page_index,
+                "pageSize": page_size,
+                "status": status,
+                "endpoint": endpoint,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ListWebhooksResponse,
+                    parse_obj_as(
+                        type_=ListWebhooksResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         Error,

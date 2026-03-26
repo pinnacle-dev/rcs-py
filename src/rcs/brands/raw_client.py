@@ -23,12 +23,14 @@ from ..types.company_type_enum import CompanyTypeEnum
 from ..types.error import Error
 from ..types.extended_brand import ExtendedBrand
 from ..types.extended_brand_with_vetting import ExtendedBrandWithVetting
+from ..types.list_brands_response import ListBrandsResponse
 from ..types.optional_brand_info import OptionalBrandInfo
 from ..types.optional_contacts import OptionalContacts
 from ..types.submission_results import SubmissionResults
 from ..types.validation_results import ValidationResults
 from ..types.vetting_results import VettingResults
 from .types.autofill_brand_options import AutofillBrandOptions
+from .types.list_brands_request_status import ListBrandsRequestStatus
 from .types.upsert_brand_schema_contact import UpsertBrandSchemaContact
 from .types.upsert_brand_schema_entity_type import UpsertBrandSchemaEntityType
 from .types.upsert_brand_schema_sector import UpsertBrandSchemaSector
@@ -801,6 +803,104 @@ class RawBrandsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListBrandsRequestStatus] = OMIT,
+        is_archived: typing.Optional[bool] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ListBrandsResponse]:
+        """
+        List all brands with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListBrandsRequestStatus]
+
+        is_archived : typing.Optional[bool]
+
+        name : typing.Optional[str]
+            Case-insensitive substring search on brand name.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ListBrandsResponse]
+            Returns paginated list of brands.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "brands/list",
+            method="POST",
+            json={
+                "pageIndex": page_index,
+                "pageSize": page_size,
+                "status": status,
+                "isArchived": is_archived,
+                "name": name,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ListBrandsResponse,
+                    parse_obj_as(
+                        type_=ListBrandsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawBrandsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -1551,6 +1651,104 @@ class AsyncRawBrandsClient:
                 )
             if _response.status_code == 501:
                 raise NotImplementedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListBrandsRequestStatus] = OMIT,
+        is_archived: typing.Optional[bool] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ListBrandsResponse]:
+        """
+        List all brands with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListBrandsRequestStatus]
+
+        is_archived : typing.Optional[bool]
+
+        name : typing.Optional[str]
+            Case-insensitive substring search on brand name.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ListBrandsResponse]
+            Returns paginated list of brands.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "brands/list",
+            method="POST",
+            json={
+                "pageIndex": page_index,
+                "pageSize": page_size,
+                "status": status,
+                "isArchived": is_archived,
+                "name": name,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ListBrandsResponse,
+                    parse_obj_as(
+                        type_=ListBrandsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         Error,

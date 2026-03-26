@@ -5,24 +5,24 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from .message import Message
-from .message_with_reaction_direction import MessageWithReactionDirection
+from .message_with_reactions_direction import MessageWithReactionsDirection
 
 
-class MessageWithReaction(Message):
+class MessageWithReactions(Message):
     """
-    Message with additional conversation-specific fields including direction and reaction.
+    Message with additional conversation-specific fields including direction and reactions.
     """
 
-    direction: MessageWithReactionDirection = pydantic.Field()
+    direction: MessageWithReactionsDirection = pydantic.Field()
     """
     Direction of the message flow.
     """
 
-    reaction: typing.Optional[str] = pydantic.Field(default=None)
+    reactions: typing.List[str] = pydantic.Field()
     """
-    Unicode emoji reaction attached to this message. <br>
+    Array of unicode emoji reactions attached to this message. <br>
     
-    Null indicates no reaction has been added.
+    Empty array indicates no reactions have been added.
     """
 
     if IS_PYDANTIC_V2:

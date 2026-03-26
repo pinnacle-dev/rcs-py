@@ -8,6 +8,7 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .types import (
         AutofillBrandOptions,
+        ListBrandsRequestStatus,
         UpsertBrandSchemaContact,
         UpsertBrandSchemaEntityType,
         UpsertBrandSchemaSector,
@@ -15,6 +16,7 @@ if typing.TYPE_CHECKING:
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "AutofillBrandOptions": ".types",
+    "ListBrandsRequestStatus": ".types",
     "UpsertBrandSchemaContact": ".types",
     "UpsertBrandSchemaEntityType": ".types",
     "UpsertBrandSchemaSector": ".types",
@@ -43,6 +45,7 @@ def __dir__():
 
 __all__ = [
     "AutofillBrandOptions",
+    "ListBrandsRequestStatus",
     "UpsertBrandSchemaContact",
     "UpsertBrandSchemaEntityType",
     "UpsertBrandSchemaSector",

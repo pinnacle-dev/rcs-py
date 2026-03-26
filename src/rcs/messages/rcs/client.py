@@ -10,7 +10,6 @@ from ...types.rich_message import RichMessage
 from ...types.send_typing_indicator_response import SendTypingIndicatorResponse
 from .raw_client import AsyncRawRcsClient, RawRcsClient
 from .types.send_rich_message_response import SendRichMessageResponse
-from .types.send_typing_indicator_schema_options import SendTypingIndicatorSchemaOptions
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -53,6 +52,12 @@ class RcsClient:
 
             Use our [/messages/:id](./get) endpoint to track your message.
 
+            <Accordion title="About RCS Fallback SMS Response and RCS Fallback MMS Response">
+            When you send an RCS message with a fallback configured, the API checks whether the recipient's phone supports RCS **before** sending. If the phone does not support RCS, the fallback SMS or MMS is sent immediately instead, and you receive one of these response types.
+
+            You will receive message statuses for the fallback message at your configured webhooks and also receive a `FALLBACK_SENT` webhook event for the original RCS message.
+            </Accordion>
+
         Examples
         --------
         from rcs import Pinnacle, RichButton_OpenUrl, RichTextMessage
@@ -78,12 +83,7 @@ class RcsClient:
         return _response.data
 
     def send_typing(
-        self,
-        *,
-        agent_id: str,
-        to: str,
-        options: typing.Optional[SendTypingIndicatorSchemaOptions] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, agent_id: str, to: str, request_options: typing.Optional[RequestOptions] = None
     ) -> SendTypingIndicatorResponse:
         """
         Send a typing indicator from an RCS agent to a recipient.
@@ -110,9 +110,6 @@ class RcsClient:
 
             Must include country code with a leading plus sign (e.g., `+14155551234`).
 
-        options : typing.Optional[SendTypingIndicatorSchemaOptions]
-            Configure how your typing indicator is sent.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -124,7 +121,6 @@ class RcsClient:
         Examples
         --------
         from rcs import Pinnacle
-        from rcs.messages.rcs import SendTypingIndicatorSchemaOptions
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
@@ -132,14 +128,9 @@ class RcsClient:
         client.messages.rcs.send_typing(
             agent_id="agent_pinnacle",
             to="+14154746461",
-            options=SendTypingIndicatorSchemaOptions(
-                test_mode=False,
-            ),
         )
         """
-        _response = self._raw_client.send_typing(
-            agent_id=agent_id, to=to, options=options, request_options=request_options
-        )
+        _response = self._raw_client.send_typing(agent_id=agent_id, to=to, request_options=request_options)
         return _response.data
 
     def validate(
@@ -220,6 +211,12 @@ class AsyncRcsClient:
 
             Use our [/messages/:id](./get) endpoint to track your message.
 
+            <Accordion title="About RCS Fallback SMS Response and RCS Fallback MMS Response">
+            When you send an RCS message with a fallback configured, the API checks whether the recipient's phone supports RCS **before** sending. If the phone does not support RCS, the fallback SMS or MMS is sent immediately instead, and you receive one of these response types.
+
+            You will receive message statuses for the fallback message at your configured webhooks and also receive a `FALLBACK_SENT` webhook event for the original RCS message.
+            </Accordion>
+
         Examples
         --------
         import asyncio
@@ -253,12 +250,7 @@ class AsyncRcsClient:
         return _response.data
 
     async def send_typing(
-        self,
-        *,
-        agent_id: str,
-        to: str,
-        options: typing.Optional[SendTypingIndicatorSchemaOptions] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, agent_id: str, to: str, request_options: typing.Optional[RequestOptions] = None
     ) -> SendTypingIndicatorResponse:
         """
         Send a typing indicator from an RCS agent to a recipient.
@@ -285,9 +277,6 @@ class AsyncRcsClient:
 
             Must include country code with a leading plus sign (e.g., `+14155551234`).
 
-        options : typing.Optional[SendTypingIndicatorSchemaOptions]
-            Configure how your typing indicator is sent.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -301,7 +290,6 @@ class AsyncRcsClient:
         import asyncio
 
         from rcs import AsyncPinnacle
-        from rcs.messages.rcs import SendTypingIndicatorSchemaOptions
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -312,17 +300,12 @@ class AsyncRcsClient:
             await client.messages.rcs.send_typing(
                 agent_id="agent_pinnacle",
                 to="+14154746461",
-                options=SendTypingIndicatorSchemaOptions(
-                    test_mode=False,
-                ),
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.send_typing(
-            agent_id=agent_id, to=to, options=options, request_options=request_options
-        )
+        _response = await self._raw_client.send_typing(agent_id=agent_id, to=to, request_options=request_options)
         return _response.data
 
     async def validate(

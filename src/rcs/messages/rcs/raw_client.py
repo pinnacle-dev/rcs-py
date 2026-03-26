@@ -22,7 +22,6 @@ from ...types.rcs_validation_result import RcsValidationResult
 from ...types.rich_message import RichMessage
 from ...types.send_typing_indicator_response import SendTypingIndicatorResponse
 from .types.send_rich_message_response import SendRichMessageResponse
-from .types.send_typing_indicator_schema_options import SendTypingIndicatorSchemaOptions
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -53,6 +52,12 @@ class RawRcsClient:
             Successfully sent or scheduled the message.
 
             Use our [/messages/:id](./get) endpoint to track your message.
+
+            <Accordion title="About RCS Fallback SMS Response and RCS Fallback MMS Response">
+            When you send an RCS message with a fallback configured, the API checks whether the recipient's phone supports RCS **before** sending. If the phone does not support RCS, the fallback SMS or MMS is sent immediately instead, and you receive one of these response types.
+
+            You will receive message statuses for the fallback message at your configured webhooks and also receive a `FALLBACK_SENT` webhook event for the original RCS message.
+            </Accordion>
         """
         _response = self._client_wrapper.httpx_client.request(
             "messages/send/rcs",
@@ -157,12 +162,7 @@ class RawRcsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def send_typing(
-        self,
-        *,
-        agent_id: str,
-        to: str,
-        options: typing.Optional[SendTypingIndicatorSchemaOptions] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, agent_id: str, to: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[SendTypingIndicatorResponse]:
         """
         Send a typing indicator from an RCS agent to a recipient.
@@ -189,9 +189,6 @@ class RawRcsClient:
 
             Must include country code with a leading plus sign (e.g., `+14155551234`).
 
-        options : typing.Optional[SendTypingIndicatorSchemaOptions]
-            Configure how your typing indicator is sent.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -206,9 +203,6 @@ class RawRcsClient:
             json={
                 "agentId": agent_id,
                 "to": to,
-                "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=SendTypingIndicatorSchemaOptions, direction="write"
-                ),
             },
             headers={
                 "content-type": "application/json",
@@ -412,6 +406,12 @@ class AsyncRawRcsClient:
             Successfully sent or scheduled the message.
 
             Use our [/messages/:id](./get) endpoint to track your message.
+
+            <Accordion title="About RCS Fallback SMS Response and RCS Fallback MMS Response">
+            When you send an RCS message with a fallback configured, the API checks whether the recipient's phone supports RCS **before** sending. If the phone does not support RCS, the fallback SMS or MMS is sent immediately instead, and you receive one of these response types.
+
+            You will receive message statuses for the fallback message at your configured webhooks and also receive a `FALLBACK_SENT` webhook event for the original RCS message.
+            </Accordion>
         """
         _response = await self._client_wrapper.httpx_client.request(
             "messages/send/rcs",
@@ -516,12 +516,7 @@ class AsyncRawRcsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def send_typing(
-        self,
-        *,
-        agent_id: str,
-        to: str,
-        options: typing.Optional[SendTypingIndicatorSchemaOptions] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, agent_id: str, to: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[SendTypingIndicatorResponse]:
         """
         Send a typing indicator from an RCS agent to a recipient.
@@ -548,9 +543,6 @@ class AsyncRawRcsClient:
 
             Must include country code with a leading plus sign (e.g., `+14155551234`).
 
-        options : typing.Optional[SendTypingIndicatorSchemaOptions]
-            Configure how your typing indicator is sent.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -565,9 +557,6 @@ class AsyncRawRcsClient:
             json={
                 "agentId": agent_id,
                 "to": to,
-                "options": convert_and_respect_annotation_metadata(
-                    object_=options, annotation=SendTypingIndicatorSchemaOptions, direction="write"
-                ),
             },
             headers={
                 "content-type": "application/json",

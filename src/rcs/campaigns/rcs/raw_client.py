@@ -20,7 +20,9 @@ from ...types.campaign_submission_result import CampaignSubmissionResult
 from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.error import Error
 from ...types.extended_rcs_campaign import ExtendedRcsCampaign
+from ...types.list_rcs_campaigns_response import ListRcsCampaignsResponse
 from ...types.rcs_messaging_type_enum import RcsMessagingTypeEnum
+from .types.list_rcs_campaigns_request_status import ListRcsCampaignsRequestStatus
 from .types.rcs_agent import RcsAgent
 from .types.rcs_autofill_response import RcsAutofillResponse
 from .types.rcs_campaign_keywords import RcsCampaignKeywords
@@ -628,6 +630,104 @@ class RawRcsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListRcsCampaignsRequestStatus] = OMIT,
+        brand_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ListRcsCampaignsResponse]:
+        """
+        List all RCS campaigns with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListRcsCampaignsRequestStatus]
+
+        brand_id : typing.Optional[str]
+
+        name : typing.Optional[str]
+            Filter by campaign name (partial match, case-insensitive).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ListRcsCampaignsResponse]
+            Returns paginated list of RCS campaigns.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "campaigns/rcs/list",
+            method="POST",
+            json={
+                "pageIndex": page_index,
+                "pageSize": page_size,
+                "status": status,
+                "brandId": brand_id,
+                "name": name,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ListRcsCampaignsResponse,
+                    parse_obj_as(
+                        type_=ListRcsCampaignsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawRcsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -1200,6 +1300,104 @@ class AsyncRawRcsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListRcsCampaignsRequestStatus] = OMIT,
+        brand_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ListRcsCampaignsResponse]:
+        """
+        List all RCS campaigns with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListRcsCampaignsRequestStatus]
+
+        brand_id : typing.Optional[str]
+
+        name : typing.Optional[str]
+            Filter by campaign name (partial match, case-insensitive).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ListRcsCampaignsResponse]
+            Returns paginated list of RCS campaigns.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "campaigns/rcs/list",
+            method="POST",
+            json={
+                "pageIndex": page_index,
+                "pageSize": page_size,
+                "status": status,
+                "brandId": brand_id,
+                "name": name,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ListRcsCampaignsResponse,
+                    parse_obj_as(
+                        type_=ListRcsCampaignsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         Error,

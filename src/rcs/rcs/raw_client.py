@@ -6,6 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
+from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.bad_request_error import BadRequestError
@@ -15,9 +16,9 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.not_implemented_error import NotImplementedError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.error import Error
+from ..types.rcs_agent_response import RcsAgentResponse
 from ..types.rcs_capabilities_result import RcsCapabilitiesResult
 from ..types.rcs_link_result import RcsLinkResult
-from ..types.rcs_whitelist_response import RcsWhitelistResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -27,8 +28,109 @@ class RawRcsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    def get_agent(
+        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[RcsAgentResponse]:
+        """
+        Retrieve details of an RCS agent by its ID.
+
+        Returns the agent's configuration including display name, description, logo, hero image,
+        contact information, and other settings.
+
+        Parameters
+        ----------
+        agent_id : str
+            The RCS agent ID (must be prefixed with `agent_`).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[RcsAgentResponse]
+            The agent details.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"rcs/{jsonable_encoder(agent_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    RcsAgentResponse,
+                    parse_obj_as(
+                        type_=RcsAgentResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def get_capabilities(
-        self, *, phone_numbers: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        phone_numbers: typing.Sequence[str],
+        agent_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RcsCapabilitiesResult]:
         """
         Check RCS capabilities for one or more phone numbers.
@@ -41,6 +143,9 @@ class RawRcsClient:
         phone_numbers : typing.Sequence[str]
             List of phone numbers to check RCS capabilities for (E.164 format). <br><br>
             **Limit:** 1 min
+
+        agent_id : typing.Optional[str]
+            Optional RCS agent ID (prefixed with 'agent_') to check capabilities of a number from a specific agent.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -59,6 +164,7 @@ class RawRcsClient:
             method="POST",
             json={
                 "phoneNumbers": phone_numbers,
+                "agentId": agent_id,
             },
             headers={
                 "content-type": "application/json",
@@ -136,151 +242,10 @@ class RawRcsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def whitelist(
-        self, *, agent_id: str, phone_number: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[RcsWhitelistResponse]:
-        """
-        Whitelist a phone number for testing with your test RCS agent.
-
-        ## Overview
-        During development and testing, RCS agents can only send messages to whitelisted phone numbers.
-        Use this endpoint to whitelist specific phone numbers to send and receive messages from the test agent.
-
-        ## Verification Process
-        After whitelisting a number, you'll need to complete verification:
-
-        1. Check the test device for message from "RBM Tester Management"
-        2. Click the "Make me a tester" button
-        3. Enter the separate 4-digit verification SMS code in the Pinnacle dashboard at:
-           ```
-           https://app.pinnacle.sh/dashboard/brands/{brandId}?campaignId={campaignId}&campaignType=RCS
-           ```
-
-         > **⚠️ Important: Re-whitelisting Numbers**
-        >
-        > If you whitelist a number that's already whitelisted, you'll receive a new message from "RBM Tester Management". **You must click the "Make me a tester" button again to continue sending and receiving messages.**
-
-        > **Important Notes**
-        >
-        > - **Verification required:** Messages cannot be sent nor received until you have clicked the "Make me a tester" button on the test device.
-        > - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number.
-        > - **Network limitations:** Whitelisting may be temporarily unavailable for some carriers but are usually restored shortly.
-
-        Parameters
-        ----------
-        agent_id : str
-            The RCS agent ID (must be prefixed with 'agent_')
-
-        phone_number : str
-            Phone number to whitelist for testing (E.164 format)
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[RcsWhitelistResponse]
-            Phone number successfully whitelisted
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "rcs/whitelist",
-            method="POST",
-            json={
-                "agentId": agent_id,
-                "phoneNumber": phone_number,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    RcsWhitelistResponse,
-                    parse_obj_as(
-                        type_=RcsWhitelistResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 501:
-                raise NotImplementedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     def get_link(
         self,
         *,
         agent_id: str,
-        test_mode: typing.Optional[bool] = OMIT,
         phone_number: typing.Optional[str] = OMIT,
         body: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -295,9 +260,6 @@ class RawRcsClient:
         ----------
         agent_id : str
             The RCS agent ID (must be prefixed with 'agent_')
-
-        test_mode : typing.Optional[bool]
-            Link to the test agent or the production agent if false
 
         phone_number : typing.Optional[str]
             Fallback phone number (E.164 format) to use if the phone number does not support RCS. If not provided, no url will be generated.
@@ -323,7 +285,6 @@ class RawRcsClient:
             method="POST",
             json={
                 "agentId": agent_id,
-                "testMode": test_mode,
                 "phoneNumber": phone_number,
                 "body": body,
             },
@@ -419,8 +380,109 @@ class AsyncRawRcsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    async def get_agent(
+        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[RcsAgentResponse]:
+        """
+        Retrieve details of an RCS agent by its ID.
+
+        Returns the agent's configuration including display name, description, logo, hero image,
+        contact information, and other settings.
+
+        Parameters
+        ----------
+        agent_id : str
+            The RCS agent ID (must be prefixed with `agent_`).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[RcsAgentResponse]
+            The agent details.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"rcs/{jsonable_encoder(agent_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    RcsAgentResponse,
+                    parse_obj_as(
+                        type_=RcsAgentResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def get_capabilities(
-        self, *, phone_numbers: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        phone_numbers: typing.Sequence[str],
+        agent_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RcsCapabilitiesResult]:
         """
         Check RCS capabilities for one or more phone numbers.
@@ -433,6 +495,9 @@ class AsyncRawRcsClient:
         phone_numbers : typing.Sequence[str]
             List of phone numbers to check RCS capabilities for (E.164 format). <br><br>
             **Limit:** 1 min
+
+        agent_id : typing.Optional[str]
+            Optional RCS agent ID (prefixed with 'agent_') to check capabilities of a number from a specific agent.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -451,6 +516,7 @@ class AsyncRawRcsClient:
             method="POST",
             json={
                 "phoneNumbers": phone_numbers,
+                "agentId": agent_id,
             },
             headers={
                 "content-type": "application/json",
@@ -528,151 +594,10 @@ class AsyncRawRcsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def whitelist(
-        self, *, agent_id: str, phone_number: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[RcsWhitelistResponse]:
-        """
-        Whitelist a phone number for testing with your test RCS agent.
-
-        ## Overview
-        During development and testing, RCS agents can only send messages to whitelisted phone numbers.
-        Use this endpoint to whitelist specific phone numbers to send and receive messages from the test agent.
-
-        ## Verification Process
-        After whitelisting a number, you'll need to complete verification:
-
-        1. Check the test device for message from "RBM Tester Management"
-        2. Click the "Make me a tester" button
-        3. Enter the separate 4-digit verification SMS code in the Pinnacle dashboard at:
-           ```
-           https://app.pinnacle.sh/dashboard/brands/{brandId}?campaignId={campaignId}&campaignType=RCS
-           ```
-
-         > **⚠️ Important: Re-whitelisting Numbers**
-        >
-        > If you whitelist a number that's already whitelisted, you'll receive a new message from "RBM Tester Management". **You must click the "Make me a tester" button again to continue sending and receiving messages.**
-
-        > **Important Notes**
-        >
-        > - **Verification required:** Messages cannot be sent nor received until you have clicked the "Make me a tester" button on the test device.
-        > - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number.
-        > - **Network limitations:** Whitelisting may be temporarily unavailable for some carriers but are usually restored shortly.
-
-        Parameters
-        ----------
-        agent_id : str
-            The RCS agent ID (must be prefixed with 'agent_')
-
-        phone_number : str
-            Phone number to whitelist for testing (E.164 format)
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[RcsWhitelistResponse]
-            Phone number successfully whitelisted
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "rcs/whitelist",
-            method="POST",
-            json={
-                "agentId": agent_id,
-                "phoneNumber": phone_number,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    RcsWhitelistResponse,
-                    parse_obj_as(
-                        type_=RcsWhitelistResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 501:
-                raise NotImplementedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        Error,
-                        parse_obj_as(
-                            type_=Error,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     async def get_link(
         self,
         *,
         agent_id: str,
-        test_mode: typing.Optional[bool] = OMIT,
         phone_number: typing.Optional[str] = OMIT,
         body: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -687,9 +612,6 @@ class AsyncRawRcsClient:
         ----------
         agent_id : str
             The RCS agent ID (must be prefixed with 'agent_')
-
-        test_mode : typing.Optional[bool]
-            Link to the test agent or the production agent if false
 
         phone_number : typing.Optional[str]
             Fallback phone number (E.164 format) to use if the phone number does not support RCS. If not provided, no url will be generated.
@@ -715,7 +637,6 @@ class AsyncRawRcsClient:
             method="POST",
             json={
                 "agentId": agent_id,
-                "testMode": test_mode,
                 "phoneNumber": phone_number,
                 "body": body,
             },

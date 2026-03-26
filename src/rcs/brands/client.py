@@ -9,6 +9,7 @@ from ..types.company_sector_enum import CompanySectorEnum
 from ..types.company_type_enum import CompanyTypeEnum
 from ..types.extended_brand import ExtendedBrand
 from ..types.extended_brand_with_vetting import ExtendedBrandWithVetting
+from ..types.list_brands_response import ListBrandsResponse
 from ..types.optional_brand_info import OptionalBrandInfo
 from ..types.optional_contacts import OptionalContacts
 from ..types.submission_results import SubmissionResults
@@ -16,6 +17,7 @@ from ..types.validation_results import ValidationResults
 from ..types.vetting_results import VettingResults
 from .raw_client import AsyncRawBrandsClient, RawBrandsClient
 from .types.autofill_brand_options import AutofillBrandOptions
+from .types.list_brands_request_status import ListBrandsRequestStatus
 from .types.upsert_brand_schema_contact import UpsertBrandSchemaContact
 from .types.upsert_brand_schema_entity_type import UpsertBrandSchemaEntityType
 from .types.upsert_brand_schema_sector import UpsertBrandSchemaSector
@@ -407,6 +409,59 @@ class BrandsClient:
         )
         """
         _response = self._raw_client.vet(brand_id, request_options=request_options)
+        return _response.data
+
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListBrandsRequestStatus] = OMIT,
+        is_archived: typing.Optional[bool] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListBrandsResponse:
+        """
+        List all brands with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListBrandsRequestStatus]
+
+        is_archived : typing.Optional[bool]
+
+        name : typing.Optional[str]
+            Case-insensitive substring search on brand name.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListBrandsResponse
+            Returns paginated list of brands.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.brands.list()
+        """
+        _response = self._raw_client.list(
+            page_index=page_index,
+            page_size=page_size,
+            status=status,
+            is_archived=is_archived,
+            name=name,
+            request_options=request_options,
+        )
         return _response.data
 
 
@@ -842,4 +897,65 @@ class AsyncBrandsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.vet(brand_id, request_options=request_options)
+        return _response.data
+
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListBrandsRequestStatus] = OMIT,
+        is_archived: typing.Optional[bool] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListBrandsResponse:
+        """
+        List all brands with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListBrandsRequestStatus]
+
+        is_archived : typing.Optional[bool]
+
+        name : typing.Optional[str]
+            Case-insensitive substring search on brand name.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListBrandsResponse
+            Returns paginated list of brands.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.brands.list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list(
+            page_index=page_index,
+            page_size=page_size,
+            status=status,
+            is_archived=is_archived,
+            name=name,
+            request_options=request_options,
+        )
         return _response.data

@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        ListRcsCampaignsRequestStatus,
         RcsAgent,
         RcsAgentEmail,
         RcsAgentPhone,
@@ -21,6 +22,7 @@ if typing.TYPE_CHECKING:
         RcsUseCase,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "ListRcsCampaignsRequestStatus": ".types",
     "RcsAgent": ".types",
     "RcsAgentEmail": ".types",
     "RcsAgentPhone": ".types",
@@ -56,6 +58,7 @@ def __dir__():
 
 
 __all__ = [
+    "ListRcsCampaignsRequestStatus",
     "RcsAgent",
     "RcsAgentEmail",
     "RcsAgentPhone",

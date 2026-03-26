@@ -4,8 +4,10 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.list_webhooks_response import ListWebhooksResponse
 from ..types.webhook_result import WebhookResult
 from .raw_client import AsyncRawWebhooksClient, RawWebhooksClient
+from .types.list_webhooks_request_status import ListWebhooksRequestStatus
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -65,6 +67,55 @@ class WebhooksClient:
         )
         """
         _response = self._raw_client.get(identifiers=identifiers, request_options=request_options)
+        return _response.data
+
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListWebhooksRequestStatus] = OMIT,
+        endpoint: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListWebhooksResponse:
+        """
+        List all webhooks with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListWebhooksRequestStatus]
+
+        endpoint : typing.Optional[str]
+            Filter webhooks by endpoint URL (partial match, case-insensitive).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListWebhooksResponse
+            Returns paginated list of webhooks.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.webhooks.list()
+        """
+        _response = self._raw_client.list(
+            page_index=page_index,
+            page_size=page_size,
+            status=status,
+            endpoint=endpoint,
+            request_options=request_options,
+        )
         return _response.data
 
 
@@ -130,4 +181,61 @@ class AsyncWebhooksClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get(identifiers=identifiers, request_options=request_options)
+        return _response.data
+
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListWebhooksRequestStatus] = OMIT,
+        endpoint: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListWebhooksResponse:
+        """
+        List all webhooks with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListWebhooksRequestStatus]
+
+        endpoint : typing.Optional[str]
+            Filter webhooks by endpoint URL (partial match, case-insensitive).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListWebhooksResponse
+            Returns paginated list of webhooks.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.webhooks.list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list(
+            page_index=page_index,
+            page_size=page_size,
+            status=status,
+            endpoint=endpoint,
+            request_options=request_options,
+        )
         return _response.data

@@ -18,8 +18,10 @@ from ...errors.unauthorized_error import UnauthorizedError
 from ...types.campaign_submission_result import CampaignSubmissionResult
 from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.error import Error
+from ...types.list_toll_free_campaigns_response import ListTollFreeCampaignsResponse
 from ...types.message_volume_enum import MessageVolumeEnum
 from ...types.toll_free_campaign_with_extended_brand_and_status import TollFreeCampaignWithExtendedBrandAndStatus
+from .types.list_toll_free_campaigns_request_status import ListTollFreeCampaignsRequestStatus
 from .types.toll_free_autofill_response import TollFreeAutofillResponse
 from .types.toll_free_campaign_keywords import TollFreeCampaignKeywords
 from .types.toll_free_campaign_links import TollFreeCampaignLinks
@@ -593,6 +595,104 @@ class RawTollFreeClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListTollFreeCampaignsRequestStatus] = OMIT,
+        brand_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ListTollFreeCampaignsResponse]:
+        """
+        List all toll-free campaigns with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListTollFreeCampaignsRequestStatus]
+
+        brand_id : typing.Optional[str]
+
+        name : typing.Optional[str]
+            Filter by campaign name (partial match, case-insensitive).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ListTollFreeCampaignsResponse]
+            Returns paginated list of toll-free campaigns.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "campaigns/toll-free/list",
+            method="POST",
+            json={
+                "pageIndex": page_index,
+                "pageSize": page_size,
+                "status": status,
+                "brandId": brand_id,
+                "name": name,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ListTollFreeCampaignsResponse,
+                    parse_obj_as(
+                        type_=ListTollFreeCampaignsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawTollFreeClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -1131,6 +1231,104 @@ class AsyncRawTollFreeClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListTollFreeCampaignsRequestStatus] = OMIT,
+        brand_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ListTollFreeCampaignsResponse]:
+        """
+        List all toll-free campaigns with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListTollFreeCampaignsRequestStatus]
+
+        brand_id : typing.Optional[str]
+
+        name : typing.Optional[str]
+            Filter by campaign name (partial match, case-insensitive).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ListTollFreeCampaignsResponse]
+            Returns paginated list of toll-free campaigns.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "campaigns/toll-free/list",
+            method="POST",
+            json={
+                "pageIndex": page_index,
+                "pageSize": page_size,
+                "status": status,
+                "brandId": brand_id,
+                "name": name,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ListTollFreeCampaignsResponse,
+                    parse_obj_as(
+                        type_=ListTollFreeCampaignsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         Error,

@@ -3,17 +3,22 @@
 import typing
 
 import pydantic
-from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class SendTypingIndicatorSchemaOptions(UniversalBaseModel):
+class AgentEmailEntry(UniversalBaseModel):
     """
-    Configure how your typing indicator is sent.
+    An email contact entry for the RCS agent's contact information.
     """
 
-    test_mode: typing.Optional[bool] = pydantic.Field(default=None)
+    address: str = pydantic.Field()
     """
-    Send via the test agent to whitelisted test devices. Useful for development and debugging.
+    A valid email address.
+    """
+
+    label: str = pydantic.Field()
+    """
+    Display label for the email (e.g., "Support", "Sales").
     """
 
     if IS_PYDANTIC_V2:

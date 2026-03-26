@@ -13,6 +13,7 @@ if typing.TYPE_CHECKING:
     from .dlc_campaign_opt_out_keywords import DlcCampaignOptOutKeywords
     from .dlc_campaign_options import DlcCampaignOptions
     from .dlc_campaign_use_case import DlcCampaignUseCase
+    from .list_dlc_campaigns_request_status import ListDlcCampaignsRequestStatus
 _dynamic_imports: typing.Dict[str, str] = {
     "DlcCampaignHelpKeywords": ".dlc_campaign_help_keywords",
     "DlcCampaignKeywords": ".dlc_campaign_keywords",
@@ -21,6 +22,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DlcCampaignOptOutKeywords": ".dlc_campaign_opt_out_keywords",
     "DlcCampaignOptions": ".dlc_campaign_options",
     "DlcCampaignUseCase": ".dlc_campaign_use_case",
+    "ListDlcCampaignsRequestStatus": ".list_dlc_campaigns_request_status",
 }
 
 
@@ -51,4 +53,5 @@ __all__ = [
     "DlcCampaignOptOutKeywords",
     "DlcCampaignOptions",
     "DlcCampaignUseCase",
+    "ListDlcCampaignsRequestStatus",
 ]

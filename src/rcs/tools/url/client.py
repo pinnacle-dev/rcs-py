@@ -5,6 +5,7 @@ import typing
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.create_url_options import CreateUrlOptions
+from ...types.list_links_response import ListLinksResponse
 from ...types.shortened_url import ShortenedUrl
 from ...types.shortened_url_with_click_data import ShortenedUrlWithClickData
 from .raw_client import AsyncRawUrlClient, RawUrlClient
@@ -149,6 +150,48 @@ class UrlClient:
         )
         """
         _response = self._raw_client.update(link_id, url=url, options=options, request_options=request_options)
+        return _response.data
+
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        endpoint: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListLinksResponse:
+        """
+        List all shortened URLs with pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        endpoint : typing.Optional[str]
+            Case-insensitive substring search on the destination URL.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListLinksResponse
+            Returns paginated list of shortened URLs.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.tools.url.list()
+        """
+        _response = self._raw_client.list(
+            page_index=page_index, page_size=page_size, endpoint=endpoint, request_options=request_options
+        )
         return _response.data
 
 
@@ -312,4 +355,54 @@ class AsyncUrlClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update(link_id, url=url, options=options, request_options=request_options)
+        return _response.data
+
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        endpoint: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListLinksResponse:
+        """
+        List all shortened URLs with pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        endpoint : typing.Optional[str]
+            Case-insensitive substring search on the destination URL.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListLinksResponse
+            Returns paginated list of shortened URLs.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.tools.url.list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list(
+            page_index=page_index, page_size=page_size, endpoint=endpoint, request_options=request_options
+        )
         return _response.data

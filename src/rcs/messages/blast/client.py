@@ -205,8 +205,6 @@ class BlastClient:
 
             Messages will be evenly distributed across these agents.
 
-            > **Note:** Test agents cannot be used for blasts.
-
             **Limit:** 1 min
 
         message : RcsValidateContent
@@ -468,8 +466,6 @@ class AsyncBlastClient:
             Array of RCS agent IDs to send from. Each must be prefixed with `agent_`. <br>
 
             Messages will be evenly distributed across these agents.
-
-            > **Note:** Test agents cannot be used for blasts.
 
             **Limit:** 1 min
 

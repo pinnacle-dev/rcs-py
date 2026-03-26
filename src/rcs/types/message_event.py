@@ -40,9 +40,12 @@ class MessageEvent(UniversalBaseModel):
     Number of segments for this message.
     """
 
-    sent_at: typing_extensions.Annotated[str, FieldMetadata(alias="sentAt")] = pydantic.Field()
+    sent_at: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="sentAt")] = pydantic.Field(
+        default=None
+    )
     """
     Timestamp when the message was sent in ISO 8601 format.
+    Null if the message has not been sent yet.
     """
 
     delivered_at: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="deliveredAt")] = (
@@ -54,15 +57,24 @@ class MessageEvent(UniversalBaseModel):
     """
 
     message: MessageEventContent
+    original_message_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="originalMessageId")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    The unique identifier of the original RCS message that this fallback SMS/MMS was sent on behalf of. Always begins with the prefix `msg_`.
+    
+    Only present on webhook events for fallback SMS/MMS messages. Use this to link the fallback back to the RCS message that could not be delivered. The `message.id` field on this event refers to the actual SMS/MMS that was sent — `originalMessageId` refers to the RCS message it replaced.
+    
+    Null when the message is not a fallback.
+    """
+
     fallback_message: typing_extensions.Annotated[
         typing.Optional[MessageEventFallbackMessage], FieldMetadata(alias="fallbackMessage")
     ] = pydantic.Field(default=None)
     """
-    Details of the fallback SMS/MMS message that was sent instead of the original RCS message.
+    Details of the fallback SMS/MMS message(s) that were actually sent to the recipient instead of the original RCS message.
     
-    This field is only present when the message `status` is `FALLBACK_SENT`, indicating the original RCS message could not be delivered and a fallback message was sent instead.
-    
-    Use this information to track which fallback messages were sent and their content.
+    Only present when the message `status` is `FALLBACK_SENT`. The `message.id` on this event refers to the original RCS message that could not be delivered. The `fallbackMessage.ids` contain the identifiers of the actual SMS/MMS messages that were sent.
     """
 
     if IS_PYDANTIC_V2:

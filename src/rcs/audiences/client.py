@@ -8,6 +8,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.audience_count_only import AudienceCountOnly
 from ..types.delete_audience_response import DeleteAudienceResponse
+from ..types.list_audiences_response import ListAudiencesResponse
 from .raw_client import AsyncRawAudiencesClient, RawAudiencesClient
 from .types.audiences_get_response import AudiencesGetResponse
 
@@ -204,6 +205,48 @@ class AudiencesClient:
         )
         """
         _response = self._raw_client.update(id=id, name=name, description=description, request_options=request_options)
+        return _response.data
+
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListAudiencesResponse:
+        """
+        List all audiences with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        name : typing.Optional[str]
+            Filter audiences by name (partial match).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListAudiencesResponse
+            Returns paginated list of audiences.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.audiences.list()
+        """
+        _response = self._raw_client.list(
+            page_index=page_index, page_size=page_size, name=name, request_options=request_options
+        )
         return _response.data
 
     @property
@@ -437,6 +480,56 @@ class AsyncAudiencesClient:
         """
         _response = await self._raw_client.update(
             id=id, name=name, description=description, request_options=request_options
+        )
+        return _response.data
+
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListAudiencesResponse:
+        """
+        List all audiences with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        name : typing.Optional[str]
+            Filter audiences by name (partial match).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListAudiencesResponse
+            Returns paginated list of audiences.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.audiences.list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list(
+            page_index=page_index, page_size=page_size, name=name, request_options=request_options
         )
         return _response.data
 

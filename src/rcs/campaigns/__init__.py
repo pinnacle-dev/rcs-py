@@ -15,8 +15,10 @@ if typing.TYPE_CHECKING:
         DlcCampaignOptOutKeywords,
         DlcCampaignOptions,
         DlcCampaignUseCase,
+        ListDlcCampaignsRequestStatus,
     )
     from .rcs import (
+        ListRcsCampaignsRequestStatus,
         RcsAgent,
         RcsAgentEmail,
         RcsAgentPhone,
@@ -31,6 +33,7 @@ if typing.TYPE_CHECKING:
         RcsUseCase,
     )
     from .toll_free import (
+        ListTollFreeCampaignsRequestStatus,
         TollFreeAutofillResponse,
         TollFreeCampaignHelpKeywords,
         TollFreeCampaignKeywords,
@@ -48,6 +51,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DlcCampaignOptOutKeywords": ".dlc",
     "DlcCampaignOptions": ".dlc",
     "DlcCampaignUseCase": ".dlc",
+    "ListDlcCampaignsRequestStatus": ".dlc",
+    "ListRcsCampaignsRequestStatus": ".rcs",
+    "ListTollFreeCampaignsRequestStatus": ".toll_free",
     "RcsAgent": ".rcs",
     "RcsAgentEmail": ".rcs",
     "RcsAgentPhone": ".rcs",
@@ -101,6 +107,9 @@ __all__ = [
     "DlcCampaignOptOutKeywords",
     "DlcCampaignOptions",
     "DlcCampaignUseCase",
+    "ListDlcCampaignsRequestStatus",
+    "ListRcsCampaignsRequestStatus",
+    "ListTollFreeCampaignsRequestStatus",
     "RcsAgent",
     "RcsAgentEmail",
     "RcsAgentPhone",

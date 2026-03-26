@@ -8,11 +8,13 @@ from ...types.autofill_dlc_campaign_response import AutofillDlcCampaignResponse
 from ...types.campaign_submission_result import CampaignSubmissionResult
 from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.dlc_campaign_with_extended_brand_and_status import DlcCampaignWithExtendedBrandAndStatus
+from ...types.list_dlc_campaigns_response import ListDlcCampaignsResponse
 from .raw_client import AsyncRawDlcClient, RawDlcClient
 from .types.dlc_campaign_keywords import DlcCampaignKeywords
 from .types.dlc_campaign_links import DlcCampaignLinks
 from .types.dlc_campaign_options import DlcCampaignOptions
 from .types.dlc_campaign_use_case import DlcCampaignUseCase
+from .types.list_dlc_campaigns_request_status import ListDlcCampaignsRequestStatus
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -339,6 +341,59 @@ class DlcClient:
         """
         _response = self._raw_client.validate(
             campaign_id=campaign_id, additional_info=additional_info, request_options=request_options
+        )
+        return _response.data
+
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListDlcCampaignsRequestStatus] = OMIT,
+        brand_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListDlcCampaignsResponse:
+        """
+        List all 10DLC campaigns with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListDlcCampaignsRequestStatus]
+
+        brand_id : typing.Optional[str]
+
+        name : typing.Optional[str]
+            Filter by campaign name (partial match, case-insensitive).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListDlcCampaignsResponse
+            Returns paginated list of 10DLC campaigns.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.campaigns.dlc.list()
+        """
+        _response = self._raw_client.list(
+            page_index=page_index,
+            page_size=page_size,
+            status=status,
+            brand_id=brand_id,
+            name=name,
+            request_options=request_options,
         )
         return _response.data
 
@@ -704,5 +759,66 @@ class AsyncDlcClient:
         """
         _response = await self._raw_client.validate(
             campaign_id=campaign_id, additional_info=additional_info, request_options=request_options
+        )
+        return _response.data
+
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListDlcCampaignsRequestStatus] = OMIT,
+        brand_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListDlcCampaignsResponse:
+        """
+        List all 10DLC campaigns with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListDlcCampaignsRequestStatus]
+
+        brand_id : typing.Optional[str]
+
+        name : typing.Optional[str]
+            Filter by campaign name (partial match, case-insensitive).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListDlcCampaignsResponse
+            Returns paginated list of 10DLC campaigns.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.campaigns.dlc.list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list(
+            page_index=page_index,
+            page_size=page_size,
+            status=status,
+            brand_id=brand_id,
+            name=name,
+            request_options=request_options,
         )
         return _response.data

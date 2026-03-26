@@ -7,8 +7,10 @@ from ...core.request_options import RequestOptions
 from ...types.campaign_submission_result import CampaignSubmissionResult
 from ...types.campaign_validation_result import CampaignValidationResult
 from ...types.extended_rcs_campaign import ExtendedRcsCampaign
+from ...types.list_rcs_campaigns_response import ListRcsCampaignsResponse
 from ...types.rcs_messaging_type_enum import RcsMessagingTypeEnum
 from .raw_client import AsyncRawRcsClient, RawRcsClient
+from .types.list_rcs_campaigns_request_status import ListRcsCampaignsRequestStatus
 from .types.rcs_agent import RcsAgent
 from .types.rcs_autofill_response import RcsAutofillResponse
 from .types.rcs_campaign_keywords import RcsCampaignKeywords
@@ -387,6 +389,59 @@ class RcsClient:
         """
         _response = self._raw_client.validate(
             campaign_id=campaign_id, additional_info=additional_info, request_options=request_options
+        )
+        return _response.data
+
+    def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListRcsCampaignsRequestStatus] = OMIT,
+        brand_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListRcsCampaignsResponse:
+        """
+        List all RCS campaigns with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListRcsCampaignsRequestStatus]
+
+        brand_id : typing.Optional[str]
+
+        name : typing.Optional[str]
+            Filter by campaign name (partial match, case-insensitive).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListRcsCampaignsResponse
+            Returns paginated list of RCS campaigns.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.campaigns.rcs.list()
+        """
+        _response = self._raw_client.list(
+            page_index=page_index,
+            page_size=page_size,
+            status=status,
+            brand_id=brand_id,
+            name=name,
+            request_options=request_options,
         )
         return _response.data
 
@@ -800,5 +855,66 @@ class AsyncRcsClient:
         """
         _response = await self._raw_client.validate(
             campaign_id=campaign_id, additional_info=additional_info, request_options=request_options
+        )
+        return _response.data
+
+    async def list(
+        self,
+        *,
+        page_index: typing.Optional[int] = OMIT,
+        page_size: typing.Optional[int] = OMIT,
+        status: typing.Optional[ListRcsCampaignsRequestStatus] = OMIT,
+        brand_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ListRcsCampaignsResponse:
+        """
+        List all RCS campaigns with optional filtering and pagination. Results are sorted by creation date, newest first.
+
+        Parameters
+        ----------
+        page_index : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        status : typing.Optional[ListRcsCampaignsRequestStatus]
+
+        brand_id : typing.Optional[str]
+
+        name : typing.Optional[str]
+            Filter by campaign name (partial match, case-insensitive).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ListRcsCampaignsResponse
+            Returns paginated list of RCS campaigns.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.campaigns.rcs.list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list(
+            page_index=page_index,
+            page_size=page_size,
+            status=status,
+            brand_id=brand_id,
+            name=name,
+            request_options=request_options,
         )
         return _response.data

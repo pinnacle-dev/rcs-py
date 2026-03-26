@@ -6,7 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
-from .message_with_reaction import MessageWithReaction
+from .message_with_reactions import MessageWithReactions
 
 
 class MessageList(UniversalBaseModel):
@@ -14,7 +14,7 @@ class MessageList(UniversalBaseModel):
     Paginated list of messages in a conversation.
     """
 
-    messages: typing.List[MessageWithReaction] = pydantic.Field()
+    messages: typing.List[MessageWithReactions] = pydantic.Field()
     """
     Array of messages in the conversation.
     """
