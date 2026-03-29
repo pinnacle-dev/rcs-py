@@ -27,9 +27,8 @@ if typing.TYPE_CHECKING:
     from .agent_summary_config_websites_item import AgentSummaryConfigWebsitesItem
     from .agent_use_case import AgentUseCase
     from .agent_website_entry import AgentWebsiteEntry
-    from .attach_webhook_by_id_params import AttachWebhookByIdParams
-    from .attach_webhook_params import AttachWebhookParams
     from .attach_webhook_response_webhook import AttachWebhookResponseWebhook
+    from .attach_webhook_result import AttachWebhookResult
     from .attached_phone_number_result import AttachedPhoneNumberResult
     from .audience_count_only import AudienceCountOnly
     from .audience_summary import AudienceSummary
@@ -70,7 +69,6 @@ if typing.TYPE_CHECKING:
     from .company_entity_type_enum import CompanyEntityTypeEnum
     from .company_sector_enum import CompanySectorEnum
     from .company_type_enum import CompanyTypeEnum
-    from .configured_webhook import ConfiguredWebhook
     from .contact import Contact
     from .contact_id import ContactId
     from .conversation import Conversation
@@ -79,11 +77,10 @@ if typing.TYPE_CHECKING:
     from .conversation_contact import ConversationContact
     from .conversation_list import ConversationList
     from .conversation_sender import ConversationSender
-    from .create_and_attach_webhook_by_url_params import CreateAndAttachWebhookByUrlParams
     from .create_url_options import CreateUrlOptions
     from .delete_audience_response import DeleteAudienceResponse
+    from .detach_webhook_result import DetachWebhookResult
     from .detached_phone_number_result import DetachedPhoneNumberResult
-    from .detached_webhook_info import DetachedWebhookInfo
     from .detailed_phone_number_enum import DetailedPhoneNumberEnum
     from .dlc_assignment_status_enum import DlcAssignmentStatusEnum
     from .dlc_campaign_status import DlcCampaignStatus
@@ -106,6 +103,7 @@ if typing.TYPE_CHECKING:
     from .extended_brand import ExtendedBrand
     from .extended_brand_with_vetting import ExtendedBrandWithVetting
     from .extended_rcs_campaign import ExtendedRcsCampaign
+    from .failed_sender import FailedSender
     from .fallback_message import FallbackMessage
     from .get_conversation_params import GetConversationParams
     from .get_dlc_campaign_status_response_updates import GetDlcCampaignStatusResponseUpdates
@@ -236,18 +234,15 @@ if typing.TYPE_CHECKING:
     from .rcs_campaign_schema_extra_keywords_opt_out import RcsCampaignSchemaExtraKeywordsOptOut
     from .rcs_campaign_schema_extra_links import RcsCampaignSchemaExtraLinks
     from .rcs_campaign_schema_extra_traffic import RcsCampaignSchemaExtraTraffic
-    from .rcs_campaign_schema_extra_use_case import RcsCampaignSchemaExtraUseCase
     from .rcs_campaign_schema_keywords import RcsCampaignSchemaKeywords
     from .rcs_campaign_schema_keywords_help import RcsCampaignSchemaKeywordsHelp
     from .rcs_campaign_schema_keywords_opt_in import RcsCampaignSchemaKeywordsOptIn
     from .rcs_campaign_schema_keywords_opt_out import RcsCampaignSchemaKeywordsOptOut
     from .rcs_campaign_schema_links import RcsCampaignSchemaLinks
     from .rcs_campaign_schema_traffic import RcsCampaignSchemaTraffic
-    from .rcs_campaign_schema_use_case import RcsCampaignSchemaUseCase
     from .rcs_campaign_status import RcsCampaignStatus
     from .rcs_campaign_summary import RcsCampaignSummary
     from .rcs_campaign_summary_status import RcsCampaignSummaryStatus
-    from .rcs_campaign_use_case_enum import RcsCampaignUseCaseEnum
     from .rcs_capabilities_result import RcsCapabilitiesResult
     from .rcs_capability import RcsCapability
     from .rcs_capability_actions import RcsCapabilityActions
@@ -395,9 +390,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AgentSummaryConfigWebsitesItem": ".agent_summary_config_websites_item",
     "AgentUseCase": ".agent_use_case",
     "AgentWebsiteEntry": ".agent_website_entry",
-    "AttachWebhookByIdParams": ".attach_webhook_by_id_params",
-    "AttachWebhookParams": ".attach_webhook_params",
     "AttachWebhookResponseWebhook": ".attach_webhook_response_webhook",
+    "AttachWebhookResult": ".attach_webhook_result",
     "AttachedPhoneNumberResult": ".attached_phone_number_result",
     "AudienceCountOnly": ".audience_count_only",
     "AudienceSummary": ".audience_summary",
@@ -438,7 +432,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CompanyEntityTypeEnum": ".company_entity_type_enum",
     "CompanySectorEnum": ".company_sector_enum",
     "CompanyTypeEnum": ".company_type_enum",
-    "ConfiguredWebhook": ".configured_webhook",
     "Contact": ".contact",
     "ContactId": ".contact_id",
     "Conversation": ".conversation",
@@ -447,11 +440,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConversationContact": ".conversation_contact",
     "ConversationList": ".conversation_list",
     "ConversationSender": ".conversation_sender",
-    "CreateAndAttachWebhookByUrlParams": ".create_and_attach_webhook_by_url_params",
     "CreateUrlOptions": ".create_url_options",
     "DeleteAudienceResponse": ".delete_audience_response",
+    "DetachWebhookResult": ".detach_webhook_result",
     "DetachedPhoneNumberResult": ".detached_phone_number_result",
-    "DetachedWebhookInfo": ".detached_webhook_info",
     "DetailedPhoneNumberEnum": ".detailed_phone_number_enum",
     "DlcAssignmentStatusEnum": ".dlc_assignment_status_enum",
     "DlcCampaignStatus": ".dlc_campaign_status",
@@ -474,6 +466,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExtendedBrand": ".extended_brand",
     "ExtendedBrandWithVetting": ".extended_brand_with_vetting",
     "ExtendedRcsCampaign": ".extended_rcs_campaign",
+    "FailedSender": ".failed_sender",
     "FallbackMessage": ".fallback_message",
     "GetConversationParams": ".get_conversation_params",
     "GetDlcCampaignStatusResponseUpdates": ".get_dlc_campaign_status_response_updates",
@@ -598,18 +591,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsCampaignSchemaExtraKeywordsOptOut": ".rcs_campaign_schema_extra_keywords_opt_out",
     "RcsCampaignSchemaExtraLinks": ".rcs_campaign_schema_extra_links",
     "RcsCampaignSchemaExtraTraffic": ".rcs_campaign_schema_extra_traffic",
-    "RcsCampaignSchemaExtraUseCase": ".rcs_campaign_schema_extra_use_case",
     "RcsCampaignSchemaKeywords": ".rcs_campaign_schema_keywords",
     "RcsCampaignSchemaKeywordsHelp": ".rcs_campaign_schema_keywords_help",
     "RcsCampaignSchemaKeywordsOptIn": ".rcs_campaign_schema_keywords_opt_in",
     "RcsCampaignSchemaKeywordsOptOut": ".rcs_campaign_schema_keywords_opt_out",
     "RcsCampaignSchemaLinks": ".rcs_campaign_schema_links",
     "RcsCampaignSchemaTraffic": ".rcs_campaign_schema_traffic",
-    "RcsCampaignSchemaUseCase": ".rcs_campaign_schema_use_case",
     "RcsCampaignStatus": ".rcs_campaign_status",
     "RcsCampaignSummary": ".rcs_campaign_summary",
     "RcsCampaignSummaryStatus": ".rcs_campaign_summary_status",
-    "RcsCampaignUseCaseEnum": ".rcs_campaign_use_case_enum",
     "RcsCapabilitiesResult": ".rcs_capabilities_result",
     "RcsCapability": ".rcs_capability",
     "RcsCapabilityActions": ".rcs_capability_actions",
@@ -775,9 +765,8 @@ __all__ = [
     "AgentSummaryConfigWebsitesItem",
     "AgentUseCase",
     "AgentWebsiteEntry",
-    "AttachWebhookByIdParams",
-    "AttachWebhookParams",
     "AttachWebhookResponseWebhook",
+    "AttachWebhookResult",
     "AttachedPhoneNumberResult",
     "AudienceCountOnly",
     "AudienceSummary",
@@ -818,7 +807,6 @@ __all__ = [
     "CompanyEntityTypeEnum",
     "CompanySectorEnum",
     "CompanyTypeEnum",
-    "ConfiguredWebhook",
     "Contact",
     "ContactId",
     "Conversation",
@@ -827,11 +815,10 @@ __all__ = [
     "ConversationContact",
     "ConversationList",
     "ConversationSender",
-    "CreateAndAttachWebhookByUrlParams",
     "CreateUrlOptions",
     "DeleteAudienceResponse",
+    "DetachWebhookResult",
     "DetachedPhoneNumberResult",
-    "DetachedWebhookInfo",
     "DetailedPhoneNumberEnum",
     "DlcAssignmentStatusEnum",
     "DlcCampaignStatus",
@@ -854,6 +841,7 @@ __all__ = [
     "ExtendedBrand",
     "ExtendedBrandWithVetting",
     "ExtendedRcsCampaign",
+    "FailedSender",
     "FallbackMessage",
     "GetConversationParams",
     "GetDlcCampaignStatusResponseUpdates",
@@ -978,18 +966,15 @@ __all__ = [
     "RcsCampaignSchemaExtraKeywordsOptOut",
     "RcsCampaignSchemaExtraLinks",
     "RcsCampaignSchemaExtraTraffic",
-    "RcsCampaignSchemaExtraUseCase",
     "RcsCampaignSchemaKeywords",
     "RcsCampaignSchemaKeywordsHelp",
     "RcsCampaignSchemaKeywordsOptIn",
     "RcsCampaignSchemaKeywordsOptOut",
     "RcsCampaignSchemaLinks",
     "RcsCampaignSchemaTraffic",
-    "RcsCampaignSchemaUseCase",
     "RcsCampaignStatus",
     "RcsCampaignSummary",
     "RcsCampaignSummaryStatus",
-    "RcsCampaignUseCaseEnum",
     "RcsCapabilitiesResult",
     "RcsCapability",
     "RcsCapabilityActions",

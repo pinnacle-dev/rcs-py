@@ -4,20 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .rcs_campaign_use_case_enum import RcsCampaignUseCaseEnum
 
 
-class RcsCampaignSchemaExtraUseCase(UniversalBaseModel):
+class FailedSender(UniversalBaseModel):
+    sender: str = pydantic.Field()
     """
-    Use case classification for the campaign.
-    """
-
-    behavior: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Detailed summary of what the brand is and how this agent will be used. See the [Use Case Behavior](/guides/campaigns/rcs-compliance#use-case-behavior) section for requirements.
+    The sender that failed.
     """
 
-    value: typing.Optional[RcsCampaignUseCaseEnum] = None
+    error: str = pydantic.Field()
+    """
+    Reason for the failure.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

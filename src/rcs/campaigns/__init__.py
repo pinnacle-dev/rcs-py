@@ -30,7 +30,6 @@ if typing.TYPE_CHECKING:
         RcsCampaignOptOutKeywords,
         RcsCampaignTraffic,
         RcsLinks,
-        RcsUseCase,
     )
     from .toll_free import (
         ListTollFreeCampaignsRequestStatus,
@@ -65,7 +64,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsCampaignOptOutKeywords": ".rcs",
     "RcsCampaignTraffic": ".rcs",
     "RcsLinks": ".rcs",
-    "RcsUseCase": ".rcs",
     "TollFreeAutofillResponse": ".toll_free",
     "TollFreeCampaignHelpKeywords": ".toll_free",
     "TollFreeCampaignKeywords": ".toll_free",
@@ -121,7 +119,6 @@ __all__ = [
     "RcsCampaignOptOutKeywords",
     "RcsCampaignTraffic",
     "RcsLinks",
-    "RcsUseCase",
     "TollFreeAutofillResponse",
     "TollFreeCampaignHelpKeywords",
     "TollFreeCampaignKeywords",

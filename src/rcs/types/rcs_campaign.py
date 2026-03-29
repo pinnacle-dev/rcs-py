@@ -10,7 +10,6 @@ from .rcs_campaign_schema_agent import RcsCampaignSchemaAgent
 from .rcs_campaign_schema_keywords import RcsCampaignSchemaKeywords
 from .rcs_campaign_schema_links import RcsCampaignSchemaLinks
 from .rcs_campaign_schema_traffic import RcsCampaignSchemaTraffic
-from .rcs_campaign_schema_use_case import RcsCampaignSchemaUseCase
 from .rcs_messaging_type_enum import RcsMessagingTypeEnum
 
 
@@ -39,53 +38,32 @@ class RcsCampaign(UniversalBaseModel):
     Legal documentation links.
     """
 
-    use_case: typing_extensions.Annotated[typing.Optional[RcsCampaignSchemaUseCase], FieldMetadata(alias="useCase")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Use case classification for the campaign.
-    """
-
-    opt_in_terms_and_conditions: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="optInTermsAndConditions")
+    use_case_description: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="useCaseDescription")
     ] = pydantic.Field(default=None)
     """
-    Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Terms and Conditions](/guides/campaigns/rcs-compliance#opt-in-terms-and-conditions) section for requirements.
+    Detailed summary of what the brand is and how this agent will be used. See the [Use Case Behavior](/guides/campaigns/rcs-compliance#use-case-behavior) section for requirements.
     """
 
     messaging_type: typing_extensions.Annotated[
         typing.Optional[RcsMessagingTypeEnum], FieldMetadata(alias="messagingType")
     ] = None
-    carrier_description: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="carrierDescription")
-    ] = pydantic.Field(default=None)
+    cta_media: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ctaMedia")] = pydantic.Field(
+        default=None
+    )
     """
-    Description of the agent's purpose, shown to carriers for approval. See the [Carrier Description](/guides/campaigns/rcs-compliance#carrier-description) section for requirements.
+    URL to the opt-in form or a URL to a screenshot of the opt-in CTA.
+    """
+
+    opt_in_method: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="optInMethod")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Method](/guides/campaigns/rcs-compliance#opt-in-method) section for requirements.
     """
 
     keywords: typing.Optional[RcsCampaignSchemaKeywords] = None
     traffic: typing.Optional[RcsCampaignSchemaTraffic] = None
-    agent_triggers: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="agentTriggers")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. See the [Agent Triggers](/guides/campaigns/rcs-compliance#agent-triggers) section for requirements.
-    """
-
-    interaction_description: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="interactionDescription")
-    ] = pydantic.Field(default=None)
-    """
-    Description of all agent interactions, including primary and secondary use cases. See the [Interaction Description](/guides/campaigns/rcs-compliance#interaction-description) section for requirements.
-    """
-
-    is_conversational: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="isConversational")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user.
-    """
-
     cta_language: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="ctaLanguage")] = (
         pydantic.Field(default=None)
     )

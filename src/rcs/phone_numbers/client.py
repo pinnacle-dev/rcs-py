@@ -21,7 +21,6 @@ from .types.search_phone_number_options import SearchPhoneNumberOptions
 
 if typing.TYPE_CHECKING:
     from .campaign.client import AsyncCampaignClient, CampaignClient
-    from .webhook.client import AsyncWebhookClient, WebhookClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
@@ -30,7 +29,6 @@ class PhoneNumbersClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawPhoneNumbersClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
-        self._webhook: typing.Optional[WebhookClient] = None
         self._campaign: typing.Optional[CampaignClient] = None
 
     @property
@@ -256,14 +254,6 @@ class PhoneNumbersClient:
         return _response.data
 
     @property
-    def webhook(self):
-        if self._webhook is None:
-            from .webhook.client import WebhookClient  # noqa: E402
-
-            self._webhook = WebhookClient(client_wrapper=self._client_wrapper)
-        return self._webhook
-
-    @property
     def campaign(self):
         if self._campaign is None:
             from .campaign.client import CampaignClient  # noqa: E402
@@ -276,7 +266,6 @@ class AsyncPhoneNumbersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawPhoneNumbersClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
-        self._webhook: typing.Optional[AsyncWebhookClient] = None
         self._campaign: typing.Optional[AsyncCampaignClient] = None
 
     @property
@@ -536,14 +525,6 @@ class AsyncPhoneNumbersClient:
             page_index=page_index, page_size=page_size, request_options=request_options
         )
         return _response.data
-
-    @property
-    def webhook(self):
-        if self._webhook is None:
-            from .webhook.client import AsyncWebhookClient  # noqa: E402
-
-            self._webhook = AsyncWebhookClient(client_wrapper=self._client_wrapper)
-        return self._webhook
 
     @property
     def campaign(self):

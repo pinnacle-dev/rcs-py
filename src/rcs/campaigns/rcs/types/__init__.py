@@ -18,7 +18,6 @@ if typing.TYPE_CHECKING:
     from .rcs_campaign_opt_out_keywords import RcsCampaignOptOutKeywords
     from .rcs_campaign_traffic import RcsCampaignTraffic
     from .rcs_links import RcsLinks
-    from .rcs_use_case import RcsUseCase
 _dynamic_imports: typing.Dict[str, str] = {
     "ListRcsCampaignsRequestStatus": ".list_rcs_campaigns_request_status",
     "RcsAgent": ".rcs_agent",
@@ -32,7 +31,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsCampaignOptOutKeywords": ".rcs_campaign_opt_out_keywords",
     "RcsCampaignTraffic": ".rcs_campaign_traffic",
     "RcsLinks": ".rcs_links",
-    "RcsUseCase": ".rcs_use_case",
 }
 
 
@@ -68,5 +66,4 @@ __all__ = [
     "RcsCampaignOptOutKeywords",
     "RcsCampaignTraffic",
     "RcsLinks",
-    "RcsUseCase",
 ]

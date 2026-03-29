@@ -15,7 +15,7 @@ if typing.TYPE_CHECKING:
         SearchPhoneNumberByLocation,
         SearchPhoneNumberOptions,
     )
-    from . import campaign, webhook
+    from . import campaign
 _dynamic_imports: typing.Dict[str, str] = {
     "EnhancedContactInfo": ".types",
     "PhoneDetailsSchemaLevel": ".types",
@@ -25,7 +25,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SearchPhoneNumberByLocation": ".types",
     "SearchPhoneNumberOptions": ".types",
     "campaign": ".",
-    "webhook": ".",
 }
 
 
@@ -57,5 +56,4 @@ __all__ = [
     "SearchPhoneNumberByLocation",
     "SearchPhoneNumberOptions",
     "campaign",
-    "webhook",
 ]

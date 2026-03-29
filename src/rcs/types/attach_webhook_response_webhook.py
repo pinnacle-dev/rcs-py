@@ -7,13 +7,9 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class AttachWebhookResponseWebhook(UniversalBaseModel):
-    """
-    Detailed information about the attached webhook.
-    """
-
     id: str = pydantic.Field()
     """
-    Unique identifier of the webhook within the account. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
+    Unique webhook identifier (starts with `wh_`).
     """
 
     name: str = pydantic.Field()
@@ -23,14 +19,12 @@ class AttachWebhookResponseWebhook(UniversalBaseModel):
 
     url: str = pydantic.Field()
     """
-    The HTTPS endpoint URL where webhook events will be sent as HTTP POST requests.
+    HTTPS endpoint URL where events are delivered.
     """
 
-    secret: typing.Optional[str] = pydantic.Field(default=None)
+    secret: str = pydantic.Field()
     """
-    Secret key used to verify the authenticity of incoming webhook requests. <br>
-    
-    This secret key will be stored in the `PINNACLE-SIGNING-SECRET` header.
+    Signing secret sent in the `PINNACLE-SIGNING-SECRET` header for request verification.
     """
 
     if IS_PYDANTIC_V2:

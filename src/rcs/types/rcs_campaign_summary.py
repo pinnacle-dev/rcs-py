@@ -32,13 +32,6 @@ class RcsCampaignSummary(UniversalBaseModel):
     Brand ID associated with this campaign.
     """
 
-    use_case: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="useCase")] = pydantic.Field(
-        default=None
-    )
-    """
-    Primary use case for this campaign.
-    """
-
     agent_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="agentId")] = pydantic.Field(
         default=None
     )

@@ -16,7 +16,6 @@ from .types.rcs_autofill_response import RcsAutofillResponse
 from .types.rcs_campaign_keywords import RcsCampaignKeywords
 from .types.rcs_campaign_traffic import RcsCampaignTraffic
 from .types.rcs_links import RcsLinks
-from .types.rcs_use_case import RcsUseCase
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -155,15 +154,12 @@ class RcsClient:
         campaign_id: typing.Optional[str] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
         links: typing.Optional[RcsLinks] = OMIT,
-        use_case: typing.Optional[RcsUseCase] = OMIT,
-        opt_in_terms_and_conditions: typing.Optional[str] = OMIT,
+        use_case_description: typing.Optional[str] = OMIT,
         messaging_type: typing.Optional[RcsMessagingTypeEnum] = OMIT,
-        carrier_description: typing.Optional[str] = OMIT,
+        cta_media: typing.Optional[str] = OMIT,
+        opt_in_method: typing.Optional[str] = OMIT,
         keywords: typing.Optional[RcsCampaignKeywords] = OMIT,
         traffic: typing.Optional[RcsCampaignTraffic] = OMIT,
-        agent_triggers: typing.Optional[str] = OMIT,
-        interaction_description: typing.Optional[str] = OMIT,
-        is_conversational: typing.Optional[bool] = OMIT,
         cta_language: typing.Optional[str] = OMIT,
         demo_trigger: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -197,29 +193,20 @@ class RcsClient:
         links : typing.Optional[RcsLinks]
             Legal documentation links.
 
-        use_case : typing.Optional[RcsUseCase]
-            Use case classification for the campaign.
-
-        opt_in_terms_and_conditions : typing.Optional[str]
-            Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Terms and Conditions](/guides/campaigns/rcs-compliance#opt-in-terms-and-conditions) section for requirements.
+        use_case_description : typing.Optional[str]
+            Detailed summary of what the brand is and how this agent will be used. See the [Use Case Behavior](/guides/campaigns/rcs-compliance#use-case-behavior) section for requirements.
 
         messaging_type : typing.Optional[RcsMessagingTypeEnum]
 
-        carrier_description : typing.Optional[str]
-            Description of the agent's purpose, shown to carriers for approval. See the [Carrier Description](/guides/campaigns/rcs-compliance#carrier-description) section for requirements.
+        cta_media : typing.Optional[str]
+            URL to the opt-in form or a URL to a screenshot of the opt-in CTA.
+
+        opt_in_method : typing.Optional[str]
+            Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Method](/guides/campaigns/rcs-compliance#opt-in-method) section for requirements.
 
         keywords : typing.Optional[RcsCampaignKeywords]
 
         traffic : typing.Optional[RcsCampaignTraffic]
-
-        agent_triggers : typing.Optional[str]
-            Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. See the [Agent Triggers](/guides/campaigns/rcs-compliance#agent-triggers) section for requirements.
-
-        interaction_description : typing.Optional[str]
-            Description of all agent interactions, including primary and secondary use cases. See the [Interaction Description](/guides/campaigns/rcs-compliance#interaction-description) section for requirements.
-
-        is_conversational : typing.Optional[bool]
-            Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user.
 
         cta_language : typing.Optional[str]
             Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. See the [CTA Language](/guides/campaigns/rcs-compliance#cta-language-opt-in-disclosure) section for requirements.
@@ -249,7 +236,6 @@ class RcsClient:
             RcsCampaignOptOutKeywords,
             RcsCampaignTraffic,
             RcsLinks,
-            RcsUseCase,
         )
 
         client = Pinnacle(
@@ -290,16 +276,13 @@ class RcsClient:
                 "Your appointment has been scheduled.",
             ],
             links=RcsLinks(
-                privacy_policy="https://www.trypinnacle.app/privacy",
-                terms_of_service="https://www.trypinnacle.app/terms",
+                privacy_policy="“https://www.trypinnacle.app/privacy”",
+                terms_of_service="“https://www.trypinnacle.app/terms”",
             ),
-            use_case=RcsUseCase(
-                behavior="Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an “onboarding guide” for new customers and a “best-practices coach” for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\nThe agent delivers a mix of operational updates and educational content (2–6 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
-                value="OTHER",
-            ),
-            opt_in_terms_and_conditions="We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
-            messaging_type="MULTI_USE",
-            carrier_description="Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+            use_case_description="Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an “onboarding guide” for new customers and a “best-practices coach” for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\nThe agent delivers a mix of operational updates and educational content (2–6 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
+            messaging_type="OTP",
+            cta_media="“https://www.pinnacle.sh/send”",
+            opt_in_method="We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
             keywords=RcsCampaignKeywords(
                 help=RcsCampaignHelpKeywords(
                     message="Email founders@trypinnacle.app for support.",
@@ -318,9 +301,6 @@ class RcsClient:
                 monthly_website=10000,
                 monthly_rcs_estimate=10000,
             ),
-            agent_triggers="The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
-            interaction_description="The agent's primary interaction will be customer service — helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
-            is_conversational=True,
             cta_language="By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
             demo_trigger='Text "START" to trigger the flow.',
         )
@@ -331,15 +311,12 @@ class RcsClient:
             campaign_id=campaign_id,
             expected_agent_responses=expected_agent_responses,
             links=links,
-            use_case=use_case,
-            opt_in_terms_and_conditions=opt_in_terms_and_conditions,
+            use_case_description=use_case_description,
             messaging_type=messaging_type,
-            carrier_description=carrier_description,
+            cta_media=cta_media,
+            opt_in_method=opt_in_method,
             keywords=keywords,
             traffic=traffic,
-            agent_triggers=agent_triggers,
-            interaction_description=interaction_description,
-            is_conversational=is_conversational,
             cta_language=cta_language,
             demo_trigger=demo_trigger,
             request_options=request_options,
@@ -605,15 +582,12 @@ class AsyncRcsClient:
         campaign_id: typing.Optional[str] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
         links: typing.Optional[RcsLinks] = OMIT,
-        use_case: typing.Optional[RcsUseCase] = OMIT,
-        opt_in_terms_and_conditions: typing.Optional[str] = OMIT,
+        use_case_description: typing.Optional[str] = OMIT,
         messaging_type: typing.Optional[RcsMessagingTypeEnum] = OMIT,
-        carrier_description: typing.Optional[str] = OMIT,
+        cta_media: typing.Optional[str] = OMIT,
+        opt_in_method: typing.Optional[str] = OMIT,
         keywords: typing.Optional[RcsCampaignKeywords] = OMIT,
         traffic: typing.Optional[RcsCampaignTraffic] = OMIT,
-        agent_triggers: typing.Optional[str] = OMIT,
-        interaction_description: typing.Optional[str] = OMIT,
-        is_conversational: typing.Optional[bool] = OMIT,
         cta_language: typing.Optional[str] = OMIT,
         demo_trigger: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -647,29 +621,20 @@ class AsyncRcsClient:
         links : typing.Optional[RcsLinks]
             Legal documentation links.
 
-        use_case : typing.Optional[RcsUseCase]
-            Use case classification for the campaign.
-
-        opt_in_terms_and_conditions : typing.Optional[str]
-            Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Terms and Conditions](/guides/campaigns/rcs-compliance#opt-in-terms-and-conditions) section for requirements.
+        use_case_description : typing.Optional[str]
+            Detailed summary of what the brand is and how this agent will be used. See the [Use Case Behavior](/guides/campaigns/rcs-compliance#use-case-behavior) section for requirements.
 
         messaging_type : typing.Optional[RcsMessagingTypeEnum]
 
-        carrier_description : typing.Optional[str]
-            Description of the agent's purpose, shown to carriers for approval. See the [Carrier Description](/guides/campaigns/rcs-compliance#carrier-description) section for requirements.
+        cta_media : typing.Optional[str]
+            URL to the opt-in form or a URL to a screenshot of the opt-in CTA.
+
+        opt_in_method : typing.Optional[str]
+            Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Method](/guides/campaigns/rcs-compliance#opt-in-method) section for requirements.
 
         keywords : typing.Optional[RcsCampaignKeywords]
 
         traffic : typing.Optional[RcsCampaignTraffic]
-
-        agent_triggers : typing.Optional[str]
-            Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. See the [Agent Triggers](/guides/campaigns/rcs-compliance#agent-triggers) section for requirements.
-
-        interaction_description : typing.Optional[str]
-            Description of all agent interactions, including primary and secondary use cases. See the [Interaction Description](/guides/campaigns/rcs-compliance#interaction-description) section for requirements.
-
-        is_conversational : typing.Optional[bool]
-            Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user.
 
         cta_language : typing.Optional[str]
             Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. See the [CTA Language](/guides/campaigns/rcs-compliance#cta-language-opt-in-disclosure) section for requirements.
@@ -701,7 +666,6 @@ class AsyncRcsClient:
             RcsCampaignOptOutKeywords,
             RcsCampaignTraffic,
             RcsLinks,
-            RcsUseCase,
         )
 
         client = AsyncPinnacle(
@@ -745,16 +709,13 @@ class AsyncRcsClient:
                     "Your appointment has been scheduled.",
                 ],
                 links=RcsLinks(
-                    privacy_policy="https://www.trypinnacle.app/privacy",
-                    terms_of_service="https://www.trypinnacle.app/terms",
+                    privacy_policy="“https://www.trypinnacle.app/privacy”",
+                    terms_of_service="“https://www.trypinnacle.app/terms”",
                 ),
-                use_case=RcsUseCase(
-                    behavior="Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an “onboarding guide” for new customers and a “best-practices coach” for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\nThe agent delivers a mix of operational updates and educational content (2–6 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
-                    value="OTHER",
-                ),
-                opt_in_terms_and_conditions="We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
-                messaging_type="MULTI_USE",
-                carrier_description="Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+                use_case_description="Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an “onboarding guide” for new customers and a “best-practices coach” for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\nThe agent delivers a mix of operational updates and educational content (2–6 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
+                messaging_type="OTP",
+                cta_media="“https://www.pinnacle.sh/send”",
+                opt_in_method="We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
                 keywords=RcsCampaignKeywords(
                     help=RcsCampaignHelpKeywords(
                         message="Email founders@trypinnacle.app for support.",
@@ -773,9 +734,6 @@ class AsyncRcsClient:
                     monthly_website=10000,
                     monthly_rcs_estimate=10000,
                 ),
-                agent_triggers="The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
-                interaction_description="The agent's primary interaction will be customer service — helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
-                is_conversational=True,
                 cta_language="By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
                 demo_trigger='Text "START" to trigger the flow.',
             )
@@ -789,15 +747,12 @@ class AsyncRcsClient:
             campaign_id=campaign_id,
             expected_agent_responses=expected_agent_responses,
             links=links,
-            use_case=use_case,
-            opt_in_terms_and_conditions=opt_in_terms_and_conditions,
+            use_case_description=use_case_description,
             messaging_type=messaging_type,
-            carrier_description=carrier_description,
+            cta_media=cta_media,
+            opt_in_method=opt_in_method,
             keywords=keywords,
             traffic=traffic,
-            agent_triggers=agent_triggers,
-            interaction_description=interaction_description,
-            is_conversational=is_conversational,
             cta_language=cta_language,
             demo_trigger=demo_trigger,
             request_options=request_options,

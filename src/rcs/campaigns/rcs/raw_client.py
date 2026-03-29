@@ -28,7 +28,6 @@ from .types.rcs_autofill_response import RcsAutofillResponse
 from .types.rcs_campaign_keywords import RcsCampaignKeywords
 from .types.rcs_campaign_traffic import RcsCampaignTraffic
 from .types.rcs_links import RcsLinks
-from .types.rcs_use_case import RcsUseCase
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -346,15 +345,12 @@ class RawRcsClient:
         campaign_id: typing.Optional[str] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
         links: typing.Optional[RcsLinks] = OMIT,
-        use_case: typing.Optional[RcsUseCase] = OMIT,
-        opt_in_terms_and_conditions: typing.Optional[str] = OMIT,
+        use_case_description: typing.Optional[str] = OMIT,
         messaging_type: typing.Optional[RcsMessagingTypeEnum] = OMIT,
-        carrier_description: typing.Optional[str] = OMIT,
+        cta_media: typing.Optional[str] = OMIT,
+        opt_in_method: typing.Optional[str] = OMIT,
         keywords: typing.Optional[RcsCampaignKeywords] = OMIT,
         traffic: typing.Optional[RcsCampaignTraffic] = OMIT,
-        agent_triggers: typing.Optional[str] = OMIT,
-        interaction_description: typing.Optional[str] = OMIT,
-        is_conversational: typing.Optional[bool] = OMIT,
         cta_language: typing.Optional[str] = OMIT,
         demo_trigger: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -388,29 +384,20 @@ class RawRcsClient:
         links : typing.Optional[RcsLinks]
             Legal documentation links.
 
-        use_case : typing.Optional[RcsUseCase]
-            Use case classification for the campaign.
-
-        opt_in_terms_and_conditions : typing.Optional[str]
-            Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Terms and Conditions](/guides/campaigns/rcs-compliance#opt-in-terms-and-conditions) section for requirements.
+        use_case_description : typing.Optional[str]
+            Detailed summary of what the brand is and how this agent will be used. See the [Use Case Behavior](/guides/campaigns/rcs-compliance#use-case-behavior) section for requirements.
 
         messaging_type : typing.Optional[RcsMessagingTypeEnum]
 
-        carrier_description : typing.Optional[str]
-            Description of the agent's purpose, shown to carriers for approval. See the [Carrier Description](/guides/campaigns/rcs-compliance#carrier-description) section for requirements.
+        cta_media : typing.Optional[str]
+            URL to the opt-in form or a URL to a screenshot of the opt-in CTA.
+
+        opt_in_method : typing.Optional[str]
+            Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Method](/guides/campaigns/rcs-compliance#opt-in-method) section for requirements.
 
         keywords : typing.Optional[RcsCampaignKeywords]
 
         traffic : typing.Optional[RcsCampaignTraffic]
-
-        agent_triggers : typing.Optional[str]
-            Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. See the [Agent Triggers](/guides/campaigns/rcs-compliance#agent-triggers) section for requirements.
-
-        interaction_description : typing.Optional[str]
-            Description of all agent interactions, including primary and secondary use cases. See the [Interaction Description](/guides/campaigns/rcs-compliance#interaction-description) section for requirements.
-
-        is_conversational : typing.Optional[bool]
-            Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user.
 
         cta_language : typing.Optional[str]
             Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. See the [CTA Language](/guides/campaigns/rcs-compliance#cta-language-opt-in-disclosure) section for requirements.
@@ -435,21 +422,16 @@ class RawRcsClient:
                 "campaignId": campaign_id,
                 "expectedAgentResponses": expected_agent_responses,
                 "links": convert_and_respect_annotation_metadata(object_=links, annotation=RcsLinks, direction="write"),
-                "useCase": convert_and_respect_annotation_metadata(
-                    object_=use_case, annotation=RcsUseCase, direction="write"
-                ),
-                "optInTermsAndConditions": opt_in_terms_and_conditions,
+                "useCaseDescription": use_case_description,
                 "messagingType": messaging_type,
-                "carrierDescription": carrier_description,
+                "ctaMedia": cta_media,
+                "optInMethod": opt_in_method,
                 "keywords": convert_and_respect_annotation_metadata(
                     object_=keywords, annotation=RcsCampaignKeywords, direction="write"
                 ),
                 "traffic": convert_and_respect_annotation_metadata(
                     object_=traffic, annotation=RcsCampaignTraffic, direction="write"
                 ),
-                "agentTriggers": agent_triggers,
-                "interactionDescription": interaction_description,
-                "isConversational": is_conversational,
                 "ctaLanguage": cta_language,
                 "demoTrigger": demo_trigger,
             },
@@ -1041,15 +1023,12 @@ class AsyncRawRcsClient:
         campaign_id: typing.Optional[str] = OMIT,
         expected_agent_responses: typing.Optional[typing.Sequence[str]] = OMIT,
         links: typing.Optional[RcsLinks] = OMIT,
-        use_case: typing.Optional[RcsUseCase] = OMIT,
-        opt_in_terms_and_conditions: typing.Optional[str] = OMIT,
+        use_case_description: typing.Optional[str] = OMIT,
         messaging_type: typing.Optional[RcsMessagingTypeEnum] = OMIT,
-        carrier_description: typing.Optional[str] = OMIT,
+        cta_media: typing.Optional[str] = OMIT,
+        opt_in_method: typing.Optional[str] = OMIT,
         keywords: typing.Optional[RcsCampaignKeywords] = OMIT,
         traffic: typing.Optional[RcsCampaignTraffic] = OMIT,
-        agent_triggers: typing.Optional[str] = OMIT,
-        interaction_description: typing.Optional[str] = OMIT,
-        is_conversational: typing.Optional[bool] = OMIT,
         cta_language: typing.Optional[str] = OMIT,
         demo_trigger: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1083,29 +1062,20 @@ class AsyncRawRcsClient:
         links : typing.Optional[RcsLinks]
             Legal documentation links.
 
-        use_case : typing.Optional[RcsUseCase]
-            Use case classification for the campaign.
-
-        opt_in_terms_and_conditions : typing.Optional[str]
-            Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Terms and Conditions](/guides/campaigns/rcs-compliance#opt-in-terms-and-conditions) section for requirements.
+        use_case_description : typing.Optional[str]
+            Detailed summary of what the brand is and how this agent will be used. See the [Use Case Behavior](/guides/campaigns/rcs-compliance#use-case-behavior) section for requirements.
 
         messaging_type : typing.Optional[RcsMessagingTypeEnum]
 
-        carrier_description : typing.Optional[str]
-            Description of the agent's purpose, shown to carriers for approval. See the [Carrier Description](/guides/campaigns/rcs-compliance#carrier-description) section for requirements.
+        cta_media : typing.Optional[str]
+            URL to the opt-in form or a URL to a screenshot of the opt-in CTA.
+
+        opt_in_method : typing.Optional[str]
+            Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Method](/guides/campaigns/rcs-compliance#opt-in-method) section for requirements.
 
         keywords : typing.Optional[RcsCampaignKeywords]
 
         traffic : typing.Optional[RcsCampaignTraffic]
-
-        agent_triggers : typing.Optional[str]
-            Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. See the [Agent Triggers](/guides/campaigns/rcs-compliance#agent-triggers) section for requirements.
-
-        interaction_description : typing.Optional[str]
-            Description of all agent interactions, including primary and secondary use cases. See the [Interaction Description](/guides/campaigns/rcs-compliance#interaction-description) section for requirements.
-
-        is_conversational : typing.Optional[bool]
-            Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user.
 
         cta_language : typing.Optional[str]
             Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. See the [CTA Language](/guides/campaigns/rcs-compliance#cta-language-opt-in-disclosure) section for requirements.
@@ -1130,21 +1100,16 @@ class AsyncRawRcsClient:
                 "campaignId": campaign_id,
                 "expectedAgentResponses": expected_agent_responses,
                 "links": convert_and_respect_annotation_metadata(object_=links, annotation=RcsLinks, direction="write"),
-                "useCase": convert_and_respect_annotation_metadata(
-                    object_=use_case, annotation=RcsUseCase, direction="write"
-                ),
-                "optInTermsAndConditions": opt_in_terms_and_conditions,
+                "useCaseDescription": use_case_description,
                 "messagingType": messaging_type,
-                "carrierDescription": carrier_description,
+                "ctaMedia": cta_media,
+                "optInMethod": opt_in_method,
                 "keywords": convert_and_respect_annotation_metadata(
                     object_=keywords, annotation=RcsCampaignKeywords, direction="write"
                 ),
                 "traffic": convert_and_respect_annotation_metadata(
                     object_=traffic, annotation=RcsCampaignTraffic, direction="write"
                 ),
-                "agentTriggers": agent_triggers,
-                "interactionDescription": interaction_description,
-                "isConversational": is_conversational,
                 "ctaLanguage": cta_language,
                 "demoTrigger": demo_trigger,
             },

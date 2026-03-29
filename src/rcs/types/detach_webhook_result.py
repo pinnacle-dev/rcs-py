@@ -6,22 +6,23 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .failed_sender import FailedSender
 
 
-class DetachedWebhookInfo(UniversalBaseModel):
-    message: str = pydantic.Field()
-    """
-    Confirmation message.
-    """
-
+class DetachWebhookResult(UniversalBaseModel):
     webhook_id: typing_extensions.Annotated[str, FieldMetadata(alias="webhookId")] = pydantic.Field()
     """
-    Unique identifier of the webhook within the account. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
+    The webhook that was detached from the senders.
     """
 
-    phone_number: typing_extensions.Annotated[str, FieldMetadata(alias="phoneNumber")] = pydantic.Field()
+    senders: typing.List[str] = pydantic.Field()
     """
-    Phone number the webhook was detached from in E.164 format.
+    Senders that were successfully detached (phone numbers in E.164 format or RCS agent IDs).
+    """
+
+    failed: typing.List[FailedSender] = pydantic.Field()
+    """
+    Senders that could not be detached, with error details.
     """
 
     if IS_PYDANTIC_V2:

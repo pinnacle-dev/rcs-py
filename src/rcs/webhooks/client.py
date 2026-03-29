@@ -4,7 +4,10 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.attach_webhook_result import AttachWebhookResult
+from ..types.detach_webhook_result import DetachWebhookResult
 from ..types.list_webhooks_response import ListWebhooksResponse
+from ..types.webhook_event_enum import WebhookEventEnum
 from ..types.webhook_result import WebhookResult
 from .raw_client import AsyncRawWebhooksClient, RawWebhooksClient
 from .types.list_webhooks_request_status import ListWebhooksRequestStatus
@@ -116,6 +119,109 @@ class WebhooksClient:
             endpoint=endpoint,
             request_options=request_options,
         )
+        return _response.data
+
+    def attach(
+        self,
+        *,
+        senders: typing.Sequence[str],
+        webhook_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        url: typing.Optional[str] = OMIT,
+        event: typing.Optional[WebhookEventEnum] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AttachWebhookResult:
+        """
+        Attach a webhook to one or more senders (phone numbers or RCS agent IDs) to receive real-time event notifications. <br>
+
+        You can attach an existing webhook by providing its ID, or create a new webhook by specifying a name and URL. Supports bulk operations with up to 50 senders per request. <br>
+
+        Subscriptions are additive — attaching new senders does not remove existing ones. Re-attaching the same sender updates the event type filter without creating duplicates.
+
+        Parameters
+        ----------
+        senders : typing.Sequence[str]
+            Array of senders to attach the webhook to. Can be phone numbers in E.164 format or RCS agent IDs.
+
+        webhook_id : typing.Optional[str]
+            Existing webhook ID (starts with `wh_`). Provide this OR `name` + `url` to create a new webhook. The webhook must be in ENABLED status. Disabled webhooks can be re-enabled from the [dashboard](https://app.pinnacle.sh/dashboard/development/webhooks).
+
+        name : typing.Optional[str]
+            Name for a new webhook (required if no `webhookId`).
+
+        url : typing.Optional[str]
+            HTTPS endpoint URL for a new webhook (required if no `webhookId`).
+
+        event : typing.Optional[WebhookEventEnum]
+            Event type filter for the subscription. Set to `null` to receive all events. <br>
+
+            `USER.TYPING` is only supported for RCS agent senders, not phone numbers.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttachWebhookResult
+            Successfully attached webhook to the specified senders. <br>
+
+            Senders that could not be found are returned in the `failed` array with error details.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.webhooks.attach(
+            senders=["+14155551234", "agent_abc123"],
+        )
+        """
+        _response = self._raw_client.attach(
+            senders=senders, webhook_id=webhook_id, name=name, url=url, event=event, request_options=request_options
+        )
+        return _response.data
+
+    def detach(
+        self, *, webhook_id: str, senders: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> DetachWebhookResult:
+        """
+        Detach a webhook from one or more senders (phone numbers or RCS agent IDs) to stop receiving event notifications. <br>
+
+        The webhook itself is not deleted and remains available for use with other senders. Works regardless of webhook status. Supports bulk operations with up to 50 senders per request.
+
+        Parameters
+        ----------
+        webhook_id : str
+            Webhook ID to detach (starts with `wh_`). Must be a webhook owned by your team.
+
+        senders : typing.Sequence[str]
+            Array of senders to detach the webhook from. Can be phone numbers in E.164 format or RCS agent IDs.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DetachWebhookResult
+            Successfully detached webhook from the specified senders. <br>
+
+            Senders that could not be found are returned in the `failed` array with error details.
+
+        Examples
+        --------
+        from rcs import Pinnacle
+
+        client = Pinnacle(
+            api_key="YOUR_API_KEY",
+        )
+        client.webhooks.detach(
+            webhook_id="webhookId",
+            senders=["+14155551234", "agent_abc123"],
+        )
+        """
+        _response = self._raw_client.detach(webhook_id=webhook_id, senders=senders, request_options=request_options)
         return _response.data
 
 
@@ -237,5 +343,126 @@ class AsyncWebhooksClient:
             status=status,
             endpoint=endpoint,
             request_options=request_options,
+        )
+        return _response.data
+
+    async def attach(
+        self,
+        *,
+        senders: typing.Sequence[str],
+        webhook_id: typing.Optional[str] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        url: typing.Optional[str] = OMIT,
+        event: typing.Optional[WebhookEventEnum] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AttachWebhookResult:
+        """
+        Attach a webhook to one or more senders (phone numbers or RCS agent IDs) to receive real-time event notifications. <br>
+
+        You can attach an existing webhook by providing its ID, or create a new webhook by specifying a name and URL. Supports bulk operations with up to 50 senders per request. <br>
+
+        Subscriptions are additive — attaching new senders does not remove existing ones. Re-attaching the same sender updates the event type filter without creating duplicates.
+
+        Parameters
+        ----------
+        senders : typing.Sequence[str]
+            Array of senders to attach the webhook to. Can be phone numbers in E.164 format or RCS agent IDs.
+
+        webhook_id : typing.Optional[str]
+            Existing webhook ID (starts with `wh_`). Provide this OR `name` + `url` to create a new webhook. The webhook must be in ENABLED status. Disabled webhooks can be re-enabled from the [dashboard](https://app.pinnacle.sh/dashboard/development/webhooks).
+
+        name : typing.Optional[str]
+            Name for a new webhook (required if no `webhookId`).
+
+        url : typing.Optional[str]
+            HTTPS endpoint URL for a new webhook (required if no `webhookId`).
+
+        event : typing.Optional[WebhookEventEnum]
+            Event type filter for the subscription. Set to `null` to receive all events. <br>
+
+            `USER.TYPING` is only supported for RCS agent senders, not phone numbers.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttachWebhookResult
+            Successfully attached webhook to the specified senders. <br>
+
+            Senders that could not be found are returned in the `failed` array with error details.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.webhooks.attach(
+                senders=["+14155551234", "agent_abc123"],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.attach(
+            senders=senders, webhook_id=webhook_id, name=name, url=url, event=event, request_options=request_options
+        )
+        return _response.data
+
+    async def detach(
+        self, *, webhook_id: str, senders: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> DetachWebhookResult:
+        """
+        Detach a webhook from one or more senders (phone numbers or RCS agent IDs) to stop receiving event notifications. <br>
+
+        The webhook itself is not deleted and remains available for use with other senders. Works regardless of webhook status. Supports bulk operations with up to 50 senders per request.
+
+        Parameters
+        ----------
+        webhook_id : str
+            Webhook ID to detach (starts with `wh_`). Must be a webhook owned by your team.
+
+        senders : typing.Sequence[str]
+            Array of senders to detach the webhook from. Can be phone numbers in E.164 format or RCS agent IDs.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DetachWebhookResult
+            Successfully detached webhook from the specified senders. <br>
+
+            Senders that could not be found are returned in the `failed` array with error details.
+
+        Examples
+        --------
+        import asyncio
+
+        from rcs import AsyncPinnacle
+
+        client = AsyncPinnacle(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.webhooks.detach(
+                webhook_id="webhookId",
+                senders=["+14155551234", "agent_abc123"],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.detach(
+            webhook_id=webhook_id, senders=senders, request_options=request_options
         )
         return _response.data

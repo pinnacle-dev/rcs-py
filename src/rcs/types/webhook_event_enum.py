@@ -2,4 +2,4 @@
 
 import typing
 
-WebhookEventEnum = typing.Union[typing.Literal["MESSAGE.STATUS", "MESSAGE.RECEIVED"], typing.Any]
+WebhookEventEnum = typing.Union[typing.Literal["MESSAGE.STATUS", "MESSAGE.RECEIVED", "USER.TYPING"], typing.Any]
