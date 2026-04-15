@@ -13,7 +13,7 @@ class RcsCardsContentCardsItem(UniversalBaseModel):
     Individual card containing title, optional media, and action buttons.
     """
 
-    buttons: typing.List[RichButton] = pydantic.Field()
+    buttons: typing.Optional[typing.List[RichButton]] = pydantic.Field(default=None)
     """
     While buttons resemble quick replies, they remain on screen after being clicked and are card-specific. <br><br>
     **Limit:** 4 max
