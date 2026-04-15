@@ -5767,19 +5767,13 @@ Requires an active RCS agent and recipient devices that support RCS Business Mes
 <dd>
 
 ```python
-from rcs import Pinnacle, RichButton_OpenUrl, RichTextMessage
+from rcs import Pinnacle, RichTextMessage
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.messages.rcs.send(
     request=RichTextMessage(
-        quick_replies=[
-            RichButton_OpenUrl(
-                payload="payload",
-                title="title",
-            )
-        ],
         text="text",
         from_="from",
         to="to",
@@ -5944,19 +5938,13 @@ Validate RCS message content without sending it.
 <dd>
 
 ```python
-from rcs import Pinnacle, RichButton_OpenUrl, RichText
+from rcs import Pinnacle, RichText
 
 client = Pinnacle(
     api_key="YOUR_API_KEY",
 )
 client.messages.rcs.validate(
     request=RichText(
-        quick_replies=[
-            RichButton_OpenUrl(
-                payload="payload",
-                title="title",
-            )
-        ],
         text="text",
     ),
 )

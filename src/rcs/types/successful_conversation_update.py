@@ -11,7 +11,7 @@ class SuccessfulConversationUpdate(UniversalBaseModel):
     Successfully updated conversation.
     """
 
-    success: bool = pydantic.Field()
+    success: typing.Literal[True] = pydantic.Field(default=True)
     """
     Indicates the operation was successful.
     """

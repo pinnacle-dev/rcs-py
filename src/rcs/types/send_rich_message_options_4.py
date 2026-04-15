@@ -7,11 +7,10 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .message_schedule import MessageSchedule
-from .rich_standalone_card_options import RichStandaloneCardOptions
 from .tracking import Tracking
 
 
-class SendRichCardsOptions(UniversalBaseModel):
+class SendRichMessageOptions4(UniversalBaseModel):
     """
     Configure how your RCS message is sent and tracked.
     """
@@ -30,16 +29,6 @@ class SendRichCardsOptions(UniversalBaseModel):
     Validate your message for any unsupported files. <br>
     
     If failed, errors will be thrown and the message will not send.
-    """
-
-    standalone_card: typing.Optional[RichStandaloneCardOptions] = pydantic.Field(default=None)
-    """
-    Configure standalone card layout options for enhanced visual presentation.
-    
-    > **⚠️ Important Restriction**
-    >
-    > This option is **only valid for single card messages** with static media. Using it with multiple cards will cause the request to fail with a validation error.
-    > GIFs and videos are not supported and will be rendered as vertical cards.
     """
 
     if IS_PYDANTIC_V2:

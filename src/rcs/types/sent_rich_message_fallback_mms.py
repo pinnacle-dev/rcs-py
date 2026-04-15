@@ -14,7 +14,9 @@ class SentRichMessageFallbackMms(SentMmsDetails):
     Returned when a fallback is configured and the recipient does not support RCS. The API checks RCS capabilities at send time. If the recipient's device doesn't support RCS, the fallback MMS is sent instead. You will also receive a `FALLBACK_SENT` webhook event for the original RCS message.
     """
 
-    fallback_sent: typing_extensions.Annotated[bool, FieldMetadata(alias="fallbackSent")] = pydantic.Field()
+    fallback_sent: typing_extensions.Annotated[typing.Literal[True], FieldMetadata(alias="fallbackSent")] = (
+        pydantic.Field(default=True)
+    )
     """
     Indicates that the fallback MMS was sent because the recipient does not support RCS.
     """

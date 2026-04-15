@@ -12,7 +12,11 @@ from .send_rich_cards_options import SendRichCardsOptions
 
 
 class RichCardsMessage(RichCards):
-    options: typing.Optional[SendRichCardsOptions] = None
+    options: typing.Optional[SendRichCardsOptions] = pydantic.Field(default=None)
+    """
+    Configure how your RCS message is sent and tracked.
+    """
+
     from_: typing_extensions.Annotated[str, FieldMetadata(alias="from")] = pydantic.Field()
     """
     Your RCS agent ID which must be prefixed with 'agent_'.

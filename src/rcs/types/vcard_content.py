@@ -8,7 +8,7 @@ from .vcard import Vcard
 
 
 class VcardContent(Vcard):
-    revision: typing.Optional[str] = pydantic.Field(default=None)
+    revision: str = pydantic.Field()
     """
     ISO 8601 timestamp of last vCard update.
     """

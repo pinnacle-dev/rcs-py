@@ -18,9 +18,9 @@ class RichMediaMessage(BaseRichMessage):
     See [supported media types](https://app.pinnacle.sh/supported-file-types?type=RCS-MEDIA).
     """
 
-    quick_replies: typing_extensions.Annotated[typing.List[RichButton], FieldMetadata(alias="quickReplies")] = (
-        pydantic.Field()
-    )
+    quick_replies: typing_extensions.Annotated[
+        typing.Optional[typing.List[RichButton]], FieldMetadata(alias="quickReplies")
+    ] = pydantic.Field(default=None)
     """
     List of interactive quick reply buttons in the message. <br>
     `≤10`

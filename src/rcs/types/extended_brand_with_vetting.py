@@ -12,16 +12,16 @@ from .vetting_history import VettingHistory
 
 
 class ExtendedBrandWithVetting(ExtendedBrand):
-    last_tcr_vetting_date: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="lastTcrVettingDate")
-    ] = pydantic.Field(default=None)
+    last_tcr_vetting_date: typing_extensions.Annotated[str, FieldMetadata(alias="lastTcrVettingDate")] = (
+        pydantic.Field()
+    )
     """
     ISO 8601 formatted timestamp of the last TCR vetting.
     """
 
-    tcr_feedback: typing_extensions.Annotated[
-        typing.Optional[typing.List[VettingFeedback]], FieldMetadata(alias="tcrFeedback")
-    ] = pydantic.Field(default=None)
+    tcr_feedback: typing_extensions.Annotated[typing.List[VettingFeedback], FieldMetadata(alias="tcrFeedback")] = (
+        pydantic.Field()
+    )
     """
     Feedback from The Campaign Registry if TCR vetting was performed.
     """

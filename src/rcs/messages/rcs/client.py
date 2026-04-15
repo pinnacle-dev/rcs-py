@@ -60,19 +60,13 @@ class RcsClient:
 
         Examples
         --------
-        from rcs import Pinnacle, RichButton_OpenUrl, RichTextMessage
+        from rcs import Pinnacle, RichTextMessage
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.messages.rcs.send(
             request=RichTextMessage(
-                quick_replies=[
-                    RichButton_OpenUrl(
-                        payload="payload",
-                        title="title",
-                    )
-                ],
                 text="text",
                 from_="from",
                 to="to",
@@ -153,19 +147,13 @@ class RcsClient:
 
         Examples
         --------
-        from rcs import Pinnacle, RichButton_OpenUrl, RichText
+        from rcs import Pinnacle, RichText
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.messages.rcs.validate(
             request=RichText(
-                quick_replies=[
-                    RichButton_OpenUrl(
-                        payload="payload",
-                        title="title",
-                    )
-                ],
                 text="text",
             ),
         )
@@ -221,7 +209,7 @@ class AsyncRcsClient:
         --------
         import asyncio
 
-        from rcs import AsyncPinnacle, RichButton_OpenUrl, RichTextMessage
+        from rcs import AsyncPinnacle, RichTextMessage
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -231,12 +219,6 @@ class AsyncRcsClient:
         async def main() -> None:
             await client.messages.rcs.send(
                 request=RichTextMessage(
-                    quick_replies=[
-                        RichButton_OpenUrl(
-                            payload="payload",
-                            title="title",
-                        )
-                    ],
                     text="text",
                     from_="from",
                     to="to",
@@ -330,7 +312,7 @@ class AsyncRcsClient:
         --------
         import asyncio
 
-        from rcs import AsyncPinnacle, RichButton_OpenUrl, RichText
+        from rcs import AsyncPinnacle, RichText
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -340,12 +322,6 @@ class AsyncRcsClient:
         async def main() -> None:
             await client.messages.rcs.validate(
                 request=RichText(
-                    quick_replies=[
-                        RichButton_OpenUrl(
-                            payload="payload",
-                            title="title",
-                        )
-                    ],
                     text="text",
                 ),
             )

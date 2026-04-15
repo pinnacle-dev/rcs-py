@@ -288,6 +288,7 @@ if typing.TYPE_CHECKING:
     from .send_rcs_card_options_standalone_card_orientation import SendRcsCardOptionsStandaloneCardOrientation
     from .send_rich_cards_options import SendRichCardsOptions
     from .send_rich_message_options import SendRichMessageOptions
+    from .send_rich_message_options_4 import SendRichMessageOptions4
     from .send_sms_response_segments import SendSmsResponseSegments
     from .send_sms_response_segments_encoding import SendSmsResponseSegmentsEncoding
     from .send_typing_indicator_response import SendTypingIndicatorResponse
@@ -643,6 +644,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SendRcsCardOptionsStandaloneCardOrientation": ".send_rcs_card_options_standalone_card_orientation",
     "SendRichCardsOptions": ".send_rich_cards_options",
     "SendRichMessageOptions": ".send_rich_message_options",
+    "SendRichMessageOptions4": ".send_rich_message_options_4",
     "SendSmsResponseSegments": ".send_sms_response_segments",
     "SendSmsResponseSegmentsEncoding": ".send_sms_response_segments_encoding",
     "SendTypingIndicatorResponse": ".send_typing_indicator_response",
@@ -1018,6 +1020,7 @@ __all__ = [
     "SendRcsCardOptionsStandaloneCardOrientation",
     "SendRichCardsOptions",
     "SendRichMessageOptions",
+    "SendRichMessageOptions4",
     "SendSmsResponseSegments",
     "SendSmsResponseSegmentsEncoding",
     "SendTypingIndicatorResponse",

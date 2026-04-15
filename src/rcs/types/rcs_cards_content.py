@@ -23,9 +23,9 @@ class RcsCardsContent(UniversalBaseModel):
     **Limit:** 1 to 10
     """
 
-    quick_replies: typing_extensions.Annotated[typing.List[RichButton], FieldMetadata(alias="quickReplies")] = (
-        pydantic.Field()
-    )
+    quick_replies: typing_extensions.Annotated[
+        typing.Optional[typing.List[RichButton]], FieldMetadata(alias="quickReplies")
+    ] = pydantic.Field(default=None)
     """
     List of interactive quick reply buttons in the message. <br><br>
     **Limit:** 10 max
