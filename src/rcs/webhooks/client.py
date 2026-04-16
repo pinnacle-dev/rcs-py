@@ -129,6 +129,7 @@ class WebhooksClient:
         name: typing.Optional[str] = OMIT,
         url: typing.Optional[str] = OMIT,
         event: typing.Optional[WebhookEventEnum] = OMIT,
+        headers: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AttachWebhookResult:
         """
@@ -136,7 +137,9 @@ class WebhooksClient:
 
         You can attach an existing webhook by providing its ID, or create a new webhook by specifying a name and URL. Supports bulk operations with up to 50 senders per request. <br>
 
-        Subscriptions are additive — attaching new senders does not remove existing ones. Re-attaching the same sender updates the event type filter without creating duplicates.
+        Subscriptions are additive — attaching new senders does not remove existing ones. Re-attaching the same sender updates the event type filter without creating duplicates. <br>
+
+        **Custom headers** may be provided in either case via the optional `headers` field. When attaching a new webhook, the headers are stored on the webhook and sent on every delivery. When attaching an existing `webhookId`, supplying `headers` **overwrites** the stored headers on that webhook — omit the field to leave them unchanged, or pass an empty object `{}` to clear them. The reserved `PINNACLE-SIGNING-SECRET` header is always set by Pinnacle and cannot be overridden.
 
         Parameters
         ----------
@@ -145,6 +148,8 @@ class WebhooksClient:
 
         webhook_id : typing.Optional[str]
             Existing webhook ID (starts with `wh_`). Provide this OR `name` + `url` to create a new webhook. The webhook must be in ENABLED status. Disabled webhooks can be re-enabled from the [dashboard](https://app.pinnacle.sh/dashboard/development/webhooks).
+
+            Supplying `headers` alongside `webhookId` **overwrites** the stored headers on the webhook. Omit `headers` to leave them unchanged.
 
         name : typing.Optional[str]
             Name for a new webhook (required if no `webhookId`).
@@ -156,6 +161,15 @@ class WebhooksClient:
             Event type filter for the subscription. Set to `null` to receive all events. <br>
 
             `USER.TYPING` is only supported for RCS agent senders, not phone numbers.
+
+        headers : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Optional custom HTTP headers (key-value map) to include when dispatching webhook events to the endpoint.
+
+            Header names must start with a letter or digit and contain only letters, digits, `-`, or `_` (matching the pattern `^[A-Za-z0-9][A-Za-z0-9_-]*$`). Names are case-insensitive per [RFC 9110](https://datatracker.ietf.org/doc/html/rfc9110#name-field-names) and are normalized to uppercase before storage and sending.
+
+            When provided with an existing `webhookId`, these headers **overwrite** any headers currently stored on that webhook. Omit to leave existing headers unchanged.
+
+            The reserved `PINNACLE-SIGNING-SECRET` header is silently ignored and cannot be overridden.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -179,7 +193,13 @@ class WebhooksClient:
         )
         """
         _response = self._raw_client.attach(
-            senders=senders, webhook_id=webhook_id, name=name, url=url, event=event, request_options=request_options
+            senders=senders,
+            webhook_id=webhook_id,
+            name=name,
+            url=url,
+            event=event,
+            headers=headers,
+            request_options=request_options,
         )
         return _response.data
 
@@ -354,6 +374,7 @@ class AsyncWebhooksClient:
         name: typing.Optional[str] = OMIT,
         url: typing.Optional[str] = OMIT,
         event: typing.Optional[WebhookEventEnum] = OMIT,
+        headers: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AttachWebhookResult:
         """
@@ -361,7 +382,9 @@ class AsyncWebhooksClient:
 
         You can attach an existing webhook by providing its ID, or create a new webhook by specifying a name and URL. Supports bulk operations with up to 50 senders per request. <br>
 
-        Subscriptions are additive — attaching new senders does not remove existing ones. Re-attaching the same sender updates the event type filter without creating duplicates.
+        Subscriptions are additive — attaching new senders does not remove existing ones. Re-attaching the same sender updates the event type filter without creating duplicates. <br>
+
+        **Custom headers** may be provided in either case via the optional `headers` field. When attaching a new webhook, the headers are stored on the webhook and sent on every delivery. When attaching an existing `webhookId`, supplying `headers` **overwrites** the stored headers on that webhook — omit the field to leave them unchanged, or pass an empty object `{}` to clear them. The reserved `PINNACLE-SIGNING-SECRET` header is always set by Pinnacle and cannot be overridden.
 
         Parameters
         ----------
@@ -370,6 +393,8 @@ class AsyncWebhooksClient:
 
         webhook_id : typing.Optional[str]
             Existing webhook ID (starts with `wh_`). Provide this OR `name` + `url` to create a new webhook. The webhook must be in ENABLED status. Disabled webhooks can be re-enabled from the [dashboard](https://app.pinnacle.sh/dashboard/development/webhooks).
+
+            Supplying `headers` alongside `webhookId` **overwrites** the stored headers on the webhook. Omit `headers` to leave them unchanged.
 
         name : typing.Optional[str]
             Name for a new webhook (required if no `webhookId`).
@@ -381,6 +406,15 @@ class AsyncWebhooksClient:
             Event type filter for the subscription. Set to `null` to receive all events. <br>
 
             `USER.TYPING` is only supported for RCS agent senders, not phone numbers.
+
+        headers : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Optional custom HTTP headers (key-value map) to include when dispatching webhook events to the endpoint.
+
+            Header names must start with a letter or digit and contain only letters, digits, `-`, or `_` (matching the pattern `^[A-Za-z0-9][A-Za-z0-9_-]*$`). Names are case-insensitive per [RFC 9110](https://datatracker.ietf.org/doc/html/rfc9110#name-field-names) and are normalized to uppercase before storage and sending.
+
+            When provided with an existing `webhookId`, these headers **overwrite** any headers currently stored on that webhook. Omit to leave existing headers unchanged.
+
+            The reserved `PINNACLE-SIGNING-SECRET` header is silently ignored and cannot be overridden.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -412,7 +446,13 @@ class AsyncWebhooksClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.attach(
-            senders=senders, webhook_id=webhook_id, name=name, url=url, event=event, request_options=request_options
+            senders=senders,
+            webhook_id=webhook_id,
+            name=name,
+            url=url,
+            event=event,
+            headers=headers,
+            request_options=request_options,
         )
         return _response.data
 

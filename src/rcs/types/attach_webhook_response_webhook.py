@@ -27,6 +27,11 @@ class AttachWebhookResponseWebhook(UniversalBaseModel):
     Signing secret sent in the `PINNACLE-SIGNING-SECRET` header for request verification.
     """
 
+    headers: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field(default=None)
+    """
+    Optional custom HTTP headers sent on every webhook delivery. Header names must match the regex `^[A-Za-z0-9][A-Za-z0-9_-]*$` — start with a letter or digit and contain only letters, digits, `-`, or `_`. Keys are case-insensitive and stored in uppercase. Values must be strings. The reserved `PINNACLE-SIGNING-SECRET` header is never returned here and cannot be overridden.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
