@@ -13,7 +13,7 @@ if typing.TYPE_CHECKING:
         ListMessagesRequestType,
         ReactMessageOptions,
     )
-    from . import blast, blasts, mms, rcs, schedule, schedules, sms
+    from . import blast, blasts, mms, rcs, schedule, schedules, simulate, sms
     from .blast import (
         BlastMmsOptions,
         BlastMmsResponse,
@@ -57,6 +57,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "rcs": ".",
     "schedule": ".",
     "schedules": ".",
+    "simulate": ".",
     "sms": ".",
 }
 
@@ -108,5 +109,6 @@ __all__ = [
     "rcs",
     "schedule",
     "schedules",
+    "simulate",
     "sms",
 ]

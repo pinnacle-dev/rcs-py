@@ -300,6 +300,11 @@ if typing.TYPE_CHECKING:
     from .sent_sms_details import SentSmsDetails
     from .shortened_url import ShortenedUrl
     from .shortened_url_with_click_data import ShortenedUrlWithClickData
+    from .simulate_message_input import SimulateMessageInput
+    from .simulate_user_button import SimulateUserButton
+    from .simulate_user_message import SimulateUserMessage
+    from .simulate_user_params import SimulateUserParams
+    from .simulate_user_response import SimulateUserResponse
     from .sms_content import SmsContent
     from .sms_validation_response_segments import SmsValidationResponseSegments
     from .sms_validation_response_segments_gsm_7 import SmsValidationResponseSegmentsGsm7
@@ -337,6 +342,23 @@ if typing.TYPE_CHECKING:
     from .tracking import Tracking
     from .updated_contact_id import UpdatedContactId
     from .upload_results import UploadResults
+    from .user_button_press import (
+        UserButtonPress,
+        UserButtonPress_Call,
+        UserButtonPress_OpenUrl,
+        UserButtonPress_RequestUserLocation,
+        UserButtonPress_ScheduleEvent,
+        UserButtonPress_SendLocation,
+        UserButtonPress_Trigger,
+    )
+    from .user_button_press_call import UserButtonPressCall
+    from .user_button_press_open_url import UserButtonPressOpenUrl
+    from .user_button_press_request_user_location import UserButtonPressRequestUserLocation
+    from .user_button_press_request_user_location_location import UserButtonPressRequestUserLocationLocation
+    from .user_button_press_schedule_event import UserButtonPressScheduleEvent
+    from .user_button_press_send_location import UserButtonPressSendLocation
+    from .user_button_press_send_location_lat_long import UserButtonPressSendLocationLatLong
+    from .user_button_press_trigger import UserButtonPressTrigger
     from .user_event import UserEvent
     from .user_event_conversation import UserEventConversation
     from .v_card_address_schema_type_item import VCardAddressSchemaTypeItem
@@ -656,6 +678,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SentSmsDetails": ".sent_sms_details",
     "ShortenedUrl": ".shortened_url",
     "ShortenedUrlWithClickData": ".shortened_url_with_click_data",
+    "SimulateMessageInput": ".simulate_message_input",
+    "SimulateUserButton": ".simulate_user_button",
+    "SimulateUserMessage": ".simulate_user_message",
+    "SimulateUserParams": ".simulate_user_params",
+    "SimulateUserResponse": ".simulate_user_response",
     "SmsContent": ".sms_content",
     "SmsValidationResponseSegments": ".sms_validation_response_segments",
     "SmsValidationResponseSegmentsGsm7": ".sms_validation_response_segments_gsm_7",
@@ -691,6 +718,21 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Tracking": ".tracking",
     "UpdatedContactId": ".updated_contact_id",
     "UploadResults": ".upload_results",
+    "UserButtonPress": ".user_button_press",
+    "UserButtonPressCall": ".user_button_press_call",
+    "UserButtonPressOpenUrl": ".user_button_press_open_url",
+    "UserButtonPressRequestUserLocation": ".user_button_press_request_user_location",
+    "UserButtonPressRequestUserLocationLocation": ".user_button_press_request_user_location_location",
+    "UserButtonPressScheduleEvent": ".user_button_press_schedule_event",
+    "UserButtonPressSendLocation": ".user_button_press_send_location",
+    "UserButtonPressSendLocationLatLong": ".user_button_press_send_location_lat_long",
+    "UserButtonPressTrigger": ".user_button_press_trigger",
+    "UserButtonPress_Call": ".user_button_press",
+    "UserButtonPress_OpenUrl": ".user_button_press",
+    "UserButtonPress_RequestUserLocation": ".user_button_press",
+    "UserButtonPress_ScheduleEvent": ".user_button_press",
+    "UserButtonPress_SendLocation": ".user_button_press",
+    "UserButtonPress_Trigger": ".user_button_press",
     "UserEvent": ".user_event",
     "UserEventConversation": ".user_event_conversation",
     "VCardAddressSchemaTypeItem": ".v_card_address_schema_type_item",
@@ -1032,6 +1074,11 @@ __all__ = [
     "SentSmsDetails",
     "ShortenedUrl",
     "ShortenedUrlWithClickData",
+    "SimulateMessageInput",
+    "SimulateUserButton",
+    "SimulateUserMessage",
+    "SimulateUserParams",
+    "SimulateUserResponse",
     "SmsContent",
     "SmsValidationResponseSegments",
     "SmsValidationResponseSegmentsGsm7",
@@ -1067,6 +1114,21 @@ __all__ = [
     "Tracking",
     "UpdatedContactId",
     "UploadResults",
+    "UserButtonPress",
+    "UserButtonPressCall",
+    "UserButtonPressOpenUrl",
+    "UserButtonPressRequestUserLocation",
+    "UserButtonPressRequestUserLocationLocation",
+    "UserButtonPressScheduleEvent",
+    "UserButtonPressSendLocation",
+    "UserButtonPressSendLocationLatLong",
+    "UserButtonPressTrigger",
+    "UserButtonPress_Call",
+    "UserButtonPress_OpenUrl",
+    "UserButtonPress_RequestUserLocation",
+    "UserButtonPress_ScheduleEvent",
+    "UserButtonPress_SendLocation",
+    "UserButtonPress_Trigger",
     "UserEvent",
     "UserEventConversation",
     "VCardAddressSchemaTypeItem",

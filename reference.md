@@ -6649,6 +6649,87 @@ client.messages.blasts.list()
 </dl>
 </details>
 
+## Messages Simulate
+<details><summary><code>client.messages.simulate.<a href="src/rcs/messages/simulate/client.py">user</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Simulate inbound messages and button presses from a user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import (
+    Pinnacle,
+    SimulateUserButton,
+    UserButtonPress_RequestUserLocation,
+)
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.messages.simulate.user(
+    request=SimulateUserButton(
+        from_="+14155551234",
+        to="agent_abc123",
+        button=UserButtonPress_RequestUserLocation(
+            title="Share Location",
+        ),
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `SimulateUserParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## PhoneNumbers Campaign
 <details><summary><code>client.phone_numbers.campaign.<a href="src/rcs/phone_numbers/campaign/client.py">attach</a>(...)</code></summary>
 <dl>
