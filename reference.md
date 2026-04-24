@@ -3334,6 +3334,556 @@ client.webhooks.detach(
 </dl>
 </details>
 
+## Forms
+<details><summary><code>client.forms.<a href="src/rcs/forms/client.py">get</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a form by id. Includes submission count, last submission timestamp, and archive state.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.forms.get(
+    id="form_Oy2n7iUoi9CJwUU6",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+
+The unique identifier of the form you want to retrieve.
+<br><br> This identifier is a string that always begins with the prefix `form_`, for example: `form_Oy2n7iUoi9CJwUU6`. It's returned on every form response (`Form.id`) and by [`POST /forms/send`](/api-reference/forms/send-form) (`response.form.id`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="src/rcs/forms/client.py">update</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Partial update. Only keys present in the body are applied. Archived forms (non-null `archived_at`) cannot be updated — restore the form by setting `archived_at: null` in a PATCH first.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.forms.update(
+    id="form_Oy2n7iUoi9CJwUU6",
+    name="Contact request (v2)",
+    can_update=True,
+    expires_at=datetime.datetime.fromisoformat(
+        "2026-12-31 23:59:59+00:00",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+
+The unique identifier of the form you want to update.
+<br><br> This identifier is a string that always begins with the prefix `form_`, for example: `form_Oy2n7iUoi9CJwUU6`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Replace the form's title. Pass `null` to clear.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — Replace the form's description. Pass `null` to clear.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `typing.Optional[typing.Sequence[FormField]]` — Replace the full set of fields on the form. Partial field updates aren't supported — send the complete new list.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**can_update:** `typing.Optional[bool]` — Toggle whether the recipient can re-edit their submission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expires_at:** `typing.Optional[dt.datetime]` — Set or clear the form's expiration timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**theme_override:** `typing.Optional[FormThemeOverride]` — Replace the per-form theme override. Pass `null` to revert to team defaults.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**archived_at:** `typing.Optional[dt.datetime]` — Set to an ISO timestamp to archive the form (soft-delete), or `null` to restore an archived form.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="src/rcs/forms/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Paginated list of forms on your team, sorted by creation date (newest first). Includes archived forms.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.forms.list(
+    page_index=0,
+    page_size=20,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**page_index:** `typing.Optional[int]` — Zero-based page index.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of forms to return in a single page. Max 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="src/rcs/forms/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a hosted form without sending it. <br>
+
+Returns the form object including its public URL — `https://forms.pinnacle.sh/{form_id}`. <br>
+
+To also deliver the URL to a recipient over SMS or RCS in a single call, use [`POST /forms/send`](/api-reference/forms/send-form).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import (
+    FormField_Email,
+    FormField_Phone,
+    FormField_Select,
+    FormField_Text,
+    FormFieldOption,
+    Pinnacle,
+)
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.forms.create(
+    name="Contact request",
+    description="We'll follow up over SMS or RCS.",
+    fields=[
+        FormField_Text(
+            key="full_name",
+            label="Full name",
+            required=True,
+            placeholder="Ada Lovelace",
+            min_length=2,
+            max_length=60,
+        ),
+        FormField_Email(
+            key="email",
+            label="Email",
+            required=True,
+            placeholder="you@example.com",
+        ),
+        FormField_Phone(
+            key="phone",
+            label="Phone",
+            required=True,
+            placeholder="(555) 555-1212",
+        ),
+        FormField_Select(
+            key="plan",
+            label="Plan",
+            required=True,
+            options=[
+                FormFieldOption(
+                    value="basic",
+                    label="Basic",
+                ),
+                FormFieldOption(
+                    value="pro",
+                    label="Pro",
+                ),
+                FormFieldOption(
+                    value="enterprise",
+                    label="Enterprise",
+                ),
+            ],
+        ),
+    ],
+    can_update=False,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**fields:** `typing.Sequence[FormField]` — Ordered list of fields the recipient will fill out. At least one field is required.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Human-readable name for the form. Rendered as the form's title.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — Longer description rendered below the title.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**can_update:** `typing.Optional[bool]` — If true, the recipient can reopen the submission URL and edit their answers. When false (default), the submission URL becomes read-only (`Already submitted`) after the first submit.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expires_at:** `typing.Optional[dt.datetime]` — After this timestamp the form stops accepting submissions. Omit for no expiration.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**theme_override:** `typing.Optional[FormThemeOverride]` — Per-form theme tweaks layered on top of your team's default theme. Omit or set to null to use team defaults.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="src/rcs/forms/client.py">send</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a form to a recipient over SMS or RCS, or mint a standalone submission URL.
+
+Pass `form` as either an existing form id (`form_*`) or an inline `{ fields, ... }` definition to mint a new form for this send.
+
+The delivery channel is inferred from `from`:
+- `from: "agent_*"` → RCS (with optional SMS `fallback`)
+- `from: "+E.164"` → SMS
+
+When `to` is provided, Pinnacle dispatches a message whose body contains the submission URL and the recipient is recorded on the response: `submission.to` echoes the same E.164 number and `message_id` is the id of the outbound SMS/RCS. 
+
+When `to` is omitted, no message is sent — `submission.to` and `message_id` are both `null` — which is useful for embedding the URL in your own outreach.
+
+On completion, a `FORM.SUBMISSION` webhook event is delivered to webhooks subscribed to the sender. See [Receiving Messages and User Events](/guides/messages/receiving).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import (
+    Pinnacle,
+    SendFormOptions,
+    SendFormViaRcsParams,
+    SendFormViaRcsRequestFallback,
+)
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.forms.send(
+    request=SendFormViaRcsParams(
+        from_="agent_iM9wQcyBBjYn",
+        to="+14155551234",
+        form="form_Oy2n7iUoi9CJwUU6",
+        fallback=SendFormViaRcsRequestFallback(
+            from_="+14155550000",
+        ),
+        options=SendFormOptions(
+            webview_mode="FULL",
+        ),
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `SendFormParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Audiences Contacts
 <details><summary><code>client.audiences.contacts.<a href="src/rcs/audiences/contacts/client.py">remove</a>(...)</code></summary>
 <dl>
@@ -5388,6 +5938,98 @@ client.campaigns.rcs.list()
 </dl>
 </details>
 
+## Forms Submissions
+<details><summary><code>client.forms.submissions.<a href="src/rcs/forms/submissions/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Paginated list of completed submissions for a form, newest first. Each row includes the submitted `data` keyed by field `key`, the sender/recipient, IP, user-agent, and timestamps.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.forms.submissions.list(
+    id="form_Oy2n7iUoi9CJwUU6",
+    page_index=0,
+    page_size=20,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+
+The unique identifier of the form whose submissions you want to list.
+<br><br> This identifier is a string that always begins with the prefix `form_`, for example: `form_Oy2n7iUoi9CJwUU6`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_index:** `typing.Optional[int]` — Zero-based page index.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of submissions to return in a single page. Max 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Messages Sms
 <details><summary><code>client.messages.sms.<a href="src/rcs/messages/sms/client.py">send</a>(...)</code></summary>
 <dl>
@@ -6630,87 +7272,6 @@ client.messages.blasts.list()
 <dd>
 
 **content:** `typing.Optional[str]` — Search blast content (partial match, case-insensitive).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Messages Simulate
-<details><summary><code>client.messages.simulate.<a href="src/rcs/messages/simulate/client.py">user</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Simulate inbound messages and button presses from a user.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from rcs import (
-    Pinnacle,
-    SimulateUserButton,
-    UserButtonPress_RequestUserLocation,
-)
-
-client = Pinnacle(
-    api_key="YOUR_API_KEY",
-)
-client.messages.simulate.user(
-    request=SimulateUserButton(
-        from_="+14155551234",
-        to="agent_abc123",
-        button=UserButtonPress_RequestUserLocation(
-            title="Share Location",
-        ),
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `SimulateUserParams` 
     
 </dd>
 </dl>

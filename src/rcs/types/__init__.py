@@ -6,6 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .address_field import AddressField
     from .advanced_phone_information import AdvancedPhoneInformation
     from .advanced_phone_information_carrier import AdvancedPhoneInformationCarrier
     from .advanced_phone_information_contact import AdvancedPhoneInformationContact
@@ -66,6 +67,8 @@ if typing.TYPE_CHECKING:
     from .campaign_validation_result import CampaignValidationResult
     from .carrier_launch_status import CarrierLaunchStatus
     from .carrier_launches import CarrierLaunches
+    from .checkbox_field import CheckboxField
+    from .color_field import ColorField
     from .company_entity_type_enum import CompanyEntityTypeEnum
     from .company_sector_enum import CompanySectorEnum
     from .company_type_enum import CompanyTypeEnum
@@ -77,7 +80,10 @@ if typing.TYPE_CHECKING:
     from .conversation_contact import ConversationContact
     from .conversation_list import ConversationList
     from .conversation_sender import ConversationSender
+    from .create_form_request import CreateFormRequest
     from .create_url_options import CreateUrlOptions
+    from .date_field import DateField
+    from .datetime_field import DatetimeField
     from .delete_audience_response import DeleteAudienceResponse
     from .detach_webhook_result import DetachWebhookResult
     from .detached_phone_number_result import DetachedPhoneNumberResult
@@ -97,6 +103,7 @@ if typing.TYPE_CHECKING:
     from .dlc_with_extended_brand_and_status_mno_tcr_tier import DlcWithExtendedBrandAndStatusMnoTcrTier
     from .dlc_with_extended_brand_and_status_options import DlcWithExtendedBrandAndStatusOptions
     from .dlc_with_extended_brand_and_status_use_case import DlcWithExtendedBrandAndStatusUseCase
+    from .email_field import EmailField
     from .enhanced_contact import EnhancedContact
     from .enhanced_contact_item import EnhancedContactItem
     from .error import Error
@@ -105,6 +112,58 @@ if typing.TYPE_CHECKING:
     from .extended_rcs_campaign import ExtendedRcsCampaign
     from .failed_sender import FailedSender
     from .fallback_message import FallbackMessage
+    from .field_base import FieldBase
+    from .form import Form
+    from .form_background import (
+        FormBackground,
+        FormBackground_Gradient,
+        FormBackground_Image,
+        FormBackground_Pattern,
+        FormBackground_Solid,
+    )
+    from .form_background_gradient import FormBackgroundGradient
+    from .form_background_image import FormBackgroundImage
+    from .form_background_pattern import FormBackgroundPattern
+    from .form_background_pattern_preset import FormBackgroundPatternPreset
+    from .form_background_solid import FormBackgroundSolid
+    from .form_color_palette import FormColorPalette
+    from .form_definition import FormDefinition
+    from .form_field import (
+        FormField,
+        FormField_Address,
+        FormField_Checkbox,
+        FormField_Color,
+        FormField_Date,
+        FormField_Datetime,
+        FormField_Email,
+        FormField_Number,
+        FormField_Phone,
+        FormField_Radio,
+        FormField_Range,
+        FormField_Rating,
+        FormField_Select,
+        FormField_Text,
+        FormField_Textarea,
+        FormField_Time,
+        FormField_Url,
+    )
+    from .form_field_option import FormFieldOption
+    from .form_gradient import FormGradient
+    from .form_gradient_angle import FormGradientAngle
+    from .form_id_reference import FormIdReference
+    from .form_submission import FormSubmission
+    from .form_submission_answer import FormSubmissionAnswer
+    from .form_submission_event import FormSubmissionEvent
+    from .form_submission_event_conversation import FormSubmissionEventConversation
+    from .form_submission_event_form import FormSubmissionEventForm
+    from .form_submission_event_submission import FormSubmissionEventSubmission
+    from .form_submitted_field import FormSubmittedField
+    from .form_theme_override import FormThemeOverride
+    from .form_theme_override_colors import FormThemeOverrideColors
+    from .form_theme_override_content_alignment import FormThemeOverrideContentAlignment
+    from .form_theme_override_corner_radius import FormThemeOverrideCornerRadius
+    from .form_theme_override_font_family import FormThemeOverrideFontFamily
+    from .form_theme_override_theme_mode import FormThemeOverrideThemeMode
     from .get_conversation_params import GetConversationParams
     from .get_dlc_campaign_status_response_updates import GetDlcCampaignStatusResponseUpdates
     from .get_toll_free_campaign_status_response_updates import GetTollFreeCampaignStatusResponseUpdates
@@ -116,6 +175,8 @@ if typing.TYPE_CHECKING:
     from .list_brands_response import ListBrandsResponse
     from .list_contacts_response import ListContactsResponse
     from .list_dlc_campaigns_response import ListDlcCampaignsResponse
+    from .list_form_submissions_response import ListFormSubmissionsResponse
+    from .list_forms_response import ListFormsResponse
     from .list_links_response import ListLinksResponse
     from .list_messages_response import ListMessagesResponse
     from .list_phone_numbers_response import ListPhoneNumbersResponse
@@ -174,6 +235,7 @@ if typing.TYPE_CHECKING:
     from .mms_validation_response_segments_value_item import MmsValidationResponseSegmentsValueItem
     from .mms_validation_result import MmsValidationResult
     from .not_found_error_body import NotFoundErrorBody
+    from .number_field import NumberField
     from .number_format import NumberFormat
     from .opt_in_method_enum import OptInMethodEnum
     from .optional_brand_info import OptionalBrandInfo
@@ -185,6 +247,7 @@ if typing.TYPE_CHECKING:
     from .phone_capabilities import PhoneCapabilities
     from .phone_enum import PhoneEnum
     from .phone_feature_enum import PhoneFeatureEnum
+    from .phone_field import PhoneField
     from .phone_number_campaign_attach_failed_item import PhoneNumberCampaignAttachFailedItem
     from .phone_number_campaign_attach_phone_numbers_item import PhoneNumberCampaignAttachPhoneNumbersItem
     from .phone_number_campaign_attach_phone_numbers_item_campaign import (
@@ -205,6 +268,9 @@ if typing.TYPE_CHECKING:
     from .pinnacle_url_config import PinnacleUrlConfig
     from .profile_status_enum import ProfileStatusEnum
     from .purchased_number import PurchasedNumber
+    from .radio_field import RadioField
+    from .range_field import RangeField
+    from .rating_field import RatingField
     from .rcs_agent_details import RcsAgentDetails
     from .rcs_agent_details_agent_use_case import RcsAgentDetailsAgentUseCase
     from .rcs_agent_details_emails_item import RcsAgentDetailsEmailsItem
@@ -280,10 +346,23 @@ if typing.TYPE_CHECKING:
     from .schedule_cancel_result import ScheduleCancelResult
     from .scheduled_blast_details import ScheduledBlastDetails
     from .scheduled_blast_response_config import ScheduledBlastResponseConfig
+    from .scheduled_form_send_response_form import ScheduledFormSendResponseForm
+    from .scheduled_form_send_response_submission import ScheduledFormSendResponseSubmission
+    from .scheduled_form_send_result import ScheduledFormSendResult
     from .scheduled_message import ScheduledMessage
     from .scheduled_message_summary import ScheduledMessageSummary
     from .scheduled_message_summary_status import ScheduledMessageSummaryStatus
     from .scheduled_send_response_config import ScheduledSendResponseConfig
+    from .select_field import SelectField
+    from .send_form_options import SendFormOptions
+    from .send_form_options_webview_mode import SendFormOptionsWebviewMode
+    from .send_form_params import SendFormParams
+    from .send_form_result import SendFormResult
+    from .send_form_via_rcs_params import SendFormViaRcsParams
+    from .send_form_via_rcs_request_fallback import SendFormViaRcsRequestFallback
+    from .send_form_via_rcs_request_form import SendFormViaRcsRequestForm
+    from .send_form_via_sms_params import SendFormViaSmsParams
+    from .send_form_via_sms_request_form import SendFormViaSmsRequestForm
     from .send_rcs_card_options_standalone_card_image_alignment import SendRcsCardOptionsStandaloneCardImageAlignment
     from .send_rcs_card_options_standalone_card_orientation import SendRcsCardOptionsStandaloneCardOrientation
     from .send_rich_cards_options import SendRichCardsOptions
@@ -300,11 +379,6 @@ if typing.TYPE_CHECKING:
     from .sent_sms_details import SentSmsDetails
     from .shortened_url import ShortenedUrl
     from .shortened_url_with_click_data import ShortenedUrlWithClickData
-    from .simulate_message_input import SimulateMessageInput
-    from .simulate_user_button import SimulateUserButton
-    from .simulate_user_message import SimulateUserMessage
-    from .simulate_user_params import SimulateUserParams
-    from .simulate_user_response import SimulateUserResponse
     from .sms_content import SmsContent
     from .sms_validation_response_segments import SmsValidationResponseSegments
     from .sms_validation_response_segments_gsm_7 import SmsValidationResponseSegmentsGsm7
@@ -316,6 +390,9 @@ if typing.TYPE_CHECKING:
     from .successful_conversation_update import SuccessfulConversationUpdate
     from .test_agent_response import TestAgentResponse
     from .test_agent_whitelist_response import TestAgentWhitelistResponse
+    from .text_field import TextField
+    from .textarea_field import TextareaField
+    from .time_field import TimeField
     from .toll_free_campaign import TollFreeCampaign
     from .toll_free_campaign_schema_keywords import TollFreeCampaignSchemaKeywords
     from .toll_free_campaign_schema_keywords_help import TollFreeCampaignSchemaKeywordsHelp
@@ -342,23 +419,7 @@ if typing.TYPE_CHECKING:
     from .tracking import Tracking
     from .updated_contact_id import UpdatedContactId
     from .upload_results import UploadResults
-    from .user_button_press import (
-        UserButtonPress,
-        UserButtonPress_Call,
-        UserButtonPress_OpenUrl,
-        UserButtonPress_RequestUserLocation,
-        UserButtonPress_ScheduleEvent,
-        UserButtonPress_SendLocation,
-        UserButtonPress_Trigger,
-    )
-    from .user_button_press_call import UserButtonPressCall
-    from .user_button_press_open_url import UserButtonPressOpenUrl
-    from .user_button_press_request_user_location import UserButtonPressRequestUserLocation
-    from .user_button_press_request_user_location_location import UserButtonPressRequestUserLocationLocation
-    from .user_button_press_schedule_event import UserButtonPressScheduleEvent
-    from .user_button_press_send_location import UserButtonPressSendLocation
-    from .user_button_press_send_location_lat_long import UserButtonPressSendLocationLatLong
-    from .user_button_press_trigger import UserButtonPressTrigger
+    from .url_field import UrlField
     from .user_event import UserEvent
     from .user_event_conversation import UserEventConversation
     from .v_card_address_schema_type_item import VCardAddressSchemaTypeItem
@@ -392,6 +453,7 @@ if typing.TYPE_CHECKING:
     from .whitelisted_number_summary_status import WhitelistedNumberSummaryStatus
     from .zod_error import ZodError
 _dynamic_imports: typing.Dict[str, str] = {
+    "AddressField": ".address_field",
     "AdvancedPhoneInformation": ".advanced_phone_information",
     "AdvancedPhoneInformationCarrier": ".advanced_phone_information_carrier",
     "AdvancedPhoneInformationContact": ".advanced_phone_information_contact",
@@ -452,6 +514,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CampaignValidationResult": ".campaign_validation_result",
     "CarrierLaunchStatus": ".carrier_launch_status",
     "CarrierLaunches": ".carrier_launches",
+    "CheckboxField": ".checkbox_field",
+    "ColorField": ".color_field",
     "CompanyEntityTypeEnum": ".company_entity_type_enum",
     "CompanySectorEnum": ".company_sector_enum",
     "CompanyTypeEnum": ".company_type_enum",
@@ -463,7 +527,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConversationContact": ".conversation_contact",
     "ConversationList": ".conversation_list",
     "ConversationSender": ".conversation_sender",
+    "CreateFormRequest": ".create_form_request",
     "CreateUrlOptions": ".create_url_options",
+    "DateField": ".date_field",
+    "DatetimeField": ".datetime_field",
     "DeleteAudienceResponse": ".delete_audience_response",
     "DetachWebhookResult": ".detach_webhook_result",
     "DetachedPhoneNumberResult": ".detached_phone_number_result",
@@ -483,6 +550,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DlcWithExtendedBrandAndStatusMnoTcrTier": ".dlc_with_extended_brand_and_status_mno_tcr_tier",
     "DlcWithExtendedBrandAndStatusOptions": ".dlc_with_extended_brand_and_status_options",
     "DlcWithExtendedBrandAndStatusUseCase": ".dlc_with_extended_brand_and_status_use_case",
+    "EmailField": ".email_field",
     "EnhancedContact": ".enhanced_contact",
     "EnhancedContactItem": ".enhanced_contact_item",
     "Error": ".error",
@@ -491,6 +559,54 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExtendedRcsCampaign": ".extended_rcs_campaign",
     "FailedSender": ".failed_sender",
     "FallbackMessage": ".fallback_message",
+    "FieldBase": ".field_base",
+    "Form": ".form",
+    "FormBackground": ".form_background",
+    "FormBackgroundGradient": ".form_background_gradient",
+    "FormBackgroundImage": ".form_background_image",
+    "FormBackgroundPattern": ".form_background_pattern",
+    "FormBackgroundPatternPreset": ".form_background_pattern_preset",
+    "FormBackgroundSolid": ".form_background_solid",
+    "FormBackground_Gradient": ".form_background",
+    "FormBackground_Image": ".form_background",
+    "FormBackground_Pattern": ".form_background",
+    "FormBackground_Solid": ".form_background",
+    "FormColorPalette": ".form_color_palette",
+    "FormDefinition": ".form_definition",
+    "FormField": ".form_field",
+    "FormFieldOption": ".form_field_option",
+    "FormField_Address": ".form_field",
+    "FormField_Checkbox": ".form_field",
+    "FormField_Color": ".form_field",
+    "FormField_Date": ".form_field",
+    "FormField_Datetime": ".form_field",
+    "FormField_Email": ".form_field",
+    "FormField_Number": ".form_field",
+    "FormField_Phone": ".form_field",
+    "FormField_Radio": ".form_field",
+    "FormField_Range": ".form_field",
+    "FormField_Rating": ".form_field",
+    "FormField_Select": ".form_field",
+    "FormField_Text": ".form_field",
+    "FormField_Textarea": ".form_field",
+    "FormField_Time": ".form_field",
+    "FormField_Url": ".form_field",
+    "FormGradient": ".form_gradient",
+    "FormGradientAngle": ".form_gradient_angle",
+    "FormIdReference": ".form_id_reference",
+    "FormSubmission": ".form_submission",
+    "FormSubmissionAnswer": ".form_submission_answer",
+    "FormSubmissionEvent": ".form_submission_event",
+    "FormSubmissionEventConversation": ".form_submission_event_conversation",
+    "FormSubmissionEventForm": ".form_submission_event_form",
+    "FormSubmissionEventSubmission": ".form_submission_event_submission",
+    "FormSubmittedField": ".form_submitted_field",
+    "FormThemeOverride": ".form_theme_override",
+    "FormThemeOverrideColors": ".form_theme_override_colors",
+    "FormThemeOverrideContentAlignment": ".form_theme_override_content_alignment",
+    "FormThemeOverrideCornerRadius": ".form_theme_override_corner_radius",
+    "FormThemeOverrideFontFamily": ".form_theme_override_font_family",
+    "FormThemeOverrideThemeMode": ".form_theme_override_theme_mode",
     "GetConversationParams": ".get_conversation_params",
     "GetDlcCampaignStatusResponseUpdates": ".get_dlc_campaign_status_response_updates",
     "GetTollFreeCampaignStatusResponseUpdates": ".get_toll_free_campaign_status_response_updates",
@@ -502,6 +618,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListBrandsResponse": ".list_brands_response",
     "ListContactsResponse": ".list_contacts_response",
     "ListDlcCampaignsResponse": ".list_dlc_campaigns_response",
+    "ListFormSubmissionsResponse": ".list_form_submissions_response",
+    "ListFormsResponse": ".list_forms_response",
     "ListLinksResponse": ".list_links_response",
     "ListMessagesResponse": ".list_messages_response",
     "ListPhoneNumbersResponse": ".list_phone_numbers_response",
@@ -558,6 +676,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MmsValidationResponseSegmentsValueItem": ".mms_validation_response_segments_value_item",
     "MmsValidationResult": ".mms_validation_result",
     "NotFoundErrorBody": ".not_found_error_body",
+    "NumberField": ".number_field",
     "NumberFormat": ".number_format",
     "OptInMethodEnum": ".opt_in_method_enum",
     "OptionalBrandInfo": ".optional_brand_info",
@@ -569,6 +688,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PhoneCapabilities": ".phone_capabilities",
     "PhoneEnum": ".phone_enum",
     "PhoneFeatureEnum": ".phone_feature_enum",
+    "PhoneField": ".phone_field",
     "PhoneNumberCampaignAttachFailedItem": ".phone_number_campaign_attach_failed_item",
     "PhoneNumberCampaignAttachPhoneNumbersItem": ".phone_number_campaign_attach_phone_numbers_item",
     "PhoneNumberCampaignAttachPhoneNumbersItemCampaign": ".phone_number_campaign_attach_phone_numbers_item_campaign",
@@ -585,6 +705,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PinnacleUrlConfig": ".pinnacle_url_config",
     "ProfileStatusEnum": ".profile_status_enum",
     "PurchasedNumber": ".purchased_number",
+    "RadioField": ".radio_field",
+    "RangeField": ".range_field",
+    "RatingField": ".rating_field",
     "RcsAgentDetails": ".rcs_agent_details",
     "RcsAgentDetailsAgentUseCase": ".rcs_agent_details_agent_use_case",
     "RcsAgentDetailsEmailsItem": ".rcs_agent_details_emails_item",
@@ -658,10 +781,23 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ScheduleCancelResult": ".schedule_cancel_result",
     "ScheduledBlastDetails": ".scheduled_blast_details",
     "ScheduledBlastResponseConfig": ".scheduled_blast_response_config",
+    "ScheduledFormSendResponseForm": ".scheduled_form_send_response_form",
+    "ScheduledFormSendResponseSubmission": ".scheduled_form_send_response_submission",
+    "ScheduledFormSendResult": ".scheduled_form_send_result",
     "ScheduledMessage": ".scheduled_message",
     "ScheduledMessageSummary": ".scheduled_message_summary",
     "ScheduledMessageSummaryStatus": ".scheduled_message_summary_status",
     "ScheduledSendResponseConfig": ".scheduled_send_response_config",
+    "SelectField": ".select_field",
+    "SendFormOptions": ".send_form_options",
+    "SendFormOptionsWebviewMode": ".send_form_options_webview_mode",
+    "SendFormParams": ".send_form_params",
+    "SendFormResult": ".send_form_result",
+    "SendFormViaRcsParams": ".send_form_via_rcs_params",
+    "SendFormViaRcsRequestFallback": ".send_form_via_rcs_request_fallback",
+    "SendFormViaRcsRequestForm": ".send_form_via_rcs_request_form",
+    "SendFormViaSmsParams": ".send_form_via_sms_params",
+    "SendFormViaSmsRequestForm": ".send_form_via_sms_request_form",
     "SendRcsCardOptionsStandaloneCardImageAlignment": ".send_rcs_card_options_standalone_card_image_alignment",
     "SendRcsCardOptionsStandaloneCardOrientation": ".send_rcs_card_options_standalone_card_orientation",
     "SendRichCardsOptions": ".send_rich_cards_options",
@@ -678,11 +814,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SentSmsDetails": ".sent_sms_details",
     "ShortenedUrl": ".shortened_url",
     "ShortenedUrlWithClickData": ".shortened_url_with_click_data",
-    "SimulateMessageInput": ".simulate_message_input",
-    "SimulateUserButton": ".simulate_user_button",
-    "SimulateUserMessage": ".simulate_user_message",
-    "SimulateUserParams": ".simulate_user_params",
-    "SimulateUserResponse": ".simulate_user_response",
     "SmsContent": ".sms_content",
     "SmsValidationResponseSegments": ".sms_validation_response_segments",
     "SmsValidationResponseSegmentsGsm7": ".sms_validation_response_segments_gsm_7",
@@ -694,6 +825,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SuccessfulConversationUpdate": ".successful_conversation_update",
     "TestAgentResponse": ".test_agent_response",
     "TestAgentWhitelistResponse": ".test_agent_whitelist_response",
+    "TextField": ".text_field",
+    "TextareaField": ".textarea_field",
+    "TimeField": ".time_field",
     "TollFreeCampaign": ".toll_free_campaign",
     "TollFreeCampaignSchemaKeywords": ".toll_free_campaign_schema_keywords",
     "TollFreeCampaignSchemaKeywordsHelp": ".toll_free_campaign_schema_keywords_help",
@@ -718,21 +852,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Tracking": ".tracking",
     "UpdatedContactId": ".updated_contact_id",
     "UploadResults": ".upload_results",
-    "UserButtonPress": ".user_button_press",
-    "UserButtonPressCall": ".user_button_press_call",
-    "UserButtonPressOpenUrl": ".user_button_press_open_url",
-    "UserButtonPressRequestUserLocation": ".user_button_press_request_user_location",
-    "UserButtonPressRequestUserLocationLocation": ".user_button_press_request_user_location_location",
-    "UserButtonPressScheduleEvent": ".user_button_press_schedule_event",
-    "UserButtonPressSendLocation": ".user_button_press_send_location",
-    "UserButtonPressSendLocationLatLong": ".user_button_press_send_location_lat_long",
-    "UserButtonPressTrigger": ".user_button_press_trigger",
-    "UserButtonPress_Call": ".user_button_press",
-    "UserButtonPress_OpenUrl": ".user_button_press",
-    "UserButtonPress_RequestUserLocation": ".user_button_press",
-    "UserButtonPress_ScheduleEvent": ".user_button_press",
-    "UserButtonPress_SendLocation": ".user_button_press",
-    "UserButtonPress_Trigger": ".user_button_press",
+    "UrlField": ".url_field",
     "UserEvent": ".user_event",
     "UserEventConversation": ".user_event_conversation",
     "VCardAddressSchemaTypeItem": ".v_card_address_schema_type_item",
@@ -788,6 +908,7 @@ def __dir__():
 
 
 __all__ = [
+    "AddressField",
     "AdvancedPhoneInformation",
     "AdvancedPhoneInformationCarrier",
     "AdvancedPhoneInformationContact",
@@ -848,6 +969,8 @@ __all__ = [
     "CampaignValidationResult",
     "CarrierLaunchStatus",
     "CarrierLaunches",
+    "CheckboxField",
+    "ColorField",
     "CompanyEntityTypeEnum",
     "CompanySectorEnum",
     "CompanyTypeEnum",
@@ -859,7 +982,10 @@ __all__ = [
     "ConversationContact",
     "ConversationList",
     "ConversationSender",
+    "CreateFormRequest",
     "CreateUrlOptions",
+    "DateField",
+    "DatetimeField",
     "DeleteAudienceResponse",
     "DetachWebhookResult",
     "DetachedPhoneNumberResult",
@@ -879,6 +1005,7 @@ __all__ = [
     "DlcWithExtendedBrandAndStatusMnoTcrTier",
     "DlcWithExtendedBrandAndStatusOptions",
     "DlcWithExtendedBrandAndStatusUseCase",
+    "EmailField",
     "EnhancedContact",
     "EnhancedContactItem",
     "Error",
@@ -887,6 +1014,54 @@ __all__ = [
     "ExtendedRcsCampaign",
     "FailedSender",
     "FallbackMessage",
+    "FieldBase",
+    "Form",
+    "FormBackground",
+    "FormBackgroundGradient",
+    "FormBackgroundImage",
+    "FormBackgroundPattern",
+    "FormBackgroundPatternPreset",
+    "FormBackgroundSolid",
+    "FormBackground_Gradient",
+    "FormBackground_Image",
+    "FormBackground_Pattern",
+    "FormBackground_Solid",
+    "FormColorPalette",
+    "FormDefinition",
+    "FormField",
+    "FormFieldOption",
+    "FormField_Address",
+    "FormField_Checkbox",
+    "FormField_Color",
+    "FormField_Date",
+    "FormField_Datetime",
+    "FormField_Email",
+    "FormField_Number",
+    "FormField_Phone",
+    "FormField_Radio",
+    "FormField_Range",
+    "FormField_Rating",
+    "FormField_Select",
+    "FormField_Text",
+    "FormField_Textarea",
+    "FormField_Time",
+    "FormField_Url",
+    "FormGradient",
+    "FormGradientAngle",
+    "FormIdReference",
+    "FormSubmission",
+    "FormSubmissionAnswer",
+    "FormSubmissionEvent",
+    "FormSubmissionEventConversation",
+    "FormSubmissionEventForm",
+    "FormSubmissionEventSubmission",
+    "FormSubmittedField",
+    "FormThemeOverride",
+    "FormThemeOverrideColors",
+    "FormThemeOverrideContentAlignment",
+    "FormThemeOverrideCornerRadius",
+    "FormThemeOverrideFontFamily",
+    "FormThemeOverrideThemeMode",
     "GetConversationParams",
     "GetDlcCampaignStatusResponseUpdates",
     "GetTollFreeCampaignStatusResponseUpdates",
@@ -898,6 +1073,8 @@ __all__ = [
     "ListBrandsResponse",
     "ListContactsResponse",
     "ListDlcCampaignsResponse",
+    "ListFormSubmissionsResponse",
+    "ListFormsResponse",
     "ListLinksResponse",
     "ListMessagesResponse",
     "ListPhoneNumbersResponse",
@@ -954,6 +1131,7 @@ __all__ = [
     "MmsValidationResponseSegmentsValueItem",
     "MmsValidationResult",
     "NotFoundErrorBody",
+    "NumberField",
     "NumberFormat",
     "OptInMethodEnum",
     "OptionalBrandInfo",
@@ -965,6 +1143,7 @@ __all__ = [
     "PhoneCapabilities",
     "PhoneEnum",
     "PhoneFeatureEnum",
+    "PhoneField",
     "PhoneNumberCampaignAttachFailedItem",
     "PhoneNumberCampaignAttachPhoneNumbersItem",
     "PhoneNumberCampaignAttachPhoneNumbersItemCampaign",
@@ -981,6 +1160,9 @@ __all__ = [
     "PinnacleUrlConfig",
     "ProfileStatusEnum",
     "PurchasedNumber",
+    "RadioField",
+    "RangeField",
+    "RatingField",
     "RcsAgentDetails",
     "RcsAgentDetailsAgentUseCase",
     "RcsAgentDetailsEmailsItem",
@@ -1054,10 +1236,23 @@ __all__ = [
     "ScheduleCancelResult",
     "ScheduledBlastDetails",
     "ScheduledBlastResponseConfig",
+    "ScheduledFormSendResponseForm",
+    "ScheduledFormSendResponseSubmission",
+    "ScheduledFormSendResult",
     "ScheduledMessage",
     "ScheduledMessageSummary",
     "ScheduledMessageSummaryStatus",
     "ScheduledSendResponseConfig",
+    "SelectField",
+    "SendFormOptions",
+    "SendFormOptionsWebviewMode",
+    "SendFormParams",
+    "SendFormResult",
+    "SendFormViaRcsParams",
+    "SendFormViaRcsRequestFallback",
+    "SendFormViaRcsRequestForm",
+    "SendFormViaSmsParams",
+    "SendFormViaSmsRequestForm",
     "SendRcsCardOptionsStandaloneCardImageAlignment",
     "SendRcsCardOptionsStandaloneCardOrientation",
     "SendRichCardsOptions",
@@ -1074,11 +1269,6 @@ __all__ = [
     "SentSmsDetails",
     "ShortenedUrl",
     "ShortenedUrlWithClickData",
-    "SimulateMessageInput",
-    "SimulateUserButton",
-    "SimulateUserMessage",
-    "SimulateUserParams",
-    "SimulateUserResponse",
     "SmsContent",
     "SmsValidationResponseSegments",
     "SmsValidationResponseSegmentsGsm7",
@@ -1090,6 +1280,9 @@ __all__ = [
     "SuccessfulConversationUpdate",
     "TestAgentResponse",
     "TestAgentWhitelistResponse",
+    "TextField",
+    "TextareaField",
+    "TimeField",
     "TollFreeCampaign",
     "TollFreeCampaignSchemaKeywords",
     "TollFreeCampaignSchemaKeywordsHelp",
@@ -1114,21 +1307,7 @@ __all__ = [
     "Tracking",
     "UpdatedContactId",
     "UploadResults",
-    "UserButtonPress",
-    "UserButtonPressCall",
-    "UserButtonPressOpenUrl",
-    "UserButtonPressRequestUserLocation",
-    "UserButtonPressRequestUserLocationLocation",
-    "UserButtonPressScheduleEvent",
-    "UserButtonPressSendLocation",
-    "UserButtonPressSendLocationLatLong",
-    "UserButtonPressTrigger",
-    "UserButtonPress_Call",
-    "UserButtonPress_OpenUrl",
-    "UserButtonPress_RequestUserLocation",
-    "UserButtonPress_ScheduleEvent",
-    "UserButtonPress_SendLocation",
-    "UserButtonPress_Trigger",
+    "UrlField",
     "UserEvent",
     "UserEventConversation",
     "VCardAddressSchemaTypeItem",
