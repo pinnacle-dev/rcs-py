@@ -7,6 +7,7 @@ from ...errors.bad_request_error import BadRequestError
 from ...types.error import Error
 from ...types.user_event import UserEvent
 from ...types.message_event import MessageEvent
+from ...types.form_submission_event import FormSubmissionEvent
 from ...core.client_wrapper import SyncClientWrapper, AsyncClientWrapper
 from ...core.pydantic_utilities import parse_obj_as
 
@@ -49,7 +50,7 @@ class EnhancedMessages(MessagesClient):
 
     def process(
         self, req: PinnacleRequest, secret: Optional[str] = None
-    ) -> Union[MessageEvent, UserEvent]:
+    ) -> Union[MessageEvent, UserEvent, FormSubmissionEvent]:
         """Process incoming webhook request from any supported framework.
 
         Args:
@@ -57,7 +58,7 @@ class EnhancedMessages(MessagesClient):
             secret: Optional webhook secret. Uses PINNACLE_SIGNING_SECRET env var if not provided.
 
         Returns:
-            MessageEvent: The validated and parsed message event
+            MessageEvent | UserEvent | FormSubmissionEvent: The validated and parsed webhook event.
 
         Raises:
             UnauthorizedError: If webhook signature is invalid or missing
@@ -68,10 +69,12 @@ class EnhancedMessages(MessagesClient):
 
         try:
             body = json.loads(req["body"])
-            if body["type"] == "USER.TYPING":
+            event_type = body.get("type")
+            if event_type == "USER.TYPING":
                 return parse_obj_as(UserEvent, body)
-            else:
-                return parse_obj_as(MessageEvent, body)
+            if event_type == "FORM.SUBMISSION":
+                return parse_obj_as(FormSubmissionEvent, body)
+            return parse_obj_as(MessageEvent, body)
         except Exception as e:
             raise BadRequestError(body=f"Invalid message event format: {str(e)}")
 
@@ -84,7 +87,7 @@ class AsyncEnhancedMessages(AsyncMessagesClient):
 
     async def process(
         self, req: PinnacleRequest, secret: Optional[str] = None
-    ) -> Union[MessageEvent, UserEvent]:
+    ) -> Union[MessageEvent, UserEvent, FormSubmissionEvent]:
         """Process incoming webhook request from any supported async framework.
 
         Args:
@@ -92,7 +95,7 @@ class AsyncEnhancedMessages(AsyncMessagesClient):
             secret: Optional webhook secret. Uses PINNACLE_SIGNING_SECRET env var if not provided.
 
         Returns:
-            MessageEvent: The validated and parsed message event
+            MessageEvent | UserEvent | FormSubmissionEvent: The validated and parsed webhook event.
 
         Raises:
             UnauthorizedError: If webhook signature is invalid or missing
@@ -103,9 +106,11 @@ class AsyncEnhancedMessages(AsyncMessagesClient):
 
         try:
             body = json.loads(req["body"])
-            if body["type"] == "USER.TYPING":
+            event_type = body.get("type")
+            if event_type == "USER.TYPING":
                 return parse_obj_as(UserEvent, body)
-            else:
-                return parse_obj_as(MessageEvent, body)
+            if event_type == "FORM.SUBMISSION":
+                return parse_obj_as(FormSubmissionEvent, body)
+            return parse_obj_as(MessageEvent, body)
         except Exception as e:
             raise BadRequestError(body=f"Invalid message event format: {str(e)}")
