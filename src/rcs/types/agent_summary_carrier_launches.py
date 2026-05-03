@@ -10,7 +10,11 @@ from ..core.serialization import FieldMetadata
 
 class AgentSummaryCarrierLaunches(UniversalBaseModel):
     """
-    Per-carrier launch status for the agent.
+    Raw per-carrier launch + verification state for the agent. Each
+    value is tri-state — `null` means "no launch requested" or "not
+    sent yet"; `false` means "pending" / "sent"; `true` means
+    "launched" / "verified". Use the [GET /rcs/{agentId}](/api-reference/rcs-agents/get)
+    endpoint for the resolved enum representation.
     """
 
     att: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="ATT")] = pydantic.Field(default=None)
@@ -37,6 +41,20 @@ class AgentSummaryCarrierLaunches(UniversalBaseModel):
     )
     """
     Launch status for Verizon. null = not requested, false = pending, true = launched.
+    """
+
+    aegis: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="AEGIS")] = pydantic.Field(
+        default=None
+    )
+    """
+    AEGIS verification status. null = not sent, false = sent, true = verified.
+    """
+
+    google: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="GOOGLE")] = pydantic.Field(
+        default=None
+    )
+    """
+    Google verification status. null = not sent, false = sent, true = verified.
     """
 
     if IS_PYDANTIC_V2:

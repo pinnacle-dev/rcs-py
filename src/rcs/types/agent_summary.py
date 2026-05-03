@@ -33,7 +33,11 @@ class AgentSummary(UniversalBaseModel):
         typing.Optional[AgentSummaryCarrierLaunches], FieldMetadata(alias="carrierLaunches")
     ] = pydantic.Field(default=None)
     """
-    Per-carrier launch status for the agent.
+    Raw per-carrier launch + verification state for the agent. Each
+    value is tri-state — `null` means "no launch requested" or "not
+    sent yet"; `false` means "pending" / "sent"; `true` means
+    "launched" / "verified". Use the [GET /rcs/{agentId}](/api-reference/rcs-agents/get)
+    endpoint for the resolved enum representation.
     """
 
     config: typing.Optional[AgentSummaryConfig] = pydantic.Field(default=None)

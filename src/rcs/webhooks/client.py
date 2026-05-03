@@ -160,7 +160,7 @@ class WebhooksClient:
         event : typing.Optional[WebhookEventEnum]
             Event type filter for the subscription. Set to `null` to receive all events. <br>
 
-            `USER.TYPING` is only supported for RCS agent senders, not phone numbers.
+            `USER.TYPING` and `CAMPAIGN.STATUS` are only supported for RCS agent senders, not phone numbers — attempting to attach either of these events to a phone number returns `400 Bad Request`.
 
         headers : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Optional custom HTTP headers (key-value map) to include when dispatching webhook events to the endpoint.
@@ -405,7 +405,7 @@ class AsyncWebhooksClient:
         event : typing.Optional[WebhookEventEnum]
             Event type filter for the subscription. Set to `null` to receive all events. <br>
 
-            `USER.TYPING` is only supported for RCS agent senders, not phone numbers.
+            `USER.TYPING` and `CAMPAIGN.STATUS` are only supported for RCS agent senders, not phone numbers — attempting to attach either of these events to a phone number returns `400 Bad Request`.
 
         headers : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Optional custom HTTP headers (key-value map) to include when dispatching webhook events to the endpoint.

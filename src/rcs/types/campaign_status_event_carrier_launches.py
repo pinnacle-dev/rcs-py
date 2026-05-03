@@ -4,18 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .carrier_launches_carriers import CarrierLaunchesCarriers
-from .carrier_launches_verification import CarrierLaunchesVerification
+from .campaign_status_event_carrier_launches_carriers import CampaignStatusEventCarrierLaunchesCarriers
+from .campaign_status_event_carrier_launches_verification import CampaignStatusEventCarrierLaunchesVerification
 
 
-class CarrierLaunches(UniversalBaseModel):
+class CampaignStatusEventCarrierLaunches(UniversalBaseModel):
     """
-    Per-carrier launch status grouped by category. `carriers` covers
-    AT&T / T-Mobile / Verizon / other carriers; `verification` covers
-    the AEGIS and Google verification flows.
+    Resolved per-key launch status for the campaign's agent. Carrier
+    statuses live under `carriers` and verifier statuses under
+    `verification`.
     """
 
-    carriers: CarrierLaunchesCarriers = pydantic.Field()
+    carriers: CampaignStatusEventCarrierLaunchesCarriers = pydantic.Field()
     """
     Per-carrier launch status. Each carrier moves through
     `NOT_LAUNCHED` → `PENDING` → `LAUNCHED` as Pinnacle submits the
@@ -23,7 +23,7 @@ class CarrierLaunches(UniversalBaseModel):
     deliverable on a carrier once that carrier reports `LAUNCHED`.
     """
 
-    verification: CarrierLaunchesVerification = pydantic.Field()
+    verification: CampaignStatusEventCarrierLaunchesVerification = pydantic.Field()
     """
     External verifier status. AEGIS (the U.S. carrier vetting
     authority used by AT&T, T-Mobile, and Verizon) and Google each

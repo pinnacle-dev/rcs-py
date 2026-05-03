@@ -62,11 +62,21 @@ if typing.TYPE_CHECKING:
     from .buy_response_capabilities import BuyResponseCapabilities
     from .campaign_enum import CampaignEnum
     from .campaign_query import CampaignQuery
+    from .campaign_status_event import CampaignStatusEvent
+    from .campaign_status_event_agent import CampaignStatusEventAgent
+    from .campaign_status_event_brand import CampaignStatusEventBrand
+    from .campaign_status_event_campaign import CampaignStatusEventCampaign
+    from .campaign_status_event_campaign_type import CampaignStatusEventCampaignType
+    from .campaign_status_event_carrier_launches import CampaignStatusEventCarrierLaunches
+    from .campaign_status_event_carrier_launches_carriers import CampaignStatusEventCarrierLaunchesCarriers
+    from .campaign_status_event_carrier_launches_verification import CampaignStatusEventCarrierLaunchesVerification
     from .campaign_submission_result import CampaignSubmissionResult
     from .campaign_validation_response_errors_item import CampaignValidationResponseErrorsItem
     from .campaign_validation_result import CampaignValidationResult
     from .carrier_launch_status import CarrierLaunchStatus
     from .carrier_launches import CarrierLaunches
+    from .carrier_launches_carriers import CarrierLaunchesCarriers
+    from .carrier_launches_verification import CarrierLaunchesVerification
     from .checkbox_field import CheckboxField
     from .color_field import ColorField
     from .company_entity_type_enum import CompanyEntityTypeEnum
@@ -379,6 +389,11 @@ if typing.TYPE_CHECKING:
     from .sent_sms_details import SentSmsDetails
     from .shortened_url import ShortenedUrl
     from .shortened_url_with_click_data import ShortenedUrlWithClickData
+    from .simulate_message_input import SimulateMessageInput
+    from .simulate_user_button import SimulateUserButton
+    from .simulate_user_message import SimulateUserMessage
+    from .simulate_user_params import SimulateUserParams
+    from .simulate_user_response import SimulateUserResponse
     from .sms_content import SmsContent
     from .sms_validation_response_segments import SmsValidationResponseSegments
     from .sms_validation_response_segments_gsm_7 import SmsValidationResponseSegmentsGsm7
@@ -420,6 +435,23 @@ if typing.TYPE_CHECKING:
     from .updated_contact_id import UpdatedContactId
     from .upload_results import UploadResults
     from .url_field import UrlField
+    from .user_button_press import (
+        UserButtonPress,
+        UserButtonPress_Call,
+        UserButtonPress_OpenUrl,
+        UserButtonPress_RequestUserLocation,
+        UserButtonPress_ScheduleEvent,
+        UserButtonPress_SendLocation,
+        UserButtonPress_Trigger,
+    )
+    from .user_button_press_call import UserButtonPressCall
+    from .user_button_press_open_url import UserButtonPressOpenUrl
+    from .user_button_press_request_user_location import UserButtonPressRequestUserLocation
+    from .user_button_press_request_user_location_location import UserButtonPressRequestUserLocationLocation
+    from .user_button_press_schedule_event import UserButtonPressScheduleEvent
+    from .user_button_press_send_location import UserButtonPressSendLocation
+    from .user_button_press_send_location_lat_long import UserButtonPressSendLocationLatLong
+    from .user_button_press_trigger import UserButtonPressTrigger
     from .user_event import UserEvent
     from .user_event_conversation import UserEventConversation
     from .v_card_address_schema_type_item import VCardAddressSchemaTypeItem
@@ -440,6 +472,7 @@ if typing.TYPE_CHECKING:
     from .vcard_email import VcardEmail
     from .vcard_phone import VcardPhone
     from .vcard_resource import VcardResource
+    from .verification_status import VerificationStatus
     from .vetting_feedback import VettingFeedback
     from .vetting_history import VettingHistory
     from .vetting_history_vetting_status import VettingHistoryVettingStatus
@@ -509,11 +542,21 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BuyResponseCapabilities": ".buy_response_capabilities",
     "CampaignEnum": ".campaign_enum",
     "CampaignQuery": ".campaign_query",
+    "CampaignStatusEvent": ".campaign_status_event",
+    "CampaignStatusEventAgent": ".campaign_status_event_agent",
+    "CampaignStatusEventBrand": ".campaign_status_event_brand",
+    "CampaignStatusEventCampaign": ".campaign_status_event_campaign",
+    "CampaignStatusEventCampaignType": ".campaign_status_event_campaign_type",
+    "CampaignStatusEventCarrierLaunches": ".campaign_status_event_carrier_launches",
+    "CampaignStatusEventCarrierLaunchesCarriers": ".campaign_status_event_carrier_launches_carriers",
+    "CampaignStatusEventCarrierLaunchesVerification": ".campaign_status_event_carrier_launches_verification",
     "CampaignSubmissionResult": ".campaign_submission_result",
     "CampaignValidationResponseErrorsItem": ".campaign_validation_response_errors_item",
     "CampaignValidationResult": ".campaign_validation_result",
     "CarrierLaunchStatus": ".carrier_launch_status",
     "CarrierLaunches": ".carrier_launches",
+    "CarrierLaunchesCarriers": ".carrier_launches_carriers",
+    "CarrierLaunchesVerification": ".carrier_launches_verification",
     "CheckboxField": ".checkbox_field",
     "ColorField": ".color_field",
     "CompanyEntityTypeEnum": ".company_entity_type_enum",
@@ -814,6 +857,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SentSmsDetails": ".sent_sms_details",
     "ShortenedUrl": ".shortened_url",
     "ShortenedUrlWithClickData": ".shortened_url_with_click_data",
+    "SimulateMessageInput": ".simulate_message_input",
+    "SimulateUserButton": ".simulate_user_button",
+    "SimulateUserMessage": ".simulate_user_message",
+    "SimulateUserParams": ".simulate_user_params",
+    "SimulateUserResponse": ".simulate_user_response",
     "SmsContent": ".sms_content",
     "SmsValidationResponseSegments": ".sms_validation_response_segments",
     "SmsValidationResponseSegmentsGsm7": ".sms_validation_response_segments_gsm_7",
@@ -853,6 +901,21 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatedContactId": ".updated_contact_id",
     "UploadResults": ".upload_results",
     "UrlField": ".url_field",
+    "UserButtonPress": ".user_button_press",
+    "UserButtonPressCall": ".user_button_press_call",
+    "UserButtonPressOpenUrl": ".user_button_press_open_url",
+    "UserButtonPressRequestUserLocation": ".user_button_press_request_user_location",
+    "UserButtonPressRequestUserLocationLocation": ".user_button_press_request_user_location_location",
+    "UserButtonPressScheduleEvent": ".user_button_press_schedule_event",
+    "UserButtonPressSendLocation": ".user_button_press_send_location",
+    "UserButtonPressSendLocationLatLong": ".user_button_press_send_location_lat_long",
+    "UserButtonPressTrigger": ".user_button_press_trigger",
+    "UserButtonPress_Call": ".user_button_press",
+    "UserButtonPress_OpenUrl": ".user_button_press",
+    "UserButtonPress_RequestUserLocation": ".user_button_press",
+    "UserButtonPress_ScheduleEvent": ".user_button_press",
+    "UserButtonPress_SendLocation": ".user_button_press",
+    "UserButtonPress_Trigger": ".user_button_press",
     "UserEvent": ".user_event",
     "UserEventConversation": ".user_event_conversation",
     "VCardAddressSchemaTypeItem": ".v_card_address_schema_type_item",
@@ -873,6 +936,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "VcardEmail": ".vcard_email",
     "VcardPhone": ".vcard_phone",
     "VcardResource": ".vcard_resource",
+    "VerificationStatus": ".verification_status",
     "VettingFeedback": ".vetting_feedback",
     "VettingHistory": ".vetting_history",
     "VettingHistoryVettingStatus": ".vetting_history_vetting_status",
@@ -964,11 +1028,21 @@ __all__ = [
     "BuyResponseCapabilities",
     "CampaignEnum",
     "CampaignQuery",
+    "CampaignStatusEvent",
+    "CampaignStatusEventAgent",
+    "CampaignStatusEventBrand",
+    "CampaignStatusEventCampaign",
+    "CampaignStatusEventCampaignType",
+    "CampaignStatusEventCarrierLaunches",
+    "CampaignStatusEventCarrierLaunchesCarriers",
+    "CampaignStatusEventCarrierLaunchesVerification",
     "CampaignSubmissionResult",
     "CampaignValidationResponseErrorsItem",
     "CampaignValidationResult",
     "CarrierLaunchStatus",
     "CarrierLaunches",
+    "CarrierLaunchesCarriers",
+    "CarrierLaunchesVerification",
     "CheckboxField",
     "ColorField",
     "CompanyEntityTypeEnum",
@@ -1269,6 +1343,11 @@ __all__ = [
     "SentSmsDetails",
     "ShortenedUrl",
     "ShortenedUrlWithClickData",
+    "SimulateMessageInput",
+    "SimulateUserButton",
+    "SimulateUserMessage",
+    "SimulateUserParams",
+    "SimulateUserResponse",
     "SmsContent",
     "SmsValidationResponseSegments",
     "SmsValidationResponseSegmentsGsm7",
@@ -1308,6 +1387,21 @@ __all__ = [
     "UpdatedContactId",
     "UploadResults",
     "UrlField",
+    "UserButtonPress",
+    "UserButtonPressCall",
+    "UserButtonPressOpenUrl",
+    "UserButtonPressRequestUserLocation",
+    "UserButtonPressRequestUserLocationLocation",
+    "UserButtonPressScheduleEvent",
+    "UserButtonPressSendLocation",
+    "UserButtonPressSendLocationLatLong",
+    "UserButtonPressTrigger",
+    "UserButtonPress_Call",
+    "UserButtonPress_OpenUrl",
+    "UserButtonPress_RequestUserLocation",
+    "UserButtonPress_ScheduleEvent",
+    "UserButtonPress_SendLocation",
+    "UserButtonPress_Trigger",
     "UserEvent",
     "UserEventConversation",
     "VCardAddressSchemaTypeItem",
@@ -1328,6 +1422,7 @@ __all__ = [
     "VcardEmail",
     "VcardPhone",
     "VcardResource",
+    "VerificationStatus",
     "VettingFeedback",
     "VettingHistory",
     "VettingHistoryVettingStatus",

@@ -24,6 +24,7 @@ if typing.TYPE_CHECKING:
     from .rcs.client import AsyncRcsClient, RcsClient
     from .schedule.client import AsyncScheduleClient, ScheduleClient
     from .schedules.client import AsyncSchedulesClient, SchedulesClient
+    from .simulate.client import AsyncSimulateClient, SimulateClient
     from .sms.client import AsyncSmsClient, SmsClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -40,6 +41,7 @@ class MessagesClient:
         self._schedule: typing.Optional[ScheduleClient] = None
         self._schedules: typing.Optional[SchedulesClient] = None
         self._blasts: typing.Optional[BlastsClient] = None
+        self._simulate: typing.Optional[SimulateClient] = None
 
     @property
     def with_raw_response(self) -> RawMessagesClient:
@@ -273,6 +275,14 @@ class MessagesClient:
             self._blasts = BlastsClient(client_wrapper=self._client_wrapper)
         return self._blasts
 
+    @property
+    def simulate(self):
+        if self._simulate is None:
+            from .simulate.client import SimulateClient  # noqa: E402
+
+            self._simulate = SimulateClient(client_wrapper=self._client_wrapper)
+        return self._simulate
+
 
 class AsyncMessagesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -285,6 +295,7 @@ class AsyncMessagesClient:
         self._schedule: typing.Optional[AsyncScheduleClient] = None
         self._schedules: typing.Optional[AsyncSchedulesClient] = None
         self._blasts: typing.Optional[AsyncBlastsClient] = None
+        self._simulate: typing.Optional[AsyncSimulateClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawMessagesClient:
@@ -541,3 +552,11 @@ class AsyncMessagesClient:
 
             self._blasts = AsyncBlastsClient(client_wrapper=self._client_wrapper)
         return self._blasts
+
+    @property
+    def simulate(self):
+        if self._simulate is None:
+            from .simulate.client import AsyncSimulateClient  # noqa: E402
+
+            self._simulate = AsyncSimulateClient(client_wrapper=self._client_wrapper)
+        return self._simulate

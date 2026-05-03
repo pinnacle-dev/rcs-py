@@ -3217,7 +3217,7 @@ Supplying `headers` alongside `webhookId` **overwrites** the stored headers on t
 
 Event type filter for the subscription. Set to `null` to receive all events. <br>
 
-`USER.TYPING` is only supported for RCS agent senders, not phone numbers.
+`USER.TYPING` and `CAMPAIGN.STATUS` are only supported for RCS agent senders, not phone numbers — attempting to attach either of these events to a phone number returns `400 Bad Request`.
     
 </dd>
 </dl>
@@ -7272,6 +7272,87 @@ client.messages.blasts.list()
 <dd>
 
 **content:** `typing.Optional[str]` — Search blast content (partial match, case-insensitive).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Messages Simulate
+<details><summary><code>client.messages.simulate.<a href="src/rcs/messages/simulate/client.py">user</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Simulate inbound messages and button presses from a user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import (
+    Pinnacle,
+    SimulateUserButton,
+    UserButtonPress_RequestUserLocation,
+)
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.messages.simulate.user(
+    request=SimulateUserButton(
+        from_="+14155551234",
+        to="agent_abc123",
+        button=UserButtonPress_RequestUserLocation(
+            title="Share Location",
+        ),
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `SimulateUserParams` 
     
 </dd>
 </dl>

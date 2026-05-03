@@ -3,27 +3,13 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .carrier_launches_carriers import CarrierLaunchesCarriers
-from .carrier_launches_verification import CarrierLaunchesVerification
+from ..core.serialization import FieldMetadata
+from .verification_status import VerificationStatus
 
 
-class CarrierLaunches(UniversalBaseModel):
-    """
-    Per-carrier launch status grouped by category. `carriers` covers
-    AT&T / T-Mobile / Verizon / other carriers; `verification` covers
-    the AEGIS and Google verification flows.
-    """
-
-    carriers: CarrierLaunchesCarriers = pydantic.Field()
-    """
-    Per-carrier launch status. Each carrier moves through
-    `NOT_LAUNCHED` → `PENDING` → `LAUNCHED` as Pinnacle submits the
-    agent for review and the carrier accepts it. The agent is only
-    deliverable on a carrier once that carrier reports `LAUNCHED`.
-    """
-
-    verification: CarrierLaunchesVerification = pydantic.Field()
+class CampaignStatusEventCarrierLaunchesVerification(UniversalBaseModel):
     """
     External verifier status. AEGIS (the U.S. carrier vetting
     authority used by AT&T, T-Mobile, and Verizon) and Google each
@@ -31,6 +17,9 @@ class CarrierLaunches(UniversalBaseModel):
     verifier moves through `NOT_SENT` → `SENT` → `VERIFIED` once
     the brand replies and the verifier confirms ownership.
     """
+
+    aegis: typing_extensions.Annotated[VerificationStatus, FieldMetadata(alias="AEGIS")]
+    google: typing_extensions.Annotated[VerificationStatus, FieldMetadata(alias="GOOGLE")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
