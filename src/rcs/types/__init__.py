@@ -226,6 +226,7 @@ if typing.TYPE_CHECKING:
     from .message_event_rcs_media_content import MessageEventRcsMediaContent
     from .message_event_rcs_text_content import MessageEventRcsTextContent
     from .message_event_sms_content import MessageEventSmsContent
+    from .message_event_type import MessageEventType
     from .message_list import MessageList
     from .message_method_enum import MessageMethodEnum
     from .message_protocol_enum import MessageProtocolEnum
@@ -700,6 +701,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MessageEventRcsMediaContent": ".message_event_rcs_media_content",
     "MessageEventRcsTextContent": ".message_event_rcs_text_content",
     "MessageEventSmsContent": ".message_event_sms_content",
+    "MessageEventType": ".message_event_type",
     "MessageList": ".message_list",
     "MessageMethodEnum": ".message_method_enum",
     "MessageProtocolEnum": ".message_protocol_enum",
@@ -1186,6 +1188,7 @@ __all__ = [
     "MessageEventRcsMediaContent",
     "MessageEventRcsTextContent",
     "MessageEventSmsContent",
+    "MessageEventType",
     "MessageList",
     "MessageMethodEnum",
     "MessageProtocolEnum",

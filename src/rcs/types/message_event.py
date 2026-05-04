@@ -10,8 +10,8 @@ from .message_event_content import MessageEventContent
 from .message_event_conversation import MessageEventConversation
 from .message_event_direction import MessageEventDirection
 from .message_event_fallback_message import MessageEventFallbackMessage
+from .message_event_type import MessageEventType
 from .message_status_enum import MessageStatusEnum
-from .webhook_event_enum import WebhookEventEnum
 
 
 class MessageEvent(UniversalBaseModel):
@@ -19,9 +19,9 @@ class MessageEvent(UniversalBaseModel):
     Represents an incoming message or message status update received via webhook.
     """
 
-    type: WebhookEventEnum = pydantic.Field()
+    type: MessageEventType = pydantic.Field()
     """
-    Type of webhook event. MESSAGE.STATUS for message status updates or MESSAGE.RECEIVED for inbound messages.
+    Type of webhook event. `MESSAGE.STATUS` for message status updates, `MESSAGE.RECEIVED` for inbound messages.
     """
 
     conversation: MessageEventConversation = pydantic.Field()
