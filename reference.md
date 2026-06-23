@@ -3334,6 +3334,773 @@ client.webhooks.detach(
 </dl>
 </details>
 
+## Calls
+<details><summary><code>client.calls.<a href="src/rcs/calls/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List voice calls for your team. Results are sorted newest first.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.calls.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum calls to return.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — Opaque cursor returned by the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**state:** `typing.Optional[CallState]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[CallDirection]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**to:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="src/rcs/calls/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start an outbound voice call from a voice-enabled phone number owned by your team.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.calls.create(
+    to="to",
+    from_="from",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**to:** `str` — Destination phone number in E.164 format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from_:** `str` — Voice-enabled phone number owned by your team.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**record:** `typing.Optional[bool]` — Start recording as soon as the call stream connects.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[CallMetadata]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="src/rcs/calls/client.py">get</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve one voice call by its Pinnacle call ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.calls.get(
+    id="call_7cQe4F8xT1yB2mN9pK3L",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="src/rcs/calls/client.py">cancel</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+End a live call. Terminal calls are returned unchanged.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.calls.cancel(
+    id="call_7cQe4F8xT1yB2mN9pK3L",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="src/rcs/calls/client.py">update</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replace a call's metadata. For live calls, future call events carry the updated metadata.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.calls.update(
+    id="call_7cQe4F8xT1yB2mN9pK3L",
+    metadata={"key": "value"},
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `CallMetadata` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="src/rcs/calls/client.py">list_events</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List the event timeline for a call.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.calls.list_events(
+    id="call_7cQe4F8xT1yB2mN9pK3L",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum call events to return.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — Opaque cursor returned by the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="src/rcs/calls/client.py">create_stream_token</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Mint a short-lived WebSocket token for a call. Use the returned `stream_url` to connect to Pinnacle's bidirectional voice stream.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.calls.create_stream_token(
+    id="call_7cQe4F8xT1yB2mN9pK3L",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**commands_enabled:** `typing.Optional[bool]` — Whether this WebSocket may send call commands. Defaults to true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**stream_id:** `typing.Optional[str]` — Customer-chosen stream ID for reconnects and multiple subscribers.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**record:** `typing.Optional[bool]` — Enable recording for this WebSocket stream.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="src/rcs/calls/client.py">download_recording</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Return a short-lived signed URL for the call recording.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.calls.download_recording(
+    id="call_7cQe4F8xT1yB2mN9pK3L",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expires_in:** `typing.Optional[int]` — Signed URL lifetime in seconds. Defaults to 300 and may be at most 86400.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="src/rcs/calls/client.py">delete_recording</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete the canonical recording and queued fragments for a terminal call.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.calls.delete_recording(
+    id="call_7cQe4F8xT1yB2mN9pK3L",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Forms
 <details><summary><code>client.forms.<a href="src/rcs/forms/client.py">get</a>(...)</code></summary>
 <dl>
@@ -3811,7 +4578,7 @@ When `to` is provided, Pinnacle dispatches a message whose body contains the sub
 
 When `to` is omitted, no message is sent — `submission.to` and `message_id` are both `null` — which is useful for embedding the URL in your own outreach.
 
-On completion, a `FORM.SUBMISSION` webhook event is delivered to webhooks subscribed to the sender. See [Receiving Messages and User Events](/guides/messages/receiving).
+On completion, a `FORM.SUBMISSION` webhook event is delivered to webhooks subscribed to the sender. See [Receiving Message, Call, and User Events](/guides/messages/receiving).
 </dd>
 </dl>
 </dd>
@@ -7353,6 +8120,548 @@ client.messages.simulate.user(
 <dd>
 
 **request:** `SimulateUserParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Network SimSwap
+<details><summary><code>client.network.sim_swap.<a href="src/rcs/network/sim_swap/client.py">check</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Check whether a phone number's SIM was changed during a recent lookback window. Use this to flag account takeover risk before sign-in, password reset, payment, or other sensitive actions.
+
+<Note>
+  Limited availability. Contact [founders@pinnacle.sh](mailto:founders@pinnacle.sh) to request access.
+</Note>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.network.sim_swap.check(
+    phone_number="+14155550123",
+    period_hours=240,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**phone_number:** `E164PhoneNumber` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**period_hours:** `typing.Optional[int]` — Lookback window, in hours, for detecting a recent SIM change. Must be from 1 to 2400. Defaults to 240.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Network SubscriberMatch
+<details><summary><code>client.network.subscriber_match.<a href="src/rcs/network/subscriber_match/client.py">check</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Compare user-provided identity details against the carrier's subscriber record. Results return match strength per attribute, so you can use partial signals without receiving carrier PII.
+
+<Note>
+  Limited availability. Contact [founders@pinnacle.sh](mailto:founders@pinnacle.sh) to request access.
+</Note>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle, SubscriberMatchAttributes
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.network.subscriber_match.check(
+    phone_number="+14155550123",
+    attributes=SubscriberMatchAttributes(
+        given_name="Jane",
+        family_name="Doe",
+        street_name="Market Street",
+        street_number="123",
+        postal_code="94105",
+        locality="San Francisco",
+        region="CA",
+        country="US",
+        birthdate="1990-01-31",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**phone_number:** `E164PhoneNumber` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**attributes:** `SubscriberMatchAttributes` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Network SilentAuth
+<details><summary><code>client.network.silent_auth.<a href="src/rcs/network/silent_auth/client.py">start</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start a Silent Authentication session to verify that the user controls the device attached to a phone number. Omit `format` to receive a `browserUrl` for the hosted browser/WebView flow, or set `format: "json"` to receive a `jsonUrl` for a native mobile app or custom client-side flow. The device check must run from the user's cellular device, not your server.
+
+The returned URL expires 60 seconds after creation. Open or fetch it immediately and use `expiresAt` to detect when a new Silent Auth session is required.
+
+<Note>
+  Limited availability. Contact [founders@pinnacle.sh](mailto:founders@pinnacle.sh) to request access.
+</Note>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.network.silent_auth.start(
+    phone_number="+14155550123",
+    client_ref="user_123",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**phone_number:** `E164PhoneNumber` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_ref:** `typing.Optional[str]` — Your correlation ID, such as a user ID, session ID, or case ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `typing.Optional[typing.Literal["json"]]` — Set to `json` when you want to fetch `jsonUrl` directly from your app and receive a JSON response. Omit this field for the hosted browser/WebView flow.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.network.silent_auth.<a href="src/rcs/network/silent_auth/client.py">check</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Complete a Silent Authentication request by exchanging the code returned from the JSON flow. Call this from your server after the user's mobile app fetches `jsonUrl`.
+
+This endpoint returns a terminal verification result. To inspect pending lifecycle states such as `started` or `challenge-issued`, use [Get Network Request](/api-reference/network/get-network-request).
+
+<Note>
+  Limited availability. Contact [founders@pinnacle.sh](mailto:founders@pinnacle.sh) to request access.
+</Note>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.network.silent_auth.check(
+    request_id="nar_1234567890ABCDEF",
+    code="abc123",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_id:** `NetworkRequestId` — Silent Authentication request ID returned by `POST /network/silent-auth`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**code:** `str` — Code returned by the JSON Silent Auth device flow.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Network Requests
+<details><summary><code>client.network.requests.<a href="src/rcs/network/requests/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List Network API request records for your team, sorted newest first. Use filters to audit recent checks by type, status, or your own `clientRef`.
+
+<Note>
+  Limited availability. Contact [founders@pinnacle.sh](mailto:founders@pinnacle.sh) to request access.
+</Note>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.network.requests.list(
+    page_index=0,
+    page_size=20,
+    type="silent-auth",
+    status="completed",
+    client_ref="user_123",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**page_index:** `typing.Optional[int]` — Zero-based page index. Use 0 for the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of records to return, from 1 to 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[NetworkRequestType]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[NetworkRequestStatus]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_ref:** `typing.Optional[str]` — Filter by your correlation ID. Must be 1 to 40 characters when provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.network.requests.<a href="src/rcs/network/requests/client.py">get</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve one Network API request by ID. The response includes lifecycle timestamps, request status, your `clientRef`, and result fields from the original check.
+
+<Note>
+  Limited availability. Contact [founders@pinnacle.sh](mailto:founders@pinnacle.sh) to request access.
+</Note>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from rcs import Pinnacle
+
+client = Pinnacle(
+    api_key="YOUR_API_KEY",
+)
+client.network.requests.get(
+    request_id="nar_1234567890ABCDEF",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_id:** `NetworkRequestId` — Network API request ID returned by a Network API endpoint.
     
 </dd>
 </dl>
