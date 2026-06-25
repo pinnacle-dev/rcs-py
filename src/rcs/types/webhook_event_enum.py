@@ -3,6 +3,8 @@
 import typing
 
 WebhookEventEnum = typing.Union[
-    typing.Literal["MESSAGE.STATUS", "MESSAGE.RECEIVED", "USER.TYPING", "FORM.SUBMISSION", "CAMPAIGN.STATUS"],
+    typing.Literal[
+        "MESSAGE.STATUS", "MESSAGE.RECEIVED", "USER.TYPING", "FORM.SUBMISSION", "CAMPAIGN.STATUS", "CALL.STATUS"
+    ],
     typing.Any,
 ]

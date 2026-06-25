@@ -4,6 +4,7 @@ from .base_client import PinnacleBase, AsyncPinnacleBase
 if typing.TYPE_CHECKING:
     from .wrapper.messages.client import EnhancedMessages, AsyncEnhancedMessages
     from .wrapper.tools.client import EnhancedTools, AsyncEnhancedTools
+    from .wrapper.voice.client import AsyncEnhancedVoice, EnhancedVoice
 
 
 class Pinnacle(PinnacleBase):
@@ -11,6 +12,7 @@ class Pinnacle(PinnacleBase):
         super().__init__(*args, **kwargs)
         self._enhanced_messages: typing.Optional["EnhancedMessages"] = None
         self._enhanced_tools: typing.Optional["EnhancedTools"] = None
+        self._enhanced_voice: typing.Optional["EnhancedVoice"] = None
 
     @property
     def messages(self) -> "EnhancedMessages":
@@ -28,12 +30,21 @@ class Pinnacle(PinnacleBase):
             self._enhanced_tools = EnhancedTools(client_wrapper=self._client_wrapper)
         return self._enhanced_tools
 
+    @property
+    def voice(self) -> "EnhancedVoice":
+        if self._enhanced_voice is None:
+            from .wrapper.voice.client import EnhancedVoice  # noqa: E402
+
+            self._enhanced_voice = EnhancedVoice(client_wrapper=self._client_wrapper)
+        return self._enhanced_voice
+
 
 class AsyncPinnacle(AsyncPinnacleBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._enhanced_messages: typing.Optional["AsyncEnhancedMessages"] = None
         self._enhanced_tools: typing.Optional["AsyncEnhancedTools"] = None
+        self._enhanced_voice: typing.Optional["AsyncEnhancedVoice"] = None
 
     @property
     def messages(self) -> "AsyncEnhancedMessages":
@@ -50,3 +61,11 @@ class AsyncPinnacle(AsyncPinnacleBase):
 
             self._enhanced_tools = AsyncEnhancedTools(client_wrapper=self._client_wrapper)
         return self._enhanced_tools
+
+    @property
+    def voice(self) -> "AsyncEnhancedVoice":
+        if self._enhanced_voice is None:
+            from .wrapper.voice.client import AsyncEnhancedVoice  # noqa: E402
+
+            self._enhanced_voice = AsyncEnhancedVoice(client_wrapper=self._client_wrapper)
+        return self._enhanced_voice
