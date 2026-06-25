@@ -43,6 +43,8 @@ class VoiceSocket:
         reconnect: typing.Optional[typing.Mapping[str, typing.Any]] = None,
     ) -> None:
         self._socket = socket
+        self.call: typing.Any = None
+        self.call_id: typing.Optional[str] = None
         self._create_socket = create_socket
         self._reconnect = _normalize_reconnect_options(reconnect)
         self._listeners: typing.Dict[VoiceEvent, typing.List[typing.Callable[[typing.Any], None]]] = {}
@@ -223,6 +225,8 @@ class VoiceSocket:
                 self._emit("event", frame)
             elif frame.get("event") == "media":
                 self._emit("media", frame)
+            elif frame.get("event") == "connected":
+                return
             else:
                 raise RuntimeError("Voice socket received an unknown frame event.")
         except BaseException as error:

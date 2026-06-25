@@ -28,6 +28,7 @@ from ..types.call_direction import CallDirection
 from ..types.call_metadata import CallMetadata
 from ..types.call_state import CallState
 from ..types.call_stream_token import CallStreamToken
+from ..types.created_call import CreatedCall
 from ..types.error import Error
 from ..types.list_call_events_response import ListCallEventsResponse
 from ..types.list_calls_response import ListCallsResponse
@@ -156,7 +157,7 @@ class RawCallsClient:
         record: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[CallMetadata] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[Call]:
+    ) -> HttpResponse[CreatedCall]:
         """
         Start an outbound voice call from a voice-enabled phone number owned by your team.
 
@@ -178,7 +179,7 @@ class RawCallsClient:
 
         Returns
         -------
-        HttpResponse[Call]
+        HttpResponse[CreatedCall]
             Call created.
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -199,9 +200,9 @@ class RawCallsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Call,
+                    CreatedCall,
                     parse_obj_as(
-                        type_=Call,  # type: ignore
+                        type_=CreatedCall,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1145,7 +1146,7 @@ class AsyncRawCallsClient:
         record: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[CallMetadata] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[Call]:
+    ) -> AsyncHttpResponse[CreatedCall]:
         """
         Start an outbound voice call from a voice-enabled phone number owned by your team.
 
@@ -1167,7 +1168,7 @@ class AsyncRawCallsClient:
 
         Returns
         -------
-        AsyncHttpResponse[Call]
+        AsyncHttpResponse[CreatedCall]
             Call created.
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1188,9 +1189,9 @@ class AsyncRawCallsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Call,
+                    CreatedCall,
                     parse_obj_as(
-                        type_=Call,  # type: ignore
+                        type_=CreatedCall,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -10,6 +10,7 @@ from ..types.call_direction import CallDirection
 from ..types.call_metadata import CallMetadata
 from ..types.call_state import CallState
 from ..types.call_stream_token import CallStreamToken
+from ..types.created_call import CreatedCall
 from ..types.list_call_events_response import ListCallEventsResponse
 from ..types.list_calls_response import ListCallsResponse
 from ..types.recording_download import RecordingDownload
@@ -108,7 +109,7 @@ class CallsClient:
         record: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[CallMetadata] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> Call:
+    ) -> CreatedCall:
         """
         Start an outbound voice call from a voice-enabled phone number owned by your team.
 
@@ -130,7 +131,7 @@ class CallsClient:
 
         Returns
         -------
-        Call
+        CreatedCall
             Call created.
 
         Examples
@@ -510,7 +511,7 @@ class AsyncCallsClient:
         record: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[CallMetadata] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> Call:
+    ) -> CreatedCall:
         """
         Start an outbound voice call from a voice-enabled phone number owned by your team.
 
@@ -532,7 +533,7 @@ class AsyncCallsClient:
 
         Returns
         -------
-        Call
+        CreatedCall
             Call created.
 
         Examples

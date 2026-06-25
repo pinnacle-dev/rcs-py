@@ -2,4 +2,4 @@
 
 import typing
 
-CallEventSource = typing.Union[typing.Literal["WEBHOOK", "REST", "WS_COMMAND"], typing.Any]
+CallEventSource = typing.Union[typing.Literal["WEBHOOK", "REST", "WS", "SYSTEM"], typing.Any]

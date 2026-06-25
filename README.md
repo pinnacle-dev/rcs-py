@@ -1,6 +1,6 @@
 # Pinnacle Python Library
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fpinnacle-dev%2Frcs-py)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=Pinnacle%2FPython)
 [![pypi](https://img.shields.io/pypi/v/rcs)](https://pypi.python.org/pypi/rcs)
 
 The Pinnacle Python library provides convenient access to the Pinnacle APIs from Python.
@@ -27,7 +27,7 @@ pip install rcs
 
 ## Reference
 
-A full reference for this library is available [here](https://github.com/pinnacle-dev/rcs-py/blob/HEAD/./reference.md).
+A full reference for this library is available [here](./reference.md).
 
 ## Usage
 

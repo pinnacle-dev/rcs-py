@@ -12,7 +12,7 @@ from .call_state import CallState
 from .recording_state import RecordingState
 
 
-class Call(UniversalBaseModel):
+class CreatedCall(UniversalBaseModel):
     id: str
     state: CallState
     direction: CallDirection
@@ -29,6 +29,10 @@ class Call(UniversalBaseModel):
     """
 
     hangup_cause: typing.Optional[str] = None
+    record: bool = pydantic.Field()
+    """
+    Echoes the requested create-time recording option. This field is only returned by `POST /calls`.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
