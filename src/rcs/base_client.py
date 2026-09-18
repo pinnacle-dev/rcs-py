@@ -14,6 +14,7 @@ if typing.TYPE_CHECKING:
     from .campaigns.client import AsyncCampaignsClient, CampaignsClient
     from .contacts.client import AsyncContactsClient, ContactsClient
     from .conversations.client import AsyncConversationsClient, ConversationsClient
+    from .faxes.client import AsyncFaxesClient, FaxesClient
     from .forms.client import AsyncFormsClient, FormsClient
     from .messages.client import AsyncMessagesClient, MessagesClient
     from .phone_numbers.client import AsyncPhoneNumbersClient, PhoneNumbersClient
@@ -96,6 +97,7 @@ class PinnacleBase:
         self._phone_numbers: typing.Optional[PhoneNumbersClient] = None
         self._rcs: typing.Optional[RcsClient] = None
         self._webhooks: typing.Optional[WebhooksClient] = None
+        self._faxes: typing.Optional[FaxesClient] = None
         self._forms: typing.Optional[FormsClient] = None
         self._campaigns: typing.Optional[CampaignsClient] = None
         self._status: typing.Optional[StatusClient] = None
@@ -164,6 +166,14 @@ class PinnacleBase:
 
             self._webhooks = WebhooksClient(client_wrapper=self._client_wrapper)
         return self._webhooks
+
+    @property
+    def faxes(self):
+        if self._faxes is None:
+            from .faxes.client import FaxesClient  # noqa: E402
+
+            self._faxes = FaxesClient(client_wrapper=self._client_wrapper)
+        return self._faxes
 
     @property
     def forms(self):
@@ -271,6 +281,7 @@ class AsyncPinnacleBase:
         self._phone_numbers: typing.Optional[AsyncPhoneNumbersClient] = None
         self._rcs: typing.Optional[AsyncRcsClient] = None
         self._webhooks: typing.Optional[AsyncWebhooksClient] = None
+        self._faxes: typing.Optional[AsyncFaxesClient] = None
         self._forms: typing.Optional[AsyncFormsClient] = None
         self._campaigns: typing.Optional[AsyncCampaignsClient] = None
         self._status: typing.Optional[AsyncStatusClient] = None
@@ -339,6 +350,14 @@ class AsyncPinnacleBase:
 
             self._webhooks = AsyncWebhooksClient(client_wrapper=self._client_wrapper)
         return self._webhooks
+
+    @property
+    def faxes(self):
+        if self._faxes is None:
+            from .faxes.client import AsyncFaxesClient  # noqa: E402
+
+            self._faxes = AsyncFaxesClient(client_wrapper=self._client_wrapper)
+        return self._faxes
 
     @property
     def forms(self):

@@ -122,6 +122,15 @@ if typing.TYPE_CHECKING:
     from .extended_rcs_campaign import ExtendedRcsCampaign
     from .failed_sender import FailedSender
     from .fallback_message import FallbackMessage
+    from .fax import Fax
+    from .fax_billing_status_enum import FaxBillingStatusEnum
+    from .fax_detail import FaxDetail
+    from .fax_direction_enum import FaxDirectionEnum
+    from .fax_event import FaxEvent
+    from .fax_event_type import FaxEventType
+    from .fax_failure_reason_enum import FaxFailureReasonEnum
+    from .fax_quality_enum import FaxQualityEnum
+    from .fax_status_enum import FaxStatusEnum
     from .field_base import FieldBase
     from .form import Form
     from .form_background import (
@@ -185,6 +194,7 @@ if typing.TYPE_CHECKING:
     from .list_brands_response import ListBrandsResponse
     from .list_contacts_response import ListContactsResponse
     from .list_dlc_campaigns_response import ListDlcCampaignsResponse
+    from .list_faxes_response import ListFaxesResponse
     from .list_form_submissions_response import ListFormSubmissionsResponse
     from .list_forms_response import ListFormsResponse
     from .list_links_response import ListLinksResponse
@@ -603,6 +613,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExtendedRcsCampaign": ".extended_rcs_campaign",
     "FailedSender": ".failed_sender",
     "FallbackMessage": ".fallback_message",
+    "Fax": ".fax",
+    "FaxBillingStatusEnum": ".fax_billing_status_enum",
+    "FaxDetail": ".fax_detail",
+    "FaxDirectionEnum": ".fax_direction_enum",
+    "FaxEvent": ".fax_event",
+    "FaxEventType": ".fax_event_type",
+    "FaxFailureReasonEnum": ".fax_failure_reason_enum",
+    "FaxQualityEnum": ".fax_quality_enum",
+    "FaxStatusEnum": ".fax_status_enum",
     "FieldBase": ".field_base",
     "Form": ".form",
     "FormBackground": ".form_background",
@@ -662,6 +681,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListBrandsResponse": ".list_brands_response",
     "ListContactsResponse": ".list_contacts_response",
     "ListDlcCampaignsResponse": ".list_dlc_campaigns_response",
+    "ListFaxesResponse": ".list_faxes_response",
     "ListFormSubmissionsResponse": ".list_form_submissions_response",
     "ListFormsResponse": ".list_forms_response",
     "ListLinksResponse": ".list_links_response",
@@ -1090,6 +1110,15 @@ __all__ = [
     "ExtendedRcsCampaign",
     "FailedSender",
     "FallbackMessage",
+    "Fax",
+    "FaxBillingStatusEnum",
+    "FaxDetail",
+    "FaxDirectionEnum",
+    "FaxEvent",
+    "FaxEventType",
+    "FaxFailureReasonEnum",
+    "FaxQualityEnum",
+    "FaxStatusEnum",
     "FieldBase",
     "Form",
     "FormBackground",
@@ -1149,6 +1178,7 @@ __all__ = [
     "ListBrandsResponse",
     "ListContactsResponse",
     "ListDlcCampaignsResponse",
+    "ListFaxesResponse",
     "ListFormSubmissionsResponse",
     "ListFormsResponse",
     "ListLinksResponse",
