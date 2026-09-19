@@ -81,10 +81,10 @@ class FaxesClient:
     def send(
         self,
         *,
-        idempotency_key: str,
         from_: str,
         to: str,
         media_url: str,
+        idempotency_key: typing.Optional[str] = None,
         quality: typing.Optional[FaxQualityEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Fax:
@@ -111,13 +111,10 @@ class FaxesClient:
 
         **Delivery uncertainty:** Pinnacle does not automatically retry a fax after transmission may have started, which prevents duplicate delivery and charges. If transmission cannot be confirmed, status becomes `SUBMISSION_UNKNOWN` while Pinnacle reconciles the fax.
 
-        **Idempotency:** reuse the same `Idempotency-Key` and identical body after a client timeout. The key is scoped to your team and covers `from`, `to`, `mediaUrl`, and `quality`. Reusing it with an identical body returns the existing logical fax; changing any of those fields returns 409 and never sends another fax.
+        **Idempotency:** `Idempotency-Key` is optional. Without it, each request creates a new fax, including retries. For retry-safe sending, generate a UUID for each intended fax and retain it until the outcome is known. After a client timeout, retry with the same key and identical body. The key is scoped to your team and covers `from`, `to`, `mediaUrl`, and `quality`. Reusing it with an identical body returns the existing fax; changing any of those fields returns 409.
 
         Parameters
         ----------
-        idempotency_key : str
-            Unique key for one logical send. Use 1–128 ASCII letters, numbers, periods, underscores, or hyphens. Reuse it only with the identical `from`, `to`, `mediaUrl`, and effective `quality`; any change returns 409.
-
         from_ : str
             Fax-enabled, non-sandbox number owned by your HIPAA team, in E.164 format (`+` followed by 10–15 digits; the first digit cannot be zero). The number must remain enabled and configured through preparation. Fax sending is unavailable to development-mode teams.
 
@@ -130,6 +127,9 @@ class FaxesClient:
             The origin must complete the download within 30 seconds and return no more than 16 KiB of response headers. If present, `Content-Length` must be a non-negative decimal integer no greater than 50,000,000, and `Content-Type` must be one of the accepted types listed in the endpoint description. The source and processed document must each be no larger than 50,000,000 bytes. The document must contain 1–3,500 pages.
 
             A permitted URL extension or `Content-Type` is not sufficient: file signatures and structure must identify a supported format. JPEG/PNG images are limited to 250,000,000 pixels and TIFF images to 2,000,000,000 pixels. DOCX archives must be non-encrypted and free of macros, ActiveX controls, embedded objects, symbolic links, and unsafe paths; ZIP64 and multi-disk containers are not accepted. See the endpoint description for the complete DOCX archive and document-processing limits.
+
+        idempotency_key : typing.Optional[str]
+            Optional unique key for one logical send. Without it, every request creates a new fax. Use 1–128 ASCII letters, numbers, periods, underscores, or hyphens. Reuse it only with the identical `from`, `to`, `mediaUrl`, and effective `quality`; any change returns 409.
 
         quality : typing.Optional[FaxQualityEnum]
             Rendering profile applied to the fax. Defaults to `HIGH`. Higher-detail profiles can take longer to process but do not change the $0.025 per-page price or any document limit.
@@ -150,17 +150,16 @@ class FaxesClient:
             api_key="YOUR_API_KEY",
         )
         client.faxes.send(
-            idempotency_key="Idempotency-Key",
             from_="from",
             to="to",
             media_url="mediaUrl",
         )
         """
         _response = self._raw_client.send(
-            idempotency_key=idempotency_key,
             from_=from_,
             to=to,
             media_url=media_url,
+            idempotency_key=idempotency_key,
             quality=quality,
             request_options=request_options,
         )
@@ -315,10 +314,10 @@ class AsyncFaxesClient:
     async def send(
         self,
         *,
-        idempotency_key: str,
         from_: str,
         to: str,
         media_url: str,
+        idempotency_key: typing.Optional[str] = None,
         quality: typing.Optional[FaxQualityEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Fax:
@@ -345,13 +344,10 @@ class AsyncFaxesClient:
 
         **Delivery uncertainty:** Pinnacle does not automatically retry a fax after transmission may have started, which prevents duplicate delivery and charges. If transmission cannot be confirmed, status becomes `SUBMISSION_UNKNOWN` while Pinnacle reconciles the fax.
 
-        **Idempotency:** reuse the same `Idempotency-Key` and identical body after a client timeout. The key is scoped to your team and covers `from`, `to`, `mediaUrl`, and `quality`. Reusing it with an identical body returns the existing logical fax; changing any of those fields returns 409 and never sends another fax.
+        **Idempotency:** `Idempotency-Key` is optional. Without it, each request creates a new fax, including retries. For retry-safe sending, generate a UUID for each intended fax and retain it until the outcome is known. After a client timeout, retry with the same key and identical body. The key is scoped to your team and covers `from`, `to`, `mediaUrl`, and `quality`. Reusing it with an identical body returns the existing fax; changing any of those fields returns 409.
 
         Parameters
         ----------
-        idempotency_key : str
-            Unique key for one logical send. Use 1–128 ASCII letters, numbers, periods, underscores, or hyphens. Reuse it only with the identical `from`, `to`, `mediaUrl`, and effective `quality`; any change returns 409.
-
         from_ : str
             Fax-enabled, non-sandbox number owned by your HIPAA team, in E.164 format (`+` followed by 10–15 digits; the first digit cannot be zero). The number must remain enabled and configured through preparation. Fax sending is unavailable to development-mode teams.
 
@@ -364,6 +360,9 @@ class AsyncFaxesClient:
             The origin must complete the download within 30 seconds and return no more than 16 KiB of response headers. If present, `Content-Length` must be a non-negative decimal integer no greater than 50,000,000, and `Content-Type` must be one of the accepted types listed in the endpoint description. The source and processed document must each be no larger than 50,000,000 bytes. The document must contain 1–3,500 pages.
 
             A permitted URL extension or `Content-Type` is not sufficient: file signatures and structure must identify a supported format. JPEG/PNG images are limited to 250,000,000 pixels and TIFF images to 2,000,000,000 pixels. DOCX archives must be non-encrypted and free of macros, ActiveX controls, embedded objects, symbolic links, and unsafe paths; ZIP64 and multi-disk containers are not accepted. See the endpoint description for the complete DOCX archive and document-processing limits.
+
+        idempotency_key : typing.Optional[str]
+            Optional unique key for one logical send. Without it, every request creates a new fax. Use 1–128 ASCII letters, numbers, periods, underscores, or hyphens. Reuse it only with the identical `from`, `to`, `mediaUrl`, and effective `quality`; any change returns 409.
 
         quality : typing.Optional[FaxQualityEnum]
             Rendering profile applied to the fax. Defaults to `HIGH`. Higher-detail profiles can take longer to process but do not change the $0.025 per-page price or any document limit.
@@ -389,7 +388,6 @@ class AsyncFaxesClient:
 
         async def main() -> None:
             await client.faxes.send(
-                idempotency_key="Idempotency-Key",
                 from_="from",
                 to="to",
                 media_url="mediaUrl",
@@ -399,10 +397,10 @@ class AsyncFaxesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.send(
-            idempotency_key=idempotency_key,
             from_=from_,
             to=to,
             media_url=media_url,
+            idempotency_key=idempotency_key,
             quality=quality,
             request_options=request_options,
         )
