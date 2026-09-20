@@ -9,6 +9,7 @@ if typing.TYPE_CHECKING:
     from .blast_mms_options import BlastMmsOptions
     from .blast_mms_response import BlastMmsResponse
     from .blast_rcs_options import BlastRcsOptions
+    from .blast_rcs_request_options_card_width import BlastRcsRequestOptionsCardWidth
     from .blast_rcs_request_options_standalone_card import BlastRcsRequestOptionsStandaloneCard
     from .blast_rcs_request_options_standalone_card_image_alignment import (
         BlastRcsRequestOptionsStandaloneCardImageAlignment,
@@ -21,6 +22,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BlastMmsOptions": ".blast_mms_options",
     "BlastMmsResponse": ".blast_mms_response",
     "BlastRcsOptions": ".blast_rcs_options",
+    "BlastRcsRequestOptionsCardWidth": ".blast_rcs_request_options_card_width",
     "BlastRcsRequestOptionsStandaloneCard": ".blast_rcs_request_options_standalone_card",
     "BlastRcsRequestOptionsStandaloneCardImageAlignment": ".blast_rcs_request_options_standalone_card_image_alignment",
     "BlastRcsRequestOptionsStandaloneCardOrientation": ".blast_rcs_request_options_standalone_card_orientation",
@@ -53,6 +55,7 @@ __all__ = [
     "BlastMmsOptions",
     "BlastMmsResponse",
     "BlastRcsOptions",
+    "BlastRcsRequestOptionsCardWidth",
     "BlastRcsRequestOptionsStandaloneCard",
     "BlastRcsRequestOptionsStandaloneCardImageAlignment",
     "BlastRcsRequestOptionsStandaloneCardOrientation",

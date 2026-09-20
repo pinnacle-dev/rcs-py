@@ -7,6 +7,7 @@ import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ....core.serialization import FieldMetadata
 from ....types.message_schedule import MessageSchedule
+from .blast_rcs_request_options_card_width import BlastRcsRequestOptionsCardWidth
 from .blast_rcs_request_options_standalone_card import BlastRcsRequestOptionsStandaloneCard
 
 
@@ -36,6 +37,17 @@ class BlastRcsOptions(UniversalBaseModel):
     > **⚠️ Important Restriction**
     >
     > This option is **only valid for single card messages**. Using it with multiple cards will cause the request to fail with a validation error.
+    """
+
+    card_width: typing_extensions.Annotated[
+        typing.Optional[BlastRcsRequestOptionsCardWidth], FieldMetadata(alias="cardWidth")
+    ] = pydantic.Field(default=None)
+    """
+    Width of each card in a carousel. <br><br>
+    **Default:** `MEDIUM` <br>
+    **Valid for:** Multi-card messages (2 to 10 cards). <br>
+    **Not valid for:** Single-card messages. Setting it with one card fails validation. <br>
+    **Platform:** Card width selection applies only on Android. For iOS, assume `MEDIUM`.
     """
 
     schedule: typing.Optional[MessageSchedule] = None

@@ -50,7 +50,8 @@ class SendRichCardsOptions(UniversalBaseModel):
     Width of each card in a carousel. <br><br>
     **Default:** `MEDIUM` <br>
     **Valid for:** Multi-card messages (2 to 10 cards). <br>
-    **Not valid for:** Single-card messages. Setting it with one card fails validation.
+    **Not valid for:** Single-card messages. Setting it with one card fails validation. <br>
+    **Platform:** Card width selection applies only on Android. For iOS, assume `MEDIUM`.
     """
 
     if IS_PYDANTIC_V2:
