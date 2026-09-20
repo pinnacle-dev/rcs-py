@@ -3,7 +3,10 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
+from .rcs_cards_cards_item_media_height import RcsCardsCardsItemMediaHeight
 from .rich_button import RichButton
 
 
@@ -21,6 +24,17 @@ class RichCard(UniversalBaseModel):
     media: typing.Optional[str] = pydantic.Field(default=None)
     """
     Media file URLs to send.
+    """
+
+    media_height: typing_extensions.Annotated[
+        typing.Optional[RcsCardsCardsItemMediaHeight], FieldMetadata(alias="mediaHeight")
+    ] = pydantic.Field(default=None)
+    """
+    Height of the card media. <br><br>
+    **Default:** `MEDIUM` <br>
+    **Valid for:** Carousel cards and vertical standalone cards. <br>
+    **Not valid for:** Horizontal standalone cards. <br>
+    **Requires:** The card must include a `media` field.
     """
 
     subtitle: typing.Optional[str] = pydantic.Field(default=None)

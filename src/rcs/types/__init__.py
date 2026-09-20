@@ -334,6 +334,7 @@ if typing.TYPE_CHECKING:
     from .rcs_capability import RcsCapability
     from .rcs_capability_actions import RcsCapabilityActions
     from .rcs_capability_cards import RcsCapabilityCards
+    from .rcs_cards_cards_item_media_height import RcsCardsCardsItemMediaHeight
     from .rcs_cards_content import RcsCardsContent
     from .rcs_cards_content_cards_item import RcsCardsContentCardsItem
     from .rcs_content import RcsContent
@@ -384,6 +385,7 @@ if typing.TYPE_CHECKING:
     from .send_form_via_rcs_request_form import SendFormViaRcsRequestForm
     from .send_form_via_sms_params import SendFormViaSmsParams
     from .send_form_via_sms_request_form import SendFormViaSmsRequestForm
+    from .send_rcs_card_options_card_width import SendRcsCardOptionsCardWidth
     from .send_rcs_card_options_standalone_card_image_alignment import SendRcsCardOptionsStandaloneCardImageAlignment
     from .send_rcs_card_options_standalone_card_orientation import SendRcsCardOptionsStandaloneCardOrientation
     from .send_rich_cards_options import SendRichCardsOptions
@@ -815,6 +817,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsCapability": ".rcs_capability",
     "RcsCapabilityActions": ".rcs_capability_actions",
     "RcsCapabilityCards": ".rcs_capability_cards",
+    "RcsCardsCardsItemMediaHeight": ".rcs_cards_cards_item_media_height",
     "RcsCardsContent": ".rcs_cards_content",
     "RcsCardsContentCardsItem": ".rcs_cards_content_cards_item",
     "RcsContent": ".rcs_content",
@@ -863,6 +866,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SendFormViaRcsRequestForm": ".send_form_via_rcs_request_form",
     "SendFormViaSmsParams": ".send_form_via_sms_params",
     "SendFormViaSmsRequestForm": ".send_form_via_sms_request_form",
+    "SendRcsCardOptionsCardWidth": ".send_rcs_card_options_card_width",
     "SendRcsCardOptionsStandaloneCardImageAlignment": ".send_rcs_card_options_standalone_card_image_alignment",
     "SendRcsCardOptionsStandaloneCardOrientation": ".send_rcs_card_options_standalone_card_orientation",
     "SendRichCardsOptions": ".send_rich_cards_options",
@@ -1312,6 +1316,7 @@ __all__ = [
     "RcsCapability",
     "RcsCapabilityActions",
     "RcsCapabilityCards",
+    "RcsCardsCardsItemMediaHeight",
     "RcsCardsContent",
     "RcsCardsContentCardsItem",
     "RcsContent",
@@ -1360,6 +1365,7 @@ __all__ = [
     "SendFormViaRcsRequestForm",
     "SendFormViaSmsParams",
     "SendFormViaSmsRequestForm",
+    "SendRcsCardOptionsCardWidth",
     "SendRcsCardOptionsStandaloneCardImageAlignment",
     "SendRcsCardOptionsStandaloneCardOrientation",
     "SendRichCardsOptions",

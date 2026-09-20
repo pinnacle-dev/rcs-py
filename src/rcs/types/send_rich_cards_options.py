@@ -8,6 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .message_schedule import MessageSchedule
 from .rich_standalone_card_options import RichStandaloneCardOptions
+from .send_rcs_card_options_card_width import SendRcsCardOptionsCardWidth
 from .tracking import Tracking
 
 
@@ -40,6 +41,16 @@ class SendRichCardsOptions(UniversalBaseModel):
     >
     > This option is **only valid for single card messages** with static media. Using it with multiple cards will cause the request to fail with a validation error.
     > GIFs and videos are not supported and will be rendered as vertical cards.
+    """
+
+    card_width: typing_extensions.Annotated[
+        typing.Optional[SendRcsCardOptionsCardWidth], FieldMetadata(alias="cardWidth")
+    ] = pydantic.Field(default=None)
+    """
+    Width of each card in a carousel. <br><br>
+    **Default:** `MEDIUM` <br>
+    **Valid for:** Multi-card messages (2 to 10 cards). <br>
+    **Not valid for:** Single-card messages. Setting it with one card fails validation.
     """
 
     if IS_PYDANTIC_V2:
