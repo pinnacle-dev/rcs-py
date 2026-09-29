@@ -81,6 +81,10 @@ jobs:
       - name: Apply generated sources
         working-directory: docs
         run: scripts/apply-generated-sdk.sh python
+      - name: Verify maintained files were preserved
+        working-directory: docs/sdks/python
+        run: |
+          git diff --exit-code -- .fernignore .github/workflows/ci.yml .github/workflows/regenerate-sdk.yml README.md src/rcs/client.py src/rcs/py.typed src/rcs/utils.py src/rcs/version.py src/rcs/wrapper
       - name: Test generated SDK
         working-directory: docs/sdks/python
         run: |
