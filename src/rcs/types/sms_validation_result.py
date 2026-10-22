@@ -8,9 +8,13 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .sms_validation_response_segments import SmsValidationResponseSegments
 from .sms_validation_response_total import SmsValidationResponseTotal
+from .validation_pricing_context import ValidationPricingContext
 
 
 class SmsValidationResult(UniversalBaseModel):
+    pricing_context: typing_extensions.Annotated[
+        typing.Optional[ValidationPricingContext], FieldMetadata(alias="pricingContext")
+    ] = None
     is_over_segment_limit: typing_extensions.Annotated[
         typing.Optional[bool], FieldMetadata(alias="isOverSegmentLimit")
     ] = pydantic.Field(default=None)

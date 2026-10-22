@@ -131,7 +131,10 @@ class RcsClient:
         self, *, request: RcsValidateContent, request_options: typing.Optional[RequestOptions] = None
     ) -> RcsValidationResult:
         """
-        Validate RCS message content without sending it.
+        Validate RCS content without sending or charging. Supply your business sender
+        and direction for a team-specific pricing estimate. Sender always identifies the
+        business side, including for inbound messages. Without sender, segmentation still
+        works and the response uses generic legacy pricing. No client-provided rate is accepted.
 
         Parameters
         ----------
@@ -147,14 +150,16 @@ class RcsClient:
 
         Examples
         --------
-        from rcs import Pinnacle, RichText
+        from rcs import Pinnacle, RcsValidateContentText
 
         client = Pinnacle(
             api_key="YOUR_API_KEY",
         )
         client.messages.rcs.validate(
-            request=RichText(
-                text="text",
+            request=RcsValidateContentText(
+                text="Hello from Pinnacle",
+                sender="agent_example",
+                direction="OUTBOUND",
             ),
         )
         """
@@ -294,7 +299,10 @@ class AsyncRcsClient:
         self, *, request: RcsValidateContent, request_options: typing.Optional[RequestOptions] = None
     ) -> RcsValidationResult:
         """
-        Validate RCS message content without sending it.
+        Validate RCS content without sending or charging. Supply your business sender
+        and direction for a team-specific pricing estimate. Sender always identifies the
+        business side, including for inbound messages. Without sender, segmentation still
+        works and the response uses generic legacy pricing. No client-provided rate is accepted.
 
         Parameters
         ----------
@@ -312,7 +320,7 @@ class AsyncRcsClient:
         --------
         import asyncio
 
-        from rcs import AsyncPinnacle, RichText
+        from rcs import AsyncPinnacle, RcsValidateContentText
 
         client = AsyncPinnacle(
             api_key="YOUR_API_KEY",
@@ -321,8 +329,10 @@ class AsyncRcsClient:
 
         async def main() -> None:
             await client.messages.rcs.validate(
-                request=RichText(
-                    text="text",
+                request=RcsValidateContentText(
+                    text="Hello from Pinnacle",
+                    sender="agent_example",
+                    direction="OUTBOUND",
                 ),
             )
 

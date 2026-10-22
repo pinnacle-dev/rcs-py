@@ -6,6 +6,7 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .rcs_validate_content_media_direction import RcsValidateContentMediaDirection
 from .rich_button import RichButton
 
 
@@ -24,6 +25,15 @@ class RcsValidateContentMedia(UniversalBaseModel):
     quick_replies: typing_extensions.Annotated[
         typing.Optional[typing.List[RichButton]], FieldMetadata(alias="quickReplies")
     ] = None
+    sender: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Your team-owned Pinnacle RCS agent ID, including agent_. For INBOUND, use the business receiving agent. Omit for a generic estimate.
+    """
+
+    direction: typing.Optional[RcsValidateContentMediaDirection] = pydantic.Field(default=None)
+    """
+    Direction relative to your business. Defaults to OUTBOUND.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

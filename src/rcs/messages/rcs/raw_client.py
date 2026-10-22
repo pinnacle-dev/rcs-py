@@ -295,7 +295,10 @@ class RawRcsClient:
         self, *, request: RcsValidateContent, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[RcsValidationResult]:
         """
-        Validate RCS message content without sending it.
+        Validate RCS content without sending or charging. Supply your business sender
+        and direction for a team-specific pricing estimate. Sender always identifies the
+        business side, including for inbound messages. Without sender, segmentation still
+        works and the response uses generic legacy pricing. No client-provided rate is accepted.
 
         Parameters
         ----------
@@ -360,6 +363,17 @@ class RawRcsClient:
                         Error,
                         parse_obj_as(
                             type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -649,7 +663,10 @@ class AsyncRawRcsClient:
         self, *, request: RcsValidateContent, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[RcsValidationResult]:
         """
-        Validate RCS message content without sending it.
+        Validate RCS content without sending or charging. Supply your business sender
+        and direction for a team-specific pricing estimate. Sender always identifies the
+        business side, including for inbound messages. Without sender, segmentation still
+        works and the response uses generic legacy pricing. No client-provided rate is accepted.
 
         Parameters
         ----------
@@ -714,6 +731,17 @@ class AsyncRawRcsClient:
                         Error,
                         parse_obj_as(
                             type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

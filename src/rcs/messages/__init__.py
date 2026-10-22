@@ -6,6 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .sms import SmsValidateContentDirection
     from .types import (
         ListMessagesRequestDirection,
         ListMessagesRequestMethod,
@@ -31,6 +32,8 @@ if typing.TYPE_CHECKING:
     from .schedules import ListScheduledMessagesRequestScheduleType, ListScheduledMessagesRequestStatus
     from .sms import SendSmsOptions, SmsSendResponse
 _dynamic_imports: typing.Dict[str, str] = {
+    "SmsValidateContentDirection": ".sms",
+
     "BlastMmsOptions": ".blast",
     "BlastMmsResponse": ".blast",
     "BlastRcsOptions": ".blast",
@@ -84,6 +87,8 @@ def __dir__():
 
 
 __all__ = [
+    "SmsValidateContentDirection",
+
     "BlastMmsOptions",
     "BlastMmsResponse",
     "BlastRcsOptions",

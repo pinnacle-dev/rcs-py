@@ -6,6 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .types import RcsValidateContentCards, RcsValidateContentCardsCardsItemMediaHeight, RcsValidateContentCardsDirection, RcsValidateContentMediaDirection, RcsValidateContentText, RcsValidateContentTextDirection, RichCard3, ValidationPricingContext, ValidationPricingContextCategory, ValidationPricingContextDirection, ValidationPricingContextStatus
     from .types import (
         AddressField,
         AdvancedPhoneInformation,
@@ -547,6 +548,18 @@ if typing.TYPE_CHECKING:
     from .version import __version__
     from .webhooks import ListWebhooksRequestStatus
 _dynamic_imports: typing.Dict[str, str] = {
+    "RcsValidateContentCards": ".types",
+    "RcsValidateContentCardsCardsItemMediaHeight": ".types",
+    "RcsValidateContentCardsDirection": ".types",
+    "RcsValidateContentMediaDirection": ".types",
+    "RcsValidateContentText": ".types",
+    "RcsValidateContentTextDirection": ".types",
+    "RichCard3": ".types",
+    "ValidationPricingContext": ".types",
+    "ValidationPricingContextCategory": ".types",
+    "ValidationPricingContextDirection": ".types",
+    "ValidationPricingContextStatus": ".types",
+
     "AddressField": ".types",
     "AdvancedPhoneInformation": ".types",
     "AdvancedPhoneInformationCarrier": ".types",
@@ -1097,6 +1110,18 @@ def __dir__():
 
 
 __all__ = [
+    "RcsValidateContentCards",
+    "RcsValidateContentCardsCardsItemMediaHeight",
+    "RcsValidateContentCardsDirection",
+    "RcsValidateContentMediaDirection",
+    "RcsValidateContentText",
+    "RcsValidateContentTextDirection",
+    "RichCard3",
+    "ValidationPricingContext",
+    "ValidationPricingContextCategory",
+    "ValidationPricingContextDirection",
+    "ValidationPricingContextStatus",
+
     "AddressField",
     "AdvancedPhoneInformation",
     "AdvancedPhoneInformationCarrier",

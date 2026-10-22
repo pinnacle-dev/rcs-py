@@ -20,6 +20,7 @@ from ...types.error import Error
 from ...types.sms_validation_result import SmsValidationResult
 from .types.send_sms_options import SendSmsOptions
 from .types.sms_send_response import SmsSendResponse
+from .types.sms_validate_content_direction import SmsValidateContentDirection
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -175,15 +176,29 @@ class RawSmsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def validate(
-        self, *, text: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        text: str,
+        sender: typing.Optional[str] = OMIT,
+        direction: typing.Optional[SmsValidateContentDirection] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SmsValidationResult]:
         """
-        Validate SMS message content without sending it.
+        Validate SMS content without sending or charging. Supply your business sender
+        and direction for a team-specific pricing estimate. Sender always identifies the
+        business side, including for inbound messages. Without sender, segmentation still
+        works and the response uses generic legacy pricing. No client-provided rate is accepted.
 
         Parameters
         ----------
         text : str
             Message content.
+
+        sender : typing.Optional[str]
+            Your team-owned Pinnacle phone number in E.164 format, not the consumer number. For INBOUND, use the business receiving number. Omit for a generic estimate.
+
+        direction : typing.Optional[SmsValidateContentDirection]
+            Direction relative to your business. Defaults to OUTBOUND.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -198,6 +213,8 @@ class RawSmsClient:
             method="POST",
             json={
                 "text": text,
+                "sender": sender,
+                "direction": direction,
             },
             headers={
                 "content-type": "application/json",
@@ -244,6 +261,17 @@ class RawSmsClient:
                         Error,
                         parse_obj_as(
                             type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -415,15 +443,29 @@ class AsyncRawSmsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def validate(
-        self, *, text: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        text: str,
+        sender: typing.Optional[str] = OMIT,
+        direction: typing.Optional[SmsValidateContentDirection] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SmsValidationResult]:
         """
-        Validate SMS message content without sending it.
+        Validate SMS content without sending or charging. Supply your business sender
+        and direction for a team-specific pricing estimate. Sender always identifies the
+        business side, including for inbound messages. Without sender, segmentation still
+        works and the response uses generic legacy pricing. No client-provided rate is accepted.
 
         Parameters
         ----------
         text : str
             Message content.
+
+        sender : typing.Optional[str]
+            Your team-owned Pinnacle phone number in E.164 format, not the consumer number. For INBOUND, use the business receiving number. Omit for a generic estimate.
+
+        direction : typing.Optional[SmsValidateContentDirection]
+            Direction relative to your business. Defaults to OUTBOUND.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -438,6 +480,8 @@ class AsyncRawSmsClient:
             method="POST",
             json={
                 "text": text,
+                "sender": sender,
+                "direction": direction,
             },
             headers={
                 "content-type": "application/json",
@@ -484,6 +528,17 @@ class AsyncRawSmsClient:
                         Error,
                         parse_obj_as(
                             type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

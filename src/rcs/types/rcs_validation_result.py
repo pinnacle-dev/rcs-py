@@ -6,9 +6,13 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
+from .validation_pricing_context import ValidationPricingContext
 
 
 class RcsValidationResult(UniversalBaseModel):
+    pricing_context: typing_extensions.Annotated[
+        typing.Optional[ValidationPricingContext], FieldMetadata(alias="pricingContext")
+    ] = None
     total: float = pydantic.Field()
     """
     Total price of this message. Calculated by multiplying the number of messages by the unit cost.

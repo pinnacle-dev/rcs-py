@@ -8,6 +8,7 @@ from ...types.sms_validation_result import SmsValidationResult
 from .raw_client import AsyncRawSmsClient, RawSmsClient
 from .types.send_sms_options import SendSmsOptions
 from .types.sms_send_response import SmsSendResponse
+from .types.sms_validate_content_direction import SmsValidateContentDirection
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -82,14 +83,30 @@ class SmsClient:
         )
         return _response.data
 
-    def validate(self, *, text: str, request_options: typing.Optional[RequestOptions] = None) -> SmsValidationResult:
+    def validate(
+        self,
+        *,
+        text: str,
+        sender: typing.Optional[str] = OMIT,
+        direction: typing.Optional[SmsValidateContentDirection] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SmsValidationResult:
         """
-        Validate SMS message content without sending it.
+        Validate SMS content without sending or charging. Supply your business sender
+        and direction for a team-specific pricing estimate. Sender always identifies the
+        business side, including for inbound messages. Without sender, segmentation still
+        works and the response uses generic legacy pricing. No client-provided rate is accepted.
 
         Parameters
         ----------
         text : str
             Message content.
+
+        sender : typing.Optional[str]
+            Your team-owned Pinnacle phone number in E.164 format, not the consumer number. For INBOUND, use the business receiving number. Omit for a generic estimate.
+
+        direction : typing.Optional[SmsValidateContentDirection]
+            Direction relative to your business. Defaults to OUTBOUND.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -108,9 +125,13 @@ class SmsClient:
         )
         client.messages.sms.validate(
             text="Hello from Pinnacle",
+            sender="+14155550123",
+            direction="OUTBOUND",
         )
         """
-        _response = self._raw_client.validate(text=text, request_options=request_options)
+        _response = self._raw_client.validate(
+            text=text, sender=sender, direction=direction, request_options=request_options
+        )
         return _response.data
 
 
@@ -192,15 +213,29 @@ class AsyncSmsClient:
         return _response.data
 
     async def validate(
-        self, *, text: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        text: str,
+        sender: typing.Optional[str] = OMIT,
+        direction: typing.Optional[SmsValidateContentDirection] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> SmsValidationResult:
         """
-        Validate SMS message content without sending it.
+        Validate SMS content without sending or charging. Supply your business sender
+        and direction for a team-specific pricing estimate. Sender always identifies the
+        business side, including for inbound messages. Without sender, segmentation still
+        works and the response uses generic legacy pricing. No client-provided rate is accepted.
 
         Parameters
         ----------
         text : str
             Message content.
+
+        sender : typing.Optional[str]
+            Your team-owned Pinnacle phone number in E.164 format, not the consumer number. For INBOUND, use the business receiving number. Omit for a generic estimate.
+
+        direction : typing.Optional[SmsValidateContentDirection]
+            Direction relative to your business. Defaults to OUTBOUND.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -224,10 +259,14 @@ class AsyncSmsClient:
         async def main() -> None:
             await client.messages.sms.validate(
                 text="Hello from Pinnacle",
+                sender="+14155550123",
+                direction="OUTBOUND",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.validate(text=text, request_options=request_options)
+        _response = await self._raw_client.validate(
+            text=text, sender=sender, direction=direction, request_options=request_options
+        )
         return _response.data
