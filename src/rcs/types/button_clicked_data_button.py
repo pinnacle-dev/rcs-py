@@ -15,9 +15,9 @@ class ButtonClickedDataButton(UniversalBaseModel):
 
     type: typing.Optional[ButtonClickedDataButtonType] = pydantic.Field(default=None)
     """
-    Type of button clicked. 
-    - `CARD` for card buttons, 
-    - `QUICK_REPLY` for quick replies. 
+    Type of button clicked.
+    - `CARD` for card buttons,
+    - `QUICK_REPLY` for quick replies.
     - `null` if we cannot determine the button type. This is a rare edge case and is mainly here for backward compatibility.
     """
 

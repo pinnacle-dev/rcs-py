@@ -361,7 +361,7 @@ class RawRcsClient:
         <Note>
         **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
 
-        **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+        **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request-body.applicationjson.body.brand) field.
 
         All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/rcs/submit).
         </Note>
@@ -1039,7 +1039,7 @@ class AsyncRawRcsClient:
         <Note>
         **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
 
-        **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+        **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request-body.applicationjson.body.brand) field.
 
         All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/rcs/submit).
         </Note>

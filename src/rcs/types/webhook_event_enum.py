@@ -9,6 +9,7 @@ WebhookEventEnum = typing.Union[
         "USER.TYPING",
         "FORM.SUBMISSION",
         "CAMPAIGN.STATUS",
+        "CALL.STATUS",
         "FAX.STATUS",
         "FAX.RECEIVED",
     ],

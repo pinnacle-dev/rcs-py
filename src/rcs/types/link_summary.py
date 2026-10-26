@@ -11,7 +11,7 @@ from ..core.serialization import FieldMetadata
 class LinkSummary(UniversalBaseModel):
     from_: typing_extensions.Annotated[str, FieldMetadata(alias="from")] = pydantic.Field()
     """
-    The full shortened URL (e.g. https://pncl.to/abc123).
+    The full shortened URL (for example, `https://pncl.to/abc123`; replace with a real URL from your response).
     """
 
     to: str = pydantic.Field()

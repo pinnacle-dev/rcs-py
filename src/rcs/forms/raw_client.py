@@ -463,7 +463,7 @@ class RawFormsClient:
 
         When `to` is omitted, no message is sent — `submission.to` and `message_id` are both `null` — which is useful for embedding the URL in your own outreach.
 
-        On completion, a `FORM.SUBMISSION` webhook event is delivered to webhooks subscribed to the sender. See [Receiving Messages and User Events](/guides/messages/receiving).
+        On completion, a `FORM.SUBMISSION` webhook event is delivered to webhooks subscribed to the sender. See [Receiving Message, Call, and User Events](/guides/messages/receiving).
 
         Parameters
         ----------
@@ -983,7 +983,7 @@ class AsyncRawFormsClient:
 
         When `to` is omitted, no message is sent — `submission.to` and `message_id` are both `null` — which is useful for embedding the URL in your own outreach.
 
-        On completion, a `FORM.SUBMISSION` webhook event is delivered to webhooks subscribed to the sender. See [Receiving Messages and User Events](/guides/messages/receiving).
+        On completion, a `FORM.SUBMISSION` webhook event is delivered to webhooks subscribed to the sender. See [Receiving Message, Call, and User Events](/guides/messages/receiving).
 
         Parameters
         ----------

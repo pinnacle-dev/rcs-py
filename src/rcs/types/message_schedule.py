@@ -15,8 +15,8 @@ class MessageSchedule(UniversalBaseModel):
 
     send_at: typing_extensions.Annotated[str, FieldMetadata(alias="sendAt")] = pydantic.Field()
     """
-    The date and time you want your message to be sent. 
-    - Use [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601), for example: `2024-12-17T14:30:00Z`. Format: `YYYY-MM-DDThh:mm` (e.g., `2024-12-25T14:30`). 
+    The date and time you want your message to be sent.
+    - Use [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601), for example: `2024-12-17T14:30:00Z`. Format: `YYYY-MM-DDThh:mm` (e.g., `2024-12-25T14:30`).
     - This time must be at least 5 minutes in the future.
     - The message will be scheduled based on the `timezone` you provide.
     - If you set a `recurrence` schedule, this is the start date and time for the recurring schedule.

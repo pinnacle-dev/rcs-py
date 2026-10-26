@@ -6,6 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .add_conference_participant_params import AddConferenceParticipantParams
     from .address_field import AddressField
     from .advanced_phone_information import AdvancedPhoneInformation
     from .advanced_phone_information_carrier import AdvancedPhoneInformationCarrier
@@ -60,6 +61,15 @@ if typing.TYPE_CHECKING:
     from .button_clicked_data_button_raw import ButtonClickedDataButtonRaw
     from .button_clicked_data_button_type import ButtonClickedDataButtonType
     from .buy_response_capabilities import BuyResponseCapabilities
+    from .call import Call
+    from .call_direction import CallDirection
+    from .call_event import CallEvent
+    from .call_event_source import CallEventSource
+    from .call_metadata import CallMetadata
+    from .call_state import CallState
+    from .call_status_event import CallStatusEvent
+    from .call_status_event_call import CallStatusEventCall
+    from .call_stream_token import CallStreamToken
     from .campaign_enum import CampaignEnum
     from .campaign_query import CampaignQuery
     from .campaign_status_event import CampaignStatusEvent
@@ -82,6 +92,10 @@ if typing.TYPE_CHECKING:
     from .company_entity_type_enum import CompanyEntityTypeEnum
     from .company_sector_enum import CompanySectorEnum
     from .company_type_enum import CompanyTypeEnum
+    from .conference import Conference
+    from .conference_ended_reason import ConferenceEndedReason
+    from .conference_participant import ConferenceParticipant
+    from .conference_status import ConferenceStatus
     from .contact import Contact
     from .contact_id import ContactId
     from .conversation import Conversation
@@ -92,12 +106,14 @@ if typing.TYPE_CHECKING:
     from .conversation_sender import ConversationSender
     from .create_form_request import CreateFormRequest
     from .create_url_options import CreateUrlOptions
+    from .created_call import CreatedCall
     from .date_field import DateField
     from .datetime_field import DatetimeField
     from .delete_audience_response import DeleteAudienceResponse
     from .detach_webhook_result import DetachWebhookResult
     from .detached_phone_number_result import DetachedPhoneNumberResult
     from .detailed_phone_number_enum import DetailedPhoneNumberEnum
+    from .dial import Dial
     from .dlc_assignment_status_enum import DlcAssignmentStatusEnum
     from .dlc_campaign_status import DlcCampaignStatus
     from .dlc_campaign_summary import DlcCampaignSummary
@@ -113,10 +129,12 @@ if typing.TYPE_CHECKING:
     from .dlc_with_extended_brand_and_status_mno_tcr_tier import DlcWithExtendedBrandAndStatusMnoTcrTier
     from .dlc_with_extended_brand_and_status_options import DlcWithExtendedBrandAndStatusOptions
     from .dlc_with_extended_brand_and_status_use_case import DlcWithExtendedBrandAndStatusUseCase
+    from .e_164_phone_number import E164PhoneNumber
     from .email_field import EmailField
     from .enhanced_contact import EnhancedContact
     from .enhanced_contact_item import EnhancedContactItem
     from .error import Error
+    from .existing_call_participant_params import ExistingCallParticipantParams
     from .extended_brand import ExtendedBrand
     from .extended_brand_with_vetting import ExtendedBrandWithVetting
     from .extended_rcs_campaign import ExtendedRcsCampaign
@@ -186,12 +204,17 @@ if typing.TYPE_CHECKING:
     from .get_conversation_params import GetConversationParams
     from .get_dlc_campaign_status_response_updates import GetDlcCampaignStatusResponseUpdates
     from .get_toll_free_campaign_status_response_updates import GetTollFreeCampaignStatusResponseUpdates
+    from .hosted_silent_auth_response import HostedSilentAuthResponse
+    from .json_silent_auth_response import JsonSilentAuthResponse
     from .link_click_event import LinkClickEvent
     from .link_summary import LinkSummary
     from .list_agents_response import ListAgentsResponse
     from .list_audiences_response import ListAudiencesResponse
     from .list_blasts_response import ListBlastsResponse
     from .list_brands_response import ListBrandsResponse
+    from .list_call_events_response import ListCallEventsResponse
+    from .list_calls_response import ListCallsResponse
+    from .list_conferences_response import ListConferencesResponse
     from .list_contacts_response import ListContactsResponse
     from .list_dlc_campaigns_response import ListDlcCampaignsResponse
     from .list_faxes_response import ListFaxesResponse
@@ -199,6 +222,8 @@ if typing.TYPE_CHECKING:
     from .list_forms_response import ListFormsResponse
     from .list_links_response import ListLinksResponse
     from .list_messages_response import ListMessagesResponse
+    from .list_network_requests_response import ListNetworkRequestsResponse
+    from .list_participants_response import ListParticipantsResponse
     from .list_phone_numbers_response import ListPhoneNumbersResponse
     from .list_rcs_campaigns_response import ListRcsCampaignsResponse
     from .list_scheduled_messages_response import ListScheduledMessagesResponse
@@ -255,6 +280,12 @@ if typing.TYPE_CHECKING:
     from .mms_validation_response_segments import MmsValidationResponseSegments
     from .mms_validation_response_segments_value_item import MmsValidationResponseSegmentsValueItem
     from .mms_validation_result import MmsValidationResult
+    from .network_insight_status import NetworkInsightStatus
+    from .network_request_id import NetworkRequestId
+    from .network_request_result import NetworkRequestResult
+    from .network_request_status import NetworkRequestStatus
+    from .network_request_summary import NetworkRequestSummary
+    from .network_request_type import NetworkRequestType
     from .not_found_error_body import NotFoundErrorBody
     from .number_field import NumberField
     from .number_format import NumberFormat
@@ -264,6 +295,10 @@ if typing.TYPE_CHECKING:
     from .optional_contacts import OptionalContacts
     from .owned_phone_number import OwnedPhoneNumber
     from .pagination import Pagination
+    from .participant_announce import ParticipantAnnounce
+    from .participant_label import ParticipantLabel
+    from .participant_left_reason import ParticipantLeftReason
+    from .participant_status import ParticipantStatus
     from .phone import Phone
     from .phone_capabilities import PhoneCapabilities
     from .phone_enum import PhoneEnum
@@ -287,6 +322,7 @@ if typing.TYPE_CHECKING:
     from .phone_number_status_enum import PhoneNumberStatusEnum
     from .pinnacle_file_upload_metadata import PinnacleFileUploadMetadata
     from .pinnacle_url_config import PinnacleUrlConfig
+    from .play import Play
     from .profile_status_enum import ProfileStatusEnum
     from .purchased_number import PurchasedNumber
     from .radio_field import RadioField
@@ -347,6 +383,8 @@ if typing.TYPE_CHECKING:
     from .rcs_validation_result import RcsValidationResult
     from .rcs_whitelist_status import RcsWhitelistStatus
     from .reaction_result import ReactionResult
+    from .recording_download import RecordingDownload
+    from .recording_state import RecordingState
     from .refreshed_file import RefreshedFile
     from .rich_button import (
         RichButton,
@@ -402,6 +440,10 @@ if typing.TYPE_CHECKING:
     from .sent_sms_details import SentSmsDetails
     from .shortened_url import ShortenedUrl
     from .shortened_url_with_click_data import ShortenedUrlWithClickData
+    from .silent_auth_check_response import SilentAuthCheckResponse
+    from .silent_auth_check_response_status import SilentAuthCheckResponseStatus
+    from .silent_auth_response import SilentAuthResponse, SilentAuthResponse_Hosted, SilentAuthResponse_Json
+    from .sim_swap_response import SimSwapResponse
     from .simulate_message_input import SimulateMessageInput
     from .simulate_user_button import SimulateUserButton
     from .simulate_user_message import SimulateUserMessage
@@ -413,8 +455,13 @@ if typing.TYPE_CHECKING:
     from .sms_validation_response_segments_utf_16 import SmsValidationResponseSegmentsUtf16
     from .sms_validation_response_total import SmsValidationResponseTotal
     from .sms_validation_result import SmsValidationResult
+    from .speak import Speak
     from .sub_use_case_enum import SubUseCaseEnum
     from .submission_results import SubmissionResults
+    from .subscriber_match_attributes import SubscriberMatchAttributes
+    from .subscriber_match_response import SubscriberMatchResponse
+    from .subscriber_match_response_matches import SubscriberMatchResponseMatches
+    from .subscriber_match_result import SubscriberMatchResult
     from .successful_conversation_update import SuccessfulConversationUpdate
     from .test_agent_response import TestAgentResponse
     from .test_agent_whitelist_response import TestAgentWhitelistResponse
@@ -495,10 +542,12 @@ if typing.TYPE_CHECKING:
     from .webhook_summary import WebhookSummary
     from .webhook_summary_status import WebhookSummaryStatus
     from .webhooks import Webhooks
+    from .whisper_to import WhisperTo
     from .whitelisted_number_summary import WhitelistedNumberSummary
     from .whitelisted_number_summary_status import WhitelistedNumberSummaryStatus
     from .zod_error import ZodError
 _dynamic_imports: typing.Dict[str, str] = {
+    "AddConferenceParticipantParams": ".add_conference_participant_params",
     "AddressField": ".address_field",
     "AdvancedPhoneInformation": ".advanced_phone_information",
     "AdvancedPhoneInformationCarrier": ".advanced_phone_information_carrier",
@@ -553,6 +602,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ButtonClickedDataButtonRaw": ".button_clicked_data_button_raw",
     "ButtonClickedDataButtonType": ".button_clicked_data_button_type",
     "BuyResponseCapabilities": ".buy_response_capabilities",
+    "Call": ".call",
+    "CallDirection": ".call_direction",
+    "CallEvent": ".call_event",
+    "CallEventSource": ".call_event_source",
+    "CallMetadata": ".call_metadata",
+    "CallState": ".call_state",
+    "CallStatusEvent": ".call_status_event",
+    "CallStatusEventCall": ".call_status_event_call",
+    "CallStreamToken": ".call_stream_token",
     "CampaignEnum": ".campaign_enum",
     "CampaignQuery": ".campaign_query",
     "CampaignStatusEvent": ".campaign_status_event",
@@ -575,6 +633,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CompanyEntityTypeEnum": ".company_entity_type_enum",
     "CompanySectorEnum": ".company_sector_enum",
     "CompanyTypeEnum": ".company_type_enum",
+    "Conference": ".conference",
+    "ConferenceEndedReason": ".conference_ended_reason",
+    "ConferenceParticipant": ".conference_participant",
+    "ConferenceStatus": ".conference_status",
     "Contact": ".contact",
     "ContactId": ".contact_id",
     "Conversation": ".conversation",
@@ -585,12 +647,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConversationSender": ".conversation_sender",
     "CreateFormRequest": ".create_form_request",
     "CreateUrlOptions": ".create_url_options",
+    "CreatedCall": ".created_call",
     "DateField": ".date_field",
     "DatetimeField": ".datetime_field",
     "DeleteAudienceResponse": ".delete_audience_response",
     "DetachWebhookResult": ".detach_webhook_result",
     "DetachedPhoneNumberResult": ".detached_phone_number_result",
     "DetailedPhoneNumberEnum": ".detailed_phone_number_enum",
+    "Dial": ".dial",
     "DlcAssignmentStatusEnum": ".dlc_assignment_status_enum",
     "DlcCampaignStatus": ".dlc_campaign_status",
     "DlcCampaignSummary": ".dlc_campaign_summary",
@@ -606,10 +670,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DlcWithExtendedBrandAndStatusMnoTcrTier": ".dlc_with_extended_brand_and_status_mno_tcr_tier",
     "DlcWithExtendedBrandAndStatusOptions": ".dlc_with_extended_brand_and_status_options",
     "DlcWithExtendedBrandAndStatusUseCase": ".dlc_with_extended_brand_and_status_use_case",
+    "E164PhoneNumber": ".e_164_phone_number",
     "EmailField": ".email_field",
     "EnhancedContact": ".enhanced_contact",
     "EnhancedContactItem": ".enhanced_contact_item",
     "Error": ".error",
+    "ExistingCallParticipantParams": ".existing_call_participant_params",
     "ExtendedBrand": ".extended_brand",
     "ExtendedBrandWithVetting": ".extended_brand_with_vetting",
     "ExtendedRcsCampaign": ".extended_rcs_campaign",
@@ -675,12 +741,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GetConversationParams": ".get_conversation_params",
     "GetDlcCampaignStatusResponseUpdates": ".get_dlc_campaign_status_response_updates",
     "GetTollFreeCampaignStatusResponseUpdates": ".get_toll_free_campaign_status_response_updates",
+    "HostedSilentAuthResponse": ".hosted_silent_auth_response",
+    "JsonSilentAuthResponse": ".json_silent_auth_response",
     "LinkClickEvent": ".link_click_event",
     "LinkSummary": ".link_summary",
     "ListAgentsResponse": ".list_agents_response",
     "ListAudiencesResponse": ".list_audiences_response",
     "ListBlastsResponse": ".list_blasts_response",
     "ListBrandsResponse": ".list_brands_response",
+    "ListCallEventsResponse": ".list_call_events_response",
+    "ListCallsResponse": ".list_calls_response",
+    "ListConferencesResponse": ".list_conferences_response",
     "ListContactsResponse": ".list_contacts_response",
     "ListDlcCampaignsResponse": ".list_dlc_campaigns_response",
     "ListFaxesResponse": ".list_faxes_response",
@@ -688,6 +759,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListFormsResponse": ".list_forms_response",
     "ListLinksResponse": ".list_links_response",
     "ListMessagesResponse": ".list_messages_response",
+    "ListNetworkRequestsResponse": ".list_network_requests_response",
+    "ListParticipantsResponse": ".list_participants_response",
     "ListPhoneNumbersResponse": ".list_phone_numbers_response",
     "ListRcsCampaignsResponse": ".list_rcs_campaigns_response",
     "ListScheduledMessagesResponse": ".list_scheduled_messages_response",
@@ -742,6 +815,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MmsValidationResponseSegments": ".mms_validation_response_segments",
     "MmsValidationResponseSegmentsValueItem": ".mms_validation_response_segments_value_item",
     "MmsValidationResult": ".mms_validation_result",
+    "NetworkInsightStatus": ".network_insight_status",
+    "NetworkRequestId": ".network_request_id",
+    "NetworkRequestResult": ".network_request_result",
+    "NetworkRequestStatus": ".network_request_status",
+    "NetworkRequestSummary": ".network_request_summary",
+    "NetworkRequestType": ".network_request_type",
     "NotFoundErrorBody": ".not_found_error_body",
     "NumberField": ".number_field",
     "NumberFormat": ".number_format",
@@ -751,6 +830,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OptionalContacts": ".optional_contacts",
     "OwnedPhoneNumber": ".owned_phone_number",
     "Pagination": ".pagination",
+    "ParticipantAnnounce": ".participant_announce",
+    "ParticipantLabel": ".participant_label",
+    "ParticipantLeftReason": ".participant_left_reason",
+    "ParticipantStatus": ".participant_status",
     "Phone": ".phone",
     "PhoneCapabilities": ".phone_capabilities",
     "PhoneEnum": ".phone_enum",
@@ -770,6 +853,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PhoneNumberStatusEnum": ".phone_number_status_enum",
     "PinnacleFileUploadMetadata": ".pinnacle_file_upload_metadata",
     "PinnacleUrlConfig": ".pinnacle_url_config",
+    "Play": ".play",
     "ProfileStatusEnum": ".profile_status_enum",
     "PurchasedNumber": ".purchased_number",
     "RadioField": ".radio_field",
@@ -830,6 +914,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RcsValidationResult": ".rcs_validation_result",
     "RcsWhitelistStatus": ".rcs_whitelist_status",
     "ReactionResult": ".reaction_result",
+    "RecordingDownload": ".recording_download",
+    "RecordingState": ".recording_state",
     "RefreshedFile": ".refreshed_file",
     "RichButton": ".rich_button",
     "RichButton_Call": ".rich_button",
@@ -883,6 +969,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SentSmsDetails": ".sent_sms_details",
     "ShortenedUrl": ".shortened_url",
     "ShortenedUrlWithClickData": ".shortened_url_with_click_data",
+    "SilentAuthCheckResponse": ".silent_auth_check_response",
+    "SilentAuthCheckResponseStatus": ".silent_auth_check_response_status",
+    "SilentAuthResponse": ".silent_auth_response",
+    "SilentAuthResponse_Hosted": ".silent_auth_response",
+    "SilentAuthResponse_Json": ".silent_auth_response",
+    "SimSwapResponse": ".sim_swap_response",
     "SimulateMessageInput": ".simulate_message_input",
     "SimulateUserButton": ".simulate_user_button",
     "SimulateUserMessage": ".simulate_user_message",
@@ -894,8 +986,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SmsValidationResponseSegmentsUtf16": ".sms_validation_response_segments_utf_16",
     "SmsValidationResponseTotal": ".sms_validation_response_total",
     "SmsValidationResult": ".sms_validation_result",
+    "Speak": ".speak",
     "SubUseCaseEnum": ".sub_use_case_enum",
     "SubmissionResults": ".submission_results",
+    "SubscriberMatchAttributes": ".subscriber_match_attributes",
+    "SubscriberMatchResponse": ".subscriber_match_response",
+    "SubscriberMatchResponseMatches": ".subscriber_match_response_matches",
+    "SubscriberMatchResult": ".subscriber_match_result",
     "SuccessfulConversationUpdate": ".successful_conversation_update",
     "TestAgentResponse": ".test_agent_response",
     "TestAgentWhitelistResponse": ".test_agent_whitelist_response",
@@ -972,6 +1069,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "WebhookSummary": ".webhook_summary",
     "WebhookSummaryStatus": ".webhook_summary_status",
     "Webhooks": ".webhooks",
+    "WhisperTo": ".whisper_to",
     "WhitelistedNumberSummary": ".whitelisted_number_summary",
     "WhitelistedNumberSummaryStatus": ".whitelisted_number_summary_status",
     "ZodError": ".zod_error",
@@ -998,6 +1096,7 @@ def __dir__():
 
 
 __all__ = [
+    "AddConferenceParticipantParams",
     "AddressField",
     "AdvancedPhoneInformation",
     "AdvancedPhoneInformationCarrier",
@@ -1052,6 +1151,15 @@ __all__ = [
     "ButtonClickedDataButtonRaw",
     "ButtonClickedDataButtonType",
     "BuyResponseCapabilities",
+    "Call",
+    "CallDirection",
+    "CallEvent",
+    "CallEventSource",
+    "CallMetadata",
+    "CallState",
+    "CallStatusEvent",
+    "CallStatusEventCall",
+    "CallStreamToken",
     "CampaignEnum",
     "CampaignQuery",
     "CampaignStatusEvent",
@@ -1074,6 +1182,10 @@ __all__ = [
     "CompanyEntityTypeEnum",
     "CompanySectorEnum",
     "CompanyTypeEnum",
+    "Conference",
+    "ConferenceEndedReason",
+    "ConferenceParticipant",
+    "ConferenceStatus",
     "Contact",
     "ContactId",
     "Conversation",
@@ -1084,12 +1196,14 @@ __all__ = [
     "ConversationSender",
     "CreateFormRequest",
     "CreateUrlOptions",
+    "CreatedCall",
     "DateField",
     "DatetimeField",
     "DeleteAudienceResponse",
     "DetachWebhookResult",
     "DetachedPhoneNumberResult",
     "DetailedPhoneNumberEnum",
+    "Dial",
     "DlcAssignmentStatusEnum",
     "DlcCampaignStatus",
     "DlcCampaignSummary",
@@ -1105,10 +1219,12 @@ __all__ = [
     "DlcWithExtendedBrandAndStatusMnoTcrTier",
     "DlcWithExtendedBrandAndStatusOptions",
     "DlcWithExtendedBrandAndStatusUseCase",
+    "E164PhoneNumber",
     "EmailField",
     "EnhancedContact",
     "EnhancedContactItem",
     "Error",
+    "ExistingCallParticipantParams",
     "ExtendedBrand",
     "ExtendedBrandWithVetting",
     "ExtendedRcsCampaign",
@@ -1174,12 +1290,17 @@ __all__ = [
     "GetConversationParams",
     "GetDlcCampaignStatusResponseUpdates",
     "GetTollFreeCampaignStatusResponseUpdates",
+    "HostedSilentAuthResponse",
+    "JsonSilentAuthResponse",
     "LinkClickEvent",
     "LinkSummary",
     "ListAgentsResponse",
     "ListAudiencesResponse",
     "ListBlastsResponse",
     "ListBrandsResponse",
+    "ListCallEventsResponse",
+    "ListCallsResponse",
+    "ListConferencesResponse",
     "ListContactsResponse",
     "ListDlcCampaignsResponse",
     "ListFaxesResponse",
@@ -1187,6 +1308,8 @@ __all__ = [
     "ListFormsResponse",
     "ListLinksResponse",
     "ListMessagesResponse",
+    "ListNetworkRequestsResponse",
+    "ListParticipantsResponse",
     "ListPhoneNumbersResponse",
     "ListRcsCampaignsResponse",
     "ListScheduledMessagesResponse",
@@ -1241,6 +1364,12 @@ __all__ = [
     "MmsValidationResponseSegments",
     "MmsValidationResponseSegmentsValueItem",
     "MmsValidationResult",
+    "NetworkInsightStatus",
+    "NetworkRequestId",
+    "NetworkRequestResult",
+    "NetworkRequestStatus",
+    "NetworkRequestSummary",
+    "NetworkRequestType",
     "NotFoundErrorBody",
     "NumberField",
     "NumberFormat",
@@ -1250,6 +1379,10 @@ __all__ = [
     "OptionalContacts",
     "OwnedPhoneNumber",
     "Pagination",
+    "ParticipantAnnounce",
+    "ParticipantLabel",
+    "ParticipantLeftReason",
+    "ParticipantStatus",
     "Phone",
     "PhoneCapabilities",
     "PhoneEnum",
@@ -1269,6 +1402,7 @@ __all__ = [
     "PhoneNumberStatusEnum",
     "PinnacleFileUploadMetadata",
     "PinnacleUrlConfig",
+    "Play",
     "ProfileStatusEnum",
     "PurchasedNumber",
     "RadioField",
@@ -1329,6 +1463,8 @@ __all__ = [
     "RcsValidationResult",
     "RcsWhitelistStatus",
     "ReactionResult",
+    "RecordingDownload",
+    "RecordingState",
     "RefreshedFile",
     "RichButton",
     "RichButton_Call",
@@ -1382,6 +1518,12 @@ __all__ = [
     "SentSmsDetails",
     "ShortenedUrl",
     "ShortenedUrlWithClickData",
+    "SilentAuthCheckResponse",
+    "SilentAuthCheckResponseStatus",
+    "SilentAuthResponse",
+    "SilentAuthResponse_Hosted",
+    "SilentAuthResponse_Json",
+    "SimSwapResponse",
     "SimulateMessageInput",
     "SimulateUserButton",
     "SimulateUserMessage",
@@ -1393,8 +1535,13 @@ __all__ = [
     "SmsValidationResponseSegmentsUtf16",
     "SmsValidationResponseTotal",
     "SmsValidationResult",
+    "Speak",
     "SubUseCaseEnum",
     "SubmissionResults",
+    "SubscriberMatchAttributes",
+    "SubscriberMatchResponse",
+    "SubscriberMatchResponseMatches",
+    "SubscriberMatchResult",
     "SuccessfulConversationUpdate",
     "TestAgentResponse",
     "TestAgentWhitelistResponse",
@@ -1471,6 +1618,7 @@ __all__ = [
     "WebhookSummary",
     "WebhookSummaryStatus",
     "Webhooks",
+    "WhisperTo",
     "WhitelistedNumberSummary",
     "WhitelistedNumberSummaryStatus",
     "ZodError",

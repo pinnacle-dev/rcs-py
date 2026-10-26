@@ -11,12 +11,15 @@ from .environment import PinnacleEnvironment
 if typing.TYPE_CHECKING:
     from .audiences.client import AsyncAudiencesClient, AudiencesClient
     from .brands.client import AsyncBrandsClient, BrandsClient
+    from .calls.client import AsyncCallsClient, CallsClient
     from .campaigns.client import AsyncCampaignsClient, CampaignsClient
+    from .conferences.client import AsyncConferencesClient, ConferencesClient
     from .contacts.client import AsyncContactsClient, ContactsClient
     from .conversations.client import AsyncConversationsClient, ConversationsClient
     from .faxes.client import AsyncFaxesClient, FaxesClient
     from .forms.client import AsyncFormsClient, FormsClient
     from .messages.client import AsyncMessagesClient, MessagesClient
+    from .network.client import AsyncNetworkClient, NetworkClient
     from .phone_numbers.client import AsyncPhoneNumbersClient, PhoneNumbersClient
     from .rcs.client import AsyncRcsClient, RcsClient
     from .status.client import AsyncStatusClient, StatusClient
@@ -89,19 +92,30 @@ class PinnacleBase:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
-        self._brands: typing.Optional[BrandsClient] = None
         self._audiences: typing.Optional[AudiencesClient] = None
+        self._brands: typing.Optional[BrandsClient] = None
+        self._calls: typing.Optional[CallsClient] = None
+        self._conferences: typing.Optional[ConferencesClient] = None
         self._contacts: typing.Optional[ContactsClient] = None
         self._conversations: typing.Optional[ConversationsClient] = None
+        self._faxes: typing.Optional[FaxesClient] = None
+        self._forms: typing.Optional[FormsClient] = None
         self._messages: typing.Optional[MessagesClient] = None
         self._phone_numbers: typing.Optional[PhoneNumbersClient] = None
         self._rcs: typing.Optional[RcsClient] = None
         self._webhooks: typing.Optional[WebhooksClient] = None
-        self._faxes: typing.Optional[FaxesClient] = None
-        self._forms: typing.Optional[FormsClient] = None
         self._campaigns: typing.Optional[CampaignsClient] = None
+        self._network: typing.Optional[NetworkClient] = None
         self._status: typing.Optional[StatusClient] = None
         self._tools: typing.Optional[ToolsClient] = None
+
+    @property
+    def audiences(self):
+        if self._audiences is None:
+            from .audiences.client import AudiencesClient  # noqa: E402
+
+            self._audiences = AudiencesClient(client_wrapper=self._client_wrapper)
+        return self._audiences
 
     @property
     def brands(self):
@@ -112,12 +126,20 @@ class PinnacleBase:
         return self._brands
 
     @property
-    def audiences(self):
-        if self._audiences is None:
-            from .audiences.client import AudiencesClient  # noqa: E402
+    def calls(self):
+        if self._calls is None:
+            from .calls.client import CallsClient  # noqa: E402
 
-            self._audiences = AudiencesClient(client_wrapper=self._client_wrapper)
-        return self._audiences
+            self._calls = CallsClient(client_wrapper=self._client_wrapper)
+        return self._calls
+
+    @property
+    def conferences(self):
+        if self._conferences is None:
+            from .conferences.client import ConferencesClient  # noqa: E402
+
+            self._conferences = ConferencesClient(client_wrapper=self._client_wrapper)
+        return self._conferences
 
     @property
     def contacts(self):
@@ -134,6 +156,22 @@ class PinnacleBase:
 
             self._conversations = ConversationsClient(client_wrapper=self._client_wrapper)
         return self._conversations
+
+    @property
+    def faxes(self):
+        if self._faxes is None:
+            from .faxes.client import FaxesClient  # noqa: E402
+
+            self._faxes = FaxesClient(client_wrapper=self._client_wrapper)
+        return self._faxes
+
+    @property
+    def forms(self):
+        if self._forms is None:
+            from .forms.client import FormsClient  # noqa: E402
+
+            self._forms = FormsClient(client_wrapper=self._client_wrapper)
+        return self._forms
 
     @property
     def messages(self):
@@ -168,28 +206,20 @@ class PinnacleBase:
         return self._webhooks
 
     @property
-    def faxes(self):
-        if self._faxes is None:
-            from .faxes.client import FaxesClient  # noqa: E402
-
-            self._faxes = FaxesClient(client_wrapper=self._client_wrapper)
-        return self._faxes
-
-    @property
-    def forms(self):
-        if self._forms is None:
-            from .forms.client import FormsClient  # noqa: E402
-
-            self._forms = FormsClient(client_wrapper=self._client_wrapper)
-        return self._forms
-
-    @property
     def campaigns(self):
         if self._campaigns is None:
             from .campaigns.client import CampaignsClient  # noqa: E402
 
             self._campaigns = CampaignsClient(client_wrapper=self._client_wrapper)
         return self._campaigns
+
+    @property
+    def network(self):
+        if self._network is None:
+            from .network.client import NetworkClient  # noqa: E402
+
+            self._network = NetworkClient(client_wrapper=self._client_wrapper)
+        return self._network
 
     @property
     def status(self):
@@ -273,19 +303,30 @@ class AsyncPinnacleBase:
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
-        self._brands: typing.Optional[AsyncBrandsClient] = None
         self._audiences: typing.Optional[AsyncAudiencesClient] = None
+        self._brands: typing.Optional[AsyncBrandsClient] = None
+        self._calls: typing.Optional[AsyncCallsClient] = None
+        self._conferences: typing.Optional[AsyncConferencesClient] = None
         self._contacts: typing.Optional[AsyncContactsClient] = None
         self._conversations: typing.Optional[AsyncConversationsClient] = None
+        self._faxes: typing.Optional[AsyncFaxesClient] = None
+        self._forms: typing.Optional[AsyncFormsClient] = None
         self._messages: typing.Optional[AsyncMessagesClient] = None
         self._phone_numbers: typing.Optional[AsyncPhoneNumbersClient] = None
         self._rcs: typing.Optional[AsyncRcsClient] = None
         self._webhooks: typing.Optional[AsyncWebhooksClient] = None
-        self._faxes: typing.Optional[AsyncFaxesClient] = None
-        self._forms: typing.Optional[AsyncFormsClient] = None
         self._campaigns: typing.Optional[AsyncCampaignsClient] = None
+        self._network: typing.Optional[AsyncNetworkClient] = None
         self._status: typing.Optional[AsyncStatusClient] = None
         self._tools: typing.Optional[AsyncToolsClient] = None
+
+    @property
+    def audiences(self):
+        if self._audiences is None:
+            from .audiences.client import AsyncAudiencesClient  # noqa: E402
+
+            self._audiences = AsyncAudiencesClient(client_wrapper=self._client_wrapper)
+        return self._audiences
 
     @property
     def brands(self):
@@ -296,12 +337,20 @@ class AsyncPinnacleBase:
         return self._brands
 
     @property
-    def audiences(self):
-        if self._audiences is None:
-            from .audiences.client import AsyncAudiencesClient  # noqa: E402
+    def calls(self):
+        if self._calls is None:
+            from .calls.client import AsyncCallsClient  # noqa: E402
 
-            self._audiences = AsyncAudiencesClient(client_wrapper=self._client_wrapper)
-        return self._audiences
+            self._calls = AsyncCallsClient(client_wrapper=self._client_wrapper)
+        return self._calls
+
+    @property
+    def conferences(self):
+        if self._conferences is None:
+            from .conferences.client import AsyncConferencesClient  # noqa: E402
+
+            self._conferences = AsyncConferencesClient(client_wrapper=self._client_wrapper)
+        return self._conferences
 
     @property
     def contacts(self):
@@ -318,6 +367,22 @@ class AsyncPinnacleBase:
 
             self._conversations = AsyncConversationsClient(client_wrapper=self._client_wrapper)
         return self._conversations
+
+    @property
+    def faxes(self):
+        if self._faxes is None:
+            from .faxes.client import AsyncFaxesClient  # noqa: E402
+
+            self._faxes = AsyncFaxesClient(client_wrapper=self._client_wrapper)
+        return self._faxes
+
+    @property
+    def forms(self):
+        if self._forms is None:
+            from .forms.client import AsyncFormsClient  # noqa: E402
+
+            self._forms = AsyncFormsClient(client_wrapper=self._client_wrapper)
+        return self._forms
 
     @property
     def messages(self):
@@ -352,28 +417,20 @@ class AsyncPinnacleBase:
         return self._webhooks
 
     @property
-    def faxes(self):
-        if self._faxes is None:
-            from .faxes.client import AsyncFaxesClient  # noqa: E402
-
-            self._faxes = AsyncFaxesClient(client_wrapper=self._client_wrapper)
-        return self._faxes
-
-    @property
-    def forms(self):
-        if self._forms is None:
-            from .forms.client import AsyncFormsClient  # noqa: E402
-
-            self._forms = AsyncFormsClient(client_wrapper=self._client_wrapper)
-        return self._forms
-
-    @property
     def campaigns(self):
         if self._campaigns is None:
             from .campaigns.client import AsyncCampaignsClient  # noqa: E402
 
             self._campaigns = AsyncCampaignsClient(client_wrapper=self._client_wrapper)
         return self._campaigns
+
+    @property
+    def network(self):
+        if self._network is None:
+            from .network.client import AsyncNetworkClient  # noqa: E402
+
+            self._network = AsyncNetworkClient(client_wrapper=self._client_wrapper)
+        return self._network
 
     @property
     def status(self):

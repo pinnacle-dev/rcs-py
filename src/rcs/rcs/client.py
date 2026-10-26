@@ -156,7 +156,7 @@ class RcsClient:
             Response containing the generated RCS service id and/or url.
 
             You can always create a link with the service id that is returned using the format:
-            ```
+            ```text
             sms://{PHONE_NUMBER}?service_id={SERVICE_ID}&body={URL_ENCODED_BODY}
             ```
 
@@ -358,7 +358,7 @@ class AsyncRcsClient:
             Response containing the generated RCS service id and/or url.
 
             You can always create a link with the service id that is returned using the format:
-            ```
+            ```text
             sms://{PHONE_NUMBER}?service_id={SERVICE_ID}&body={URL_ENCODED_BODY}
             ```
 
