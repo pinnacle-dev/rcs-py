@@ -1,16 +1,17 @@
-import os
-from typing import Dict, Any, Optional, Union, TypedDict
 import json
-from ...messages.client import MessagesClient, AsyncMessagesClient
-from ...errors.unauthorized_error import UnauthorizedError
-from ...errors.bad_request_error import BadRequestError
-from ...types.error import Error
-from ...types.user_event import UserEvent
-from ...types.message_event import MessageEvent
-from ...types.form_submission_event import FormSubmissionEvent
-from ...types.campaign_status_event import CampaignStatusEvent
-from ...core.client_wrapper import SyncClientWrapper, AsyncClientWrapper
+import os
+from typing import Any, Dict, Optional, TypedDict, Union
+
+from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.pydantic_utilities import parse_obj_as
+from ...errors.bad_request_error import BadRequestError
+from ...errors.unauthorized_error import UnauthorizedError
+from ...messages.client import AsyncMessagesClient, MessagesClient
+from ...types.campaign_status_event import CampaignStatusEvent
+from ...types.error import Error
+from ...types.form_submission_event import FormSubmissionEvent
+from ...types.message_event import MessageEvent
+from ...types.user_event import UserEvent
 
 
 class PinnacleRequest(TypedDict):

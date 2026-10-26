@@ -1,14 +1,15 @@
 import mimetypes
 from pathlib import Path
 from typing import Optional
+
 import httpx
-from ...tools.file.client import FileClient, AsyncFileClient
-from ...tools.file.types.upload_file_options import UploadFileOptions
-from ...errors.not_found_error import NotFoundError
+from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...errors.bad_request_error import BadRequestError
 from ...errors.internal_server_error import InternalServerError
+from ...errors.not_found_error import NotFoundError
+from ...tools.file.client import AsyncFileClient, FileClient
+from ...tools.file.types.upload_file_options import UploadFileOptions
 from ...types.error import Error
-from ...core.client_wrapper import SyncClientWrapper, AsyncClientWrapper
 
 
 def _get_mime_type(file_path: str) -> str:
