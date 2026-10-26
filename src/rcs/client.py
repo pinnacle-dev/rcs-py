@@ -1,9 +1,10 @@
 import typing
-from .base_client import PinnacleBase, AsyncPinnacleBase
+
+from .base_client import AsyncPinnacleBase, PinnacleBase
 
 if typing.TYPE_CHECKING:
-    from .wrapper.messages.client import EnhancedMessages, AsyncEnhancedMessages
-    from .wrapper.tools.client import EnhancedTools, AsyncEnhancedTools
+    from .wrapper.messages.client import AsyncEnhancedMessages, EnhancedMessages
+    from .wrapper.tools.client import AsyncEnhancedTools, EnhancedTools
 
 
 class Pinnacle(PinnacleBase):
