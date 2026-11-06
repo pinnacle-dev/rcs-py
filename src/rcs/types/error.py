@@ -7,9 +7,13 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class Error(UniversalBaseModel):
+
     """
     Standard error response returned when a request cannot be processed successfully.
     """
+
+    code: typing.Optional[str] = None
+    """Machine-readable reason, such as RECIPIENT_OPTED_OUT."""
 
     error: str = pydantic.Field()
     """

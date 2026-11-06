@@ -6,6 +6,24 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .types import KeywordEventList
+    from .types import KeywordConfigurationCampaignType
+    from .types import DeleteKeywordConfigurationResponse
+    from .types import EffectiveKeywordConfigurationSource
+    from .types import KeywordEvent
+    from .types import KeywordConfiguration
+    from .types import KeywordConfigurationList
+    from .types import KeywordCategory
+    from .types import KeywordEventResponseOwner
+    from .types import MessagingSubscription
+    from .types import MessagingSubscriptionList
+    from .types import KeywordCategories
+    from .types import MessagingSubscriptionCampaignType
+    from .types import KeywordEventCampaignType
+    from .types import KeywordEventCategory
+    from .types import EffectiveKeywordConfigurationCampaignType
+    from .types import EffectiveKeywordConfiguration
+    from .types import MessagingSubscriptionStatus
     from .types import (
         AddressField,
         AdvancedPhoneInformation,
@@ -547,6 +565,24 @@ if typing.TYPE_CHECKING:
     from .version import __version__
     from .webhooks import ListWebhooksRequestStatus
 _dynamic_imports: typing.Dict[str, str] = {
+    "KeywordEventList": ".types",
+    "KeywordConfigurationCampaignType": ".types",
+    "DeleteKeywordConfigurationResponse": ".types",
+    "EffectiveKeywordConfigurationSource": ".types",
+    "KeywordEvent": ".types",
+    "KeywordConfiguration": ".types",
+    "KeywordConfigurationList": ".types",
+    "KeywordCategory": ".types",
+    "KeywordEventResponseOwner": ".types",
+    "MessagingSubscription": ".types",
+    "MessagingSubscriptionList": ".types",
+    "KeywordCategories": ".types",
+    "MessagingSubscriptionCampaignType": ".types",
+    "KeywordEventCampaignType": ".types",
+    "KeywordEventCategory": ".types",
+    "EffectiveKeywordConfigurationCampaignType": ".types",
+    "EffectiveKeywordConfiguration": ".types",
+    "MessagingSubscriptionStatus": ".types",
     "AddressField": ".types",
     "AdvancedPhoneInformation": ".types",
     "AdvancedPhoneInformationCarrier": ".types",
@@ -1097,6 +1133,24 @@ def __dir__():
 
 
 __all__ = [
+    "KeywordEventList",
+    "KeywordConfigurationCampaignType",
+    "DeleteKeywordConfigurationResponse",
+    "EffectiveKeywordConfigurationSource",
+    "KeywordEvent",
+    "KeywordConfiguration",
+    "KeywordConfigurationList",
+    "KeywordCategory",
+    "KeywordEventResponseOwner",
+    "MessagingSubscription",
+    "MessagingSubscriptionList",
+    "KeywordCategories",
+    "MessagingSubscriptionCampaignType",
+    "KeywordEventCampaignType",
+    "KeywordEventCategory",
+    "EffectiveKeywordConfigurationCampaignType",
+    "EffectiveKeywordConfiguration",
+    "MessagingSubscriptionStatus",
     "AddressField",
     "AdvancedPhoneInformation",
     "AdvancedPhoneInformationCarrier",

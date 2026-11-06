@@ -16,6 +16,7 @@ if typing.TYPE_CHECKING:
     from .conversations.client import AsyncConversationsClient, ConversationsClient
     from .faxes.client import AsyncFaxesClient, FaxesClient
     from .forms.client import AsyncFormsClient, FormsClient
+    from .keywords.client import AsyncKeywordsClient, KeywordsClient
     from .messages.client import AsyncMessagesClient, MessagesClient
     from .phone_numbers.client import AsyncPhoneNumbersClient, PhoneNumbersClient
     from .rcs.client import AsyncRcsClient, RcsClient
@@ -98,6 +99,7 @@ class PinnacleBase:
         self._rcs: typing.Optional[RcsClient] = None
         self._webhooks: typing.Optional[WebhooksClient] = None
         self._faxes: typing.Optional[FaxesClient] = None
+        self._keywords: typing.Optional[KeywordsClient] = None
         self._forms: typing.Optional[FormsClient] = None
         self._campaigns: typing.Optional[CampaignsClient] = None
         self._status: typing.Optional[StatusClient] = None
@@ -174,6 +176,14 @@ class PinnacleBase:
 
             self._faxes = FaxesClient(client_wrapper=self._client_wrapper)
         return self._faxes
+
+    @property
+    def keywords(self):
+        if self._keywords is None:
+            from .keywords.client import KeywordsClient  # noqa: E402
+
+            self._keywords = KeywordsClient(client_wrapper=self._client_wrapper)
+        return self._keywords
 
     @property
     def forms(self):
@@ -282,6 +292,7 @@ class AsyncPinnacleBase:
         self._rcs: typing.Optional[AsyncRcsClient] = None
         self._webhooks: typing.Optional[AsyncWebhooksClient] = None
         self._faxes: typing.Optional[AsyncFaxesClient] = None
+        self._keywords: typing.Optional[AsyncKeywordsClient] = None
         self._forms: typing.Optional[AsyncFormsClient] = None
         self._campaigns: typing.Optional[AsyncCampaignsClient] = None
         self._status: typing.Optional[AsyncStatusClient] = None
@@ -358,6 +369,14 @@ class AsyncPinnacleBase:
 
             self._faxes = AsyncFaxesClient(client_wrapper=self._client_wrapper)
         return self._faxes
+
+    @property
+    def keywords(self):
+        if self._keywords is None:
+            from .keywords.client import AsyncKeywordsClient  # noqa: E402
+
+            self._keywords = AsyncKeywordsClient(client_wrapper=self._client_wrapper)
+        return self._keywords
 
     @property
     def forms(self):

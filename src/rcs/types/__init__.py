@@ -6,6 +6,24 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .keyword_event_list import KeywordEventList
+    from .keyword_configuration_campaign_type import KeywordConfigurationCampaignType
+    from .delete_keyword_configuration_response import DeleteKeywordConfigurationResponse
+    from .effective_keyword_configuration_source import EffectiveKeywordConfigurationSource
+    from .keyword_event import KeywordEvent
+    from .keyword_configuration import KeywordConfiguration
+    from .keyword_configuration_list import KeywordConfigurationList
+    from .keyword_category import KeywordCategory
+    from .keyword_event_response_owner import KeywordEventResponseOwner
+    from .messaging_subscription import MessagingSubscription
+    from .messaging_subscription_list import MessagingSubscriptionList
+    from .keyword_categories import KeywordCategories
+    from .messaging_subscription_campaign_type import MessagingSubscriptionCampaignType
+    from .keyword_event_campaign_type import KeywordEventCampaignType
+    from .keyword_event_category import KeywordEventCategory
+    from .effective_keyword_configuration_campaign_type import EffectiveKeywordConfigurationCampaignType
+    from .effective_keyword_configuration import EffectiveKeywordConfiguration
+    from .messaging_subscription_status import MessagingSubscriptionStatus
     from .address_field import AddressField
     from .advanced_phone_information import AdvancedPhoneInformation
     from .advanced_phone_information_carrier import AdvancedPhoneInformationCarrier
@@ -499,6 +517,24 @@ if typing.TYPE_CHECKING:
     from .whitelisted_number_summary_status import WhitelistedNumberSummaryStatus
     from .zod_error import ZodError
 _dynamic_imports: typing.Dict[str, str] = {
+    "KeywordEventList": ".keyword_event_list",
+    "KeywordConfigurationCampaignType": ".keyword_configuration_campaign_type",
+    "DeleteKeywordConfigurationResponse": ".delete_keyword_configuration_response",
+    "EffectiveKeywordConfigurationSource": ".effective_keyword_configuration_source",
+    "KeywordEvent": ".keyword_event",
+    "KeywordConfiguration": ".keyword_configuration",
+    "KeywordConfigurationList": ".keyword_configuration_list",
+    "KeywordCategory": ".keyword_category",
+    "KeywordEventResponseOwner": ".keyword_event_response_owner",
+    "MessagingSubscription": ".messaging_subscription",
+    "MessagingSubscriptionList": ".messaging_subscription_list",
+    "KeywordCategories": ".keyword_categories",
+    "MessagingSubscriptionCampaignType": ".messaging_subscription_campaign_type",
+    "KeywordEventCampaignType": ".keyword_event_campaign_type",
+    "KeywordEventCategory": ".keyword_event_category",
+    "EffectiveKeywordConfigurationCampaignType": ".effective_keyword_configuration_campaign_type",
+    "EffectiveKeywordConfiguration": ".effective_keyword_configuration",
+    "MessagingSubscriptionStatus": ".messaging_subscription_status",
     "AddressField": ".address_field",
     "AdvancedPhoneInformation": ".advanced_phone_information",
     "AdvancedPhoneInformationCarrier": ".advanced_phone_information_carrier",
@@ -998,6 +1034,24 @@ def __dir__():
 
 
 __all__ = [
+    "KeywordEventList",
+    "KeywordConfigurationCampaignType",
+    "DeleteKeywordConfigurationResponse",
+    "EffectiveKeywordConfigurationSource",
+    "KeywordEvent",
+    "KeywordConfiguration",
+    "KeywordConfigurationList",
+    "KeywordCategory",
+    "KeywordEventResponseOwner",
+    "MessagingSubscription",
+    "MessagingSubscriptionList",
+    "KeywordCategories",
+    "MessagingSubscriptionCampaignType",
+    "KeywordEventCampaignType",
+    "KeywordEventCategory",
+    "EffectiveKeywordConfigurationCampaignType",
+    "EffectiveKeywordConfiguration",
+    "MessagingSubscriptionStatus",
     "AddressField",
     "AdvancedPhoneInformation",
     "AdvancedPhoneInformationCarrier",
