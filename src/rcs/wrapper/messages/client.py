@@ -10,6 +10,7 @@ from ...messages.client import AsyncMessagesClient, MessagesClient
 from ...types.campaign_status_event import CampaignStatusEvent
 from ...types.error import Error
 from ...types.form_submission_event import FormSubmissionEvent
+from ...types.keyword_received_event import KeywordReceivedEvent
 from ...types.message_event import MessageEvent
 from ...types.user_event import UserEvent
 
@@ -52,7 +53,7 @@ class EnhancedMessages(MessagesClient):
 
     def process(
         self, req: PinnacleRequest, secret: Optional[str] = None
-    ) -> Union[MessageEvent, UserEvent, FormSubmissionEvent, CampaignStatusEvent]:
+    ) -> Union[KeywordReceivedEvent, MessageEvent, UserEvent, FormSubmissionEvent, CampaignStatusEvent]:
         """Process incoming webhook request from any supported framework.
 
         Args:
@@ -60,7 +61,7 @@ class EnhancedMessages(MessagesClient):
             secret: Optional webhook secret. Uses PINNACLE_SIGNING_SECRET env var if not provided.
 
         Returns:
-            MessageEvent | UserEvent | FormSubmissionEvent | CampaignStatusEvent: The validated and parsed webhook event.
+            KeywordReceivedEvent | MessageEvent | UserEvent | FormSubmissionEvent | CampaignStatusEvent: The validated and parsed webhook event.
 
         Raises:
             UnauthorizedError: If webhook signature is invalid or missing
@@ -72,6 +73,8 @@ class EnhancedMessages(MessagesClient):
         try:
             body = json.loads(req["body"])
             event_type = body.get("type")
+            if event_type == "KEYWORD.RECEIVED":
+                return parse_obj_as(KeywordReceivedEvent, body)
             if event_type == "USER.TYPING":
                 return parse_obj_as(UserEvent, body)
             if event_type == "FORM.SUBMISSION":
@@ -91,7 +94,7 @@ class AsyncEnhancedMessages(AsyncMessagesClient):
 
     async def process(
         self, req: PinnacleRequest, secret: Optional[str] = None
-    ) -> Union[MessageEvent, UserEvent, FormSubmissionEvent, CampaignStatusEvent]:
+    ) -> Union[KeywordReceivedEvent, MessageEvent, UserEvent, FormSubmissionEvent, CampaignStatusEvent]:
         """Process incoming webhook request from any supported async framework.
 
         Args:
@@ -99,7 +102,7 @@ class AsyncEnhancedMessages(AsyncMessagesClient):
             secret: Optional webhook secret. Uses PINNACLE_SIGNING_SECRET env var if not provided.
 
         Returns:
-            MessageEvent | UserEvent | FormSubmissionEvent | CampaignStatusEvent: The validated and parsed webhook event.
+            KeywordReceivedEvent | MessageEvent | UserEvent | FormSubmissionEvent | CampaignStatusEvent: The validated and parsed webhook event.
 
         Raises:
             UnauthorizedError: If webhook signature is invalid or missing
@@ -111,6 +114,8 @@ class AsyncEnhancedMessages(AsyncMessagesClient):
         try:
             body = json.loads(req["body"])
             event_type = body.get("type")
+            if event_type == "KEYWORD.RECEIVED":
+                return parse_obj_as(KeywordReceivedEvent, body)
             if event_type == "USER.TYPING":
                 return parse_obj_as(UserEvent, body)
             if event_type == "FORM.SUBMISSION":

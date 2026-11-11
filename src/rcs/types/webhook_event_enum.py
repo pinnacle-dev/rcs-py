@@ -6,6 +6,7 @@ WebhookEventEnum = typing.Union[
     typing.Literal[
         "MESSAGE.STATUS",
         "MESSAGE.RECEIVED",
+        "KEYWORD.RECEIVED",
         "USER.TYPING",
         "FORM.SUBMISSION",
         "CAMPAIGN.STATUS",

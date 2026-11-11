@@ -11,10 +11,10 @@ if typing.TYPE_CHECKING:
     from .types import DeleteKeywordConfigurationResponse
     from .types import EffectiveKeywordConfigurationSource
     from .types import KeywordEvent
+    from .types import KeywordReceivedEvent
     from .types import KeywordConfiguration
     from .types import KeywordConfigurationList
     from .types import KeywordCategory
-    from .types import KeywordEventResponseOwner
     from .types import MessagingSubscription
     from .types import MessagingSubscriptionList
     from .types import KeywordCategories
@@ -570,10 +570,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DeleteKeywordConfigurationResponse": ".types",
     "EffectiveKeywordConfigurationSource": ".types",
     "KeywordEvent": ".types",
+    "KeywordReceivedEvent": ".types",
     "KeywordConfiguration": ".types",
     "KeywordConfigurationList": ".types",
     "KeywordCategory": ".types",
-    "KeywordEventResponseOwner": ".types",
     "MessagingSubscription": ".types",
     "MessagingSubscriptionList": ".types",
     "KeywordCategories": ".types",
@@ -1138,10 +1138,10 @@ __all__ = [
     "DeleteKeywordConfigurationResponse",
     "EffectiveKeywordConfigurationSource",
     "KeywordEvent",
+    "KeywordReceivedEvent",
     "KeywordConfiguration",
     "KeywordConfigurationList",
     "KeywordCategory",
-    "KeywordEventResponseOwner",
     "MessagingSubscription",
     "MessagingSubscriptionList",
     "KeywordCategories",

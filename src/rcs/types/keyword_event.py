@@ -9,7 +9,6 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .keyword_event_campaign_type import KeywordEventCampaignType
 from .keyword_event_category import KeywordEventCategory
-from .keyword_event_response_owner import KeywordEventResponseOwner
 
 
 class KeywordEvent(UniversalBaseModel):
@@ -18,15 +17,13 @@ class KeywordEvent(UniversalBaseModel):
     campaign_id: typing_extensions.Annotated[str, FieldMetadata(alias="campaignId")]
     recipient: str
     sender: str
-    provider_id: typing_extensions.Annotated[int, FieldMetadata(alias="providerId")]
-    provider_message_id: typing_extensions.Annotated[str, FieldMetadata(alias="providerMessageId")]
     category: KeywordEventCategory
     keyword: str
     occurred_at: typing_extensions.Annotated[dt.datetime, FieldMetadata(alias="occurredAt")]
     created_at: typing_extensions.Annotated[dt.datetime, FieldMetadata(alias="createdAt")]
     response: str
-    response_owner: typing_extensions.Annotated[KeywordEventResponseOwner, FieldMetadata(alias="responseOwner")]
-    reply_message_id: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="replyMessageId")] = None
+    response_media_urls: typing_extensions.Annotated[typing.List[str], FieldMetadata(alias="responseMediaUrls")]
+    reply_message_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="replyMessageId")] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

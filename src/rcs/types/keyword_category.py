@@ -2,6 +2,9 @@
 
 import typing
 
+import typing_extensions
+from ..core.serialization import FieldMetadata
+
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
@@ -9,6 +12,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class KeywordCategory(UniversalBaseModel):
     keywords: typing.List[str]
     response: str
+    media_urls: typing_extensions.Annotated[typing.Optional[typing.List[str]], FieldMetadata(alias="mediaUrls")] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

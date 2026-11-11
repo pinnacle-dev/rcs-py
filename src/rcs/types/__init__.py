@@ -11,10 +11,10 @@ if typing.TYPE_CHECKING:
     from .delete_keyword_configuration_response import DeleteKeywordConfigurationResponse
     from .effective_keyword_configuration_source import EffectiveKeywordConfigurationSource
     from .keyword_event import KeywordEvent
+    from .keyword_received_event import KeywordReceivedEvent
     from .keyword_configuration import KeywordConfiguration
     from .keyword_configuration_list import KeywordConfigurationList
     from .keyword_category import KeywordCategory
-    from .keyword_event_response_owner import KeywordEventResponseOwner
     from .messaging_subscription import MessagingSubscription
     from .messaging_subscription_list import MessagingSubscriptionList
     from .keyword_categories import KeywordCategories
@@ -522,10 +522,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DeleteKeywordConfigurationResponse": ".delete_keyword_configuration_response",
     "EffectiveKeywordConfigurationSource": ".effective_keyword_configuration_source",
     "KeywordEvent": ".keyword_event",
+    "KeywordReceivedEvent": ".keyword_received_event",
     "KeywordConfiguration": ".keyword_configuration",
     "KeywordConfigurationList": ".keyword_configuration_list",
     "KeywordCategory": ".keyword_category",
-    "KeywordEventResponseOwner": ".keyword_event_response_owner",
     "MessagingSubscription": ".messaging_subscription",
     "MessagingSubscriptionList": ".messaging_subscription_list",
     "KeywordCategories": ".keyword_categories",
@@ -1039,10 +1039,10 @@ __all__ = [
     "DeleteKeywordConfigurationResponse",
     "EffectiveKeywordConfigurationSource",
     "KeywordEvent",
+    "KeywordReceivedEvent",
     "KeywordConfiguration",
     "KeywordConfigurationList",
     "KeywordCategory",
-    "KeywordEventResponseOwner",
     "MessagingSubscription",
     "MessagingSubscriptionList",
     "KeywordCategories",

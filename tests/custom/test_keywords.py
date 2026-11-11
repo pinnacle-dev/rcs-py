@@ -120,3 +120,27 @@ def test_opt_out_error_retains_machine_readable_code():
             client.messages.sms.send(from_="+14155550101", to="+14155550102", text="Hello")
         assert error.value.status_code == 403
         assert error.value.body.code == "RECIPIENT_OPTED_OUT"
+
+
+def test_keyword_media_and_webhook_outcomes():
+    from rcs import KeywordReceivedEvent
+    from rcs.core.pydantic_utilities import parse_obj_as
+
+    category = parse_obj_as(KeywordCategory, {
+        "keywords": ["HELP"], "response": "Support", "mediaUrls": ["https://example.com/help.jpg"],
+    })
+    assert category.media_urls == ["https://example.com/help.jpg"]
+    event = parse_obj_as(KeywordReceivedEvent, {
+        "id": "kwevt_0123456789AbCdEf", "type": "KEYWORD.RECEIVED",
+        "createdAt": "2026-11-10T20:00:00Z", "direction": "INBOUND", "status": "RECEIVED",
+        "conversation": {"id": "conv_test", "from": "+12025550102", "to": "+12025550101"},
+        "segments": 1, "sentAt": None, "deliveredAt": None,
+        "message": {"id": "msg_test", "type": "SMS", "text": "HELP"},
+        "keyword": {"value": "HELP", "category": "HELP", "campaignType": "10DLC", "campaignId": "dc_test"},
+        "consent": {"status": None, "applied": False},
+        "reply": {"status": "ERROR", "messageId": None, "type": "MMS", "text": "Support",
+                  "mediaUrls": ["https://example.com/help.jpg"], "reason": "REPLY_ERROR"},
+    })
+    assert event.consent.applied is False
+    assert event.reply.message_id is None
+    assert event.reply.media_urls == category.media_urls
